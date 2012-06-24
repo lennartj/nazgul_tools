@@ -8,6 +8,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
     <version>1.0.0</version>
@@ -20,6 +25,11 @@
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
     </properties>
 
+    <!--
+    ################################################
+    # Section 2:  Dependency (management) settings
+    ################################################
+    -->
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.enforcer</groupId>
@@ -65,9 +75,13 @@
         </dependency>
     </dependencies>
 
+    <!--
+    ################################################
+    # Section 3:  Build settings
+    ################################################
+    -->
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>

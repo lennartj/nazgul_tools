@@ -7,6 +7,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-reactor</artifactId>
@@ -15,13 +21,21 @@
     </parent>
 
     <groupId>se.jguru.nazgul.tools.validation</groupId>
-    <artifactId>nazgul-validation-reactor</artifactId>
+    <artifactId>nazgul-tools-validation-reactor</artifactId>
     <packaging>pom</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
+
+    <!--
+    ################################################
+    # Section 2:  Modules
+    ################################################
+    -->
     <modules>
         <module>validation-api</module>
         <module>validation-aspect</module>
     </modules>
+
+
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
     </scm>

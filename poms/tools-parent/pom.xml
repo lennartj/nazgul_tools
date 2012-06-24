@@ -51,7 +51,6 @@
     # Section 2:  Dependency (management) settings
     ################################################
     -->
-
     <dependencies>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -264,7 +263,6 @@
     # Section 3:  Build settings
     ################################################
     -->
-
     <build>
         <pluginManagement>
             <plugins>

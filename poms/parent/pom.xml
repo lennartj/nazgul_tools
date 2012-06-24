@@ -25,7 +25,6 @@
     # Section 2:  Dependency (management) settings
     ################################################
     -->
-
     <dependencies>
         <!--
             These dependencies contain globally available Aspects.
@@ -52,7 +51,6 @@
     # Section 3:  Build settings
     ################################################
     -->
-
     <build>
         <plugins>
 

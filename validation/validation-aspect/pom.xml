@@ -6,6 +6,12 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
@@ -18,6 +24,12 @@
     <version>1.0.0</version>
     <packaging>bundle</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
+
+    <!--
+    ################################################
+    # Section 2:  Dependencies
+    ################################################
+    -->
     <dependencies>
 
         <!--
@@ -32,10 +44,10 @@
         <!--
             External dependencies
         -->
-        <dependency>
+        <!-- dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -61,6 +73,11 @@
         </dependency>
     </dependencies>
 
+    <!--
+    ################################################
+    # Section 3:  Build settings
+    ################################################
+    -->
     <build>
         <plugins>
             <plugin>
