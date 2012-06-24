@@ -4,7 +4,7 @@
  */
 package se.jguru.nazgul.tools.validation.api.expression;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import se.jguru.nazgul.tools.validation.api.exception.AbstractErrorMessageContainer;
 import se.jguru.nazgul.tools.validation.api.exception.ErrorMessageContainer;
 
