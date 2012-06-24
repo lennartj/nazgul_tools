@@ -1,0 +1,13 @@
+# Use glob (shell) syntax
+syntax: glob
+.git/
+.idea/
+target/
+*.iws
+*.ipr
+*.iml
+.DS_Store
+.project/
+.metadata/
+.settings/
+.classpath/

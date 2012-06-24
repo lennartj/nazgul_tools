@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>se.jguru.nazgul.tools.poms</groupId>
+        <artifactId>nazgul-tools-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../poms/tools-parent</relativePath>
+    </parent>
+
+    <groupId>se.jguru.nazgul.tools.validation</groupId>
+    <artifactId>nazgul-validation-api</artifactId>
+    <version>1.0.0</version>
+    <packaging>bundle</packaging>
+    <name>${project.groupId}.${project.artifactId}</name>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.plugin.version}</version>
+                <configuration>
+                    <instrumentation>
+                        <includes>
+                            <include>se/jguru/nazgul/tools/validation/**/*.class</include>
+                        </includes>
+                        <excludes>
+
+                            <!-- Don't check Exception classes -->
+                            <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
+
+                            <!-- Don't weave aspects already woven by AspectJ. -->
+                            <exclude>se/jguru/nazgul/tools/validation/aspect/**/*Aspect.class</exclude>
+
+                        </excludes>
+                    </instrumentation>
+                    <check>
+                        <branchRate>65</branchRate>
+                        <lineRate>80</lineRate>
+                        <haltOnFailure>${cobertura.haltOnFailure}</haltOnFailure>
+                    </check>
+                </configuration>
+            </plugin>
+
+            <!--
+                Note! AspectJ and Cobertura plugins clash WRT instrumentation of test classes.
+                Therefore, one must remove the overall test-compile goal from this (global)
+                AspectJ plugin definition, and overwrite this plugin definition (using the
+                here commented-out test-compile goal) in projects where weaving is required in
+                the testcases.
+
+                When overriding this plugin definition in subprojects, you should likely be
+                required to override Cobertura's exclude definitions for certain inner classes
+                as well.
+
+                // Lennart, 2011-06-27
+            -->
+            <!-- plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <configuration>
+                    <XaddSerialVersionUID>true</XaddSerialVersionUID>
+                    <showWeaveInfo>true</showWeaveInfo>
+                </configuration>
+            </plugin -->
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>{local-packages}</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <developerConnection>scm:hg:file://${basedir}/../../../../</developerConnection>
+    </scm>
+</project>

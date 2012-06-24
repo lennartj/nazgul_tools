@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false">
+  <local-check-config name="Eclipse checks" location=".checkstyle-rules" type="project" description="">
+    <property name="cacheFile" value="${project_loc}/target/checkstyle-cachefile"/>
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="all" enabled="true" check-config-name="Eclipse checks" local="true">
+        <file-match-pattern match-pattern="^src[/\\]." include-pattern="true"/>
+        <file-match-pattern match-pattern="^target[/\\]." include-pattern="false"/>
+        <file-match-pattern match-pattern="^src[/\\]main[/\\]generated[/\\]." include-pattern="false"/>
+        <file-match-pattern match-pattern="^src[/\\]test[/\\]." include-pattern="false"/>
+        <file-match-pattern match-pattern="^src[/\\]integration-test[/\\]." include-pattern="false"/>
+  </fileset>
+</fileset-config>
+

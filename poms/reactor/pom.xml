@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>se.jguru.nazgul.tools.poms</groupId>
+    <artifactId>nazgul-reactor</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <name>${project.groupId}.${project.artifactId}</name>
+    <inceptionYear>2010</inceptionYear>
+    <organization>
+        <name>${project.artifactId}</name>
+        <url>https://bitbucket.org/lennartj/nazgul_tools</url>
+    </organization>
+
+    <!-- Must exist as dummy configuration -->
+    <distributionManagement>
+        <repository>
+            <id>repo</id>
+            <name>Repository Name</name>
+            <url>http://host/path/to/repo</url>
+        </repository>
+        <snapshotRepository>
+            <id>repo</id>
+            <name>Repository Name</name>
+            <url>http://host/path/to/repo</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!--
+        Reactor poms should not be deployed.
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-descriptor</id>
+                            <goals>
+                                <goal>attach-descriptor</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>2.2</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+        </plugins>
+    </build>
+
+    <!--
+        Don't generate any reports for reactor poms.
+    -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
+                <reportSets>
+                    <reportSet>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!--
+        Define connections for Maven's Mercurial integration.
+     -->
+    <scm>
+        <developerConnection>scm:hg:file://${basedir}/../..</developerConnection>
+    </scm>
+</project>
