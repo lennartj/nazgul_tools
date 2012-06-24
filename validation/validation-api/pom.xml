@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>se.jguru.nazgul.tools.validation</groupId>
-    <artifactId>nazgul-validation-api</artifactId>
+    <artifactId>nazgul-tools-validation-api</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
     <name>${project.groupId}.${project.artifactId}</name>

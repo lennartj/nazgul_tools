@@ -33,7 +33,7 @@
         -->
         <dependency>
             <groupId>se.jguru.nazgul.tools.validation</groupId>
-            <artifactId>nazgul-validation-aspect</artifactId>
+            <artifactId>nazgul-tools-validation-aspect</artifactId>
         </dependency>
     </dependencies>
 
@@ -41,7 +41,7 @@
         <dependencies>
             <dependency>
                 <groupId>se.jguru.nazgul.tools.validation</groupId>
-                <artifactId>nazgul-validation-aspect</artifactId>
+                <artifactId>nazgul-tools-validation-aspect</artifactId>
                 <version>1.0.0</version>
             </dependency>
         </dependencies>
@@ -79,7 +79,7 @@
                     <aspectLibraries>
                         <aspectLibrary>
                             <groupId>se.jguru.nazgul.tools.validation</groupId>
-                            <artifactId>nazgul-validation-aspect</artifactId>
+                            <artifactId>nazgul-tools-validation-aspect</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
                 </configuration>
@@ -110,7 +110,7 @@
                       </dependency>
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.validation</groupId>
-                        <artifactId>nazgul-validation-aspect</artifactId>
+                        <artifactId>nazgul-tools-validation-aspect</artifactId>
                         <version>1.0.0</version>
                     </dependency>
                 </dependencies>
