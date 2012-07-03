@@ -26,10 +26,10 @@
         <jdk.version>1.6</jdk.version>
 
         <!-- Version number properties -->
-        <maven.version>3.0.3</maven.version>
+        <maven.version>3.0.4</maven.version>
         <openjpa.version>2.2.1</openjpa.version>
         <activemq.version>5.6.0</activemq.version>
-        <maven.release.plugin.version>2.2.2</maven.release.plugin.version>
+        <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
         <jaxbImplVersion>2.2.6-b35</jaxbImplVersion>
         <jaxbApiVersion>2.2.7</jaxbApiVersion>
         <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
@@ -42,7 +42,7 @@
         <pmd.plugin.version>2.7.1</pmd.plugin.version>
         <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
-        <findbugs.plugin.version>2.5</findbugs.plugin.version>
+        <findbugs.plugin.version>2.5.1</findbugs.plugin.version>
         <clean.plugin.version>2.4.1</clean.plugin.version>
     </properties>
 
@@ -777,7 +777,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[3.0.3,)</version>
+                                    <version>[3.0.4,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
