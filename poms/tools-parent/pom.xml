@@ -342,6 +342,13 @@
                         <localCheckout>true</localCheckout>
                         <tagNameFormat>nazgul-tools-@{project.version}</tagNameFormat>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.scm</groupId>
+                            <artifactId>maven-scm-provider-hg</artifactId>
+                            <version>1.7</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -782,16 +789,17 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
+                                <requireUpperBoundDeps/>
 
                                 <!--
                                     Check import rules for all non-test and non-application packaged projects.
                                     The Rule itself skips checking WARs, EARs, and POMs projects.
                                 -->
-                                <myCustomRule
+                                <restrictImplDependencies
                                         implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPrefixes>org.apache.tomcat.service</includedGroupIdPrefixes>
                                     <excludedGroupIdPrefixes>org.apache.tomcat.tools</excludedGroupIdPrefixes>
-                                </myCustomRule>
+                                </restrictImplDependencies>
                             </rules>
                         </configuration>
                     </execution>
@@ -831,7 +839,7 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
+        <developerConnection>scm:hg:https://angmar.jguru.se/</developerConnection>
     </scm>
 
     <!--
