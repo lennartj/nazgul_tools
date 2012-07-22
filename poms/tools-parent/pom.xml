@@ -31,7 +31,7 @@
         <activemq.version>5.6.0</activemq.version>
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
         <jaxbImplVersion>2.2.6-b35</jaxbImplVersion>
-        <jaxbApiVersion>2.2.7</jaxbApiVersion>
+        <jaxbApiVersion>2.2.6</jaxbApiVersion>
         <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
         <osgiVersion>4.2.0</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>

@@ -18,6 +18,7 @@
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-parent</artifactId>
     <version>1.0.0</version>
+    <name>${project.groupId}.${project.artifactId}</name>
     <packaging>pom</packaging>
 
     <!--

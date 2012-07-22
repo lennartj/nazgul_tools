@@ -16,6 +16,7 @@
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
     <version>1.0.0</version>
+    <name>${project.groupId}.${project.artifactId}</name>
     <packaging>jar</packaging>
 
     <properties>
