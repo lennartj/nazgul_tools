@@ -27,7 +27,7 @@
 
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
-        <openjpa.version>2.2.1</openjpa.version>
+        <openjpa.version>2.2.0</openjpa.version>
         <activemq.version>5.6.0</activemq.version>
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
         <jaxbImplVersion>2.2.6-b35</jaxbImplVersion>
