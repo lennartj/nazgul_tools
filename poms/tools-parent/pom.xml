@@ -797,8 +797,8 @@
                                 -->
                                 <restrictImplDependencies
                                         implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
-                                    <includedGroupIdPrefixes>org.apache.tomcat.service</includedGroupIdPrefixes>
-                                    <excludedGroupIdPrefixes>org.apache.tomcat.tools</excludedGroupIdPrefixes>
+                                    <includedGroupIdPrefixes>se.jguru.nazgul</includedGroupIdPrefixes>
+                                    <excludedGroupIdPrefixes>se.jguru.nazgul.tools</excludedGroupIdPrefixes>
                                 </restrictImplDependencies>
                             </rules>
                         </configuration>
