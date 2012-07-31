@@ -30,7 +30,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
     /**
      * Prefix for our own plugins.
      */
-    public static final String PLUGINS_GROUPID = "org.apache.tomcat.tools.codestyle";
+    public static final String PLUGINS_GROUPID = "se.jguru.nazgul.tools.codestyle";
 
     /**
      * Packagings for projects implying this rule should be ignored.
@@ -40,6 +40,14 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
     // Internal state
     private List<String> evaluateGroupIds = new ArrayList<String>();
     private List<String> dontEvaluateGroupIds = new ArrayList<String>();
+    private List<String> ignoreArtifactsWithGroupIdPrefixes = new ArrayList<String>();
+
+    /**
+     * Default constructor.
+     */
+    public RestrictImplDependencies() {
+        ignoreArtifactsWithGroupIdPrefixes.add(PLUGINS_GROUPID);
+    }
 
     /**
      * Delegate method, implemented by concrete subclasses.
@@ -86,8 +94,9 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
                 continue;
             }
 
-            // Don't evaluate our own plugins...
-            if (current.getGroupId().startsWith(PLUGINS_GROUPID)) {
+            // Don't evaluate artifacts which we are told to ignore...
+            if (ignoreArtifactsWithGroupIdPrefixes.size() > 0
+                    && containsPrefix(ignoreArtifactsWithGroupIdPrefixes, current.getGroupId())) {
                 continue;
             }
 
@@ -154,5 +163,16 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      */
     public void setExcludedGroupIdPrefixes(final String excludedGroupIdPrefixes) {
         this.dontEvaluateGroupIds = splice(excludedGroupIdPrefixes);
+    }
+
+    /**
+     * Assigns a list of GroupIdPrefixes, to indicate that any artifacts slated for evaluation
+     * should be ignored if their groupId starts with one of the provided {@code ignoreArtifactsWithGroupIdPrefixes}.
+     *
+     * @param ignoredArtifactGroupIdPrefixes Comma-separated list of groupID prefixes for artifacts that
+     *                                       should be excluded from enforcement.
+     */
+    public void setIgnoreEvaluatingArtifactsWithGroupIdPrefixes(final String ignoredArtifactGroupIdPrefixes) {
+        this.ignoreArtifactsWithGroupIdPrefixes.addAll(splice(ignoredArtifactGroupIdPrefixes));
     }
 }

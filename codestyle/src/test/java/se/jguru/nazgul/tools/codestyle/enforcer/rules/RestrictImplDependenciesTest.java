@@ -135,6 +135,19 @@ public class RestrictImplDependenciesTest {
         unitUnderTest.execute(mock);
     }
 
+    @Test
+    public void validateExplicitExclusionOfArtifactGroupIDs() throws Exception {
+
+        // Assemble
+        final RestrictImplDependencies unitUnderTest = new RestrictImplDependencies();
+        final MavenProject earProject = getStubWithImplDependency("jar", Artifact.SCOPE_COMPILE);
+        final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(earProject);
+
+        // Act & Assert
+        unitUnderTest.setIgnoreEvaluatingArtifactsWithGroupIdPrefixes("org.apache.tomcat");
+        unitUnderTest.execute(mock);
+    }
+
     //
     // Private helpers
     //

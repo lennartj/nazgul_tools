@@ -44,6 +44,7 @@
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
         <findbugs.plugin.version>2.5.1</findbugs.plugin.version>
         <clean.plugin.version>2.4.1</clean.plugin.version>
+        <nazgul-codestyle.version>1.0.0</nazgul-codestyle.version>
     </properties>
 
     <!--
@@ -628,7 +629,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>1.0.0</version>
+                            <version>${nazgul-codestyle.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -727,7 +728,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.0.0</version>
+                        <version>${nazgul-codestyle.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -751,7 +752,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.0.0</version>
+                        <version>${nazgul-codestyle.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -808,7 +809,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.0.0</version>
+                        <version>${nazgul-codestyle.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -935,7 +936,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>1.0.0</version>
+                                <version>${nazgul-codestyle.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -970,7 +971,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>1.0.0</version>
+                                <version>${nazgul-codestyle.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1018,7 +1019,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>1.0.0</version>
+                                <version>${nazgul-codestyle.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1086,7 +1087,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>1.0.0</version>
+                                <version>${nazgul-codestyle.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
