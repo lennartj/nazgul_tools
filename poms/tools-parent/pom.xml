@@ -286,7 +286,7 @@
                 <plugin>
                     <groupId>org.apache.openjpa</groupId>
                     <artifactId>openjpa-maven-plugin</artifactId>
-                    <version>2.2.0</version>
+                    <version>${openjpa.version}</version>
                     <configuration>
                         <includes>no/classes/included/automatically/*.class</includes>
                         <addDefaultConstructor>true</addDefaultConstructor>
