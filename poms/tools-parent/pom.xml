@@ -30,8 +30,8 @@
         <openjpa.version>2.2.0</openjpa.version>
         <activemq.version>5.6.0</activemq.version>
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
-        <jaxbImplVersion>2.2.6-b35</jaxbImplVersion>
-        <jaxbApiVersion>2.2.6</jaxbApiVersion>
+        <jaxbImplVersion>2.2.7-b41</jaxbImplVersion>
+        <jaxbApiVersion>2.2.7</jaxbApiVersion>
         <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
         <osgiVersion>4.2.0</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
@@ -42,8 +42,8 @@
         <pmd.plugin.version>2.7.1</pmd.plugin.version>
         <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
-        <findbugs.plugin.version>2.5.1</findbugs.plugin.version>
-        <clean.plugin.version>2.4.1</clean.plugin.version>
+        <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
+        <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.0.0</nazgul-codestyle.version>
     </properties>
 
@@ -111,7 +111,7 @@
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.4-1</version>
+                <version>2.2.7-b41</version>
             </dependency>
 
             <!--

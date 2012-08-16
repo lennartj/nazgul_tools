@@ -65,6 +65,8 @@
                         <include>**/*.java</include>
                         <include>**/*.aj</include>
                     </includes>
+                    <aspectDirectory>src/main/java</aspectDirectory>
+                    <testAspectDirectory>src/test/java</testAspectDirectory>
                     <!--
                        This option causes the JoinPoint.getStaticPart() to
                        sometimes return null - which crashes all Aspects relying
