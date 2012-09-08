@@ -142,6 +142,13 @@
         </plugins>
     </build>
 
+    <!--
+       Define connections for Maven's Mercurial integration.
+    -->
+    <scm>
+        <developerConnection>scm:hg:file://${basedir}/</developerConnection>
+    </scm>
+
     <modules>
         <module>codestyle</module>
         <module>validation</module>
