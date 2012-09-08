@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) jGuru Europe AB.
+  ~ All rights reserved.
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,21 +19,38 @@
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
-    <groupId>se.jguru.nazgul.tools.validation.api</groupId>
-    <artifactId>nazgul-tools-validation-api</artifactId>
+    <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+    <artifactId>nazgul-tools-validation-aspect</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
 
     <!--
     ################################################
-    # Section 2:  Dependency (management) settings
+    # Section 2:  Dependencies
     ################################################
     -->
     <dependencies>
+
+        <!--
+            Internal dependencies
+        -->
         <dependency>
+            <groupId>se.jguru.nazgul.tools.validation</groupId>
+            <artifactId>nazgul-tools-validation-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!--
+            External dependencies
+        -->
+        <!-- dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -65,15 +87,15 @@
                 <configuration>
                     <instrumentation>
                         <includes>
-                            <include>se/jguru/nazgul/tools/validation/**/*.class</include>
+                            <include>org/apache/tomcat/tools/validation/**/*.class</include>
                         </includes>
                         <excludes>
 
                             <!-- Don't check Exception classes -->
-                            <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
+                            <exclude>org/apache/tomcat/**/*Exception.class</exclude>
 
                             <!-- Don't weave aspects already woven by AspectJ. -->
-                            <exclude>se/jguru/nazgul/tools/validation/aspect/**/*Aspect.class</exclude>
+                            <exclude>org/apache/tomcat/tools/validation/aspect/**/*Aspect.class</exclude>
 
                         </excludes>
                     </instrumentation>
@@ -85,27 +107,53 @@
                 </configuration>
             </plugin>
 
-            <!--
-                Note! AspectJ and Cobertura plugins clash WRT instrumentation of test classes.
-                Therefore, one must remove the overall test-compile goal from this (global)
-                AspectJ plugin definition, and overwrite this plugin definition (using the
-                here commented-out test-compile goal) in projects where weaving is required in
-                the testcases.
-
-                When overriding this plugin definition in subprojects, you should likely be
-                required to override Cobertura's exclude definitions for certain inner classes
-                as well.
-
-                // Lennart, 2011-06-27
-            -->
-            <!-- plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.4</version>
                 <configuration>
-                    <XaddSerialVersionUID>true</XaddSerialVersionUID>
-                    <showWeaveInfo>true</showWeaveInfo>
+                    <complianceLevel>1.6</complianceLevel>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.aj</include>
+                    </includes>
+                    <!--
+                       This option causes the JoinPoint.getStaticPart() to
+                       sometimes return null - which crashes all Aspects relying
+                       on JoinPoint static information.... such as the ValidationAspect.
+
+                       Yes - it is a bug in AspectJ.
+                       // Lennart, 2011-07-23
+                    -->
+                    <!-- XaddSerialVersionUID>true</XaddSerialVersionUID -->
                 </configuration>
-            </plugin -->
+                <executions>
+                    <execution>
+                        <id>compile_with_aspectj</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile_with_aspectj</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjrt</artifactId>
+                        <version>${aspectj.runtime.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.runtime.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.felix</groupId>

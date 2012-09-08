@@ -5,17 +5,17 @@
 
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.enforcer.rule.api.EnforcerRule;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.project.MavenProject;
 
 /**
- * Enforcer rule to validate project name compliance.
+ * Enforcer rule to validate ProjectType compliance, to harmonize the pom structure in terms
+ * of groupId, artifactId, packaging and (rudimentary) content checks.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class ValidateProjectNames extends AbstractEnforcerRule {
+public class ValidateProjectType extends AbstractEnforcerRule {
 
     /**
      * Delegate method, implemented by concrete subclasses.
@@ -29,13 +29,10 @@ public class ValidateProjectNames extends AbstractEnforcerRule {
     protected void performValidation(final MavenProject project, final EnforcerRuleHelper helper)
             throws RuleFailureException {
 
-        final ProjectType projectType = getProjectType(project.getArtifact());
-
-        if (projectType == null) {
-
-            final Artifact artifact = project.getArtifact();
-            throw new RuleFailureException("Project [" + artifact.getGroupId() + "::" + artifact.getArtifactId()
-                    + "] did not follow standard naming rules.");
+        try {
+            ProjectType.getProjectType(project);
+        } catch (IllegalArgumentException e) {
+            throw new RuleFailureException(e.getMessage());
         }
     }
 
@@ -45,7 +42,7 @@ public class ValidateProjectNames extends AbstractEnforcerRule {
      */
     @Override
     protected String getShortRuleDescription() {
-        return "Project names must comply with defined standard";
+        return "POM groupId, artifactId and packaging must comply with defined standard";
     }
 
     /**
@@ -69,23 +66,6 @@ public class ValidateProjectNames extends AbstractEnforcerRule {
      */
     @Override
     public String getCacheId() {
-        return null;
-    }
-
-    //
-    // Private helpers
-    //
-
-    private static ProjectType getProjectType(final Artifact artifact) {
-
-        for(ProjectType current : ProjectType.values()) {
-            if(current.isCompliantArtifactID(artifact.getArtifactId())
-                    && current.isCompliantGroupID(artifact.getGroupId())) {
-                return current;
-            }
-        }
-
-        // Could not find a defined project type.
         return null;
     }
 }

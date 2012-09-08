@@ -32,7 +32,7 @@
             No other dependencies must be included here.
         -->
         <dependency>
-            <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+            <groupId>se.jguru.nazgul.tools.validation</groupId>
             <artifactId>nazgul-tools-validation-aspect</artifactId>
         </dependency>
     </dependencies>
@@ -40,7 +40,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                <groupId>se.jguru.nazgul.tools.validation</groupId>
                 <artifactId>nazgul-tools-validation-aspect</artifactId>
                 <version>1.0.0</version>
             </dependency>
@@ -79,7 +79,7 @@
                     <showWeaveInfo>true</showWeaveInfo>
                     <aspectLibraries>
                         <aspectLibrary>
-                            <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                            <groupId>se.jguru.nazgul.tools.validation</groupId>
                             <artifactId>nazgul-tools-validation-aspect</artifactId>
                         </aspectLibrary>
                     </aspectLibraries>
@@ -110,7 +110,7 @@
                         <version>${aspectj.runtime.version}</version>
                       </dependency>
                     <dependency>
-                        <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                        <groupId>se.jguru.nazgul.tools.validation</groupId>
                         <artifactId>nazgul-tools-validation-aspect</artifactId>
                         <version>1.0.0</version>
                     </dependency>
@@ -118,4 +118,8 @@
             </plugin>
         </plugins>
     </build>
+
+    <modules>
+        <module>foobar</module>
+    </modules>
 </project>

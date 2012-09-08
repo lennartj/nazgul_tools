@@ -19,7 +19,7 @@
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
-    <groupId>se.jguru.nazgul.tools.validation</groupId>
+    <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
     <artifactId>nazgul-tools-validation-aspect</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
@@ -36,7 +36,7 @@
             Internal dependencies
         -->
         <dependency>
-            <groupId>se.jguru.nazgul.tools.validation</groupId>
+            <groupId>se.jguru.nazgul.tools.validation.api</groupId>
             <artifactId>nazgul-tools-validation-api</artifactId>
             <version>1.0.0</version>
         </dependency>

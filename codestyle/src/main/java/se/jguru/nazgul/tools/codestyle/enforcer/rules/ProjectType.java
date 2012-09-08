@@ -37,6 +37,11 @@ public enum ProjectType {
     PARENT(".*-parent$", null, "pom"),
 
     /**
+     * Aspect definition project, holding publicly available aspects.
+     */
+    ASPECT(".*-aspect$", ".*\\.aspect$", "bundle"),
+
+    /**
      * Model project defining entities.
      * <p/>
      * May have test-scope dependencies on test and proof-of-concept projects.
@@ -153,8 +158,8 @@ public enum ProjectType {
      *
      * @param project The MavenProject to classify.
      * @return The corresponding ProjectType.
-     * @throws IllegalArgumentException if a single ProjectType could not be
-     *                                  matched to the provided MavenProject.
+     * @throws IllegalArgumentException if the given project could not be mapped to a [single] ProjectType.
+     *                                  The exception message holds
      */
     public static ProjectType getProjectType(final MavenProject project) throws IllegalArgumentException {
 

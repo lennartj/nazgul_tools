@@ -806,13 +806,6 @@
                                     <excludedGroupIdPrefixes>se.jguru.nazgul.tools</excludedGroupIdPrefixes>
                                     <ignoreEvaluatingArtifactsWithGroupIdPrefixes>com.sun.xml.bind</ignoreEvaluatingArtifactsWithGroupIdPrefixes>
                                 </restrictImplDependencies>
-
-                                <!--
-                                    Check that all projects comply with the project template definitions.
-                                -->
-                                <validateProjectTypes
-                                    implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType">
-                                </validateProjectTypes>
                             </rules>
                         </configuration>
                     </execution>
