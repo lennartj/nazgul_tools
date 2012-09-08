@@ -1,0 +1,205 @@
+/*
+ * Copyright (c) jGuru Europe AB.
+ * All rights reserved.
+ */
+
+package se.jguru.nazgul.tools.codestyle.enforcer.rules;
+
+import junit.framework.Assert;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.project.MavenProject;
+import org.junit.Test;
+
+/**
+ * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ */
+public class ProjectTypeTest {
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnIncorrectProjectTypeSpecification() {
+
+        // Assemble
+        final MavenProject stub = getStub("bundle", "se.jguru.foo.bar", "incognito");
+
+        // Act & Assert
+        ProjectType.getProjectType(stub);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnReactorProjectWithDependencies() {
+
+        // Assemble
+        final MavenProject reactor = getStub("pom", "se.jguru.foo.bar", "foo-reactor");
+
+        final Dependency aDependency = new Dependency();
+        aDependency.setGroupId("se.jguru.foo");
+        aDependency.setArtifactId("foobar");
+        aDependency.setVersion("1.0.0-SNAPSHOT");
+        reactor.getModel().addDependency(aDependency);
+
+        // Act
+        ProjectType.getProjectType(reactor);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnParentProjectWithModules() {
+
+        // Assemble
+        final MavenProject parent = getStub("pom", "se.jguru.foo.bar", "foo-parent");
+        parent.getModel().addModule("aChildModule");
+
+        // Act
+        ProjectType.getProjectType(parent);
+    }
+
+    @Test
+    public void validateParsingProjectTypes() {
+
+        // Assemble
+        final MavenProject parent = getStub("pom", "se.jguru.foo.bar", "bar-parent");
+        final MavenProject reactor = getStub("pom", "se.jguru.foo.bar", "bar-reactor");
+        final MavenProject model = getStub("bundle", "se.jguru.foo.bar.model", "bar-model");
+        final MavenProject api = getStub("bundle", "se.jguru.foo.bar.api", "bar-api");
+        final MavenProject spi = getStub("bundle", "se.jguru.foo.bar.spi.something", "bar-spi-something");
+        final MavenProject impl = getStub("bundle", "se.jguru.foo.bar.impl.something", "bar-impl-something");
+        final MavenProject test = getStub("jar", "se.jguru.foo.bar.test.something", "bar-test");
+        final MavenProject poc = getStub("bundle", "se.jguru.foo.bar.poc.something", "bar-poc");
+
+        // Act & Assert
+        Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
+        Assert.assertEquals(ProjectType.REACTOR, ProjectType.getProjectType(reactor));
+        Assert.assertEquals(ProjectType.MODEL, ProjectType.getProjectType(model));
+        Assert.assertEquals(ProjectType.API, ProjectType.getProjectType(api));
+        Assert.assertEquals(ProjectType.SPI, ProjectType.getProjectType(spi));
+        Assert.assertEquals(ProjectType.IMPLEMENTATION, ProjectType.getProjectType(impl));
+        Assert.assertEquals(ProjectType.TEST, ProjectType.getProjectType(test));
+        Assert.assertEquals(ProjectType.PROOF_OF_CONCEPT, ProjectType.getProjectType(poc));
+    }
+
+    @Test
+    public void validateModelProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.MODEL.isCompliantArtifactID("test-foo-model"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantArtifactID("model-test"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantArtifactID("foo-model-test"));
+
+        Assert.assertTrue(ProjectType.MODEL.isCompliantGroupID("test.foo.model"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantGroupID("model.test"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantGroupID("foo.model.test"));
+
+        Assert.assertFalse(ProjectType.MODEL.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.MODEL.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateReactorProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.REACTOR.isCompliantArtifactID("test-foo-reactor"));
+        Assert.assertFalse(ProjectType.REACTOR.isCompliantArtifactID("reactor-test"));
+        Assert.assertFalse(ProjectType.REACTOR.isCompliantArtifactID("foo-reactor-test"));
+
+        Assert.assertTrue(ProjectType.REACTOR.isCompliantGroupID("test.foo.reactor"));
+        Assert.assertTrue(ProjectType.REACTOR.isCompliantGroupID("reactor.test"));
+        Assert.assertTrue(ProjectType.REACTOR.isCompliantGroupID("foo.model.test"));
+
+        Assert.assertTrue(ProjectType.REACTOR.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.REACTOR.isCompliantPackaging("jar"));
+        Assert.assertFalse(ProjectType.REACTOR.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateApiProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.API.isCompliantArtifactID("test-foo-api"));
+        Assert.assertFalse(ProjectType.API.isCompliantArtifactID("test-api-foo"));
+        Assert.assertFalse(ProjectType.API.isCompliantArtifactID("api-test"));
+        Assert.assertFalse(ProjectType.API.isCompliantArtifactID(null));
+
+        Assert.assertFalse(ProjectType.API.isCompliantGroupID("test.api.foo"));
+        Assert.assertFalse(ProjectType.API.isCompliantGroupID("api.test"));
+        Assert.assertTrue(ProjectType.API.isCompliantGroupID("test.api"));
+
+        Assert.assertFalse(ProjectType.API.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.API.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.API.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateSpiProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.SPI.isCompliantArtifactID("test-foo-spi"));
+        Assert.assertTrue(ProjectType.SPI.isCompliantArtifactID("test-spi-foo"));
+        Assert.assertFalse(ProjectType.SPI.isCompliantArtifactID("spi-test"));
+
+        Assert.assertTrue(ProjectType.SPI.isCompliantGroupID("test.spi.foo"));
+        Assert.assertFalse(ProjectType.SPI.isCompliantGroupID("spi.test"));
+        Assert.assertFalse(ProjectType.SPI.isCompliantGroupID("test.spi"));
+
+        Assert.assertFalse(ProjectType.SPI.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.SPI.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.SPI.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateImplementationProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantArtifactID("test-foo-impl"));
+        Assert.assertTrue(ProjectType.IMPLEMENTATION.isCompliantArtifactID("test-impl-foo"));
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantArtifactID("impl-test"));
+
+        Assert.assertTrue(ProjectType.IMPLEMENTATION.isCompliantGroupID("test.impl.foo"));
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantGroupID("impl.test"));
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantGroupID("test.impl"));
+
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.IMPLEMENTATION.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateTestProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.TEST.isCompliantArtifactID("test-foo-impl"));
+        Assert.assertFalse(ProjectType.TEST.isCompliantArtifactID("test-impl-foo"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantArtifactID("foo-test"));
+
+        Assert.assertFalse(ProjectType.TEST.isCompliantGroupID("test.foo"));
+        Assert.assertFalse(ProjectType.TEST.isCompliantGroupID("impl.test"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantGroupID("some.test.foo"));
+    }
+
+    @Test
+    public void validatePocProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantArtifactID("poc-foo-impl"));
+        Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantArtifactID("test-poc-foo"));
+        Assert.assertTrue(ProjectType.PROOF_OF_CONCEPT.isCompliantArtifactID("foo-poc"));
+
+        Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("poc.foo"));
+        Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("impl.poc"));
+        Assert.assertTrue(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("some.poc.foo"));
+    }
+
+    //
+    // Private helpers
+    //
+
+    private MavenProject getStub(final String packaging, final String groupId, final String artifactId) {
+
+        final MavenProject project = new MavenProject();
+        project.setPackaging(packaging);
+        project.setVersion("1.0.0");
+        project.setArtifactId(artifactId);
+        project.setGroupId(groupId);
+
+        return project;
+    }
+}
