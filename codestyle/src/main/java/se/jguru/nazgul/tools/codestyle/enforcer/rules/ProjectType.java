@@ -49,6 +49,12 @@ public enum ProjectType {
     MODEL(".*-model$", ".*\\.model$", "bundle"),
 
     /**
+     * Application project defining JEE-deployable artifacts.
+     * Injections of implementation projects are permitted here.
+     */
+    APPLICATION(null, null, "war|ear|ejb"),
+
+    /**
      * API project, defining service interaction, abstract implementations and exceptions.
      * <p/>
      * May have compile-scope dependencies on model projects within the same component, and test-scope
@@ -103,7 +109,9 @@ public enum ProjectType {
                         final String groupIdPattern,
                         final String packagingPattern) {
 
-        this.artifactIdPattern = Pattern.compile(artifactIdPattern);
+        if(artifactIdPattern != null) {
+            this.artifactIdPattern = Pattern.compile(artifactIdPattern);
+        }
 
         if (packagingPattern != null) {
             this.packagingPattern = Pattern.compile(packagingPattern);
@@ -122,7 +130,7 @@ public enum ProjectType {
      *         naming rules for this ProjectType.
      */
     public boolean isCompliantArtifactID(final String artifactID) {
-        return artifactID != null && artifactIdPattern.matcher(artifactID).matches();
+        return artifactID != null && (artifactIdPattern == null || artifactIdPattern.matcher(artifactID).matches());
     }
 
     /**
@@ -135,7 +143,7 @@ public enum ProjectType {
      *         given, {@code true} is returned.
      */
     public boolean isCompliantGroupID(final String groupID) {
-        return groupID != null && groupIdPattern == null || groupIdPattern.matcher(groupID).matches();
+        return groupID != null && (groupIdPattern == null || groupIdPattern.matcher(groupID).matches());
     }
 
     /**
@@ -148,7 +156,7 @@ public enum ProjectType {
      *         {@code true} is returned.
      */
     public boolean isCompliantPackaging(final String packaging) {
-        return packaging != null && packagingPattern == null || packagingPattern.matcher(packaging).matches();
+        return packaging != null && (packagingPattern == null || packagingPattern.matcher(packaging).matches());
     }
 
     /**

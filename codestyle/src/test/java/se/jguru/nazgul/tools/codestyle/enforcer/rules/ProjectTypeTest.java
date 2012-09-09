@@ -10,6 +10,8 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
+import java.util.regex.Pattern;
+
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -64,6 +66,9 @@ public class ProjectTypeTest {
         final MavenProject impl = getStub("bundle", "se.jguru.foo.bar.impl.something", "bar-impl-something");
         final MavenProject test = getStub("jar", "se.jguru.foo.bar.test.something", "bar-test");
         final MavenProject poc = getStub("bundle", "se.jguru.foo.bar.poc.something", "bar-poc");
+        final MavenProject war = getStub("war", "se.jguru.foo.applications.bar", "bar-war");
+        final MavenProject ear = getStub("ear", "se.jguru.foo.applications.bar", "bar-ear");
+        final MavenProject ejb = getStub("ejb", "se.jguru.foo.applications.bar", "bar-ejb");
 
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
@@ -74,6 +79,9 @@ public class ProjectTypeTest {
         Assert.assertEquals(ProjectType.IMPLEMENTATION, ProjectType.getProjectType(impl));
         Assert.assertEquals(ProjectType.TEST, ProjectType.getProjectType(test));
         Assert.assertEquals(ProjectType.PROOF_OF_CONCEPT, ProjectType.getProjectType(poc));
+        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(war));
+        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(ear));
+        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(ejb));
     }
 
     @Test
@@ -122,10 +130,12 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.API.isCompliantGroupID("test.api.foo"));
         Assert.assertFalse(ProjectType.API.isCompliantGroupID("api.test"));
         Assert.assertTrue(ProjectType.API.isCompliantGroupID("test.api"));
+        Assert.assertFalse(ProjectType.API.isCompliantGroupID(null));
 
         Assert.assertFalse(ProjectType.API.isCompliantPackaging("pom"));
         Assert.assertFalse(ProjectType.API.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.API.isCompliantPackaging("bundle"));
+        Assert.assertFalse(ProjectType.API.isCompliantPackaging(null));
     }
 
     @Test
