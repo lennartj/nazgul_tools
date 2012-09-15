@@ -125,5 +125,6 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-    </scm>
+      <tag>nazgul-tools-1.0.0</tag>
+  </scm>
 </project>
