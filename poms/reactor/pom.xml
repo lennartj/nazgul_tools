@@ -19,20 +19,6 @@
         <url>https://bitbucket.org/lennartj/nazgul_tools</url>
     </organization>
 
-    <!-- Must exist as dummy configuration -->
-    <distributionManagement>
-        <repository>
-            <id>repo</id>
-            <name>Repository Name</name>
-            <url>http://host/path/to/repo</url>
-        </repository>
-        <snapshotRepository>
-            <id>repo</id>
-            <name>Repository Name</name>
-            <url>http://host/path/to/repo</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <!--
     ################################################
     # Section 3:  Build settings

@@ -856,6 +856,22 @@
     </scm>
 
     <!--
+        Deploy to jGuru Artifactory server.
+    -->
+    <distributionManagement>
+        <repository>
+            <id>jGuru_Artifactory</id>
+            <name>jGuru_Artifactory-releases</name>
+            <url>http://www.jguru.se/artifactory/libs-releases-local</url>
+        </repository>
+        <repository>
+            <id>jGuru_Artifactory</id>
+            <name>jGuru_Artifactory-releases</name>
+            <url>http://www.jguru.se/artifactory/ext-releases-local</url>
+        </repository>
+    </distributionManagement>
+
+    <!--
     ################################################
     # Section 5:  Profiles and Reports
     ################################################

@@ -35,7 +35,6 @@
         <module>validation-aspect</module>
     </modules>
 
-
     <!--
        Define connections for Maven's Mercurial integration.
     -->
