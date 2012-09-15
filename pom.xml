@@ -14,7 +14,7 @@
     ################################################
     -->
     <groupId>se.jguru.nazgul.tools</groupId>
-    <artifactId>nazgul-tools-root</artifactId>
+    <artifactId>nazgul-tools-reactor</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>${project.groupId}.${project.artifactId}</name>
     <packaging>pom</packaging>
