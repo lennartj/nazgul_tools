@@ -125,4 +125,20 @@
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
     </scm>
+
+    <!--
+        Define repository settings for Maven's deploy and release plugins.
+    -->
+    <distributionManagement>
+        <repository>
+            <id>jGuru_Artifactory</id>
+            <name>jGuru_Artifactory-releases</name>
+            <url>http://www.jguru.se/artifactory/libs-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>jGuru_Artifactory</id>
+            <name>jGuru_Artifactory-snapshots</name>
+            <url>http://www.jguru.se/artifactory/libs-snapshots-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
