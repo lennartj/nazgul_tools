@@ -882,6 +882,7 @@
                         <configuration>
                             <preparationGoals>-B clean install</preparationGoals>
                             <localCheckout>true</localCheckout>
+                            <tagNameFormat>nazgul_tools-@{project.version}</tagNameFormat>
                         </configuration>
                     </plugin>
                 </plugins>
