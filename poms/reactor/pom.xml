@@ -132,10 +132,10 @@
         </plugins>
     </reporting>
 
-    <!--
-        Define connections for Maven's Mercurial integration.
-     -->
+    <<!--
+       Define connections for Maven's Mercurial integration.
+    -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../..</developerConnection>
+        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
     </scm>
 </project>

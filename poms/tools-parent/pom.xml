@@ -852,7 +852,7 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <developerConnection>scm:hg:https://angmar.jguru.se/</developerConnection>
+        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
     </scm>
 
     <!--

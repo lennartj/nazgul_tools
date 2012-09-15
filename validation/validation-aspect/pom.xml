@@ -168,7 +168,10 @@
         </plugins>
     </build>
 
+    <!--
+       Define connections for Maven's Mercurial integration.
+    -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../../../../</developerConnection>
+        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
     </scm>
 </project>

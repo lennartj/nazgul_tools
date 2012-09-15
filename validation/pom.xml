@@ -36,6 +36,9 @@
     </modules>
 
 
+    <!--
+       Define connections for Maven's Mercurial integration.
+    -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
     </scm>
