@@ -132,7 +132,7 @@
         </plugins>
     </reporting>
 
-    <<!--
+    <!--
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
