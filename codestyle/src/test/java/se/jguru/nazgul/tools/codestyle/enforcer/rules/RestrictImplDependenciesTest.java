@@ -312,86 +312,14 @@ public class RestrictImplDependenciesTest {
         unitUnderTest.execute(new MockEnforcerRuleHelper(fooApiProject));
     }
 
-    /*
-    @Test(expected = EnforcerRuleException.class)
-    public void validateExplicitInclusionOfGroupIDsWithBundleType() throws Exception {
-
-        // Assemble
-        unitUnderTest.setIncludedGroupIdPatterns("se\\.jguru\\.nazgul\\..*,org\\.apache\\.foo\\..*");
-        final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(fooApiProject);
-
-        // Act & Assert
-        unitUnderTest.execute(mock);
-    }
-
-
-
-    @Test(expected = EnforcerRuleException.class)
-    public void validateExplicitInclusionOfGroupIDs() throws Exception {
-
-        // Assemble
-        final RestrictImplDependencies unitUnderTest = new RestrictImplDependencies();
-        final MavenProject earProject = getStubWithImplDependency("jar", Artifact.SCOPE_COMPILE);
-        final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(earProject);
-
-        // Act & Assert
-        unitUnderTest.setIncludedGroupIdPatterns("org.apache.tomcat");
-        unitUnderTest.execute(mock);
-    }
-
-    @Test
-    public void validateExplicitExclusionOfGroupIDs() throws Exception {
-
-        // Assemble
-        final RestrictImplDependencies unitUnderTest = new RestrictImplDependencies();
-        final MavenProject earProject = getStubWithImplDependency("jar", Artifact.SCOPE_COMPILE);
-        final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(earProject);
-
-        // Act & Assert
-        unitUnderTest.setExcludedGroupIdPatterns("org.apache.tomcat");
-        unitUnderTest.execute(mock);
-    }
-
-    */
-
     //
     // Private helpers
     //
-
-    private void addNazgulGroupDependency(final MavenProject project,
-                                          final String artifactID,
-                                          final String dependencyScope) {
-        addDependency(project, "se.jguru.nazgul.foo", artifactID, "1.0.0", "bundle", dependencyScope);
-    }
 
     private MavenProject getNazgulGroupIdStub(final String artifactID,
                                               final String packaging) {
         return getStub("se.jguru.nazgul.foo", artifactID, "1.0.0", packaging);
     }
-
-    private void addDependency(final MavenProject project,
-                               final String groupID,
-                               final String artifactID,
-                               final String version,
-                               final String type,
-                               final String dependencyScope) {
-
-        final ArtifactStub implArtifact = new ArtifactStub();
-        implArtifact.setGroupId(groupID);
-        implArtifact.setArtifactId(artifactID);
-        implArtifact.setVersion(version);
-        implArtifact.setScope(dependencyScope);
-        implArtifact.setType(type);
-
-        Set<Artifact> dependencyArtifacts = project.getDependencyArtifacts();
-        if (dependencyArtifacts == null) {
-            dependencyArtifacts = new HashSet<Artifact>();
-            project.setDependencyArtifacts(dependencyArtifacts);
-        }
-
-        dependencyArtifacts.add(implArtifact);
-    }
-
 
     private MavenProject getStub(final String groupID,
                                  final String artifactID,
