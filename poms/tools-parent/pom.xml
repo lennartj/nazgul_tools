@@ -796,20 +796,25 @@
                                 <requireUpperBoundDeps />
 
                                 <!--
-                                    Check import rules for all non-test and non-application packaged projects.
-                                    The Rule itself skips checking WARs, EARs, and POMs projects.
+                                    Enforce the ProjectType structure, implying that all projects
+                                    must comply with the project template definitions.
                                 -->
-                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
-                                    <includedGroupIdPrefixes>se.jguru.nazgul</includedGroupIdPrefixes>
-                                    <excludedGroupIdPrefixes>se.jguru.nazgul.tools</excludedGroupIdPrefixes>
-                                    <ignoreEvaluatingArtifactsWithGroupIdPrefixes>com.sun.xml.bind</ignoreEvaluatingArtifactsWithGroupIdPrefixes>
-                                </restrictImplDependencies>
+                                <validateProjectTypes
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType"/>
 
                                 <!--
-                                    Check that all projects comply with the project template definitions.
+                                    Enforce the implementation rules for dependencies, to enforce that
+                                    API, MODEL and SPI projects do not import projects of types
+                                    APPLICATION, TEST, POC o IMPLEMENTATION.
+
+                                    While the configuration below reflect the default settings, it is
+                                    reproduced her to serve as an example of how to configure this enforcement rule
+                                    in child reactors - where needs are likely different than here.
                                 -->
-                                <validateProjectTypes implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType">
-                                </validateProjectTypes>
+                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
+                                    <includedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*</includedGroupIdPatterns>
+                                    <excludedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*\\.generated\\..*,^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*</excludedGroupIdPatterns>
+                                </restrictImplDependencies>
                             </rules>
                         </configuration>
                     </execution>

@@ -23,6 +23,14 @@
         <maven.release.plugin.version>2.2.1</maven.release.plugin.version>
         <enforcer.api.version>1.0.1</enforcer.api.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
+
+        <!-- Code style properties -->
+        <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
+        <pmd.plugin.version>2.7.1</pmd.plugin.version>
+        <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
+        <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+        <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
+        <clean.plugin.version>2.5</clean.plugin.version>
     </properties>
 
     <!--
@@ -85,14 +93,16 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.plugin.version}</version>
                 <configuration>
+                    <goal>check</goal>
                     <instrumentation>
                         <includes>
-                            <include>org/apache/tomcat/**/*.class</include>
+                            <include>se/jguru/nazgul/**/*.class</include>
                         </includes>
                         <excludes>
                             <!-- Don't check Exception classes -->
-                            <exclude>org/apache/tomcat/**/*Exception.class</exclude>
+                            <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
@@ -101,6 +111,14 @@
                         <haltOnFailure>${cobertura.haltOnFailure}</haltOnFailure>
                     </check>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -114,6 +132,50 @@
                     <showDeprecation>true</showDeprecation>
                     <encoding>UTF-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-descriptor</id>
+                        <goals>
+                            <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <reportPlugins>
+                        <!--
+                            Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+                            once for the pluginManagement section and once for the site, see
+                            http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+                        -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.4</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                            </configuration>
+                        </plugin>
+
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <version>${cobertura.plugin.version}</version>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.wagon</groupId>
+                        <artifactId>wagon-ssh</artifactId>
+                        <version>2.2</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

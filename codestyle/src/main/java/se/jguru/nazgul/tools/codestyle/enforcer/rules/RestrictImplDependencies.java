@@ -11,8 +11,10 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.project.MavenProject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Enforcer rule to restrict importing Impl projects with the exception of actual
@@ -23,30 +25,40 @@ import java.util.Set;
 public class RestrictImplDependencies extends AbstractEnforcerRule {
 
     /**
-     * Suffix to identify an implementation project.
+     * Pattern defining groupID for artifacts that should be evaluated by this EnforcerRule instance.
+     * This default value will be used unless overridden by [explicit] configuration.
      */
-    public static final String IMPLEMENTATION_PROJECT_SUFFIX = "-impl";
+    public static final String EVALUATE_GROUPID = "^se\\.jguru\\.nazgul\\..*";
 
     /**
-     * Prefix for our own plugins.
+     * Pattern defining patterns for groupIDs that should be ignored by this EnforcerRule instance.
+     * This default value will be used unless overridden by [explicit] configuration.
      */
-    public static final String PLUGINS_GROUPID = "se.jguru.nazgul.tools.codestyle";
+    public static final String IGNORE_GROUPID = "^se\\.jguru\\.nazgul\\..*\\.generated\\..*,"
+            + "^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*";
 
     /**
-     * Packagings for projects implying this rule should be ignored.
+     * ProjectTypes for which this rule should be ignored.
      */
-    public static final String[] IGNORED_PACKAGING_TYPES = {"ear", "war", "pom"};
+    public static final List<ProjectType> IGNORED_PROJECT_TYPES = Arrays.asList(
+            ProjectType.APPLICATION,
+            ProjectType.PARENT,
+            ProjectType.REACTOR,
+            ProjectType.PROOF_OF_CONCEPT,
+            ProjectType.TEST);
 
     // Internal state
-    private List<String> evaluateGroupIds = new ArrayList<String>();
-    private List<String> dontEvaluateGroupIds = new ArrayList<String>();
-    private List<String> ignoreArtifactsWithGroupIdPrefixes = new ArrayList<String>();
+    private List<Pattern> evaluateGroupIds = new ArrayList<Pattern>();
+    private List<Pattern> dontEvaluateGroupIds = new ArrayList<Pattern>();
 
     /**
      * Default constructor.
      */
     public RestrictImplDependencies() {
-        ignoreArtifactsWithGroupIdPrefixes.add(PLUGINS_GROUPID);
+
+        // Add default values.
+        setIncludedGroupIdPatterns(EVALUATE_GROUPID);
+        setExcludedGroupIdPatterns(IGNORE_GROUPID);
     }
 
     /**
@@ -60,15 +72,21 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
     protected void performValidation(final MavenProject project, final EnforcerRuleHelper helper)
             throws RuleFailureException {
 
+        // Acquire the ProjectType
+        final ProjectType projectType;
+        try {
+            projectType = ProjectType.getProjectType(project);
+        } catch (IllegalArgumentException e) {
+            throw new RuleFailureException("Incorrect project definition for " + project, e);
+        }
+
         // Don't evaluate for ignored project types.
-        for (String current : IGNORED_PACKAGING_TYPES) {
-            if (current.equalsIgnoreCase(project.getPackaging())) {
-                return;
-            }
+        if (IGNORED_PROJECT_TYPES.contains(projectType)) {
+            return;
         }
 
         // Don't evaluate if told not to.
-        if (dontEvaluateGroupIds.size() > 0 && containsPrefix(dontEvaluateGroupIds, project.getGroupId())) {
+        if (matches(project.getGroupId(), dontEvaluateGroupIds)) {
 
             // Log somewhat
             helper.getLog().debug("Ignored [" + project.getGroupId() + ":" + project.getArtifactId()
@@ -78,7 +96,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
         }
 
         // Don't evaluate if not told to.
-        if (evaluateGroupIds.size() > 0 && !containsPrefix(evaluateGroupIds, project.getGroupId())) {
+        if (!matches(project.getGroupId(), evaluateGroupIds)) {
 
             // Log somewhat
             helper.getLog().debug("Ignored [" + project.getGroupId() + ":" + project.getArtifactId()
@@ -94,17 +112,26 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
                 continue;
             }
 
-            // Don't evaluate artifacts which we are told to ignore...
-            if (ignoreArtifactsWithGroupIdPrefixes.size() > 0
-                    && containsPrefix(ignoreArtifactsWithGroupIdPrefixes, current.getGroupId())) {
-                continue;
-            }
+            // Should this Artifact be evaluated?
+            boolean isIncludedInEvaluation = matches(current.getGroupId(), evaluateGroupIds);
+            boolean isNotExplicitlyExcludedFromEvaluation = !matches(current.getGroupId(), dontEvaluateGroupIds);
+            if (isIncludedInEvaluation && isNotExplicitlyExcludedFromEvaluation) {
 
-            // Evaluate this Artifact.
-            if (current.getArtifactId().toLowerCase().endsWith(IMPLEMENTATION_PROJECT_SUFFIX)) {
-                throw new RuleFailureException(
-                        "Don't use -Impl dependencies outside of application projects.",
-                        current);
+                ProjectType artifactProjectType = ProjectType.getProjectType(current);
+                final String prefix = "Don't use " + artifactProjectType + " dependencies ";
+
+                if (artifactProjectType == ProjectType.IMPLEMENTATION) {
+                    throw new RuleFailureException(prefix + "outside of application projects.", current);
+                }
+
+                if (artifactProjectType == ProjectType.TEST) {
+                    throw new RuleFailureException(prefix + "in compile scope for non-test artifacts.", current);
+                }
+
+                if (artifactProjectType == ProjectType.APPLICATION
+                        || artifactProjectType == ProjectType.PROOF_OF_CONCEPT) {
+                    throw new RuleFailureException(prefix + "in bundles.", current);
+                }
             }
         }
     }
@@ -144,35 +171,39 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
     }
 
     /**
-     * Assigns included GroupIdPrefixes, which includes any projects whose GroupID
-     * starts with the provided includedGroupIdPrefices into enforcement by this rule.
+     * Assigns a set of patterns defining included GroupIds. Any projects whose GroupID
+     * match any of the provided includedGroupIdPatterns will be validated by this rule.
+     * <p/>
+     * A typical configuration of this property within a pom is similar to below:
+     * <p/>
+     * <code>
+     * &lt;includedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*&lt;/includedGroupIdPatterns>
+     * </code>
      *
-     * @param includedGroupIdPrefices Comma-separated list of groupID prefixes that
-     *                                should be included in enforcement.
+     * @param includedGroupIdPatterns Comma-separated list of regexp patterns that groupID
+     *                                should match to be included in enforcement.
      */
-    public void setIncludedGroupIdPrefixes(final String includedGroupIdPrefices) {
-        this.evaluateGroupIds = splice(includedGroupIdPrefices);
+    public void setIncludedGroupIdPatterns(final String includedGroupIdPatterns) {
+        this.evaluateGroupIds = splice2Pattern(includedGroupIdPatterns);
     }
 
     /**
-     * Assigns excluded GroupIdPrefixes, which removes any projects whose GroupID
-     * starts with the provided excludedGroupIdPrefixes from enforcement by this rule.
+     * Assigns a (comma separated) list of regexp patterns defining excluded GroupIds.
+     * Any projects whose GroupID match any of the provided excludedGroupIdPatterns
+     * will not be validated by this rule.
      *
-     * @param excludedGroupIdPrefixes Comma-separated list of groupID prefixes that
+     * <p/>
+     * A typical configuration of this property within a pom is similar to below:
+     * <p/>
+     * <code>
+     * &lt;excludedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*\\.generated\\..*,
+     * ^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*&lt;/excludedGroupIdPatterns>
+     * </code>
+     *
+     * @param excludedGroupIdPatterns Comma-separated list of groupID prefixes that
      *                                should be excluded from enforcement.
      */
-    public void setExcludedGroupIdPrefixes(final String excludedGroupIdPrefixes) {
-        this.dontEvaluateGroupIds = splice(excludedGroupIdPrefixes);
-    }
-
-    /**
-     * Assigns a list of GroupIdPrefixes, to indicate that any artifacts slated for evaluation
-     * should be ignored if their groupId starts with one of the provided {@code ignoreArtifactsWithGroupIdPrefixes}.
-     *
-     * @param ignoredArtifactGroupIdPrefixes Comma-separated list of groupID prefixes for artifacts that
-     *                                       should be excluded from enforcement.
-     */
-    public void setIgnoreEvaluatingArtifactsWithGroupIdPrefixes(final String ignoredArtifactGroupIdPrefixes) {
-        this.ignoreArtifactsWithGroupIdPrefixes.addAll(splice(ignoredArtifactGroupIdPrefixes));
+    public void setExcludedGroupIdPatterns(final String excludedGroupIdPatterns) {
+        this.dontEvaluateGroupIds = splice2Pattern(excludedGroupIdPatterns);
     }
 }

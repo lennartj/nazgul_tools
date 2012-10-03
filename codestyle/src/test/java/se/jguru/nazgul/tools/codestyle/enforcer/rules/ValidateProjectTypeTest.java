@@ -12,6 +12,7 @@ import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.FileReader;
@@ -24,6 +25,17 @@ import java.net.URL;
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 public class ValidateProjectTypeTest {
+
+    @Test
+    public void validateCacheability() {
+
+        // Assemble
+        final ValidateProjectType unitUnderTest = new ValidateProjectType();
+
+        // Act & Assert
+        Assert.assertNull(unitUnderTest.getCacheId());
+        Assert.assertFalse(unitUnderTest.isResultValid(null));
+    }
 
     @Test
     public void validateCorrectPom() throws Exception {

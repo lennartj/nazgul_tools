@@ -6,6 +6,7 @@
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
 import org.apache.commons.lang.Validate;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
@@ -88,8 +89,7 @@ public enum ProjectType {
     TEST(".*-test$", ".*\\.test\\.\\w*$", null),
 
     /**
-     * Test artifact helper project, implementing libraries facilitating testing within
-     * other projects.
+     * Proof-of-concept helper project, holding proof of concept implementations.
      * <p/>
      * No dependency rules.
      */
@@ -109,13 +109,14 @@ public enum ProjectType {
                         final String groupIdPattern,
                         final String packagingPattern) {
 
-        if(artifactIdPattern != null) {
+        if (artifactIdPattern != null) {
             this.artifactIdPattern = Pattern.compile(artifactIdPattern);
         }
 
         if (packagingPattern != null) {
             this.packagingPattern = Pattern.compile(packagingPattern);
         }
+
         if (groupIdPattern != null) {
             this.groupIdPattern = Pattern.compile(groupIdPattern);
         }
@@ -160,6 +161,30 @@ public enum ProjectType {
     }
 
     /**
+     * Acquires the ProjectType instance for the provided internal Artifact,
+     * or throws an IllegalArgumentException holding an exception message
+     * if a ProjectType could not be found for the provided Artifact.
+     *
+     * @param internalArtifact The internally developed artifact
+     * @return The corresponding ProjectType.
+     */
+    public static ProjectType getProjectType(final Artifact internalArtifact) {
+
+        Validate.notNull(internalArtifact, "Cannot handle null internalArtifact argument.");
+
+        final List<ProjectType> matches = findCandidates(internalArtifact.getGroupId(),
+                internalArtifact.getArtifactId(),
+                internalArtifact.getType(),
+                "Incorrect internalArtifact type definition for ["
+                        + internalArtifact.getGroupId()
+                        + " :: " + internalArtifact.getArtifactId()
+                        + " :: " + internalArtifact.getVersion() + "]: ");
+
+        // All done.
+        return matches.get(0);
+    }
+
+    /**
      * Acquires the ProjectType instance for the provided MavenProject,
      * or throws an IllegalArgumentException holding an exception message
      * if a ProjectType could not be found for the provided MavenProject.
@@ -173,26 +198,13 @@ public enum ProjectType {
 
         Validate.notNull(project, "Cannot handle null project argument.");
 
-        final String prefix = "Incorrect project type definition for [" + project.getGroupId()
-                + " :: " + project.getArtifactId() + " :: " + project.getVersion() + "]: ";
-
-        final List<ProjectType> matches = new ArrayList<ProjectType>();
-
-        for (ProjectType current : ProjectType.values()) {
-            if (current.isCompliantArtifactID(project.getArtifactId())
-                    && current.isCompliantGroupID(project.getGroupId())
-                    && current.isCompliantPackaging(project.getPackaging())) {
-                matches.add(current);
-            }
-        }
-
-        // Check sanity
-        if (matches.size() == 0) {
-            throw new IllegalArgumentException(prefix + " Not matching any defined project types.");
-        }
-        if (matches.size() > 1) {
-            throw new IllegalArgumentException(prefix + " Matching several project types (" + matches + ").");
-        }
+        final List<ProjectType> matches = findCandidates(project.getGroupId(),
+                project.getArtifactId(),
+                project.getPackaging(),
+                "Incorrect project type definition for ["
+                        + project.getGroupId()
+                        + " :: " + project.getArtifactId()
+                        + " :: " + project.getVersion() + "]: ");
 
         // Validate the internal requirements for the two different pom projects.
         final ProjectType toReturn = matches.get(0);
@@ -231,5 +243,34 @@ public enum ProjectType {
 
         // All done.
         return toReturn;
+    }
+
+    //
+    // Private helpers
+    //
+
+    private static List<ProjectType> findCandidates(final String groupId,
+                                                    final String artifactId,
+                                                    final String packaging,
+                                                    final String prefix) {
+
+        final List<ProjectType> matches = new ArrayList<ProjectType>();
+
+        for (ProjectType current : ProjectType.values()) {
+            if (current.isCompliantArtifactID(artifactId)
+                    && current.isCompliantGroupID(groupId)
+                    && current.isCompliantPackaging(packaging)) {
+                matches.add(current);
+            }
+        }
+
+        // Check sanity
+        if (matches.size() == 0) {
+            throw new IllegalArgumentException(prefix + " Not matching any defined project types.");
+        }
+        if (matches.size() > 1) {
+            throw new IllegalArgumentException(prefix + " Matching several project types (" + matches + ").");
+        }
+        return matches;
     }
 }

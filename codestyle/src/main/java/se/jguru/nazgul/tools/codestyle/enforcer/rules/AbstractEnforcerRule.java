@@ -15,6 +15,8 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Abstract Enforcer rule specification, handling some pretty printing of exceptions.
@@ -131,6 +133,42 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
         }
 
         return toReturn;
+    }
+
+    /**
+     * Helper method which splices the provided String into a List of Pattern instances.
+     *
+     * @param toSplice The string to splice
+     * @return A List holding the elements of the spliced string, converted to Patterns
+     * @throws PatternSyntaxException if the {@code Pattern.compile} method could not compile the provided string.
+     */
+    protected static List<Pattern> splice2Pattern(final String toSplice) throws PatternSyntaxException {
+        List<Pattern> toReturn = new ArrayList<Pattern>();
+
+        for (String current : splice(toSplice)) {
+            toReturn.add(Pattern.compile(current));
+        }
+
+        return toReturn;
+    }
+
+    /**
+     * Matches the provided {@code toMatch} string with all Patterns in the patternList.
+     * If one pattern matches, this method returns {@code true}.
+     *
+     * @param toMatch     The string to match to every Pattern in the supplied patternList.
+     * @param patternList The List of Patterns to use in matching.
+     * @return {@code true} if one pattern in the patternList matches, this method returns {@code true}.
+     */
+    protected static boolean matches(final String toMatch, final List<Pattern> patternList) {
+
+        for (Pattern current : patternList) {
+            if (current.matcher(toMatch).matches()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
