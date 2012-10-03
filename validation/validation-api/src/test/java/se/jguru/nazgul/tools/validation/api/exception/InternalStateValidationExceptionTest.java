@@ -2,8 +2,6 @@ package se.jguru.nazgul.tools.validation.api.exception;
 
 import org.junit.Assert;
 import org.junit.Test;
-import se.jguru.nazgul.tools.validation.api.exception.AbstractErrorMessageContainer;
-import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB

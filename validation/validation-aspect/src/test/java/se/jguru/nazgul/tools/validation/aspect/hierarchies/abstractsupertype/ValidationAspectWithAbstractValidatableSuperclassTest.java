@@ -5,8 +5,8 @@
 
 package se.jguru.nazgul.tools.validation.aspect.hierarchies.abstractsupertype;
 
-import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 import org.junit.Test;
+import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB

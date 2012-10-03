@@ -5,7 +5,6 @@
 
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import se.jguru.nazgul.tools.codestyle.enforcer.rules.AbstractEnforcerRule;
 import org.junit.Assert;
 import org.junit.Test;
 

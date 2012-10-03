@@ -4,8 +4,6 @@
  */
 package se.jguru.nazgul.tools.validation.aspect;
 
-import se.jguru.nazgul.tools.validation.api.Validatable;
-import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +11,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.jguru.nazgul.tools.validation.api.Validatable;
+import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
 /**
  * The aspect enforcing validity on a class implementing Validatable (i.e. Entities).

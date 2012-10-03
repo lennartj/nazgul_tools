@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -116,7 +115,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
-     public void validateExceptionOnCompileScopeImplementationDependencyInSpi() throws Exception {
+    public void validateExceptionOnCompileScopeImplementationDependencyInSpi() throws Exception {
 
         // Assemble
         fooSpiProject.getDependencyArtifacts().add(fooImplementation);

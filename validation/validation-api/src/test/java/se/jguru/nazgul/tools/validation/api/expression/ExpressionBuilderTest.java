@@ -4,11 +4,10 @@
  */
 package se.jguru.nazgul.tools.validation.api.expression;
 
-import se.jguru.nazgul.tools.validation.api.exception.AbstractErrorMessageContainer;
-import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 import org.junit.Assert;
 import org.junit.Test;
-import se.jguru.nazgul.tools.validation.api.expression.ExpressionBuilder;
+import se.jguru.nazgul.tools.validation.api.exception.AbstractErrorMessageContainer;
+import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
 import java.util.ArrayList;
 import java.util.Collections;
