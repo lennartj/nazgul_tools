@@ -31,7 +31,7 @@
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
         <jaxbImplVersion>2.2.7-b41</jaxbImplVersion>
         <jaxbApiVersion>2.2.7</jaxbApiVersion>
-        <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
+        <aspectj.runtime.version>1.7.1</aspectj.runtime.version>
         <osgiVersion>4.2.0</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
 
@@ -569,8 +569,7 @@
                             <java.lang.String>net.sf.eclipsecs.core.CheckstyleBuilder</java.lang.String>
                             <java.lang.String>net.sourceforge.pmd.eclipse.plugin.pmdBuilder</java.lang.String>
                             <java.lang.String>org.maven.ide.eclipse.maven2Builder</java.lang.String>
-                            <java.lang.String>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder
-                            </java.lang.String>
+                            <java.lang.String>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder</java.lang.String>
                         </additionalBuildcommands>
                         <additionalProjectnatures>
                             <nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
