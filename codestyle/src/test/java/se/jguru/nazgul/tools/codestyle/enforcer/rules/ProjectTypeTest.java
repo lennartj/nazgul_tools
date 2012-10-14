@@ -67,6 +67,11 @@ public class ProjectTypeTest {
         final MavenProject war = getStub("war", "se.jguru.foo.applications.bar", "bar-war");
         final MavenProject ear = getStub("ear", "se.jguru.foo.applications.bar", "bar-ear");
         final MavenProject ejb = getStub("ejb", "se.jguru.foo.applications.bar", "bar-ejb");
+        final MavenProject javaAgent = getStub("bundle", "se.jguru.foo.bar.agent", "bar-agent");
+        final MavenProject standaloneApplication1
+                = getStub("bundle", "se.jguru.foo.bar.application", "bar-application");
+        final MavenProject standaloneApplication2
+                = getStub("jar", "se.jguru.foo.bar.application", "bar-application");
 
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
@@ -77,9 +82,12 @@ public class ProjectTypeTest {
         Assert.assertEquals(ProjectType.IMPLEMENTATION, ProjectType.getProjectType(impl));
         Assert.assertEquals(ProjectType.TEST, ProjectType.getProjectType(test));
         Assert.assertEquals(ProjectType.PROOF_OF_CONCEPT, ProjectType.getProjectType(poc));
-        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(war));
-        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(ear));
-        Assert.assertEquals(ProjectType.APPLICATION, ProjectType.getProjectType(ejb));
+        Assert.assertEquals(ProjectType.JEE_APPLICATION, ProjectType.getProjectType(war));
+        Assert.assertEquals(ProjectType.JEE_APPLICATION, ProjectType.getProjectType(ear));
+        Assert.assertEquals(ProjectType.JEE_APPLICATION, ProjectType.getProjectType(ejb));
+        Assert.assertEquals(ProjectType.JAVA_AGENT, ProjectType.getProjectType(javaAgent));
+        Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication1));
+        Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication2));
     }
 
     @Test

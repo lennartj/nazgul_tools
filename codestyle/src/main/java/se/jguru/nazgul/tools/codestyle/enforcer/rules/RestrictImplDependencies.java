@@ -41,11 +41,13 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      * ProjectTypes for which this rule should be ignored.
      */
     public static final List<ProjectType> IGNORED_PROJECT_TYPES = Arrays.asList(
-            ProjectType.APPLICATION,
+            ProjectType.JEE_APPLICATION,
             ProjectType.PARENT,
             ProjectType.REACTOR,
             ProjectType.PROOF_OF_CONCEPT,
-            ProjectType.TEST);
+            ProjectType.TEST,
+            ProjectType.JAVA_AGENT,
+            ProjectType.STANDALONE_APPLICATION);
 
     // Internal state
     private List<Pattern> evaluateGroupIds = new ArrayList<Pattern>();
@@ -128,7 +130,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
                     throw new RuleFailureException(prefix + "in compile scope for non-test artifacts.", current);
                 }
 
-                if (artifactProjectType == ProjectType.APPLICATION
+                if (artifactProjectType == ProjectType.JEE_APPLICATION
                         || artifactProjectType == ProjectType.PROOF_OF_CONCEPT) {
                     throw new RuleFailureException(prefix + "in bundles.", current);
                 }

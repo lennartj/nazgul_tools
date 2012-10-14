@@ -53,7 +53,24 @@ public enum ProjectType {
      * Application project defining JEE-deployable artifacts.
      * Injections of implementation projects are permitted here.
      */
-    APPLICATION(null, null, "war|ear|ejb"),
+    JEE_APPLICATION(null, null, "war|ear|ejb"),
+
+    /**
+     * Standalone application project defining runnable Java applications.
+     * Injections of implementation projects are permitted here.
+     */
+    STANDALONE_APPLICATION(".*-application$", ".*\\.application$", "bundle|jar"),
+
+    /**
+     * {@code javaagent} definition project, holding implementation of a
+     * JVM agent to be launched in-process on the form
+     * <p/>
+     * <code>-javaagent:[yourpath/][agentjar].jar=[option1]=[value1],[option2]=[value2]</code>
+     * <p/>
+     * This project type can import/inject implementation dependencies, as
+     * it is considered an application entrypoint.
+     */
+    JAVA_AGENT(".*-agent$", ".*\\.agent$", "bundle"),
 
     /**
      * API project, defining service interaction, abstract implementations and exceptions.
