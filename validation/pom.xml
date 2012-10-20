@@ -39,6 +39,6 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
-      <tag>HEAD</tag>
+      <tag>nazgul-tools-1.1.0</tag>
   </scm>
 </project>
