@@ -804,7 +804,8 @@
                                         implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPrefixes>se.jguru.nazgul</includedGroupIdPrefixes>
                                     <excludedGroupIdPrefixes>se.jguru.nazgul.tools</excludedGroupIdPrefixes>
-                                    <ignoreEvaluatingArtifactsWithGroupIdPrefixes>com.sun.xml.bind</ignoreEvaluatingArtifactsWithGroupIdPrefixes>
+                                    <ignoreEvaluatingArtifactsWithGroupIdPrefixes>com.sun.xml.bind
+                                    </ignoreEvaluatingArtifactsWithGroupIdPrefixes>
                                 </restrictImplDependencies>
                             </rules>
                         </configuration>

@@ -193,7 +193,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      * Assigns a (comma separated) list of regexp patterns defining excluded GroupIds.
      * Any projects whose GroupID match any of the provided excludedGroupIdPatterns
      * will not be validated by this rule.
-     *
+     * <p/>
      * <p/>
      * A typical configuration of this property within a pom is similar to below:
      * <p/>

@@ -108,7 +108,7 @@
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjtools</artifactId>
                         <version>${aspectj.runtime.version}</version>
-                      </dependency>
+                    </dependency>
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.validation</groupId>
                         <artifactId>nazgul-tools-validation-aspect</artifactId>
