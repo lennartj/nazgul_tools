@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -10,7 +9,7 @@
     -->
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <packaging>pom</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
     <url>https://bitbucket.org/lennartj/nazgul_tools</url>
@@ -20,7 +19,7 @@
         <!-- Build-controlling properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <build.number/>
+        <build.number />
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
         <jdk.version>1.6</jdk.version>
@@ -44,7 +43,7 @@
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
-        <nazgul-codestyle.version>1.1.1-SNAPSHOT</nazgul-codestyle.version>
+        <nazgul-codestyle.version>1.1.1</nazgul-codestyle.version>
     </properties>
 
     <!--
@@ -793,14 +792,13 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <requireUpperBoundDeps/>
+                                <requireUpperBoundDeps />
 
                                 <!--
                                     Enforce the ProjectType structure, implying that all projects
                                     must comply with the project template definitions.
                                 -->
-                                <validateProjectTypes
-                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType"/>
+                                <validateProjectTypes implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType" />
 
                                 <!--
                                     Enforce the implementation rules for dependencies, to enforce that
@@ -811,8 +809,7 @@
                                     reproduced her to serve as an example of how to configure this enforcement rule
                                     in child reactors - where needs are likely different than here.
                                 -->
-                                <restrictImplDependencies
-                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
+                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*</includedGroupIdPatterns>
                                     <excludedGroupIdPatterns>
                                         ^se\\.jguru\\.nazgul\\..*\\.generated\\..*,^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*
@@ -858,7 +855,7 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-1.1.1</tag>
     </scm>
 
     <!--
