@@ -45,6 +45,18 @@ public class ValidateProjectTypeTest {
     }
 
     @Test
+    public void validateTestProjectTypePom() throws Exception {
+
+        // Assemble
+        final MavenProject project = readPom("testdata/poms/osgi-test-pom.xml");
+        final EnforcerRuleHelper mockHelper = new MockEnforcerRuleHelper(project);
+        final ValidateProjectType unitUnderTest = new ValidateProjectType();
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper);
+    }
+
+    @Test
     public void validateAspectPom() throws Exception {
 
         // Assemble

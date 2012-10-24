@@ -185,10 +185,16 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.TEST.isCompliantArtifactID("test-foo-impl"));
         Assert.assertFalse(ProjectType.TEST.isCompliantArtifactID("test-impl-foo"));
         Assert.assertTrue(ProjectType.TEST.isCompliantArtifactID("foo-test"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantArtifactID("nazgul-core-osgi-test"));
 
         Assert.assertFalse(ProjectType.TEST.isCompliantGroupID("test.foo"));
         Assert.assertFalse(ProjectType.TEST.isCompliantGroupID("impl.test"));
         Assert.assertTrue(ProjectType.TEST.isCompliantGroupID("some.test.foo"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantGroupID("se.jguru.nazgul.test.osgi"));
+
+        Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("bundle"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("war"));
     }
 
     @Test
