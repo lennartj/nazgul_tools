@@ -1,0 +1,21 @@
+Nazgul Tools
+
+    Build cycle definitions, parent poms and commonly used (i.e. globally available) aspects are defined
+    within the Nazgul Tools reactor. There are 3 kinds of projects here:
+
+    * Parent and reactor poms. Defined within the poms directory, and provides implementation of the
+      build lifecycle.
+
+    *
+
+    The maven build rules defined within this project are used throughout all projects within this
+    reactor, and also applied to all projects using parents from this project. The enforcement rules
+    ensure that all non-deployment projects (i.e. WAR, EAR) do not depend on implementation projects in
+    compile scope. The rationale here is to reduce spaghetti dependencies by permitting only dependencies
+    on API projects.
+
+Project types
+
+    asdasd
+
+    asdasd

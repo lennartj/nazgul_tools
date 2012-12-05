@@ -1,8 +1,15 @@
 <project>
+
+    <bannerLeft>
+        <name>${project.artifactId}</name>
+    </bannerLeft>
+
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>
-        ${reports}
+
+        <menu ref="parent" />
+        <menu ref="reports" inherit="bottom"/>
     </body>
 </project>

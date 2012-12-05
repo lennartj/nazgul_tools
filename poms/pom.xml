@@ -13,14 +13,14 @@
     ################################################
     -->
     <parent>
-        <groupId>se.jguru.nazgul.tools.poms</groupId>
-        <artifactId>nazgul-reactor</artifactId>
+        <groupId>se.jguru.nazgul.tools</groupId>
+        <artifactId>nazgul-tools-reactor</artifactId>
         <version>1.0.1-SNAPSHOT</version>
-        <relativePath>reactor</relativePath>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-poms-reactor</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
 
@@ -30,8 +30,8 @@
     ################################################
     -->
     <modules>
+        <!-- module>reactor</module -->
         <module>tools-parent</module>
-        <module>reactor</module>
         <module>parent</module>
     </modules>
 

@@ -1,0 +1,7 @@
+${project.artifactId}
+
+    The reactor pom provides parent settings for all poms which construct the maven
+    build reactor and - according to the codestyle project - contains
+    no dependency definitions. Moreover, reactor poms are not included
+    in normal maven releases.
+
