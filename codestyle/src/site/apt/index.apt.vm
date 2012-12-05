@@ -17,24 +17,23 @@ on API projects.
 * Project types
 
 We try to establish a normal component project setup, typically holding 3 projects for each component.
-All of these component projects share a common <<
-<groupId>>> and VCS parent path, implying they are located
-    within the same directory in the VCS.
+All of these component projects share a common <<<groupId>>> and VCS parent path, implying they are located
+within the same directory in the VCS.
 
-    An example provides a good example to illustrate the component and project structure. Let us assume that we
-    define a component within a project with the following properties:
+An example provides a good example to illustrate the component and project structure. Let us assume that we
+define a component within a project with the following properties:
 
-    +------------------------------------------+
-    Project properties
-    Full DNS prefix: se.jguru.nazgul
-    Short prefix: nazgul-
++------------------------------------------+
+Project properties
+Full DNS prefix: se.jguru.nazgul
+Short prefix: nazgul-
 
-    Component properties:
-    ID: foo
-    VCS path: nazgul/[ID] (i.e. nazgul/foo)
-    +------------------------------------------+
+Component properties:
+ID: foo
+VCS path: nazgul/[ID] (i.e. nazgul/foo)
++------------------------------------------+
 
-    The 3 typical component project (model, api, impl) share a common groupId:
+The 3 typical component project (model, api, impl) share a common groupId:
 
     * <<
     <groupId>>>: [Full DNS prefix].[VCS path] (i.e. <<

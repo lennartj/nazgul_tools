@@ -106,6 +106,15 @@ public enum ProjectType {
     TEST(".*-test$", ".*\\.test\\.\\w*$", null),
 
     /**
+     * Codestyle helper project, providing implementations for use within the build definition cycle.
+     * Typically used within local reactors to supply changes or augmentations to build configurations
+     * such as {@code checkstyle.xml}, or custom enforcer rule implementations.
+     * <p/>
+     * No dependency rules.
+     */
+    CODESTYLE(".*-codestyle$", ".*\\.codestyle$", "jar|bundle"),
+
+    /**
      * Proof-of-concept helper project, holding proof of concept implementations.
      * <p/>
      * No dependency rules.

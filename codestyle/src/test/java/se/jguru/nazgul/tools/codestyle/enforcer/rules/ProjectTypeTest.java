@@ -67,6 +67,7 @@ public class ProjectTypeTest {
         final MavenProject war = getStub("war", "se.jguru.foo.applications.bar", "bar-war");
         final MavenProject ear = getStub("ear", "se.jguru.foo.applications.bar", "bar-ear");
         final MavenProject ejb = getStub("ejb", "se.jguru.foo.applications.bar", "bar-ejb");
+        final MavenProject codestyle = getStub("jar", "se.jguru.foo.codestyle", "bar-codestyle");
         final MavenProject javaAgent = getStub("bundle", "se.jguru.foo.bar.agent", "bar-agent");
         final MavenProject standaloneApplication1
                 = getStub("bundle", "se.jguru.foo.bar.application", "bar-application");
@@ -88,6 +89,7 @@ public class ProjectTypeTest {
         Assert.assertEquals(ProjectType.JAVA_AGENT, ProjectType.getProjectType(javaAgent));
         Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication1));
         Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication2));
+        Assert.assertEquals(ProjectType.CODESTYLE, ProjectType.getProjectType(codestyle));
     }
 
     @Test
@@ -208,6 +210,17 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("poc.foo"));
         Assert.assertFalse(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("impl.poc"));
         Assert.assertTrue(ProjectType.PROOF_OF_CONCEPT.isCompliantGroupID("some.poc.foo"));
+    }
+
+    @Test
+    public void validateCodestyleProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.CODESTYLE.isCompliantArtifactID("codestyle-foo"));
+        Assert.assertTrue(ProjectType.CODESTYLE.isCompliantArtifactID("foo-codestyle"));
+
+        Assert.assertFalse(ProjectType.CODESTYLE.isCompliantGroupID("codestyle.foo"));
+        Assert.assertTrue(ProjectType.CODESTYLE.isCompliantGroupID("foo.codestyle"));
     }
 
     //
