@@ -12,7 +12,7 @@
     <version>1.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.groupId}.${project.artifactId}</name>
-    <url>https://bitbucket.org/lennartj/nazgul_tools</url>
+    <url>http://www.jguru.se/nazgul/tools/poms/tools-parent/</url>
     <inceptionYear>2010</inceptionYear>
 
     <properties>
@@ -37,14 +37,21 @@
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
-        <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
         <pmd.plugin.version>2.7.1</pmd.plugin.version>
-        <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
-        <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.1.2-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+
+        <!-- Cobertura configuration parameters. -->
+        <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
+        <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
+
+        <!-- Checkstyle configuration parameters. -->
+        <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+        <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
+        <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
+        <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
     </properties>
 
     <!--
@@ -606,7 +613,7 @@
                             </file>
                             <file>
                                 <name>.checkstyle-rules</name>
-                                <location>/codestyle/checkstyle.xml</location>
+                                <location>/${checkstyle.config.location}</location>
                             </file>
                             <file>
                                 <name>.pmd</name>
@@ -698,9 +705,9 @@
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
                     <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
-                    <configLocation>codestyle/checkstyle.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <violationSeverity>error</violationSeverity>
+                    <configLocation>${checkstyle.config.location}</configLocation>
+                    <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                    <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                 </configuration>
                 <executions>
                     <execution>
@@ -901,9 +908,9 @@
                 <configuration>
                     <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
                     </propertyExpansion>
-                    <configLocation>codestyle/checkstyle.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <violationSeverity>error</violationSeverity>
+                    <configLocation>${checkstyle.config.location}</configLocation>
+                    <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                    <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                 </configuration>
             </plugin>
             <plugin>
@@ -1074,9 +1081,9 @@
                         <configuration>
                             <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
                             </propertyExpansion>
-                            <configLocation>codestyle/checkstyle.xml</configLocation>
-                            <failOnViolation>true</failOnViolation>
-                            <violationSeverity>error</violationSeverity>
+                            <configLocation>${checkstyle.config.location}</configLocation>
+                            <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                            <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         </configuration>
                         <executions>
                             <execution>
@@ -1225,9 +1232,9 @@
                         <configuration>
                             <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
                             </propertyExpansion>
-                            <configLocation>codestyle/checkstyle.xml</configLocation>
-                            <failOnViolation>true</failOnViolation>
-                            <violationSeverity>error</violationSeverity>
+                            <configLocation>${checkstyle.config.location}</configLocation>
+                            <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                            <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         </configuration>
                         <executions>
                             <execution>
