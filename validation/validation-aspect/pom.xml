@@ -160,6 +160,14 @@
         </plugins>
     </build>
 
+    <distributionManagement>
+        <site>
+            <id>jGuru_NazgulToolsSite</id>
+            <name>jGuru_NazgulToolsSite</name>
+            <url>http://www.jguru.se/nazgul/tools/validation/validation-aspect</url>
+        </site>
+    </distributionManagement>
+
     <!--
        Define connections for Maven's Mercurial integration.
     -->

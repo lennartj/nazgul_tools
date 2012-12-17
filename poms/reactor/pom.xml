@@ -147,7 +147,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>http://www.jguru.se/nazgul/tools</url>
+            <url>http://www.jguru.se/nazgul/tools/poms/reactor/</url>
         </site>
     </distributionManagement>
 </project>

@@ -12,10 +12,4 @@
         <name>${project.artifactId}</name>
     </bannerLeft>
 
-    <body>
-        <menu name="modules" inherit="top">
-            <item name="validation-api" href="validation-api/index.html" />
-            <item name="validation-aspect" href="validation-aspect/index.html" />
-        </menu>
-    </body>
 </project>
