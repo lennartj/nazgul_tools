@@ -39,7 +39,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>http://www.jguru.se/nazgul/tools/poms</url>
+            <url>http://www.jguru.se/nazgul/tools/poms/</url>
         </site>
     </distributionManagement>
 

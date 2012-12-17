@@ -124,7 +124,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>http://www.jguru.se/nazgul/tools/validation/validation-api</url>
+            <url>http://www.jguru.se/nazgul/tools/validation/validation-api/</url>
         </site>
     </distributionManagement>
 

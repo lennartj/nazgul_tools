@@ -205,7 +205,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>http://www.jguru.se/nazgul/tools/codestyle</url>
+            <url>http://www.jguru.se/nazgul/tools/codestyle/</url>
         </site>
     </distributionManagement>
 </project>
