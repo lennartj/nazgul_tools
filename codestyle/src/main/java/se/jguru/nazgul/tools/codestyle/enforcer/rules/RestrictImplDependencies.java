@@ -45,6 +45,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
             ProjectType.PARENT,
             ProjectType.REACTOR,
             ProjectType.PROOF_OF_CONCEPT,
+            ProjectType.EXAMPLE,
             ProjectType.TEST,
             ProjectType.JAVA_AGENT,
             ProjectType.STANDALONE_APPLICATION);

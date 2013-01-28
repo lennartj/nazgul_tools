@@ -223,6 +223,17 @@ public class ProjectTypeTest {
         Assert.assertTrue(ProjectType.CODESTYLE.isCompliantGroupID("foo.codestyle"));
     }
 
+    @Test
+    public void validateExampleProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.EXAMPLE.isCompliantArtifactID("codestyle-foo-example"));
+        Assert.assertFalse(ProjectType.EXAMPLE.isCompliantArtifactID("example-codestyle"));
+
+        Assert.assertTrue(ProjectType.EXAMPLE.isCompliantGroupID("codestyle.foo.example"));
+        Assert.assertFalse(ProjectType.EXAMPLE.isCompliantGroupID("foo.example.codestyle"));
+    }
+
     //
     // Private helpers
     //

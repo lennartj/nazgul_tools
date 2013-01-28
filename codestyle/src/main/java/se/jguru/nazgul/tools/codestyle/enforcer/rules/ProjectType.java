@@ -62,6 +62,15 @@ public enum ProjectType {
     STANDALONE_APPLICATION(".*-application$", ".*\\.application$", "bundle|jar"),
 
     /**
+     * Example project providing runnable example code for showing the
+     * typical scenarios of the component. Should contain relevant documentation
+     * as well as cut-and-paste code.
+     * <p/>
+     * No dependency rules.
+     */
+    EXAMPLE(".*-example$", ".*\\.example$", null),
+
+    /**
      * {@code javaagent} definition project, holding implementation of a
      * JVM agent to be launched in-process on the form
      * <p/>
