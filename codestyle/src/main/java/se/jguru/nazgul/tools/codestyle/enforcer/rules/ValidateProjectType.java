@@ -49,7 +49,8 @@ public class ValidateProjectType extends AbstractEnforcerRule {
      * Checks if cached result is valid.
      *
      * @param cachedRule the last cached instance of the rule. This is to be used by the rule to
-     *                   potentially determine if the results are still valid (ie if the configuration has been overridden)
+     *                   potentially determine if the results are still valid (i.e. if the configuration
+     *                   has been overridden)
      * @return <code>true</code> if the stored results are valid for the same id.
      */
     @Override

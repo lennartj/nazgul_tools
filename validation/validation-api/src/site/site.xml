@@ -12,15 +12,9 @@
         <name>${project.artifactId}</name>
     </bannerLeft>
 
-    <publishDate format="yyyy-MM-dd" position="right"/>
-
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>
-        <links>
-            <item name="Maven" href="http://maven.apache.org/"/>
-        </links>
-
     </body>
 </project>

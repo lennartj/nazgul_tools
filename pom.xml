@@ -15,13 +15,14 @@
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
     <version>1.2.1-SNAPSHOT</version>
-    <name>${project.groupId}.${project.artifactId}</name>
+    <name>${project.artifactId}</name>
+    <url>http://www.jguru.se/nazgul/tools/</url>
     <packaging>pom</packaging>
 
     <inceptionYear>2010</inceptionYear>
     <organization>
         <name>jGuru Europe AB</name>
-        <url>https://bitbucket.org/lennartj/nazgul_tools</url>
+        <url>http://www.jguru.se/nazgul</url>
     </organization>
 
     <properties>
@@ -82,7 +83,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.0</version>
+                <version>3.3.1.jguru</version>
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>

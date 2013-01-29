@@ -90,7 +90,7 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
      *              unknown.)
      * @since 1.5
      */
-    protected AbstractErrorMessageContainer(Throwable cause) {
+    protected AbstractErrorMessageContainer(final Throwable cause) {
         super(cause);
     }
 }

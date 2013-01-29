@@ -1,173 +1,200 @@
-------
-Introduction
-------
+  ------
+  The Software Component Model
+  ------
 
-${project.artifactId}
+The Software Component Model
 
-The Codestyle project contains build definitions of code, reports and maven enforcement rules.
-Setup documents for particular IDEs are placed within the resources/[IDE-type] directory.
-Use these to smoothly setup your integrated development environment.
+  Nazgul-style projects define a component model for development, where each component may consist of several
+  Maven projects working in concert. All permitted project types are defined within the <<<ProjectType>>> enumeration,
+  defined within this Codestyle project. The following additional explanation defines the semantics of Software
+  Components.
 
-The maven build rules defined within this project are used throughout all projects within this
-reactor, and also applied to all projects using parents from this project. The enforcement rules
-ensure that all non-deployment projects (i.e. WAR, EAR) do not depend on implementation projects in
-compile scope. The rationale here is to reduce spaghetti dependencies by permitting only dependencies
-on API projects.
+* Software Component concept
 
-* Project types
+  Software components are defined as a set of standards, defined to simplify development in terms of project
+  metric data (reducing cost and resource consumption) as well as usability engineering
+  (increasing learning and development pace).
+  The standards define naming, collaboration and structure/placement for projects.
+  An example of a software component, called "Configuration", is given below:
 
-We try to establish a normal component project setup, typically holding 3 projects for each component.
-All of these component projects share a common <<<groupId>>> and VCS parent path, implying they are located
-within the same directory in the VCS.
+** Example: Structure of the "Configuration" Software Component
 
-An example provides a good example to illustrate the component and project structure. Let us assume that we
-define a component within a project with the following properties:
+  The version control system file structure below illustrates a software component which uses
+  some project types (but not all; please refer to the <<<ProjectType>>> enumeration for all available
+  project types) to realize its function:
+
+[images/componentStructure.png] Component Structure
+
+  <Software component structure - maven projects>
+
+  The various projects in the configuration component are described in the table below.
+
+*----------------+------------------------------+------------------------------------------------------+
+|| Role          || Project                     || Description                                         ||
+*----------------+------------------------------+------------------------------------------------------+
+| Domain Model   | configuration-model          | Holds Entities, which are anemic POJOs, annotated    |
+|                |                              | (with JAXB and JPA annotations) to enable standard   |
+|                |                              | frameworks to convert the entity to different forms. |
+*----------------+------------------------------+------------------------------------------------------+
+| API            | configuration-api            | Contains Interfaces, Exceptions and abstract or      |
+|                |                              | generic implementations. Strive for including as few |
+|                |                              | dependencies as possible within the API project, as  |
+|                |                              | this is normally the project imported by projects    |
+|                |                              | that use the software component.                     |
+*----------------+------------------------------+------------------------------------------------------+
+| SPI            | configuration-spi-messaging  | Contains concrete implementations of the API (or SPI)|
+|                |                              | project, including all external dependencies needed  |
+|                |                              | to realize the functionality of the component.       |
+|                |                              | Implementations are normally injected into           |
+|                |                              | applications by DI frameworks such as OSGi Blueprint |
+|                |                              | or Google Guice.                                     |
+*----------------+------------------------------+------------------------------------------------------+
+| Implementation | configuration-impl-messaging | Contains concrete implementations of the API (or SPI)|
+|                |                              | project, including all external dependencies needed  |
+|                |                              | to realize the functionality of the component.       |
+|                |                              | Implementations are normally injected into           |
+|                |                              | applications by DI frameworks such as OSGi Blueprint |
+|                |                              | or Google Guice.                                     |
+*----------------+------------------------------+------------------------------------------------------+
+
+    The permitted dependencies between different projects within the software component are illustrated
+    in the image below.
+
+[images/componentDependencies.png] Component Dependencies
+
+   <Component project dependencies - POM structure>
+
+
+================
+
+
+Naming standard description
+
+  The name standard for jGuru's Nazgul development projects is defined and enforced within this Codestyle project.
+  Given some structural data for each project, most project naming, packaging, VCS placement,
+  POM properties etc. are synthesized.
+
+  The structural data properties are defined and exemplified below.
+
+*----------------+--------------------------+------------------------------------------------------+
+|| Property      || Example                 || Description                                         ||
+*----------------+--------------------------+------------------------------------------------------+
+| DNS prefix     | se.jguru                 | Reverse DNS prefix of brand or organisation.         |
+*----------------+--------------------------+------------------------------------------------------+
+| Product name   | nazgul                   | Public/external or private/internal product name.    |
+*----------------+--------------------------+------------------------------------------------------+
+| Product subname| core                     | Optional classification of the product.              |
+*----------------+--------------------------+------------------------------------------------------+
+| Categorization | &lt;none&gt;             | Optional categorization of the component.            |
+*----------------+--------------------------+------------------------------------------------------+
+| Component name | configuration            | Name of the software component.                      |
+*----------------+--------------------------+------------------------------------------------------+
+| Project type   | impl                     | Project type within the software component.          |
+*----------------+--------------------------+------------------------------------------------------+
+| Qualification  | messaging                | Project type qualification. Required by some project |
+|                |                          | types (implementation, spi, test, PoC).              |
+*----------------+--------------------------+------------------------------------------------------+
+
+  Given the structural data above, most project properties can be synthesized:
+
+*----------------+---------------------------------+-------------------------------------------------------------+
+|| Property      || Template                       || Example Value                                              ||
+*----------------+---------------------------------+-------------------------------------------------------------+
+| VCS path       | [Product Name]/[Product subname]/[Categorization]/[Component name] | foundation/core/performance/metrics |
+*----------------+--------------------------+--------------------------------------------------------------------+
+| Project type VCS path | [VCS path]/[projectType] | foundation/core/performance/metrics/metrics-api \            |
+|                       |                          | foundation/core/performance/metrics/metrics-impl-sigar etc. |
+*-----------------------+--------------------------+-------------------------------------------------------------+
+| Root package   | [DNS prefix].[Project type VCS path] (dotified)| com.wirelesscar.foundation.core.performance.    |
+|                       |                          | metrics.api or \|
+|                       |                          | com.wirelesscar.foundation.core.performance.metrics.impl.sigar \ |
+|                       |                          | for the sample Project type VCS paths above.                   |
+*-----------------+--------------------------+----------------------------------------------------------------------+
+| POM Group ID    | [DNS prefix].[Project type VCS path] (dotified) |  (Identical to Root Package)                  |
+*-----------------+--------------------------+----------------------------------------------------------------------+
+| POM Artifact ID | [product name]\-[product subname] | foundation-core-metrics-api, or \                           |
+|                 | -[component name]\-[project type] | foundation-core-metrics-impl-sigar for the sample project   |
+|                 |                                   | for the sample Project type VCS paths above.                |
+*----------------+--------------------------+-----------------------------------------------------------------------+
+
+
+  Some properties are unique to each project type.
+
+* The Model project
+
+    Contains anemic, JAXB and JPA-annotated POJOs holding the state of the component.
+    May not depend on any projects within the current component, but any number of external
+    dependencies are permitted.
+
+    * <<<pom path>>>: [VCS path]/[ID]-model/pom.xml (i.e. <<<service/identifier/identifier-model/pom.xml>>>)
+
+    * <<<artifactId>>>: [Short prefix]-[ID]-model (i.e. <<<tomcat-embedder-identifier-model>>>).
+
+    * <<<package root>>>: [groupId].model (i.e <<<org.apache.tomcat.embedder.service.identifier.model>>>)
+
+    * <<<Import restrictions>>>: May not depend on any other component projects in artifact scope
+      (i.e. api or impl projects).
 
 +------------------------------------------+
-Project properties
-Full DNS prefix: se.jguru.nazgul
-Short prefix: nazgul-
+Pom path:
+    service/identifier/identifier-model/pom.xml
 
-Component properties:
-ID: foo
-VCS path: nazgul/[ID] (i.e. nazgul/foo)
+Pom details for project:
+    <groupId>org.apache.tomcat.embedder.service.identifier.model</groupId>
+    <artifactId>tomcat-embedder-identifier-model</artifactId>
 +------------------------------------------+
 
-The 3 typical component project (model, api, impl) share a common groupId:
+* The API project
 
-    * <<
-    <groupId>>>: [Full DNS prefix].[VCS path] (i.e. <<
-        <se.jguru.nazgul.foo>>>)
+    Contains specifications for how to interact with the component, typically interfaces,
+    abstract classes and exceptions. May depend only on the model project within the current component, in
+    addition to any external (api) dependencies.
 
-            Other aspects are unique to each project type.
+    * <<<pom path>>>: [VCS path]/[ID]-api/pom.xml (i.e. <<<service/identifier/identifier-api/pom.xml>>>)
 
-            ** The Model project
+    * <<<artifactId>>>: [Short prefix]-[ID]-api (i.e. <<<tomcat-embedder-identifier-api>>>).
 
-            Contains anemic, JAXB and JPA-annotated POJOs holding the state of the component.
-            May not depend on any projects within the current component, but any number of external
-            dependencies are permitted.
+    * <<<package root>>>: [groupId].api (i.e <<<org.apache.tomcat.embedder.service.identifier.api>>>)
 
-            * <<
-            <pom path>>>: [VCS path]/[ID]-model/pom.xml (i.e. <<
-                <nazgul
-                /foo/foo-model/pom.xml>>>)
+    * <<<Import restrictions>>>: May only depend on the model component project in artifact scope
+      (i.e. [project]-xyz-model).
 
-                * <<
-                <artifactId>>>: [Short prefix]-[ID]-model (i.e. <<
-                    <nazgul-foo-model>>>).
++------------------------------------------+
+Pom path:
+    service/identifier/identifier-api/pom.xml
 
-                        * <<
-                        <package root>>>: [groupId].model (i.e <<
-                            <se.jguru.nazgul.foo.model>>>)
+Pom details for project:
+    <groupId>org.apache.tomcat.embedder.service.identifier.api</groupId>
+    <artifactId>tomcat-embedder-identifier-api</artifactId>
++------------------------------------------+
 
-                                * <<
-                                <Import restrictions>>>: May not depend on any other component projects in artifact
-                                    scope
-                                    (i.e. api or impl projects).
+* Each Impl project
 
-                                    +------------------------------------------+
-                                    Pom path:
-                                    nazgul/foo/foo-model/pom.xml
+    Contains a particular implementation of the specifications found in the API project,
+    plus any required Dependency Injection (DI) instructions, such as Blueprint or Spring DM configuration documents.
+    Each implementation project must be distinct from all other implementation projects in name, package root and
+    artifactId since potentially many implementations must be able to co-exist as Tomcat services simultaneously.
 
-                                    Pom details for project:
-                                    <groupId>se.jguru.nazgul.foo.model</groupId>
-                                    <artifactId>nazgul-foo-model</artifactId>
-                                    +------------------------------------------+
+    Therefore, each implementation project must define a unique <<<qualifier>>> - it is recommended that this
+    qualifier indicates the type of implementation or the underlying implementation technology. In the examples below
+    the qualifier is chosen to be <<<blueprint>>>:
 
-                                    ** The API project
+    * <<<pom path>>>: [VCS path]/[ID]-impl-[qualifier]/pom.xml (i.e.
+    <<<service/identifier/identifier-impl-blueprint/pom.xml>>>)
 
-                                    Contains specifications for how to interact with the component, typically
-                                    interfaces,
-                                    abstract classes and exceptions. May depend only on the model project within the
-                                    current component, in
-                                    addition to any external (api) dependencies.
+    * <<<artifactId>>>: [Short prefix]-[ID]-impl-[qualifier] (i.e. <<<tomcat-embedder-identifier-impl-blueprint>>>).
 
-                                    * <<
-                                    <pom path>>>: [VCS path]/[ID]-api/pom.xml (i.e. <<
-                                        <nazgul
-                                        /foo/foo-api/pom.xml>>>)
+    * <<<package root>>>: [groupId].impl.[qualifier] (i.e
+    <<<org.apache.tomcat.embedder.service.identifier.impl.blueprint>>>)
 
-                                        * <<
-                                        <artifactId>>>: [Short prefix]-[ID]-api (i.e. <<
-                                            <nazgul-foo-api>>>).
+    * <<<Import restrictions>>>: May depend on the model or api component projects in artifact scope
+      (i.e. [project]-xyz-model), as well as any component SPI projects.
 
-                                                * <<
-                                                <package root>>>: [groupId].api (i.e <<
-                                                    <se.jguru.nazgul.foo.api>>>)
++------------------------------------------+
+Pom path:
+    service/identifier/identifier-impl-blueprint/pom.xml
 
-                                                        * <<
-                                                        <Import restrictions>>>: May only depend on the model component
-                                                            project in artifact scope
-                                                            (i.e. [project]-foo-model).
-
-                                                            +------------------------------------------+
-                                                            Pom path:
-                                                            nazgul/foo/foo-api/pom.xml
-
-                                                            Pom details for project:
-                                                            <groupId>se.jguru.nazgul.foo.api</groupId>
-                                                            <artifactId>nazgul-foo-api</artifactId>
-                                                            +------------------------------------------+
-
-                                                            ** Each Impl project
-
-                                                            Contains a particular implementation of the specifications
-                                                            found in the API project,
-                                                            plus any required Dependency Injection (DI) instructions,
-                                                            such as Blueprint or Spring DM configuration documents.
-                                                            Each implementation project must be distinct from all other
-                                                            implementation projects in name, package root and
-                                                            artifactId since potentially many implementations must be
-                                                            able to co-exist as Tomcat services simultaneously.
-
-                                                            Therefore, each implementation project must define a unique
-                                                            <<
-                                                            <qualifier>>> - it is recommended that this
-                                                                qualifier indicates the type of implementation or the
-                                                                underlying implementation technology. In the examples
-                                                                below
-                                                                the qualifier is chosen to be <<
-                                                                <blueprint>>>:
-
-                                                                    * <<
-                                                                    <pom path>>>: [VCS
-                                                                        path]/[ID]-impl-[qualifier]/pom.xml (i.e.
-                                                                        <<
-                                                                        <nazgul
-                                                                        /foo/foo-impl-blueprint/pom.xml>>>)
-
-                                                                        * <<
-                                                                        <artifactId>>>: [Short
-                                                                            prefix]-[ID]-impl-[qualifier] (i.e. <<
-                                                                            <nazgul-foo-impl-blueprint>>>).
-
-                                                                                * <<
-                                                                                <package root>>>:
-                                                                                    [groupId].impl.[qualifier] (i.e
-                                                                                    <<
-                                                                                    <se.jguru.nazgul.foo.impl.blueprint>
-                                                                                        >>)
-
-                                                                                        * <<
-                                                                                        <Import restrictions>>>: May
-                                                                                            depend on the model or api
-                                                                                            component projects in
-                                                                                            artifact scope
-                                                                                            (i.e. [project]-foo-model
-                                                                                            and [project-foo-api]), as
-                                                                                            well as any component SPI
-                                                                                            projects.
-
-                                                                                            +------------------------------------------+
-                                                                                            Pom path:
-                                                                                            nazgul/foo/foo-impl-blueprint/pom.xml
-
-                                                                                            Pom details for project:
-                                                                                            <groupId>
-                                                                                                se.jguru.nazgul.foo.impl.blueprint
-                                                                                            </groupId>
-                                                                                            <artifactId>
-                                                                                                nazgul-foo-impl-blueprint
-                                                                                            </artifactId>
-                                                                                            +------------------------------------------+
-
+Pom details for project:
+    <groupId>org.apache.tomcat.embedder.service.identifier.impl.blueprint</groupId>
+    <artifactId>tomcat-embedder-identifier-impl-blueprint</artifactId>
++------------------------------------------+

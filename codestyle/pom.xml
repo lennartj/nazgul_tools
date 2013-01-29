@@ -15,8 +15,24 @@
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
     <version>1.2.1-SNAPSHOT</version>
-    <name>${project.groupId}.${project.artifactId}</name>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+
+    <url>http://www.jguru.se/nazgul/tools/</url>
+    <inceptionYear>2010</inceptionYear>
+    <organization>
+        <name>jGuru Europe AB</name>
+        <url>http://www.jguru.se/nazgul</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <properties>
         <maven.version>2.2.1</maven.version>
@@ -136,7 +152,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.2</version>
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
