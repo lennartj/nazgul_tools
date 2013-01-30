@@ -25,7 +25,24 @@
         <url>http://www.jguru.se/nazgul</url>
     </organization>
 
+    <developers>
+        <developer>
+            <id>lj</id>
+            <name>Lennart Jörelid</name>
+            <email>lj@jguru.se</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>jGuru Europe AB</organization>
+            <organizationUrl>http://www.jguru.se</organizationUrl>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jdk.version>1.6</jdk.version>
         <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
 
         <!-- Code style properties -->
@@ -36,7 +53,7 @@
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
-        <nazgul-codestyle.version>1.1.2-SNAPSHOT</nazgul-codestyle.version>
+        <nazgul-codestyle.version>1.2.1-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
     </properties>
 
@@ -47,23 +64,92 @@
     -->
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.3.5</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <instructions>
-                            <Export-Package>{local-packages}</Export-Package>
-                        </instructions>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
+            <!--
+                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+                 once for the pluginManagement section and once for the site, see
+                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.plugin.version}</version>
+                <configuration>
+                    <excludeRoots>
+                        <excludeRoot>src/main/generated</excludeRoot>
+                        <excludeRoot>src/test</excludeRoot>
+                    </excludeRoots>
+                    <rulesets>
+                        <ruleset>codestyle/pmd-rules.xml</ruleset>
+                    </rulesets>
+                    <targetJdk>${jdk.version}</targetJdk>
+                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                        <artifactId>nazgul-codestyle</artifactId>
+                        <version>1.2.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <!--
+                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+                 once for the pluginManagement section and once for the site, see
+                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
+                    </propertyExpansion>
+                    <configLocation>codestyle/checkstyle.xml</configLocation>
+                    <failOnViolation>true</failOnViolation>
+                    <violationSeverity>error</violationSeverity>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                        <artifactId>nazgul-codestyle</artifactId>
+                        <version>1.2.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.plugin.version}</version>
+            </plugin>
+            <!--
+                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+                 once for the pluginManagement section and once for the site, see
+                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.plugin.version}</version>
+                <configuration>
+                    <threshold>High</threshold>
+                    <effort>Default</effort>
+                    <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
+                    <includeFilterFile>codestyle/findbugs.xml</includeFilterFile>
+                    <excludeFilterFile>codestyle/findbugs-excludes.xml</excludeFilterFile>
+                    <relaxed>false</relaxed>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                        <artifactId>nazgul-codestyle</artifactId>
+                        <version>1.2.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -93,27 +179,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <reportPlugins>
-                        <!--
-                            Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                            once for the pluginManagement section and once for the site, see
-                            http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-                        -->
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-project-info-reports-plugin</artifactId>
-                            <version>2.4</version>
-                            <configuration>
-                                <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jxr-plugin</artifactId>
-                            <version>2.2</version>
-                        </plugin>
-                    </reportPlugins>
+                    <topProjectDefinesStagedSiteRootURL>true</topProjectDefinesStagedSiteRootURL>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -138,19 +204,11 @@
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
-                <!-- reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependencies</report>
-                            <report>scm</report>
-                        </reports>
-                    </reportSet>
-                </reportSets -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8</version>
+                <version>2.9</version>
             </plugin>
 
             <plugin>
@@ -174,7 +232,7 @@
                         <excludeRoot>src/test</excludeRoot>
                     </excludeRoots>
                     <rulesets>
-                        <ruleset>/codestyle/pmd-rules.xml</ruleset>
+                        <ruleset>codestyle/pmd-rules.xml</ruleset>
                     </rulesets>
                     <targetJdk>${jdk.version}</targetJdk>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
@@ -190,8 +248,8 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
-                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
-                    </propertyExpansion>
+                    <encoding>UTF-8</encoding>
+                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
                     <configLocation>codestyle/checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>error</violationSeverity>

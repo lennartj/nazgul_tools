@@ -24,7 +24,7 @@ public class ValidationAspectWithAbstractValidatableSuperclassTest {
     public void validateAspectGeneratedExceptionOnIncorrectValue() {
 
         // Assemble
-        int tooLow = 2;
+        final int tooLow = 2;
 
         // Act & Assert
         new ValidatableSubtype("Lennart", tooLow);
@@ -34,7 +34,7 @@ public class ValidationAspectWithAbstractValidatableSuperclassTest {
     public void validateNoExceptionForCorrectValue() {
 
         // Assemble
-        int ok = 15;
+        final int ok = 15;
 
         // Act & Assert
         new ValidatableSubtype("Lennart", ok);

@@ -16,5 +16,6 @@
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>
+        <menu ref="parent" />
     </body>
 </project>

@@ -12,32 +12,10 @@
         <name>${project.artifactId}</name>
     </bannerLeft>
 
-    <bannerRight>
-        <name>Nazgul Framework</name>
-    </bannerRight>
-
-    <publishDate format="yyyy-MM-dd" position="right"/>
-    <version />
-
-    <skin>
-        <groupId>org.apache.maven.skins</groupId>
-        <artifactId>maven-fluido-skin</artifactId>
-        <version>1.0</version>
-    </skin>
-
-    <custom>
-        <fluidoSkin>
-            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-        </fluidoSkin>
-    </custom>
-
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>
-        <links>
-            <item name="Maven" href="http://maven.apache.org/"/>
-        </links>
 
         <menu ref="parent" />
     </body>

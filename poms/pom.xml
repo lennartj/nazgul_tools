@@ -30,7 +30,6 @@
     ################################################
     -->
     <modules>
-        <module>reactor</module>
         <module>tools-parent</module>
         <module>parent</module>
     </modules>
