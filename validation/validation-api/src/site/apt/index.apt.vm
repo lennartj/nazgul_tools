@@ -22,7 +22,7 @@ ${project.artifactId}
     validation following a non-default constructor call can implement the
     Validatable interface.
 
-A typical implementation of a validateInternalState method follows:
+    A typical implementation of a validateInternalState method follows:
 
 +------------------------------------------+
 /**
