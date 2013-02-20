@@ -57,8 +57,6 @@
         <openjpa.version>2.2.0</openjpa.version>
         <activemq.version>5.6.0</activemq.version>
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
-        <jaxbImplVersion>2.2.7-b41</jaxbImplVersion>
-        <jaxbApiVersion>2.2.7</jaxbApiVersion>
         <aspectj.runtime.version>1.7.1</aspectj.runtime.version>
         <osgiVersion>4.2.0</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
@@ -133,25 +131,6 @@
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
                 <version>2.2.8</version>
-            </dependency>
-
-            <!--
-                Standard XML and XML Binding jars
-            -->
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxbApiVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-impl</artifactId>
-                <version>${jaxbImplVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-xjc</artifactId>
-                <version>2.2.7-b41</version>
             </dependency>
 
             <!--
@@ -901,6 +880,12 @@
                     <findbugsXmlOutput>true</findbugsXmlOutput>
                     <xmlOutput>true</xmlOutput>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.5</version>
             </plugin>
         </plugins>
     </reporting>
