@@ -14,7 +14,7 @@
     -->
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.3-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <url>http://www.jguru.se/nazgul/tools/</url>
     <packaging>pom</packaging>
@@ -89,7 +89,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.3.2</version>
+                        <version>1.3.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -113,7 +113,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.3.2</version>
+                        <version>1.3.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -145,7 +145,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>1.3.2</version>
+                        <version>1.3.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -288,7 +288,7 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/</developerConnection>
-        <tag>nazgul-tools-1.3.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
