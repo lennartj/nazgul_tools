@@ -975,18 +975,9 @@
 
     <!--
         Define repository settings for Maven's deploy and release plugins.
+        Moved to settings.xml, as per recommendation within Maven specs.
     -->
     <distributionManagement>
-        <repository>
-            <id>jGuru_Artifactory</id>
-            <name>jGuru_Artifactory-releases</name>
-            <url>http://www.jguru.se/artifactory/libs-releases-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>jGuru_Artifactory</id>
-            <name>jGuru_Artifactory-snapshots</name>
-            <url>http://www.jguru.se/artifactory/libs-snapshots-local</url>
-        </snapshotRepository>
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
