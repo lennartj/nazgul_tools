@@ -34,8 +34,8 @@
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <scope>runtime</scope>
+            <artifactId>com.springsource.org.aspectj.runtime</artifactId>
+            <version>${aspectj.runtime.version}</version>
         </dependency>
     </dependencies>
 
@@ -103,14 +103,19 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjrt</artifactId>
+                        <artifactId>com.springsource.org.aspectj.runtime</artifactId>
                         <version>${aspectj.runtime.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
+                        <artifactId>com.springsource.org.aspectj.weaver</artifactId>
                         <version>${aspectj.runtime.version}</version>
                     </dependency>
+                    <!-- dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.runtime.version}</version>
+                    </dependency -->
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                         <artifactId>nazgul-tools-validation-aspect</artifactId>

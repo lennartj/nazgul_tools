@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
+            <artifactId>com.springsource.org.aspectj.runtime</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
