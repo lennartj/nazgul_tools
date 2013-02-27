@@ -29,6 +29,10 @@
             No other dependencies must be included here.
         -->
         <dependency>
+            <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+            <artifactId>nazgul-tools-validation-aspect</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <scope>runtime</scope>

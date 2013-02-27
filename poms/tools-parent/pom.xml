@@ -830,8 +830,14 @@
                             <goal>analyze-only</goal>
                         </goals>
                         <configuration>
-                            <!-- Break the build if we have unused dependencies -->
-                            <failOnWarning>true</failOnWarning>
+                            <!--
+                                Don't break the build if we have unused dependencies.
+                                Since we cannot exclude the global Aspect libraries from
+                                breaking the build (they should be available as a compile-
+                                scope dependency), we can only provide a warning about
+                                unused dependencies.
+                             -->
+                            <failOnWarning>false</failOnWarning>
 
                             <!-- Only deal with compile-scope dependencies -->
                             <ignoreNonCompile>true</ignoreNonCompile>
