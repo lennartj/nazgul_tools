@@ -10,7 +10,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
-        <version>1.3.2-SNAPSHOT</version>
+        <version>1.3.2</version>
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
@@ -118,6 +118,6 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-1.3.2</tag>
     </scm>
 </project>
