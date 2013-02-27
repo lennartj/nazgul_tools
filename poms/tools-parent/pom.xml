@@ -57,7 +57,7 @@
         <openjpa.version>2.2.0</openjpa.version>
         <activemq.version>5.6.0</activemq.version>
         <maven.release.plugin.version>2.3.2</maven.release.plugin.version>
-        <aspectj.runtime.version>1.7.1</aspectj.runtime.version>
+        <aspectj.runtime.version>1.7.2</aspectj.runtime.version>
         <osgiVersion>4.2.0</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
         <slf4j.version>1.6.6</slf4j.version>
@@ -69,13 +69,14 @@
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.2.1-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <dependency.plugin.version>2.6</dependency.plugin.version>
 
         <!-- Cobertura configuration parameters. -->
         <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 
         <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+        <checkstyle.plugin.version>2.10</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
         <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
@@ -86,13 +87,6 @@
     # Section 2:  Dependency (management) settings
     ################################################
     -->
-    <dependencies>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-        </dependency>
-    </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -140,6 +134,7 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>${aspectj.runtime.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <!--
@@ -676,6 +671,47 @@
                 </dependencies>
             </plugin>
 
+            <!--
+                The license plugin is quite inflexible about the format
+                for the injected/detected file header in terms of license
+                structure.
+
+                Supply a patch to Codehaus Mojo to permit a simplified
+                structure, and re-introduce the license plugin into the
+                build cycle.
+            -->
+            <!-- plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <failOnMissingHeader>true</failOnMissingHeader>
+                    <licenseName>jguru_apl_v2</licenseName>
+                    <licenseResolver>classpath://codestyle/license</licenseResolver>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <roots>
+                        <root>src/main</root>
+                        <root>src/test</root>
+                    </roots>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-file-header</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>check-file-header</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                        <artifactId>nazgul-codestyle</artifactId>
+                        <version>${nazgul-codestyle.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -779,6 +815,27 @@
                         <goals>
                             <goal>generate-depends-file</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${dependency.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>analyze</id>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Break the build if we have unused dependencies -->
+                            <failOnWarning>true</failOnWarning>
+
+                            <!-- Only deal with compile-scope dependencies -->
+                            <ignoreNonCompile>true</ignoreNonCompile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -886,6 +943,18 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
                 <version>2.5</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${dependency.plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>analyze-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>

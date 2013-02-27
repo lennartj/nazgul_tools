@@ -36,7 +36,7 @@
     <properties>
         <maven.version>2.2.1</maven.version>
         <maven.release.plugin.version>2.2.1</maven.release.plugin.version>
-        <enforcer.api.version>1.0.1</enforcer.api.version>
+        <enforcer.api.version>1.2</enforcer.api.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 
         <!-- Code style properties -->
@@ -44,6 +44,7 @@
         <pmd.plugin.version>2.7.1</pmd.plugin.version>
         <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
         <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+        <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
     </properties>
@@ -184,6 +185,33 @@
                         <version>2.2</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
+                    <configLocation>${project.build.outputDirectory}/codestyle/checkstyle.xml</configLocation>
+                    <failOnViolation>true</failOnViolation>
+                    <violationSeverity>error</violationSeverity>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>verify</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
