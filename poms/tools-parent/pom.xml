@@ -9,7 +9,7 @@
     -->
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.1</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>http://www.jguru.se/nazgul/tools/</url>
@@ -67,7 +67,7 @@
         <pmd.plugin.version>2.7.1</pmd.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
-        <nazgul-codestyle.version>1.4.1-SNAPSHOT</nazgul-codestyle.version>
+        <nazgul-codestyle.version>1.4.1</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
         <dependency.plugin.version>2.6</dependency.plugin.version>
 
@@ -980,7 +980,7 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-1.4.1</tag>
     </scm>
 
     <!--

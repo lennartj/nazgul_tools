@@ -15,7 +15,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools</groupId>
         <artifactId>nazgul-tools-reactor</artifactId>
-        <version>1.4.1-SNAPSHOT</version>
+        <version>1.4.1</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.validation</groupId>
@@ -46,6 +46,6 @@
     -->
     <scm>
         <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-1.4.1</tag>
     </scm>
 </project>
