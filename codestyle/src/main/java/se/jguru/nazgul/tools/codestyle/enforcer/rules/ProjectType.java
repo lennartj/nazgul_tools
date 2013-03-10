@@ -255,7 +255,7 @@ public enum ProjectType {
 
             case REACTOR:
                 // This project not contain dependency definitions.
-                final List dependencies = project.getDependencies();
+                final List<?> dependencies = project.getDependencies();
                 if (dependencies != null && dependencies.size() > 0) {
                     throw new IllegalArgumentException(ProjectType.REACTOR
                             + " projects may not contain dependency definitions."
@@ -273,6 +273,10 @@ public enum ProjectType {
                                 + " (Dependencies should be defined within parent projects).");
                     }
                 }
+                break;
+
+            // No action should be taken for other project types.
+            default:
                 break;
         }
 

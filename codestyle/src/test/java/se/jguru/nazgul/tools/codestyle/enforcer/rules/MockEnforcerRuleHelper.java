@@ -38,7 +38,8 @@ public class MockEnforcerRuleHelper implements EnforcerRuleHelper {
         return null;
     }
 
-    @Override
+	@Override
+	@SuppressWarnings("rawtypes")
     public Object getComponent(final Class clazz) throws ComponentLookupException {
         return null;
     }
@@ -54,11 +55,13 @@ public class MockEnforcerRuleHelper implements EnforcerRuleHelper {
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public List getComponentList(final String role) throws ComponentLookupException {
         return null;
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public Map getComponentMap(final String role) throws ComponentLookupException {
         return null;
     }

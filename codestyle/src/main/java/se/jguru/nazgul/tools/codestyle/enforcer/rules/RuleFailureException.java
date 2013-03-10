@@ -15,6 +15,7 @@ import org.apache.maven.artifact.Artifact;
 public class RuleFailureException extends RuntimeException {
 
     // Internal state
+    private static final long serialVersionUID = -9014353905297786126L;
     private Artifact offendingArtifact;
 
     /**

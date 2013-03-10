@@ -55,8 +55,8 @@ public class RestrictImplDependenciesTest {
         fooSpiProject.setPackaging("bundle");
 
         // Make sure we have non-null DependencyArtifacts sets.
-        fooApiProject.setDependencyArtifacts(new HashSet());
-        fooSpiProject.setDependencyArtifacts(new HashSet());
+        fooApiProject.setDependencyArtifacts(new HashSet<Artifact>());
+        fooSpiProject.setDependencyArtifacts(new HashSet<Artifact>());
     }
 
     @Test
@@ -67,19 +67,22 @@ public class RestrictImplDependenciesTest {
         Assert.assertFalse(unitUnderTest.isResultValid(null));
     }
 
-    @Test
+    
+	@Test
+	@SuppressWarnings("unchecked")
     public void validateIgnoreEvaluationOnEarPackaging() throws Exception {
 
         // Assemble
         final MavenProject earProject = getNazgulGroupIdStub("someApplication", "ear");
         earProject.getDependencyArtifacts().add(fooImplementation);
-
+        
         // Act & Assert
         final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(earProject);
         unitUnderTest.execute(mock);
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void validateIgnoreEvaluationOnWarPackaging() throws Exception {
 
         // Assemble
@@ -92,6 +95,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void validateIgnoreEvaluationOnPomPackaging() throws Exception {
 
         // Assemble
@@ -104,6 +108,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnCompileScopeImplementationDependency() throws Exception {
 
         // Assemble
@@ -115,6 +120,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnCompileScopeImplementationDependencyInSpi() throws Exception {
 
         // Assemble
@@ -126,6 +132,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnCompileScopeImplementationDependencyInImpl() throws Exception {
 
         // Assemble
@@ -137,6 +144,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void validateNoExceptionOnTestScopeDependency() throws Exception {
 
         // Assemble
@@ -149,6 +157,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void validateExceptionMessage() throws Exception {
 
         // Assemble
@@ -236,6 +245,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void validateNoEnforcementOfArtifactsWithIgnoredGroupIDs() throws Exception {
 
         // Assemble
@@ -261,6 +271,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnFindingApplicationDependenciesInAPIs() throws Exception {
 
         // Assemble
@@ -278,6 +289,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnFindingTestUtilityDependenciesInAPIs() throws Exception {
 
         // Assemble
@@ -295,6 +307,7 @@ public class RestrictImplDependenciesTest {
     }
 
     @Test(expected = EnforcerRuleException.class)
+    @SuppressWarnings("unchecked")
     public void validateExceptionOnFindingPocDependenciesInAPIs() throws Exception {
 
         // Assemble
@@ -332,7 +345,7 @@ public class RestrictImplDependenciesTest {
         toReturn.setPackaging(packaging);
 
         // Make sure we have a non-null DependencyArtifacts set.
-        toReturn.setDependencyArtifacts(new HashSet());
+        toReturn.setDependencyArtifacts(new HashSet<Object>());
 
         return toReturn;
     }

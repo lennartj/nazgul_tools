@@ -143,6 +143,7 @@
         <module name="DefaultComesLast"/>
         <module name="ReturnCount">
             <property name="format" value="^equals$|^compareTo$"/>
+            <property name="max" value="3"/>
         </module>
     </module>
     <module name="FileLength"/>

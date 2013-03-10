@@ -71,6 +71,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      * @param helper  The EnforcerRuleHelper instance, from which the MavenProject has been retrieved.
      * @throws RuleFailureException If the enforcer rule was not satisfied.
      */
+    @SuppressWarnings({"unchecked"})
     @Override
     protected void performValidation(final MavenProject project, final EnforcerRuleHelper helper)
             throws RuleFailureException {
@@ -116,11 +117,11 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
             }
 
             // Should this Artifact be evaluated?
-            boolean isIncludedInEvaluation = matches(current.getGroupId(), evaluateGroupIds);
-            boolean isNotExplicitlyExcludedFromEvaluation = !matches(current.getGroupId(), dontEvaluateGroupIds);
+            final boolean isIncludedInEvaluation = matches(current.getGroupId(), evaluateGroupIds);
+            final boolean isNotExplicitlyExcludedFromEvaluation = !matches(current.getGroupId(), dontEvaluateGroupIds);
             if (isIncludedInEvaluation && isNotExplicitlyExcludedFromEvaluation) {
 
-                ProjectType artifactProjectType = ProjectType.getProjectType(current);
+                final ProjectType artifactProjectType = ProjectType.getProjectType(current);
                 final String prefix = "Don't use " + artifactProjectType + " dependencies ";
 
                 if (artifactProjectType == ProjectType.IMPLEMENTATION) {
