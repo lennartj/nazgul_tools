@@ -64,7 +64,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
     @Override
     public final void execute(final EnforcerRuleHelper helper) throws EnforcerRuleException {
 
-        MavenProject project = null;
+        MavenProject project;
         try {
             project = (MavenProject) helper.evaluate("${project}");
         } catch (final ExpressionEvaluationException e) {

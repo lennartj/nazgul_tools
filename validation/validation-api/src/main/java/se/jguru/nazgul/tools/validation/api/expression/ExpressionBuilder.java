@@ -123,10 +123,10 @@ public class ExpressionBuilder implements ValidationExecutor {
         if (property instanceof String && ((String) property).length() == 0) {
             messageContainer.addErrorMessage("Property '" + name + "' cannot be empty.");
         }
-        if (property instanceof Collection && ((Collection) property).size() == 0) {
+        if (property instanceof Collection && ((Collection<?>) property).size() == 0) {
             messageContainer.addErrorMessage("Collection '" + name + "' must contain elements.");
         }
-        if (property instanceof Map && ((Map) property).size() == 0) {
+        if (property instanceof Map && ((Map<?, ?>) property).size() == 0) {
             messageContainer.addErrorMessage("Map '" + name + "' must contain elements.");
         }
 

@@ -95,7 +95,7 @@ public class ValidationAspect {
         // Ignore calling validateInternalState when we execute constructors in
         // any class but the concrete Validatable class.
         ConstructorSignature sig = (ConstructorSignature) joinPoint.getSignature();
-        Class constructorDefinitionClass = sig.getConstructor().getDeclaringClass();
+        Class<?> constructorDefinitionClass = sig.getConstructor().getDeclaringClass();
         if (validatable.getClass() == constructorDefinitionClass) {
 
             // Now fire the validateInternalState method.
