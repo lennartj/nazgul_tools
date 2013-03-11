@@ -32,7 +32,7 @@ import java.util.List;
 public class AbstractErrorMessageContainer extends IllegalStateException implements ErrorMessageContainer {
 
     // Internal state
-    private List<String> errorMessages = new ArrayList<String>();
+    private final List<String> errorMessages = new ArrayList<String>();
 
     /**
      * Adds the provided error message to this ErrorMessageContainer.
@@ -41,7 +41,7 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
      */
     @Override
     public final void addErrorMessage(final String message) {
-        if (message == null || message.equals("")) {
+        if (message == null || "".equals(message)) {
             return;
         }
 
@@ -58,7 +58,7 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
      */
     @Override
     public final void endExpressionAndValidate() throws IllegalStateException {
-        if (errorMessages.size() > 0) {
+        if (!errorMessages.isEmpty()) {
             throw this;
         }
     }
@@ -72,8 +72,8 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
     @Override
     public String getMessage() {
 
-        StringBuilder builder = new StringBuilder();
-        for (String current : errorMessages) {
+        final StringBuilder builder = new StringBuilder();
+        for (final String current : errorMessages) {
             builder.append(current).append("\n");
         }
 

@@ -263,7 +263,7 @@ public enum ProjectType {
         switch (toReturn) {
             case PARENT:
                 // This project should not contain modules.
-                if (project.getModules() != null && project.getModules().size() > 0) {
+                if (project.getModules() != null && !project.getModules().isEmpty()) {
                     throw new IllegalArgumentException(ProjectType.PARENT
                             + " projects may not contain module definitions. "
                             + "(Modules are reserved for reactor projects).");
@@ -273,7 +273,7 @@ public enum ProjectType {
             case REACTOR:
                 // This project not contain dependency definitions.
                 final List<?> dependencies = project.getDependencies();
-                if (dependencies != null && dependencies.size() > 0) {
+                if (dependencies != null && !dependencies.isEmpty()) {
                     throw new IllegalArgumentException(ProjectType.REACTOR
                             + " projects may not contain dependency definitions."
                             + " (Dependencies should be defined within parent projects).");
@@ -284,7 +284,7 @@ public enum ProjectType {
 
                     // Dig out all dependency management-defined dependencies.
                     final List<Dependency> templateDependencies = dependencyManagement.getDependencies();
-                    if (templateDependencies != null && templateDependencies.size() > 0) {
+                    if (templateDependencies != null && !templateDependencies.isEmpty()) {
                         throw new IllegalArgumentException(ProjectType.REACTOR
                                 + " projects may not contain dependency [management] definitions."
                                 + " (Dependencies should be defined within parent projects).");
@@ -312,7 +312,7 @@ public enum ProjectType {
 
         final List<ProjectType> matches = new ArrayList<ProjectType>();
 
-        for (ProjectType current : ProjectType.values()) {
+        for (final ProjectType current : ProjectType.values()) {
             if (current.isCompliantArtifactID(artifactId)
                     && current.isCompliantGroupID(groupId)
                     && current.isCompliantPackaging(packaging)) {
@@ -321,7 +321,7 @@ public enum ProjectType {
         }
 
         // Check sanity
-        if (matches.size() == 0) {
+        if (matches.isEmpty()) {
             throw new IllegalArgumentException(prefix + " Not matching any defined project types.");
         }
         if (matches.size() > 1) {

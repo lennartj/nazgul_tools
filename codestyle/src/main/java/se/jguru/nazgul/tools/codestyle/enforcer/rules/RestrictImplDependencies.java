@@ -126,7 +126,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
         }
 
         // Acquire all project dependencies.
-        for (Artifact current : ((Set<Artifact>) project.getDependencyArtifacts())) {
+        for (final Artifact current : ((Set<Artifact>) project.getDependencyArtifacts())) {
 
             // Don't evaluate for test-scope dependencies.
             if (Artifact.SCOPE_TEST.equalsIgnoreCase(current.getScope())) {

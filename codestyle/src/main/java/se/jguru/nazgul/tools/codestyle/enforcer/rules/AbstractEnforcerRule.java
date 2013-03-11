@@ -64,7 +64,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
     @Override
     public final void execute(final EnforcerRuleHelper helper) throws EnforcerRuleException {
 
-        MavenProject project;
+        final MavenProject project;
         try {
             project = (MavenProject) helper.evaluate("${project}");
         } catch (final ExpressionEvaluationException e) {
@@ -142,9 +142,10 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      * @return A list holding the elements of the spliced string.
      */
     protected static List<String> splice(final String toSplice) {
-        List<String> toReturn = new ArrayList<String>();
 
-        StringTokenizer tok = new StringTokenizer(toSplice, ",", false);
+        final List<String> toReturn = new ArrayList<String>();
+
+        final StringTokenizer tok = new StringTokenizer(toSplice, ",", false);
         while (tok.hasMoreTokens()) {
             toReturn.add(tok.nextToken());
         }
@@ -160,9 +161,10 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      * @throws PatternSyntaxException if the {@code Pattern.compile} method could not compile the provided string.
      */
     protected static List<Pattern> splice2Pattern(final String toSplice) throws PatternSyntaxException {
-        List<Pattern> toReturn = new ArrayList<Pattern>();
 
-        for (String current : splice(toSplice)) {
+        final List<Pattern> toReturn = new ArrayList<Pattern>();
+
+        for (final String current : splice(toSplice)) {
             toReturn.add(Pattern.compile(current));
         }
 
@@ -179,7 +181,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      */
     protected static boolean matches(final String toMatch, final List<Pattern> patternList) {
 
-        for (Pattern current : patternList) {
+        for (final Pattern current : patternList) {
             if (current.matcher(toMatch).matches()) {
                 return true;
             }
@@ -200,7 +202,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
 
         if (source != null) {
 
-            for (String current : source) {
+            for (final String current : source) {
                 if (toCheck.startsWith(current)) {
                     return true;
                 }

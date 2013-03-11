@@ -38,7 +38,7 @@ import java.util.Map;
 public class ExpressionBuilder implements ValidationExecutor {
 
     // Internal state
-    private ErrorMessageContainer messageContainer;
+    private final ErrorMessageContainer messageContainer;
 
     /**
      * Creates a new ExpressionBuilder, using the provided Exception as
@@ -120,13 +120,13 @@ public class ExpressionBuilder implements ValidationExecutor {
 
         notNull(property, name);
 
-        if (property instanceof String && ((String) property).length() == 0) {
+        if (property instanceof String && ((String) property).isEmpty()) {
             messageContainer.addErrorMessage("Property '" + name + "' cannot be empty.");
         }
-        if (property instanceof Collection && ((Collection<?>) property).size() == 0) {
+        if (property instanceof Collection && ((Collection<?>) property).isEmpty()) {
             messageContainer.addErrorMessage("Collection '" + name + "' must contain elements.");
         }
-        if (property instanceof Map && ((Map<?, ?>) property).size() == 0) {
+        if (property instanceof Map && ((Map<?, ?>) property).isEmpty()) {
             messageContainer.addErrorMessage("Map '" + name + "' must contain elements.");
         }
 
