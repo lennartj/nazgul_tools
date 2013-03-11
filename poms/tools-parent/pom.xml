@@ -21,7 +21,8 @@
   ~ #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -69,7 +70,7 @@
         <!-- Build-controlling properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <build.number />
+        <build.number/>
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
         <jdk.version>1.6</jdk.version>
@@ -86,7 +87,7 @@
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
-        <pmd.plugin.version>3.0</pmd.plugin.version>
+        <pmd.plugin.version>3.0.1</pmd.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.4.2-SNAPSHOT</nazgul-codestyle.version>
@@ -645,6 +646,43 @@
                     </executions>
                 </plugin>
 
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${pmd.plugin.version}</version>
+                    <configuration>
+                        <excludeRoots>
+                            <excludeRoot>src/main/generated</excludeRoot>
+                            <excludeRoot>src/test</excludeRoot>
+                        </excludeRoots>
+                        <rulesets>
+                            <ruleset>/codestyle/pmd-rules.xml</ruleset>
+                        </rulesets>
+                        <targetJdk>${jdk.version}</targetJdk>
+                        <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                            <artifactId>nazgul-codestyle</artifactId>
+                            <version>${nazgul-codestyle.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                            <version>1.2.17</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
@@ -756,6 +794,14 @@
                     <targetJdk>${jdk.version}</targetJdk>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
@@ -798,13 +844,14 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <requireUpperBoundDeps />
+                                <requireUpperBoundDeps/>
 
                                 <!--
                                     Enforce the ProjectType structure, implying that all projects
                                     must comply with the project template definitions.
                                 -->
-                                <validateProjectTypes implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType" />
+                                <validateProjectTypes
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType"/>
 
                                 <!--
                                     Enforce the implementation rules for dependencies, to enforce that
@@ -815,7 +862,8 @@
                                     reproduced her to serve as an example of how to configure this enforcement rule
                                     in child reactors - where needs are likely different than here.
                                 -->
-                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
+                                <restrictImplDependencies
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*</includedGroupIdPatterns>
                                     <excludedGroupIdPatterns>
                                         ^se\\.jguru\\.nazgul\\..*\\.generated\\..*,^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*
@@ -919,7 +967,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>pmd</report>
+                            <report>cpd</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
                 <configuration>
+                    <linkXref>true</linkXref>
                     <excludeRoots>
                         <excludeRoot>src/main/generated</excludeRoot>
                         <excludeRoot>src/test</excludeRoot>

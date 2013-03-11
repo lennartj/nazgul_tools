@@ -50,5 +50,5 @@ public interface Validatable {
      *          if the state of this Validatable was
      *          in an incorrect state (i.e. invalid).
      */
-    public void validateInternalState() throws InternalStateValidationException;
+    void validateInternalState() throws InternalStateValidationException;
 }
