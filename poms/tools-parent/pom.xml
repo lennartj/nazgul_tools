@@ -678,13 +678,9 @@
             <!--
                 The license plugin is quite inflexible about the format
                 for the injected/detected file header in terms of license
-                structure.
-
-                Supply a patch to Codehaus Mojo to permit a simplified
-                structure, and re-introduce the license plugin into the
-                build cycle.
+                structure. Use it as intended.
             -->
-            <!-- plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.4</version>
@@ -706,6 +702,13 @@
                             <goal>check-file-header</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>add-license</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>update-project-license</goal>
+                        </goals>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>
@@ -714,7 +717,7 @@
                         <version>${nazgul-codestyle.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin -->
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
