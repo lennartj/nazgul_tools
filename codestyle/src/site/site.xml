@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ #%L
-  ~ nazgul-tools-validation-api
+  ~ nazgul-tools-codestyle
   ~ %%
   ~ Copyright (C) 2010 - 2013 jGuru Europe AB
   ~ %%
@@ -22,38 +22,39 @@
   -->
 
 <project xmlns="http://maven.apache.org/DECORATION/1.3.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
+         name="Nazgul Tools Codestyle">
 
-	<bannerRight>
-		<name>Nazgul Framework</name>
-	</bannerRight>
+    <bannerRight>
+        <name>Nazgul Framework</name>
+    </bannerRight>
 
-	<publishDate format="yyyy-MM-dd" position="right" />
-	<version />
+    <publishDate format="yyyy-MM-dd" position="right"/>
+    <version/>
 
-	<skin>
-		<groupId>org.apache.maven.skins</groupId>
-		<artifactId>maven-fluido-skin</artifactId>
-		<version>1.3.0</version>
-	</skin>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.3.0</version>
+    </skin>
 
-	<custom>
-		<fluidoSkin>
-			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-		</fluidoSkin>
-	</custom>
+    <custom>
+        <fluidoSkin>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+        </fluidoSkin>
+    </custom>
 
-	<body>
-		<links>
-			<item name="Maven" href="http://maven.apache.org/" />
-		</links>
-		<menu name="Overview">
-			<item name="Introduction" href="index.html" />
-		</menu>
+    <body>
+        <links>
+            <item name="Maven" href="http://maven.apache.org/"/>
+        </links>
 
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+        </menu>
 
-		<menu ref="parent" />
-		<menu ref="reports" inherit="bottom" />
-	</body>
+        <menu ref="parent"/>
+        <menu ref="reports" inherit="bottom"/>
+    </body>
 </project>
