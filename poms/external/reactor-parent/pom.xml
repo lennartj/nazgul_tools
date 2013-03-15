@@ -30,8 +30,8 @@
     ################################################
     -->
     <parent>
-        <groupId>se.jguru.nazgul.tools.poms</groupId>
-        <artifactId>nazgul-tools-poms-reactor</artifactId>
+        <groupId>se.jguru.nazgul.tools.external.poms</groupId>
+        <artifactId>nazgul-tools-external-reactor</artifactId>
         <version>1.4.3-SNAPSHOT</version>
     </parent>
 

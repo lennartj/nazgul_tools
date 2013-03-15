@@ -91,7 +91,7 @@
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.4.3-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
-        <dependency.plugin.version>2.6</dependency.plugin.version>
+        <dependency.plugin.version>2.7</dependency.plugin.version>
         <license.id>jguru_apl_v2</license.id>
 
         <!-- Cobertura configuration parameters. -->
@@ -465,7 +465,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>${dependency.plugin.version}</version>
                     <!-- configuration>
                         <artifactItems>
                             <artifactItem>
@@ -748,11 +748,12 @@
                     <failOnMissingHeader>true</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
                     <licenseResolver>classpath://codestyle/license</licenseResolver>
+                    <canUpdateDescription>true</canUpdateDescription>
                     <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
                     <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
                     <roots>
-                        <root>src/main</root>
-                        <root>src/test</root>
+                        <root>${project.basedir}/src/main</root>
+                        <root>${project.basedir}/src/test</root>
                     </roots>
                 </configuration>
                 <executions>
