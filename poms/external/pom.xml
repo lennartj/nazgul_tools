@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ #%L
-  ~ nazgul-tools-validation-api
+  ~ nazgul-tools-external-reactor
   ~ %%
   ~ Copyright (C) 2010 - 2013 jGuru Europe AB
   ~ %%
@@ -31,13 +31,13 @@
     ################################################
     -->
     <parent>
-        <groupId>se.jguru.nazgul.tools</groupId>
-        <artifactId>nazgul-tools-reactor</artifactId>
+        <groupId>se.jguru.nazgul.tools.poms</groupId>
+        <artifactId>nazgul-tools-poms-reactor</artifactId>
         <version>1.4.3-SNAPSHOT</version>
     </parent>
 
-    <groupId>se.jguru.nazgul.tools.poms</groupId>
-    <artifactId>nazgul-tools-poms-reactor</artifactId>
+    <groupId>se.jguru.nazgul.tools.external.poms</groupId>
+    <artifactId>nazgul-tools-external-reactor</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
@@ -47,15 +47,9 @@
     ################################################
     -->
     <modules>
-        <module>tools-parent</module>
-        <module>external</module>
+        <module>parent</module>
+        <module>reactor-parent</module>
     </modules>
-
-    <!--
-    ################################################
-    # Section 3:  Build settings
-    ################################################
-    -->
 
     <!--
     ################################################

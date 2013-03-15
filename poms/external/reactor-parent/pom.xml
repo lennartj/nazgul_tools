@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ #%L
-  ~ nazgul-tools-validation-api
+  ~ nazgul-tools-external-reactor-parent
   ~ %%
   ~ Copyright (C) 2010 - 2013 jGuru Europe AB
   ~ %%
@@ -35,8 +35,8 @@
         <version>1.4.3-SNAPSHOT</version>
     </parent>
 
-    <groupId>se.jguru.nazgul.tools.poms</groupId>
-    <artifactId>nazgul-tools-reactor-parent</artifactId>
+    <groupId>se.jguru.nazgul.tools.poms.external</groupId>
+    <artifactId>nazgul-tools-external-reactor-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
@@ -67,6 +67,8 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.4</version>
                 <configuration>
+                    <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
+                    <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                     <failOnMissingHeader>true</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
                     <licenseResolver>classpath://codestyle/license</licenseResolver>
@@ -116,7 +118,7 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
+        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>

@@ -33,10 +33,11 @@
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
         <version>1.4.3-SNAPSHOT</version>
-        <relativePath>../tools-parent</relativePath>
+        <relativePath>../../tools-parent</relativePath>
     </parent>
 
-    <artifactId>nazgul-parent</artifactId>
+    <groupId>se.jguru.nazgul.tools.poms.external</groupId>
+    <artifactId>nazgul-tools-external-parent</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
 
@@ -66,7 +67,7 @@
             <dependency>
                 <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                 <artifactId>nazgul-tools-validation-aspect</artifactId>
-                <version>1.4.3-SNAPSHOT</version>
+                <version>${project.parent.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -131,7 +132,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                         <artifactId>nazgul-tools-validation-aspect</artifactId>
-                        <version>1.4.3-SNAPSHOT</version>
+                        <version>${project.parent.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -150,7 +151,7 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
+        <developerConnection>scm:hg:file://${basedir}/../../../</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>

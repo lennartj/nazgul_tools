@@ -92,6 +92,7 @@
         <nazgul-codestyle.version>1.4.3-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
         <dependency.plugin.version>2.6</dependency.plugin.version>
+        <license.id>jguru_apl_v2</license.id>
 
         <!-- Cobertura configuration parameters. -->
         <cobertura.plugin.version>2.5.2</cobertura.plugin.version>
@@ -705,7 +706,6 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
-                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
                     <configLocation>${checkstyle.config.location}</configLocation>
                     <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
                     <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
@@ -744,10 +744,12 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.4</version>
                 <configuration>
+                    <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                     <failOnMissingHeader>true</failOnMissingHeader>
-                    <licenseName>jguru_apl_v2</licenseName>
+                    <licenseName>${license.id}</licenseName>
                     <licenseResolver>classpath://codestyle/license</licenseResolver>
                     <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
                     <roots>
                         <root>src/main</root>
                         <root>src/test</root>
@@ -995,8 +997,6 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
-                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
-                    </propertyExpansion>
                     <configLocation>${checkstyle.config.location}</configLocation>
                     <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
                     <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
@@ -1177,8 +1177,6 @@
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <version>${checkstyle.plugin.version}</version>
                         <configuration>
-                            <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
-                            </propertyExpansion>
                             <configLocation>${checkstyle.config.location}</configLocation>
                             <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
                             <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
@@ -1328,8 +1326,6 @@
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <version>${checkstyle.plugin.version}</version>
                         <configuration>
-                            <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
-                            </propertyExpansion>
                             <configLocation>${checkstyle.config.location}</configLocation>
                             <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
                             <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
