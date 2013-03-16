@@ -754,6 +754,7 @@
                     <roots>
                         <root>${project.basedir}/src/main</root>
                         <root>${project.basedir}/src/test</root>
+                        <root>${project.basedir}/src/site</root>
                     </roots>
                 </configuration>
                 <executions>
