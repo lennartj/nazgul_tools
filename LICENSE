@@ -187,7 +187,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright 2011 Lennart Jörelid
+   Copyright [yyyy] [name of copyright owner]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -211,6 +211,7 @@ for the Codestyle, Validation and Poms subproject:
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
  are met:
+
  1. Redistributions of source code must retain the above copyright               1
     notice, this list of conditions and the following disclaimer.
  2. Redistributions in binary form must reproduce the above copyright
