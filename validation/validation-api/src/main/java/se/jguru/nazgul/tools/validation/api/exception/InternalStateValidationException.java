@@ -31,6 +31,9 @@ import se.jguru.nazgul.tools.validation.api.expression.ExpressionBuilder;
  */
 public class InternalStateValidationException extends AbstractErrorMessageContainer {
 
+    // Internal state
+    private static final long serialVersionUID = 2494787185488486468L;
+
     /**
      * Factory method to create and return an ExpressionBuilder holding an empty
      * InternalStateValidationException as MessageContainer.

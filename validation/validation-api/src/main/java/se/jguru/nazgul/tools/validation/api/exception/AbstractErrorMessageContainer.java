@@ -32,6 +32,7 @@ import java.util.List;
 public class AbstractErrorMessageContainer extends IllegalStateException implements ErrorMessageContainer {
 
     // Internal state
+    private static final long serialVersionUID = 2958878066896490587L;
     private final List<String> errorMessages = new ArrayList<String>();
 
     /**
@@ -66,8 +67,7 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
     /**
      * Returns the detail message string of this throwable.
      *
-     * @return the detail message string of this <tt>Throwable</tt> instance
-     *         (which may be <tt>null</tt>).
+     * @return the detail message string of this <tt>Throwable</tt> instance (which may be <tt>null</tt>).
      */
     @Override
     public String getMessage() {
@@ -84,7 +84,6 @@ public class AbstractErrorMessageContainer extends IllegalStateException impleme
     //
     // Private constructors.
     //
-
 
     /**
      * Constructs an IllegalStateException with no detail message.
