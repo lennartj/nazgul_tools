@@ -48,6 +48,7 @@ public class ExpressionBuilderTest {
         validateNullOrEmptyCollectionOrMap(listName, expectedExceptionMessage, Collections.emptyList());
     }
 
+    @SuppressWarnings("rawtypes")
     @Test
     public void validateExceptionMessageOnEmptyMap() {
 

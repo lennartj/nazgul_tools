@@ -22,7 +22,7 @@
 
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;

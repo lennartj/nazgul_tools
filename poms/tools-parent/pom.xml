@@ -113,7 +113,6 @@
         <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
         <breakOnFailure.cobertura>true</breakOnFailure.cobertura>
         <breakOnFailure.pmd>true</breakOnFailure.pmd>
-        <breakOnFailure.cpd>true</breakOnFailure.cpd>
         <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
         <breakOnFailure.license>true</breakOnFailure.license>
     </properties>
@@ -801,7 +800,7 @@
                         <check>
                             <branchRate>65</branchRate>
                             <lineRate>80</lineRate>
-                            <haltOnFailure>${cobertura.haltOnFailure}</haltOnFailure>
+                            <haltOnFailure>${breakOnFailure.cobertura}</haltOnFailure>
                             <!-- totalBranchRate>85</totalBranchRate>
                            <totalLineRate>85</totalLineRate>
                            <packageLineRate>85</packageLineRate>
@@ -842,6 +841,7 @@
                         <rulesets>
                             <ruleset>/codestyle/pmd-rules.xml</ruleset>
                         </rulesets>
+                        <failOnViolation>${breakOnFailure.pmd}</failOnViolation>
                         <targetJdk>${jdk.version}</targetJdk>
                         <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     </configuration>
@@ -891,7 +891,7 @@
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
                     <configLocation>${checkstyle.config.location}</configLocation>
-                    <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                    <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                     <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                 </configuration>
                 <executions>
@@ -929,7 +929,7 @@
                 <version>1.4</version>
                 <configuration>
                     <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
-                    <failOnMissingHeader>true</failOnMissingHeader>
+                    <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
                     <licenseResolver>classpath://codestyle/license</licenseResolver>
                     <canUpdateDescription>true</canUpdateDescription>
@@ -978,6 +978,7 @@
                     <rulesets>
                         <ruleset>/codestyle/pmd-rules.xml</ruleset>
                     </rulesets>
+                    <failOnViolation>${breakOnFailure.pmd}</failOnViolation>
                     <targetJdk>${jdk.version}</targetJdk>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                 </configuration>
@@ -1024,6 +1025,7 @@
                             <goal>enforce</goal>
                         </goals>
                         <configuration>
+                            <fail>${breakOnFailure.enforcer}</fail>
                             <rules>
                                 <requireMavenVersion>
                                     <version>[3.0.4,)</version>
@@ -1364,7 +1366,7 @@
                         <version>${checkstyle.plugin.version}</version>
                         <configuration>
                             <configLocation>${checkstyle.config.location}</configLocation>
-                            <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                            <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                             <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         </configuration>
                         <executions>
@@ -1513,7 +1515,7 @@
                         <version>${checkstyle.plugin.version}</version>
                         <configuration>
                             <configLocation>${checkstyle.config.location}</configLocation>
-                            <failOnViolation>${checkstyle.failOnViolation}</failOnViolation>
+                            <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                             <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         </configuration>
                         <executions>
