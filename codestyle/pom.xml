@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
   ~ #%L
-  ~ nazgul-tools-validation-api
+  ~ Nazgul Project: nazgul-tools-codestyle
   ~ %%
   ~ Copyright (C) 2010 - 2013 jGuru Europe AB
   ~ %%
@@ -34,6 +34,10 @@
     <version>2.0.2-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <description>
+        Nazgul tools codestyle definition, including development model, enforcement
+        rules and configurations for code-checking plugins such as PMD, CPD and checkstyle.
+    </description>
 
     <inceptionYear>2010</inceptionYear>
     <organization>

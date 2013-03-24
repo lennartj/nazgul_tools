@@ -83,7 +83,7 @@
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.2.1</openjpa.version>
-        <activemq.version>5.7.0</activemq.version>
+        <activemq.version>5.8.0</activemq.version>
         <maven.release.plugin.version>2.4</maven.release.plugin.version>
         <aspectj.runtime.version>1.7.2</aspectj.runtime.version>
         <osgiVersion>4.3.1</osgiVersion>
@@ -108,7 +108,14 @@
         <checkstyle.plugin.version>2.10</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
-        <checkstyle.failOnViolation>true</checkstyle.failOnViolation>
+
+        <!-- Define code-breaking constants -->
+        <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
+        <breakOnFailure.cobertura>true</breakOnFailure.cobertura>
+        <breakOnFailure.pmd>true</breakOnFailure.pmd>
+        <breakOnFailure.cpd>true</breakOnFailure.cpd>
+        <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
+        <breakOnFailure.license>true</breakOnFailure.license>
     </properties>
 
     <!--
@@ -118,11 +125,6 @@
     -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>14.0.1</version>
-            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -150,11 +152,6 @@
                 <version>${openjpa.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.hsqldb</groupId>
-                <artifactId>hsqldb</artifactId>
-                <version>2.2.9</version>
-            </dependency>
 
             <!--
                 AOP dependencies.
@@ -168,25 +165,6 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjtools</artifactId>
                 <version>${aspectj.runtime.version}</version>
-            </dependency>
-
-            <!--
-               Cache dependencies
-            -->
-            <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-core</artifactId>
-                <version>2.6.5</version>
-            </dependency>
-            <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-jmsreplication</artifactId>
-                <version>0.4</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>jta</artifactId>
-                <version>1.1</version>
             </dependency>
 
             <!--
