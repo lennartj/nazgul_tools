@@ -571,6 +571,7 @@
                     <version>${maven.release.plugin.version}</version>
                     <configuration>
                         <localCheckout>true</localCheckout>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
                         <tagNameFormat>nazgul-tools-@{project.version}</tagNameFormat>
                     </configuration>
                     <dependencies>
@@ -1322,6 +1323,7 @@
                         <artifactId>maven-release-plugin</artifactId>
                         <version>${maven.release.plugin.version}</version>
                         <configuration>
+                            <mavenExecutorId>forked-path</mavenExecutorId>
                             <preparationGoals>-B clean install</preparationGoals>
                             <localCheckout>true</localCheckout>
                         </configuration>
