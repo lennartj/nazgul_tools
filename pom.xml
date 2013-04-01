@@ -12,18 +12,43 @@
     # Section 1:  Project information
     ################################################
     -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
     <version>2.0.3-SNAPSHOT</version>
     <name>${project.artifactId}</name>
-    <url>http://www.jguru.se/nazgul/tools/</url>
+    <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
+        configurations, aimed at boosting productivity. The Nazgul Framework: Tools project enables you to start pr
+        ojects quickly and scale them considerably without needing to change the development or deployment
+        model.</description>
+    <url>http://bitbucket.org/lennartj/nazgul_tools</url>
     <packaging>pom</packaging>
-
     <inceptionYear>2010</inceptionYear>
+
     <organization>
         <name>jGuru Europe AB</name>
-        <url>http://www.jguru.se/nazgul</url>
+        <url>http://www.jguru.se/</url>
     </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+        <license>
+            <name>jGuru Europe Corporate Source License, based on The Apache Software License, Version 2.0</name>
+            <url>http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
