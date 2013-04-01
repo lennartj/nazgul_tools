@@ -63,7 +63,6 @@
 
     <properties>
         <maven.version>2.2.1</maven.version>
-        <maven.release.plugin.version>2.2.1</maven.release.plugin.version>
         <enforcer.api.version>1.2</enforcer.api.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 

@@ -574,7 +574,7 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven.release.plugin.version}</version>
-                    <configuration>
+                    <configuration combine.self="override">
                         <localCheckout>true</localCheckout>
                         <mavenExecutorId>forked-path</mavenExecutorId>
                         <tagNameFormat>nazgul-tools-@{project.version}</tagNameFormat>
