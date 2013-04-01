@@ -166,10 +166,21 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!--
+                Staging a site for the Nazgul Tools reactor is impossible until
+                https://jira.codehaus.org/browse/MSITE-669 is fixed.
+
+                As an alternative, build the site of this project to read how you
+                can build a staged site. Building the site of this project is done
+                simply by launching a command shell and firing the command:
+
+                mvn -N clean site
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.3.1.jguru</version>
+                <version>3.2</version>
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
@@ -187,7 +198,40 @@
                         <artifactId>wagon-ssh</artifactId>
                         <version>2.2</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>1.3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-xhtml</artifactId>
+                        <version>1.3</version>
+                    </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.github.jeluard</groupId>
+                <artifactId>plantuml-maven-plugin</artifactId>
+                <version>7954</version>
+                <configuration>
+                    <sourceFiles>
+                        <directory>${basedir}</directory>
+                        <includes>
+                            <include>src/site/**/*.puml</include>
+                        </includes>
+                    </sourceFiles>
+                    <outputDirectory>${project.build.directory}/site/images/plantuml</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-plantuml-diagrams</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -287,7 +331,9 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
+        <connection>scm:hg:http://bitbucket.org/lennartj/nazgul_tools</connection>
         <developerConnection>scm:hg:file://${basedir}/</developerConnection>
+        <url>http://bitbucket.org/lennartj/nazgul_tools</url>
         <tag>HEAD</tag>
     </scm>
 

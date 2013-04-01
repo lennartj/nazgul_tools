@@ -34,7 +34,7 @@
     <version>2.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <url>http://www.jguru.se/nazgul/tools/</url>
+    <url>http://bitbucket.org/lennartj/nazgul_tools</url>
     <inceptionYear>2010</inceptionYear>
 
     <organization>
@@ -678,10 +678,14 @@
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.1.2</version>
                 </plugin>
+                <!--
+                    Staging a site for the Nazgul Tools reactor is impossible until
+                    https://jira.codehaus.org/browse/MSITE-669 is fixed.
+                -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.3.1.jguru</version>
+                    <version>3.2</version>
                     <executions>
                         <execution>
                             <id>attach-descriptor</id>
@@ -701,6 +705,16 @@
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
                             <version>2.2</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-module-markdown</artifactId>
+                            <version>1.3</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.maven.doxia</groupId>
+                            <artifactId>doxia-module-xhtml</artifactId>
+                            <version>1.3</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -928,7 +942,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.4</version>
                 <configuration>
-                    <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
+                    <descriptionTem plate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                     <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
                     <licenseResolver>classpath://codestyle/license</licenseResolver>

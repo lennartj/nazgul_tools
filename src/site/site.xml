@@ -34,6 +34,16 @@
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
+            <item name="Nazgul Tools Overview" href="nazgul_tools.html"/>
+            <item name="Modularity" href="modularity.html"/>
+            <item name="Software Components" href="software_components.html"/>
+        </menu>
+
+        <menu name="Large-project considerations">
+            <item name="Reducing tanglements" href="scalability/tanglements.html"/>
+            <!-- item name="Enforcing a codestyle" href="scalability/codestyle.html"/>
+            <item name="Defining project types" href="scalability/project_types.html"/>
+            <item name="Defining project types" href="scalability/modularity.html"/ -->
         </menu>
 
         <menu ref="parent" />
