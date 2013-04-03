@@ -1,4 +1,4 @@
-# Reducing dependency tanglements
+# Problem statement: Reducing dependency tanglements
 
 One of the most problematic aspects of legacy code is its tendency to be excessively tangled, meaning that
 classes or projects within the code have too many dependencies to other classes or projects. This, in turn,
@@ -12,7 +12,7 @@ Yarn](http://thedailywtf.com/Articles/Enterprise-Dependency-Big-Ball-of-Yarn.asp
 the image occurred or [The Enterprise Dependency](http://thedailywtf.com/Articles/The-Enterprise-Dependency.aspx) for
 another interesting look at an overly tangled codebase.
 
-While the images may seem a somewhat hilarious, the situation is far from unique in regards to
+While the images may seem somewhat hilarious, the situation is far from unique in regards to
 enterprise codebases for projects with some size. Refactoring a single class in the illustrated codebase
 is going to affect a multitude of other classes in a ripple-like effect caused by the excessive tanglement.
 That - in turn - will cost time and money.
