@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <version>2.0.3</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>http://bitbucket.org/lennartj/nazgul_tools</url>
@@ -101,7 +101,7 @@
         <pmd.plugin.version>3.0.1</pmd.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
-        <nazgul-codestyle.version>2.0.3-SNAPSHOT</nazgul-codestyle.version>
+        <nazgul-codestyle.version>2.0.3</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
         <dependency.plugin.version>2.7</dependency.plugin.version>
         <license.id>jguru_apl_v2</license.id>
@@ -1260,7 +1260,7 @@
     <scm>
         <connection>scm:hg:http://bitbucket.org/lennartj/nazgul_tools</connection>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-2.0.3</tag>
     </scm>
 
     <!--
