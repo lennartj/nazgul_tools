@@ -90,6 +90,7 @@ public class ProjectTypeTest {
                 = getStub("bundle", "se.jguru.foo.bar.application", "bar-application");
         final MavenProject standaloneApplication2
                 = getStub("jar", "se.jguru.foo.bar.application", "bar-application");
+        final MavenProject itest = getStub("jar", "se.jguru.foo.it.bar", "bar-it");
 
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
@@ -107,6 +108,7 @@ public class ProjectTypeTest {
         Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication1));
         Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication2));
         Assert.assertEquals(ProjectType.CODESTYLE, ProjectType.getProjectType(codestyle));
+        Assert.assertEquals(ProjectType.INTEGRATION_TEST, ProjectType.getProjectType(itest));
     }
 
     @Test
@@ -214,6 +216,19 @@ public class ProjectTypeTest {
         Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("bundle"));
         Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.TEST.isCompliantPackaging("war"));
+    }
+
+    @Test
+    public void validateIntegrationTestProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertFalse(ProjectType.INTEGRATION_TEST.isCompliantArtifactID("it-foo-impl"));
+        Assert.assertFalse(ProjectType.INTEGRATION_TEST.isCompliantArtifactID("test-it-foo"));
+        Assert.assertTrue(ProjectType.INTEGRATION_TEST.isCompliantArtifactID("foo-it"));
+
+        Assert.assertFalse(ProjectType.INTEGRATION_TEST.isCompliantGroupID("it.foo"));
+        Assert.assertFalse(ProjectType.INTEGRATION_TEST.isCompliantGroupID("impl.it"));
+        Assert.assertTrue(ProjectType.INTEGRATION_TEST.isCompliantGroupID("some.it.foo"));
     }
 
     @Test

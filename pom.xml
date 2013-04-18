@@ -4,7 +4,8 @@
   ~ All rights reserved.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -25,7 +26,8 @@
     <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
         configurations, aimed at boosting productivity. The Nazgul Framework: Tools project enables you to start pr
         ojects quickly and scale them considerably without needing to change the development or deployment
-        model.</description>
+        model.
+    </description>
     <url>http://bitbucket.org/lennartj/nazgul_tools</url>
     <packaging>pom</packaging>
     <inceptionYear>2010</inceptionYear>
@@ -73,9 +75,9 @@
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-        <pmd.plugin.version>2.7.1</pmd.plugin.version>
-        <cobertura.plugin.version>2.5.1</cobertura.plugin.version>
-        <checkstyle.plugin.version>2.9.1</checkstyle.plugin.version>
+        <pmd.plugin.version>3.0.1</pmd.plugin.version>
+        <cobertura.plugin.version>2.5.2</cobertura.plugin.version>
+        <checkstyle.plugin.version>2.10</checkstyle.plugin.version>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.2.1-SNAPSHOT</nazgul-codestyle.version>
@@ -200,7 +202,7 @@
                 can build a staged site. Building the site of this project is done
                 simply by launching a command shell and firing the command:
 
-                mvn -N clean site
+                mvn [-N] clean site
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -351,6 +353,40 @@
             </plugin>
         </plugins>
     </reporting>
+
+    <profiles>
+
+        <!--
+            Purpose: Use GPG to sign artifacts during release:perform.
+        -->
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <!--
        Define connections for Maven's Mercurial integration.

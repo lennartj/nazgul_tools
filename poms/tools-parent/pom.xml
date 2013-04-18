@@ -90,11 +90,11 @@
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.2.1</openjpa.version>
         <activemq.version>5.8.0</activemq.version>
-        <maven.release.plugin.version>2.4</maven.release.plugin.version>
+        <maven.release.plugin.version>2.4.1</maven.release.plugin.version>
         <aspectj.runtime.version>1.7.2</aspectj.runtime.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
-        <slf4j.version>1.7.4</slf4j.version>
+        <slf4j.version>1.7.5</slf4j.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
@@ -1055,8 +1055,9 @@
 
                                 <!--
                                     Enforce the implementation rules for dependencies, to enforce that
-                                    API, MODEL and SPI projects do not import projects of types
-                                    APPLICATION, TEST, POC, EXAMPLE and IMPLEMENTATION.
+                                    the level of dependency tanglement is not increased. This implies that
+                                    implementation projects cannot import other implementation projects (but
+                                    instead should import APIs).
 
                                     While the configuration below reflect the default settings, it is
                                     reproduced her to serve as an example of how to configure this enforcement rule

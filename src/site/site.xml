@@ -41,9 +41,7 @@
 
         <menu name="Large-project considerations">
             <item name="Reducing tanglements" href="scalability/tanglements.html"/>
-            <!-- item name="Enforcing a codestyle" href="scalability/codestyle.html"/>
-            <item name="Defining project types" href="scalability/project_types.html"/>
-            <item name="Defining project types" href="scalability/modularity.html"/ -->
+            <item name="Reducing complexity" href="scalability/complexity_reduction.html"/>
         </menu>
 
         <menu ref="parent" />

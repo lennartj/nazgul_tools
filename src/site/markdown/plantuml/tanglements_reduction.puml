@@ -1,0 +1,28 @@
+@startuml
+
+skinparam component {
+  BackgroundColor<<Private>> #EEEEFF
+  BorderColor<<Private>> black
+}
+
+package "All-In-One Component" {
+
+    interface ApiType
+
+    ApiType <|--right-- ImplType
+}
+
+package "ApiDependencies" {
+
+    class SomeDependency
+
+    ApiType --|> SomeDependency
+}
+
+package "ImplDependencies" {
+
+    ImplType --|> SomeImplDependency1
+    ImplType --|> SomeImplDependency2
+}
+
+@enduml

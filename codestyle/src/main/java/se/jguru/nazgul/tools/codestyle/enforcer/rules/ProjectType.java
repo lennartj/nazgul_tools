@@ -132,6 +132,14 @@ public enum ProjectType {
     TEST(".*-test$", ".*\\.test\\.\\w*$", null),
 
     /**
+     * Integration test artifact helper project, used to perform automated
+     * tests for several projects.
+     * <p/>
+     * No dependency rules.
+     */
+    INTEGRATION_TEST(".*-it$", ".*\\.it\\.\\w*$", null),
+
+    /**
      * Codestyle helper project, providing implementations for use within the build definition cycle.
      * Typically used within local reactors to supply changes or augmentations to build configurations
      * such as {@code checkstyle.xml}, or custom enforcer rule implementations.
