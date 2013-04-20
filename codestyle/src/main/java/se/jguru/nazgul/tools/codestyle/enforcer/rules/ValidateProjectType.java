@@ -43,6 +43,7 @@ public class ValidateProjectType extends AbstractEnforcerRule {
      *          If the enforcer rule was not satisfied.
      */
     @Override
+    @SuppressWarnings("PMD.PreserveStackTrace")
     protected void performValidation(final MavenProject project, final EnforcerRuleHelper helper)
             throws RuleFailureException {
 

@@ -204,7 +204,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      * @param includedGroupIdPatterns Comma-separated list of regexp patterns that groupID
      *                                should match to be included in enforcement.
      */
-    public void setIncludedGroupIdPatterns(final String includedGroupIdPatterns) {
+    public final void setIncludedGroupIdPatterns(final String includedGroupIdPatterns) {
         this.evaluateGroupIds = splice2Pattern(includedGroupIdPatterns);
     }
 
@@ -224,7 +224,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
      * @param excludedGroupIdPatterns Comma-separated list of groupID prefixes that
      *                                should be excluded from enforcement.
      */
-    public void setExcludedGroupIdPatterns(final String excludedGroupIdPatterns) {
+    public final void setExcludedGroupIdPatterns(final String excludedGroupIdPatterns) {
         this.dontEvaluateGroupIds = splice2Pattern(excludedGroupIdPatterns);
     }
 }

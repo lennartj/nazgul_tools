@@ -62,6 +62,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      *          the enforcer rule exception
      */
     @Override
+    @SuppressWarnings("PMD.PreserveStackTrace")
     public final void execute(final EnforcerRuleHelper helper) throws EnforcerRuleException {
 
         final MavenProject project;

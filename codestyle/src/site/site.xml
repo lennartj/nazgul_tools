@@ -54,6 +54,12 @@
             <item name="Introduction" href="index.html"/>
         </menu>
 
+        <menu name="Setup IDEs">
+            <item name="IDE Setup" href="setup/ide_setup.html"/>
+            <item name="IntelliJ IDEA 12.x" href="setup/idea.html"/>
+            <item name="Eclipse Juno" href="setup/eclipse.html"/>
+        </menu>
+
         <menu ref="parent"/>
         <menu ref="reports" inherit="bottom"/>
     </body>
