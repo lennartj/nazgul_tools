@@ -14,11 +14,11 @@ code formatting, project imports etc. Each IDE has a slightly different way to p
         <th width="50%">Setup Compliance Status</th>
     </tr>
     <tr>
-        <td>[IntelliJ IDEA 12.x](idea.html)</td>
+        <td><a href="idea.html">IntelliJ IDEA 12.x</a></td>
         <td>Release Candidate</td>
     </tr>
     <tr>
-        <td>[Eclipse Juno](eclipse.html)</td>
+        <td><a href="eclipse.html">Eclipse Juno</a></td>
         <td>Alpha</td>
     </tr>
 </table>
