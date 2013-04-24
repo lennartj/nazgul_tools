@@ -45,6 +45,10 @@ code formatting, project imports etc. Each IDE has a slightly different way to p
     </tr>
     <tr>
         <td><a href="setup/eclipse.html">Eclipse Juno</a></td>
-        <td>Alpha</td>
+        <td>To be described</td>
+    </tr>
+    <tr>
+        <td><a href="setup/netbeans.html">Netbeans 7.3+</a></td>
+        <td>To be described</td>
     </tr>
 </table>
