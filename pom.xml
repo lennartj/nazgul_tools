@@ -23,9 +23,8 @@
     <version>2.0.6-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
-        configurations, aimed at boosting productivity. The Nazgul Framework: Tools project enables you to start pr
-        ojects quickly and scale them considerably without needing to change the development or deployment
-        model.
+        configurations, aimed at boosting productivity. The Nazgul Framework: Tools project enables you to start
+        projects quickly and scale them considerably without needing to change the development or deployment model.
     </description>
     <url>http://bitbucket.org/lennartj/nazgul_tools</url>
     <packaging>pom</packaging>
