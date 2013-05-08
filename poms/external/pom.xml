@@ -59,7 +59,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>http://www.jguru.se/nazgul/tools/poms/</url>
+            <url>${nazgul-tools.sitedeploy.url}</url>
         </site>
     </distributionManagement>
 
