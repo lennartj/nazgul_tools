@@ -9,15 +9,11 @@ package "4. Run-time Dependencies" {
 
     package "3. Compile-time Dependencies for API usage" #fffff0 {
 
-        package "1. All-In-One" {
+        package "1. API Only Component" {
 
             interface ApiType {
                 someMethod()
             }
-
-            class "ImplType" <<Impl>>
-
-            ApiType <|--right-- ImplType
         }
 
         package "2a. ApiDependencies" {
@@ -26,12 +22,18 @@ package "4. Run-time Dependencies" {
 
             ApiType --|> SomeDependency
         }
+    }
 
-        package "2b. ImplDependencies" {
+    package "Implementation Component" {
 
-            ImplType --|> SomeImplDependency1 <<Impl>>
-            ImplType --|> SomeImplDependency2 <<Impl>>
-        }
+        class "ImplType" <<Impl>>
+        ApiType <.right.. ImplType : Injected @ runtime
+    }
+
+    package "2b. ImplDependencies" {
+
+        ImplType --|> SomeImplDependency1 <<Impl>>
+        ImplType --|> SomeImplDependency2 <<Impl>>
     }
 }
 

@@ -1,20 +1,60 @@
 # Reducing software complexity
 
-<img src="../images/plantuml/tanglements_reduction.png" style="float:right; margin:10px;" />
 Assuming that the complexity of a codebase is proportional to its size, large-scale
-development requires some means to reduce the mass of imported dependencies.
+development requires some means to reduce the mass of imported dependencies in order to
+reduce its complexity. Reducing complexity - particularly in large corporate development
+projects - is necessary to preserve a quicker development/release pace.
+
 A simple yet successful way of achieving dependency reduction is to divide development
 into [Nazgul Software Component ("NSC")](../software_components.html) projects - i.e.
 separate APIs from implementations.
 
-The image to the right illustrates that a client declaring a depency to a module
-containing both API and implementation types is encumbered with the transitive
-dependencies of both.
 Separating the API and Implementation types into different projects reduces coupling
 for the client, since none of the implementation types or their transitive dependencies
 will be seen from the client. This is important, since implementations frequently depend on
 a larger number of transitive dependencies than APIs (which are typically slimmer in nature
 than implementations).
+
+## An illustrated dependency example
+
+The image below illustrates the dependency tanglement forced onto a client which needs to invoke
+the `someMethod()` in an interface defined within the "All-In-One" project. The client project
+will need to include a maven dependency in its pom to the "All-In-One" project containing the ApiType:
+
+    <dependency>
+        <groupId>the.groupid</groupId>
+        <artifactId>All-In-One</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+
+Given that the All-In-One project contains both the interface specification and an implementation,
+the transitive dependencies from the All-In-One project must also be included in the build.
+As illustrated in the image below, we assume that the ApiType uses a dependency "2a. Api Dependencies",
+and that the implementation also contained within the All-In-One project uses dependencies from the
+"2b. Impl Dependencies" projects.
+
+As always, all dependencies of a project must be available on the classpath for the build to succeed.
+This implies that the compile-time dependencies required to build the project of the "Calling client"
+includes all the types included within the yellow-ish rectangle "3. Compile-time Dependencies for API usage".
+In this case, the scope is identical to the scope at runtime, which means that the full implementation
+must be present just to compile the project containing "Calling client". Also, the runtime scope (indicated
+by "4. Run-time Dependencies") contains all projects in the implementation, even if the implementation is not used
+(say, by injecting another implementation of the ApiType at runtime).
+
+This scenario increases the risk of "jar-hell"-like problems unless the runtime loads dependencies
+with separate classloaders, such as an OSGi solution.
+And even worse - this is simply **bad development practise**.
+
+<img src="../images/plantuml/tanglements_reduction.png" style="margin:10px;" />
+
+Instead, we could decouple the implementation from the API by placing it in a separate maven project.
+This implies that unwanted dependency bloat is reduced considerably, as illustrated in the image below.
+Note now, that the "3. Compile-time Dependencies for API usage" set differs from the "4. Run-time Dependencies".
+This is a Good Thing, since it reduces dependency tanglement. [Nazgul Software Component ("NSC")]
+(../software_components.html) projects adhere to this principle of separating API projects from implementation
+projects.
+
+<img src="../images/plantuml/tanglements_reduction_noimpl.png" style="margin:10px;" />
 
 ## Definitions: Coupling and Cohesion
 

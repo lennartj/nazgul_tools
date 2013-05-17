@@ -35,6 +35,10 @@
         <url>http://www.jguru.se/</url>
     </organization>
 
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -79,7 +83,7 @@
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
         <nazgul-codestyle.version>1.2.1-SNAPSHOT</nazgul-codestyle.version>
-        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
     </properties>
 
     <!--
@@ -193,19 +197,16 @@
             </plugin>
 
             <!--
-                Staging a site for the Nazgul Tools reactor is impossible until
-                https://jira.codehaus.org/browse/MSITE-669 is fixed.
+                Staging a site for the Nazgul Tools reactor using a released version of the
+                maven-site-plugin is impossible until https://jira.codehaus.org/browse/MSITE-669 is fixed.
 
-                As an alternative, build the site of this project to read how you
-                can build a staged site. Building the site of this project is done
-                simply by launching a command shell and firing the command:
-
-                mvn [-N] clean site
+                You can either download/install the 3.3.1.jguru version of the plugin
+                and run mvn site:stage or simply ignore building a staged site.
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.3</version>
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
@@ -408,7 +409,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}</url>
+            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/</url>
         </site>
     </distributionManagement>
 
