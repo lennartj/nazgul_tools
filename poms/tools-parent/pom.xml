@@ -714,7 +714,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <topProjectDefinesStagedSiteRootURL>true</topProjectDefinesStagedSiteRootURL>
+                        <topSiteURL>${nazgul-tools.sitedeploy.url}/version/${project.version}/</topSiteURL>
                         <generateSitemap>true</generateSitemap>
                         <inputEncoding>UTF-8</inputEncoding>
                         <outputEncoding>UTF-8</outputEncoding>
@@ -1291,7 +1291,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/</url>
+            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/poms/tools-parent</url>
         </site>
     </distributionManagement>
 

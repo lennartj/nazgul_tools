@@ -211,7 +211,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <topProjectDefinesStagedSiteRootURL>true</topProjectDefinesStagedSiteRootURL>
+                    <topSiteURL>${nazgul-tools.sitedeploy.url}/version/${project.version}/</topSiteURL>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -415,7 +415,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/</url>
+            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/codestyle</url>
         </site>
     </distributionManagement>
 </project>

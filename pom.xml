@@ -216,7 +216,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <topProjectDefinesStagedSiteRootURL>true</topProjectDefinesStagedSiteRootURL>
+                    <topSiteURL>${nazgul-tools.sitedeploy.url}/version/${project.version}/</topSiteURL>
+                    <generateSitemap>true</generateSitemap>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
                 <dependencies>
                     <dependency>
