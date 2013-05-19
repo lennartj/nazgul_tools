@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>2.0.6</version>
+    <version>2.0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>http://bitbucket.org/lennartj/nazgul_tools</url>
@@ -800,7 +800,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.6</version>
+                            <version>2.0.7-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -880,7 +880,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.6</version>
+                            <version>2.0.7-SNAPSHOT</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -936,7 +936,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.6</version>
+                        <version>2.0.7-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -985,7 +985,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.6</version>
+                        <version>2.0.7-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1018,7 +1018,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.6</version>
+                        <version>2.0.7-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1089,7 +1089,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.6</version>
+                        <version>2.0.7-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1273,7 +1273,7 @@
     <scm>
         <connection>scm:hg:http://bitbucket.org/lennartj/nazgul_tools</connection>
         <developerConnection>scm:hg:file://${basedir}/../../</developerConnection>
-        <tag>nazgul-tools-2.0.6</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
@@ -1413,7 +1413,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>2.0.6</version>
+                                <version>2.0.7-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1446,7 +1446,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>2.0.6</version>
+                                <version>2.0.7-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1494,7 +1494,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>2.0.6</version>
+                                <version>2.0.7-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1562,7 +1562,7 @@
                             <dependency>
                                 <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                                 <artifactId>nazgul-codestyle</artifactId>
-                                <version>2.0.6</version>
+                                <version>2.0.7-SNAPSHOT</version>
                             </dependency>
                         </dependencies>
                     </plugin>
