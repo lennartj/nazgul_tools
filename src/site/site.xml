@@ -44,6 +44,10 @@
             <item name="Reducing complexity" href="scalability/complexity_reduction.html"/>
         </menu>
 
+        <menu name="Generating Site Documentation">
+            <item name="Staging a local Site" href="staging.html"/>
+        </menu>
+
         <menu ref="parent" />
         <menu ref="modules" inherit="bottom"/>
         <menu ref="reports" inherit="bottom"/>
