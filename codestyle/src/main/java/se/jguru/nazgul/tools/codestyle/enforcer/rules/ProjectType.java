@@ -55,6 +55,13 @@ public enum ProjectType {
     PARENT(".*-parent$", null, "pom"),
 
     /**
+     * Pom project, defining assemblies and/or aggregation projects.
+     * <p/>
+     * May not contain module definitions.
+     */
+    ASSEMBLY(".*-assembly$", null, "pom"),
+
+    /**
      * Aspect definition project, holding publicly available aspects.
      */
     ASPECT(".*-aspect$", ".*\\.aspect$", "bundle"),
@@ -270,6 +277,7 @@ public enum ProjectType {
         final ProjectType toReturn = matches.get(0);
         switch (toReturn) {
             case PARENT:
+            case ASSEMBLY:
                 // This project should not contain modules.
                 if (project.getModules() != null && !project.getModules().isEmpty()) {
                     throw new IllegalArgumentException(ProjectType.PARENT

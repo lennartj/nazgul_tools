@@ -40,7 +40,7 @@
     <version>2.0.7-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <url>http://bitbucket.org/lennartj/nazgul_tools</url>
+    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/codestyle</url>
     <description>
         Nazgul Framework: Tools codestyle definitions, including development model, enforcement
         rules and configurations for code-checking plugins such as PMD, CPD and checkstyle.
@@ -78,6 +78,15 @@
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
+
+        <!--
+            Define the URL prefixes for Site Deployment and DistributionManagement.
+            These can be overridden in sub-reactors to tailor releases to other locations.
+        -->
+        <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
+        <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
+        <reactor.name>nazgul_tools</reactor.name>
+        <scm.url.prefix>scm:hg:${reactor.url.remote.prefix}</scm.url.prefix>
     </properties>
 
     <developers>
@@ -211,7 +220,12 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <topSiteURL>${nazgul-tools.sitedeploy.url}/version/${project.version}/</topSiteURL>
+                    <topSiteURL>${site.url.prefix}/${reactor.name}</topSiteURL>
+                    <stagingSiteURL>${site.url.prefix}/${reactor.name}</stagingSiteURL>
+                    <stagingDirectory>${project.build.directory}/${project.version}</stagingDirectory>
+                    <generateSitemap>true</generateSitemap>
+                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -399,14 +413,27 @@
     </profiles>
 
     <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+    <!--
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <connection>scm:hg:http://bitbucket.org/lennartj/nazgul_tools</connection>
-        <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
-        <url>http://bitbucket.org/lennartj/nazgul_tools</url>
+        <connection>${scm.url.prefix}/${reactor.name}</connection>
+        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
+        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
         <tag>HEAD</tag>
     </scm>
+
+    <!--
+        Define the issue management system.
+    -->
+    <issueManagement>
+        <system>bitbucket</system>
+        <url>${reactor.url.remote.prefix}/${reactor.name}/issues</url>
+    </issueManagement>
 
     <!--
         Define repository settings for Maven's deploy and release plugins.
@@ -415,7 +442,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/codestyle</url>
+            <url>${site.url.prefix}/${reactor.name}/${project.version}/codestyle</url>
         </site>
     </distributionManagement>
 </project>

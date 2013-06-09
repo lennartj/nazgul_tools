@@ -4,7 +4,9 @@
   ~ All rights reserved.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -22,11 +24,11 @@
     <artifactId>nazgul-tools-reactor</artifactId>
     <version>2.0.7-SNAPSHOT</version>
     <name>${project.artifactId}</name>
+    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}</url>
     <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
         configurations, aimed at boosting productivity. The Nazgul Framework: Tools project enables you to start
         projects quickly and scale them considerably without needing to change the development or deployment model.
     </description>
-    <url>http://bitbucket.org/lennartj/nazgul_tools</url>
     <packaging>pom</packaging>
     <inceptionYear>2010</inceptionYear>
 
@@ -40,12 +42,6 @@
     </prerequisites>
 
     <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
         <license>
             <name>jGuru Europe Corporate Source License, based on The Apache Software License, Version 2.0</name>
             <url>http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt</url>
@@ -69,116 +65,51 @@
     </developers>
 
     <properties>
+        <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jdk.version>1.6</jdk.version>
-        <aspectj.runtime.version>1.6.12</aspectj.runtime.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
-        <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-        <pmd.plugin.version>3.0.1</pmd.plugin.version>
-        <cobertura.plugin.version>2.5.2</cobertura.plugin.version>
-        <checkstyle.plugin.version>2.10</checkstyle.plugin.version>
-        <findbugs.plugin.version>2.5.2</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
-        <nazgul-codestyle.version>1.2.1-SNAPSHOT</nazgul-codestyle.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+
+        <!--
+            Define the URL prefixes for Site Deployment and DistributionManagement.
+            These can be overridden in sub-reactors to tailor releases to other locations.
+        -->
+        <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
+        <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
+        <reactor.name>nazgul_tools</reactor.name>
+        <scm.url.prefix>scm:hg:${reactor.url.remote.prefix}</scm.url.prefix>
     </properties>
+
+    <!--
+    ################################################
+    # Section 2:  Modules
+    ################################################
+    -->
+    <modules>
+        <module>codestyle</module>
+        <module>validation</module>
+        <module>poms</module>
+    </modules>
 
     <!--
     ################################################
     # Section 3:  Build settings
     ################################################
     -->
-
     <build>
         <plugins>
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.plugin.version}</version>
-                <configuration>
-                    <excludeRoots>
-                        <excludeRoot>src/main/generated</excludeRoot>
-                        <excludeRoot>src/test</excludeRoot>
-                    </excludeRoots>
-                    <rulesets>
-                        <ruleset>codestyle/pmd-rules.xml</ruleset>
-                    </rulesets>
-                    <targetJdk>${jdk.version}</targetJdk>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
-                        <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.7-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.plugin.version}</version>
-                <configuration>
-                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile
-                    </propertyExpansion>
-                    <configLocation>codestyle/checkstyle.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <violationSeverity>error</violationSeverity>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
-                        <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.7-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura.plugin.version}</version>
-            </plugin>
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs.plugin.version}</version>
-                <configuration>
-                    <threshold>High</threshold>
-                    <effort>Default</effort>
-                    <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
-                    <includeFilterFile>codestyle/findbugs.xml</includeFilterFile>
-                    <excludeFilterFile>codestyle/findbugs-excludes.xml</excludeFilterFile>
-                    <relaxed>false</relaxed>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
-                        <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.7-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
 
+            <!--
+                Configures the release plugin.
+
+                Why:  Make the release plugin replace any information received from the Sonatype OSS parent.
+                Used: Release lifecycle, mvn release.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -191,7 +122,7 @@
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
                         <artifactId>maven-scm-provider-hg</artifactId>
-                        <version>1.7</version>
+                        <version>1.8.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -287,10 +218,12 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <topSiteURL>${nazgul-tools.sitedeploy.url}/version/${project.version}/</topSiteURL>
+                    <topSiteURL>${site.url.prefix}/${reactor.name}</topSiteURL>
+                    <stagingSiteURL>${site.url.prefix}/${reactor.name}</stagingSiteURL>
+                    <stagingDirectory>${project.build.directory}/${project.version}</stagingDirectory>
                     <generateSitemap>true</generateSitemap>
-                    <inputEncoding>UTF-8</inputEncoding>
-                    <outputEncoding>UTF-8</outputEncoding>
+                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -315,6 +248,13 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!--
+                Provides Plantuml integration into site deployments.
+
+                Why:  Convert Plantuml documents to png images.
+                Used: Site lifecycle, mvn site.
+            -->
             <plugin>
                 <groupId>com.github.jeluard</groupId>
                 <artifactId>plantuml-maven-plugin</artifactId>
@@ -345,6 +285,14 @@
         <excludeDefaults>true</excludeDefaults>
         <outputDirectory>${project.build.directory}/site</outputDirectory>
         <plugins>
+
+            <!--
+                Configures the projects-info-reports plugin.
+
+                Why:  Reduce the time consumed considerably by removing the need to acquire
+                      dependency details and locations.
+                Used: Site lifecycle, mvn site.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -354,88 +302,16 @@
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
-
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.plugin.version}</version>
-                <configuration>
-                    <excludeRoots>
-                        <excludeRoot>src/main/generated</excludeRoot>
-                        <excludeRoot>src/test</excludeRoot>
-                    </excludeRoots>
-                    <rulesets>
-                        <ruleset>codestyle/pmd-rules.xml</ruleset>
-                    </rulesets>
-                    <targetJdk>${jdk.version}</targetJdk>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                </configuration>
-            </plugin>
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.plugin.version}</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
-                    <configLocation>codestyle/checkstyle.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <violationSeverity>error</violationSeverity>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura.plugin.version}</version>
-            </plugin>
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs.plugin.version}</version>
-                <configuration>
-                    <threshold>High</threshold>
-                    <effort>Default</effort>
-                    <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
-                    <includeFilterFile>codestyle/findbugs.xml</includeFilterFile>
-                    <excludeFilterFile>codestyle/findbugs-excludes.xml</excludeFilterFile>
-                    <relaxed>false</relaxed>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <xmlOutput>true</xmlOutput>
-                </configuration>
-            </plugin>
         </plugins>
     </reporting>
 
     <profiles>
 
         <!--
-            Purpose: Use GPG to sign artifacts during release:perform.
+            Use GPG to sign artifacts during release:perform.
+
+            Why:  Makes the releases traceable to their originator. Required by maven central and Sonatype OSS.
+            Used: Standard lifecycle, mvn release.
         -->
         <profile>
             <id>release-sign-artifacts</id>
@@ -467,14 +343,27 @@
     </profiles>
 
     <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+    <!--
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <connection>scm:hg:http://bitbucket.org/lennartj/nazgul_tools</connection>
-        <developerConnection>scm:hg:file://${basedir}/</developerConnection>
-        <url>http://bitbucket.org/lennartj/nazgul_tools</url>
+        <connection>${scm.url.prefix}/${reactor.name}</connection>
+        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
+        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
         <tag>HEAD</tag>
     </scm>
+
+    <!--
+        Define the issue management system.
+    -->
+    <issueManagement>
+        <system>bitbucket</system>
+        <url>${reactor.url.remote.prefix}/${reactor.name}/issues</url>
+    </issueManagement>
 
     <!--
         Define repository settings for Maven's deploy and release plugins.
@@ -483,13 +372,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/</url>
+            <url>${site.url.prefix}/${reactor.name}/${project.version}</url>
         </site>
     </distributionManagement>
-
-    <modules>
-        <module>codestyle</module>
-        <module>validation</module>
-        <module>poms</module>
-    </modules>
 </project>

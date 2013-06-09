@@ -60,6 +60,7 @@ public class RestrictImplDependencies extends AbstractEnforcerRule {
     public static final List<ProjectType> IGNORED_PROJECT_TYPES = Arrays.asList(
             ProjectType.JEE_APPLICATION,
             ProjectType.PARENT,
+            ProjectType.ASSEMBLY,
             ProjectType.REACTOR,
             ProjectType.PROOF_OF_CONCEPT,
             ProjectType.EXAMPLE,

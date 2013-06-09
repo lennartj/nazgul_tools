@@ -75,6 +75,7 @@ public class ProjectTypeTest {
         // Assemble
         final MavenProject parent = getStub("pom", "se.jguru.foo.bar", "bar-parent");
         final MavenProject reactor = getStub("pom", "se.jguru.foo.bar", "bar-reactor");
+        final MavenProject assembly = getStub("pom", "se.jguru.foo.bar", "bar-assembly");
         final MavenProject model = getStub("bundle", "se.jguru.foo.bar.model", "bar-model");
         final MavenProject api = getStub("bundle", "se.jguru.foo.bar.api", "bar-api");
         final MavenProject spi = getStub("bundle", "se.jguru.foo.bar.spi.something", "bar-spi-something");
@@ -95,6 +96,7 @@ public class ProjectTypeTest {
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
         Assert.assertEquals(ProjectType.REACTOR, ProjectType.getProjectType(reactor));
+        Assert.assertEquals(ProjectType.ASSEMBLY, ProjectType.getProjectType(assembly));
         Assert.assertEquals(ProjectType.MODEL, ProjectType.getProjectType(model));
         Assert.assertEquals(ProjectType.API, ProjectType.getProjectType(api));
         Assert.assertEquals(ProjectType.SPI, ProjectType.getProjectType(spi));
@@ -143,6 +145,23 @@ public class ProjectTypeTest {
         Assert.assertTrue(ProjectType.REACTOR.isCompliantPackaging("pom"));
         Assert.assertFalse(ProjectType.REACTOR.isCompliantPackaging("jar"));
         Assert.assertFalse(ProjectType.REACTOR.isCompliantPackaging("bundle"));
+    }
+
+    @Test
+    public void validateAssemblyProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.ASSEMBLY.isCompliantArtifactID("test-foo-assembly"));
+        Assert.assertFalse(ProjectType.ASSEMBLY.isCompliantArtifactID("assembly-test"));
+        Assert.assertFalse(ProjectType.ASSEMBLY.isCompliantArtifactID("foo-assembly-test"));
+
+        Assert.assertTrue(ProjectType.ASSEMBLY.isCompliantGroupID("test.foo.assembly"));
+        Assert.assertTrue(ProjectType.ASSEMBLY.isCompliantGroupID("assembly.test"));
+        Assert.assertTrue(ProjectType.ASSEMBLY.isCompliantGroupID("foo.assembly.test"));
+
+        Assert.assertTrue(ProjectType.ASSEMBLY.isCompliantPackaging("pom"));
+        Assert.assertFalse(ProjectType.ASSEMBLY.isCompliantPackaging("jar"));
+        Assert.assertFalse(ProjectType.ASSEMBLY.isCompliantPackaging("bundle"));
     }
 
     @Test

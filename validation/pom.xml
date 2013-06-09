@@ -39,6 +39,7 @@
     <artifactId>nazgul-tools-validation-reactor</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
+    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/validation</url>
 
     <!--
     ################################################
@@ -50,11 +51,20 @@
         <module>validation-aspect</module>
     </modules>
 
+    <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+
+    <!--
+        Define settings for Maven's site plugin.
+    -->
     <distributionManagement>
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${nazgul-tools.sitedeploy.url}/version/${project.version}/validation</url>
+            <url>${site.url.prefix}/${reactor.name}/${project.version}/validation</url>
         </site>
     </distributionManagement>
 
@@ -62,7 +72,9 @@
        Define connections for Maven's Mercurial integration.
     -->
     <scm>
-        <developerConnection>scm:hg:file://${basedir}/../</developerConnection>
+        <connection>${scm.url.prefix}/${reactor.name}</connection>
+        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
+        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
         <tag>HEAD</tag>
     </scm>
 </project>
