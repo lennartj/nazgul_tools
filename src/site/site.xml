@@ -46,6 +46,7 @@
 
         <menu name="Generating Site Documentation">
             <item name="Staging a local Site" href="staging.html"/>
+            <item name="Remote Deployment" href="remote_deployment.html"/>
         </menu>
 
         <menu ref="parent" />
