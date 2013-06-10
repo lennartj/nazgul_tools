@@ -1,22 +1,26 @@
 # Software components
 
 [Component-based software engineering](http://en.wikipedia.org/wiki/Component-based_software_engineering)
-defines a software component as "An individual software component is a software package, a web service,
-a web resource, or a module that encapsulates a set of related functions (or data)."
+defines a software component as:
+
+> An individual software component is a software package, a web service, a web resource,
+> or a module that encapsulates a set of related functions (or data).
+
 While this description is true, it is far too generic to use directly in a project. The Nazgul project structure
 therefore defines a software component in a more specific way.
 
-# Nazgul project Software Components ("NSC")
+# Nazgul Software Components ("NSC")
 
-The Nazgul project realizes software components as a set of collaborating Maven projects, each with a
-separate role/purpose. The overall purpose of the software component is to [reduce dependency
-tanglements](scalability/tanglements.html) and to improve usability by design.
+A Nazgul Software Component is implemented as a set of collaborating Maven projects,
+each with a separate role/purpose. The overall purpose of the software component is to
+[reduce dependency tanglements](scalability/tanglements.html) and to improve
+architecture/usability by design.
 
-Each Nazgul software component may have two publicly available projects which act as the interface of the NSC - the
-model project and the API project, as illustrated in the first row in the table below. The NSC is termed "domain
-component" if both model and API projects exist, and a "library component" if only the API project exist for the NSC
-in question. As illustrated in the figure below, the API project may hold a dependency to the model project - but
-not vice versa.
+A NSC has a set of publicly available projects which act as the interface of the NSC - normally an API project
+and a model project if the NSC has entities. The as illustrated in the first row in the table below. The NSC is
+termed "domain component" if both model and API projects exist, and a "library component" if only the API project
+exist for the NSC in question. As illustrated in the figure below, the API project may hold a dependency to the model
+project - but not vice versa.
 
 <table>
     <tr>
@@ -46,9 +50,11 @@ the client project without a separate dependency import.
 
 ## Maven projects of Nazgul project Software Components
 
-The NSC realization defines all permissible maven project types. Being OSGi-compliant by design, the model,
-API and SPI project types export all packages as public, whereas the implementation projects hide all their classes
-(i.e. having completely private packages).
+The NSC realization defines all permissible maven project types as part of the Nazgul Tools: Codestyle project.
+Please refer to the documentation of the Codestyle project for full details.
+Being OSGi-compliant by design, some project types (notably Model, API and SPI project types) export
+all packages as public, whereas the implementation projects hide all their classes (i.e. having
+completely private packages).
 
 In addition to the traditional model/api/spi/impl project structure, an important project for developers is the
 example project intended to show the uses of the NSC. Example projects function as copy/paste sources,
@@ -65,7 +71,6 @@ works.
     <tr>
         <td>Structure of an example Nazgul Software Component ("NSC"), including permitted dependencies between
         its projects</td>
-        <td><img src="images/plantuml/modularity_mavenProjects.png" style="margin:10px; border:1px solid black;"
-        /></td>
+        <td><img src="images/plantuml/modularity_mavenProjects.png" style="margin:10px;" /></td>
     </tr>
 </table>

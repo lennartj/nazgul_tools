@@ -324,10 +324,6 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.plugin.version}</version>
                 <configuration>
-                    <excludeRoots>
-                        <excludeRoot>src/main/generated</excludeRoot>
-                        <excludeRoot>src/test</excludeRoot>
-                    </excludeRoots>
                     <rulesets>
                         <ruleset>${project.build.outputDirectory}/codestyle/pmd-rules.xml</ruleset>
                     </rulesets>

@@ -131,6 +131,7 @@
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
         <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
+        <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
         <reactor.name>nazgul_tools</reactor.name>
         <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>

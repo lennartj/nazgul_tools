@@ -10,10 +10,14 @@ Modularity yields advantages in two main groups:
 1. *Software engineering improvements*. In plain english, modularity can help you structure your code and
    version control system (VCS) in a better way. Applied correctly, modularity should simplifiy the process of
    learning a new codebase for developers and lay the grounds for better deployment, scaling and monitoring.
-2. *Runtime improvements*. Modularity should be enforced in the running JVM. The Nazgul Framework is built
-   in compliance with OSGi. While there
-   have been some long-running efforts from major players in the Java area to provide a Java module system with
-   general use, there are few contenders which can be used in existing JVMs today.
+
+2. *Runtime improvements*. To be effective, modularity needs be enforced in the running JVM.
+   The Nazgul Framework is built in compliance with OSGi, which is one of the best efforts to date to enforce
+   modularity in a running JVM. Therefore, all projects using the Nazgul Framework development model will take
+   advantage of the runtime container - both standalone or within OSGi/JEE containers.
+   While there have been some long-running efforts from major players in the Java area to
+   provide a Java module system with general use, OSGi seems one of the best solution for modularity
+   in existing JVMs today.
 
 While modularity is fairly simple to define on a conceptual level, it can be somewhat more complex to design,
 implement and enforce. The Nazgul project defines a battle-proven development model to simplify introduction
@@ -21,18 +25,20 @@ and use of modularity in (large-scale) software engineering projects. The Nazgul
 by a scalable and manageable deployment model; it is important to consider the runtime state from the start
 of development.
 
-## Software engineering modularity
+## Modularity for Software Engineering improvements
+
+> "Everything Should Be Made as Simple as Possible, But Not Simpler"
+>
+> [Albert Einstein?](http://quoteinvestigator.com/2011/05/13/einstein-simple/ "Einstein quote")
 
 <img src="images/plantuml/modularity_mavenProjects.png" style="float:left; margin:10px;" />
-It is important to solve a problem in the simplest way possible - *but no simpler than that*.
-The Nazgul projects defines a codestyle which simplifies modularity for projects of all sizes,
-implying that the modularity definitions in Nazgul Tools can be used unchanged even if projects
-grow considerably.
+The Nazgul Framework provides a development model built around separation-of-concerns.
+by dividing development into [Nazgul Software Component ("NSC")](software_components.html) modules
+consisting of collaborating maven projects, we recieve improved overview and better architecture.
+Even small projects benefit from dividing their public API into one project and their implementation
+into another. As the project codebase or number of developers grows, this benefit becomes more apparent.
 
-Apache Maven provides tools and means to create modularity for developers. As shown in the image to the left, a
-[Nazgul Software Component ("NSC")](software_components.html) is created by a set of collaborating
-
-## JVM runtime modularity
+## Modularity for JVM runtime improvements
 
 The Nazgul Framework provides fully OSGi-compliant projects, where model, API and SPI project types export all
 packages as public, whereas the implementation projects hide all their classes
