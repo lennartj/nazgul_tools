@@ -371,6 +371,9 @@
                     </dependencies>
                 </plugin>
 
+                <!--
+                    This is not a proper maven plugin, but instead Eclipse metadata for M2E.
+                -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -454,6 +457,9 @@
                                         <artifactId>maven-dependency-plugin</artifactId>
                                         <goals>
                                             <goal>list</goal>
+                                            <goal>copy</goal>
+                                            <goal>copy-dependencies</goal>
+                                            <goal>unpack</goal>
                                         </goals>
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
@@ -485,21 +491,6 @@
                                             <goal>compile</goal>
                                             <goal>i18n</goal>
                                             <goal>generateAsync</goal>
-                                        </goals>
-                                        <versionRange>[0.0,)</versionRange>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <goals>
-                                            <goal>copy-dependencies</goal>
-                                            <goal>unpack</goal>
                                         </goals>
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
@@ -557,6 +548,21 @@
                                         <artifactId>depends-maven-plugin</artifactId>
                                         <goals>
                                             <goal>generate-depends-file</goal>
+                                        </goals>
+                                        <versionRange>[1.2,)</versionRange>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.openjpa</groupId>
+                                        <artifactId>openjpa-maven-plugin</artifactId>
+                                        <goals>
+                                            <goal>enhance</goal>
+                                            <goal>test-enhance</goal>
                                         </goals>
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
@@ -870,10 +876,7 @@
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${pmd.plugin.version}</version>
                     <configuration>
-                        <excludeRoots>
-                            <excludeRoot>src/main/generated</excludeRoot>
-                            <excludeRoot>src/test</excludeRoot>
-                        </excludeRoots>
+                        <targetJdk>${jdk.version}</targetJdk>
                         <rulesets>
                             <ruleset>/codestyle/pmd-rules.xml</ruleset>
                         </rulesets>
@@ -899,6 +902,27 @@
                             <groupId>log4j</groupId>
                             <artifactId>log4j</artifactId>
                             <version>1.2.17</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${pmd.plugin.version}</version>
+                    <configuration>
+                        <rulesets>
+                            <ruleset>/codestyle/pmd-rules.xml</ruleset>
+                        </rulesets>
+                        <failOnViolation>${breakOnFailure.pmd}</failOnViolation>
+                        <targetJdk>${jdk.version}</targetJdk>
+                        <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                            <artifactId>nazgul-codestyle</artifactId>
+                            <version>2.0.7-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1007,18 +1031,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.plugin.version}</version>
-                <configuration>
-                    <excludeRoots>
-                        <excludeRoot>src/main/generated</excludeRoot>
-                        <excludeRoot>src/test</excludeRoot>
-                    </excludeRoots>
-                    <rulesets>
-                        <ruleset>/codestyle/pmd-rules.xml</ruleset>
-                    </rulesets>
-                    <failOnViolation>${breakOnFailure.pmd}</failOnViolation>
-                    <targetJdk>${jdk.version}</targetJdk>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -1027,13 +1039,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>se.jguru.nazgul.tools.codestyle</groupId>
-                        <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.7-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <plugin>
@@ -1201,11 +1206,10 @@
                     </reportSet>
                 </reportSets>
                 <configuration>
-                    <linkXref>true</linkXref>
-                    <excludeRoots>
+                    <!-- excludeRoots>
                         <excludeRoot>src/main/generated</excludeRoot>
                         <excludeRoot>src/test</excludeRoot>
-                    </excludeRoots>
+                    </excludeRoots -->
                     <rulesets>
                         <ruleset>/codestyle/pmd-rules.xml</ruleset>
                     </rulesets>
@@ -1430,13 +1434,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>se.jguru.nazgul.tools.codestyle</groupId>
-                                <artifactId>nazgul-codestyle</artifactId>
-                                <version>2.0.7-SNAPSHOT</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
 
                     <plugin>
