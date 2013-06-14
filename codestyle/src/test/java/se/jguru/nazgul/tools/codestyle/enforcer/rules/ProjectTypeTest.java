@@ -126,8 +126,9 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.MODEL.isCompliantGroupID("foo.model.test"));
 
         Assert.assertFalse(ProjectType.MODEL.isCompliantPackaging("pom"));
-        Assert.assertFalse(ProjectType.MODEL.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.MODEL.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.MODEL.isCompliantPackaging("bundle"));
+        Assert.assertFalse(ProjectType.MODEL.isCompliantPackaging("war"));
     }
 
     @Test
@@ -179,9 +180,10 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.API.isCompliantGroupID(null));
 
         Assert.assertFalse(ProjectType.API.isCompliantPackaging("pom"));
-        Assert.assertFalse(ProjectType.API.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.API.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.API.isCompliantPackaging("bundle"));
         Assert.assertFalse(ProjectType.API.isCompliantPackaging(null));
+        Assert.assertFalse(ProjectType.API.isCompliantPackaging("war"));
     }
 
     @Test
@@ -197,8 +199,9 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.SPI.isCompliantGroupID("test.spi"));
 
         Assert.assertFalse(ProjectType.SPI.isCompliantPackaging("pom"));
-        Assert.assertFalse(ProjectType.SPI.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.SPI.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.SPI.isCompliantPackaging("bundle"));
+        Assert.assertFalse(ProjectType.SPI.isCompliantPackaging("war"));
     }
 
     @Test
@@ -214,8 +217,9 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantGroupID("test.impl"));
 
         Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantPackaging("pom"));
-        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantPackaging("jar"));
+        Assert.assertTrue(ProjectType.IMPLEMENTATION.isCompliantPackaging("jar"));
         Assert.assertTrue(ProjectType.IMPLEMENTATION.isCompliantPackaging("bundle"));
+        Assert.assertFalse(ProjectType.IMPLEMENTATION.isCompliantPackaging("war"));
     }
 
     @Test

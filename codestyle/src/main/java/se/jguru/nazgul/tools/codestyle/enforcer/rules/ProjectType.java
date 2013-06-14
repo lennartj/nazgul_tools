@@ -64,14 +64,14 @@ public enum ProjectType {
     /**
      * Aspect definition project, holding publicly available aspects.
      */
-    ASPECT(".*-aspect$", ".*\\.aspect$", "bundle"),
+    ASPECT(".*-aspect$", ".*\\.aspect$", "bundle|jar"),
 
     /**
      * Model project defining entities.
      * <p/>
      * May have test-scope dependencies on test and proof-of-concept projects.
      */
-    MODEL(".*-model$", ".*\\.model$", "bundle"),
+    MODEL(".*-model$", ".*\\.model$", "bundle|jar"),
 
     /**
      * Application project defining JEE-deployable artifacts.
@@ -103,7 +103,7 @@ public enum ProjectType {
      * This project type can import/inject implementation dependencies, as
      * it is considered an application entrypoint.
      */
-    JAVA_AGENT(".*-agent$", ".*\\.agent$", "bundle"),
+    JAVA_AGENT(".*-agent$", ".*\\.agent$", "bundle|jar"),
 
     /**
      * API project, defining service interaction, abstract implementations and exceptions.
@@ -111,7 +111,7 @@ public enum ProjectType {
      * May have compile-scope dependencies on model projects within the same component, and test-scope
      * dependencies on test and proof-of-concept projects.
      */
-    API(".*-api$", ".*\\.api$", "bundle"),
+    API(".*-api$", ".*\\.api$", "bundle|jar"),
 
     /**
      * SPI project, defining service interaction, abstract implementations and exceptions.
@@ -119,7 +119,7 @@ public enum ProjectType {
      * Must have compile-scope dependencies to API projects within the same component.
      * May have test-scope dependencies on test and proof-of-concept projects.
      */
-    SPI(".*-spi-\\w*$", ".*\\.spi\\.\\w*$", "bundle"),
+    SPI(".*-spi-\\w*$", ".*\\.spi\\.\\w*$", "bundle|jar"),
 
     /**
      * Implementation project, implementing service interactions from an API or SPI project,
@@ -128,7 +128,7 @@ public enum ProjectType {
      * Must have compile-scope dependencies to API or SPI projects within the same component.
      * May have test-scope dependencies on test and proof-of-concept projects.
      */
-    IMPLEMENTATION(".*-impl-\\w*$", ".*\\.impl\\.\\w*$", "bundle"),
+    IMPLEMENTATION(".*-impl-\\w*$", ".*\\.impl\\.\\w*$", "bundle|jar"),
 
     /**
      * Test artifact helper project, implementing libraries facilitating testing within
