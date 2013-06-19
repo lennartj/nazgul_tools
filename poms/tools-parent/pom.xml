@@ -56,12 +56,6 @@
 
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-        <license>
             <name>jGuru Europe Corporate Source License, based on The Apache Software License, Version 2.0</name>
             <url>http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt</url>
             <distribution>repo</distribution>
@@ -631,6 +625,9 @@
                     <version>2.3</version>
                     <configuration>
                         <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
                             <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                             <manifestSections>
                                 <manifestSection>
@@ -664,8 +661,10 @@
                                 <defaultLibBundleDir>lib</defaultLibBundleDir>
                                 <version>6</version>
                                 <archive>
+                                    <manifest>
+                                        <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                    </manifest>
                                     <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                                    <Version>${project.version}</Version>
                                 </archive>
                             </configuration>
                         </execution>
@@ -678,14 +677,14 @@
                     <version>2.4</version>
                     <configuration>
                         <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
                             <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                             <manifestSections>
                                 <manifestSection>
                                     <name>${project.name} (${project.artifactId})</name>
                                     <Version>${project.version}</Version>
-                                    <manifestEntries>
-                                        <Version>${project.version}</Version>
-                                    </manifestEntries>
                                 </manifestSection>
                             </manifestSections>
                         </archive>
