@@ -9,7 +9,8 @@ in the image below:
 The parts of the nazgul tools build reactor are - in build order:
 
 1. **nazgul-codestyle**. The nazgul-codestyle project contains configurations and implementations for defining and
-         enforcing the Nazgul Software Component ("NSC") patterns. The maven build rules defined within this project
+         enforcing the [Nazgul Software Component](theory/software_components.html) ("NSC") patterns.
+         The maven build rules defined within this project
          are used throughout all projects within the reactor, and also applied to all projects using the provided
          parents from this project (i.e. nazgul-parent).
 

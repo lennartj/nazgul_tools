@@ -31,7 +31,7 @@ of development.
 >
 > [Albert Einstein?](http://quoteinvestigator.com/2011/05/13/einstein-simple/ "Einstein quote")
 
-<img src="images/plantuml/modularity_mavenProjects.png" style="float:left; margin:10px;" />
+<img src="../images/plantuml/modularity_mavenProjects.png" style="float:left; margin:10px;" />
 The Nazgul Framework provides a development model built around separation-of-concerns.
 by dividing development into [Nazgul Software Component ("NSC")](software_components.html) modules
 consisting of collaborating maven projects, we recieve improved overview and better architecture.

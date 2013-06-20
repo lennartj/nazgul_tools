@@ -24,7 +24,9 @@ inherited from the choices within the Nazgul Framework.
 
 ## How should I proceed?
 
-The following roadmap is recommended:
+Want to get
+
+1. Spend a few minutes to read the quickstart (i.e. [quickstart](quickstart/step1_initial_setup.html).
 
 1. Read [a brief overview of the Nazgul Tools reactor](nazgul_tools.html).
 

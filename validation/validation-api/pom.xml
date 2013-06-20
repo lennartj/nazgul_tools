@@ -37,8 +37,7 @@
     </parent>
 
     <groupId>se.jguru.nazgul.tools.validation.api</groupId>
-    <artifactId>nazgul-tools-validation-api</artifactId>
-    <packaging>bundle</packaging>
+    <artifactId>nazgul-tools-validation-api</artifactId>    
     <name>${project.artifactId}</name>
     <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/validation/validation-api</url>
 

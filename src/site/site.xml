@@ -35,13 +35,17 @@
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
             <item name="Nazgul Tools Overview" href="nazgul_tools.html"/>
-            <item name="Modularity" href="modularity.html"/>
-            <item name="Software Components" href="software_components.html"/>
+
         </menu>
 
-        <menu name="Large-project considerations">
-            <item name="Reducing tanglements" href="scalability/tanglements.html"/>
-            <item name="Reducing complexity" href="scalability/complexity_reduction.html"/>
+        <menu name="Quick Start">
+
+        </menu>
+
+        <menu name="Theory and Scalability">
+            <item name="Modularity" href="theory/modularity.html"/>
+            <item name="Software Components" href="theory/software_components.html"/>
+            <item name="Reducing complexity" href="theory/complexity_reduction.html"/>
         </menu>
 
         <menu name="Generating Site Documentation">

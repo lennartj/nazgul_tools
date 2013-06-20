@@ -1,6 +1,3 @@
-# Use glob (shell) syntax
-syntax: glob
-.git/
 #
 # Standard hgignore file for Java and Maven development
 #

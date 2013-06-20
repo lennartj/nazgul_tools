@@ -1,4 +1,4 @@
-# Problem statement: Reducing dependency tanglements
+# Reducing dependency tanglements
 
 One of the most problematic aspects of legacy code is its tendency to be excessively tangled, meaning that
 classes or projects within the code have too many dependencies to other classes or projects. This, in turn,

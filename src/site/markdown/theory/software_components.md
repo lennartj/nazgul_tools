@@ -30,7 +30,7 @@ project - but not vice versa.
     <tr>
         <td>NSC publicly available projects. Note that the API project may hold a dependency to
         the model project - but not vice versa.</td>
-        <td><img src="images/plantuml/modularity_component.png" style="margin:10px; border:1px solid black;" /></td>
+        <td><img src="../images/plantuml/modularity_component.png" style="margin:10px; border:1px solid black;" /></td>
     </tr>
     <tr>
         <td>Client calling a method within an NSC API project. Note that the client only holds a dependency to the
@@ -38,7 +38,8 @@ project - but not vice versa.
         private/internal NSC Foo projects; instead the implementation projects should be injected into applications
         (both JEE application projects, such as WARs or EARs, and standalone JSE application JARs).
         </td>
-        <td><img src="images/plantuml/modularity_components.png" style="margin:10px; border:1px solid black;" /></td>
+        <td><img src="../images/plantuml/modularity_components.png"
+            style="margin:10px; border:1px solid black;" /></td>
     </tr>
 </table>
 
@@ -71,6 +72,6 @@ works.
     <tr>
         <td>Structure of an example Nazgul Software Component ("NSC"), including permitted dependencies between
         its projects</td>
-        <td><img src="images/plantuml/modularity_mavenProjects.png" style="margin:10px;" /></td>
+        <td><img src="../images/plantuml/modularity_mavenProjects.png" style="margin:10px;" /></td>
     </tr>
 </table>

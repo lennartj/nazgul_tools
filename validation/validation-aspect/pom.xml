@@ -38,7 +38,6 @@
 
     <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
     <artifactId>nazgul-tools-validation-aspect</artifactId>
-    <packaging>bundle</packaging>
     <name>${project.artifactId}</name>
     <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/validation/validation-aspect</url>
 

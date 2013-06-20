@@ -203,7 +203,7 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <phase>process-sources</phase>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
