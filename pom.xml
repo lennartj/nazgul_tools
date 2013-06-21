@@ -117,7 +117,8 @@
                 <version>2.4</version>
                 <configuration combine.self="override">
                     <localCheckout>true</localCheckout>
-                    <tagNameFormat>nazgul-tools-@{project.version}</tagNameFormat>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
                 </configuration>
                 <dependencies>
                     <dependency>
