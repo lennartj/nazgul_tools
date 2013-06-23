@@ -39,7 +39,7 @@
         </menu>
 
         <menu name="Quick Start">
-
+            <item name="Initial Setup" href="quickstart/step1_initial_setup.html"/>
         </menu>
 
         <menu name="Theory and Scalability">
