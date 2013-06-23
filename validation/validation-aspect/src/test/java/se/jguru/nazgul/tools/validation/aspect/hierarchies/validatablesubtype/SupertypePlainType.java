@@ -28,9 +28,9 @@ package se.jguru.nazgul.tools.validation.aspect.hierarchies.validatablesubtype;
 public class SupertypePlainType {
 
     // Internal state
-    private String name;
+    private final String name;
 
-    public SupertypePlainType(String name) {
+    public SupertypePlainType(final String name) {
         this.name = name;
     }
 

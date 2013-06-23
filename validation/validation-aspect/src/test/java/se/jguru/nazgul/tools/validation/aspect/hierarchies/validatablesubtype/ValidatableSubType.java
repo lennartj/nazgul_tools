@@ -31,14 +31,14 @@ import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationExc
 public class ValidatableSubType extends SupertypePlainType implements Validatable {
 
     // Internal state
-    private int value;
+    private final int value;
 
     public ValidatableSubType() {
         super("Lennart");
         this.value = -6;
     }
 
-    public ValidatableSubType(String name, int value) {
+    public ValidatableSubType(final String name, final int value) {
         super(name);
         this.value = value;
     }

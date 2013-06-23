@@ -4,5 +4,5 @@
 #
 
 #Thu Jan 28 23:33:45 CET 2010
-commit.comment.template=${task.key}\: ${task.description} 
+commit.comment.template=${task.key}\: ${task.description}
 eclipse.preferences.version=1

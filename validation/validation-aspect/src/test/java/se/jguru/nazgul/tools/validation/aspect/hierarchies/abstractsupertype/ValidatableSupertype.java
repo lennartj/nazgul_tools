@@ -35,7 +35,7 @@ public abstract class ValidatableSupertype implements Validatable {
     protected ValidatableSupertype() {
     }
 
-    protected ValidatableSupertype(String name) {
+    protected ValidatableSupertype(final String name) {
         this.name = name;
     }
 

@@ -41,7 +41,7 @@ public class ValidationAspectTest {
     public void validateAspectGeneratedExceptionOnIncorrectValue() {
 
         // Assemble
-        int tooLow = 2;
+        final int tooLow = 2;
 
         // Act & Assert
         new DummyEntity(tooLow);
@@ -51,7 +51,7 @@ public class ValidationAspectTest {
     public void validateNoExceptionForCorrectValue() {
 
         // Assemble
-        int ok = 7;
+        final int ok = 7;
 
         // Act & Assert
         new DummyEntity(ok);

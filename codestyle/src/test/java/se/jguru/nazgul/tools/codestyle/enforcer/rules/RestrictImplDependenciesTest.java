@@ -41,7 +41,7 @@ import java.util.regex.Pattern;
 public class RestrictImplDependenciesTest {
 
     // Shared state
-    private RestrictImplDependencies unitUnderTest = new RestrictImplDependencies();
+    private final RestrictImplDependencies unitUnderTest = new RestrictImplDependencies();
     private MavenProjectStub fooApiProject;
     private MavenProjectStub fooSpiProject;
     private ArtifactStub fooImplementation;
@@ -192,7 +192,7 @@ public class RestrictImplDependenciesTest {
             final String expectedOffendingProject = "# Offending project " +
                     "[se.jguru.nazgul.foo.api:nazgul-foo-api:1.0.0]";
 
-            String message = e.getMessage();
+            final String message = e.getMessage();
             Assert.assertTrue(message.contains(expectedOffendingArtifact));
             Assert.assertTrue(message.contains(expectedOffendingProject));
         } catch (Exception e) {
@@ -238,7 +238,7 @@ public class RestrictImplDependenciesTest {
         excludedProject.setVersion("1.0.0");
         excludedProject.setPackaging("bundle");
 
-        HashSet<Artifact> dependencyArtifacts = new HashSet<Artifact>();
+        final HashSet<Artifact> dependencyArtifacts = new HashSet<Artifact>();
         dependencyArtifacts.add(fooImplementation);
         excludedProject.setDependencyArtifacts(dependencyArtifacts);
 

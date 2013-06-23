@@ -30,7 +30,7 @@ import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationExc
  */
 public class ValidatableSuperType implements Validatable {
 
-    private int id;
+    private final int id;
 
     public ValidatableSuperType(final int id) {
         this.id = id;

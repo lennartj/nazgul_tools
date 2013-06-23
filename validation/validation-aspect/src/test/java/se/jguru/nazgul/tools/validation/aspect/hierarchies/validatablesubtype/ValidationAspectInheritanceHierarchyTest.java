@@ -41,7 +41,7 @@ public class ValidationAspectInheritanceHierarchyTest {
     public void validateAspectGeneratedExceptionOnIncorrectValueForValidatableSubtype() {
 
         // Assemble
-        int tooLow = 2;
+        final int tooLow = 2;
 
         // Act & Assert
         new ValidatableSubType("Sven-Benny", tooLow);
@@ -51,7 +51,7 @@ public class ValidationAspectInheritanceHierarchyTest {
     public void validateNoExceptionForCorrectValueInValidatableSubtype() {
 
         // Assemble
-        int ok = 7;
+        final int ok = 7;
 
         // Act & Assert
         new ValidatableSubType(null, ok);

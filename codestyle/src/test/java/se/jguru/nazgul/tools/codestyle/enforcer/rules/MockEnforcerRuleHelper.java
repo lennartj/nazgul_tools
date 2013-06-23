@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class MockEnforcerRuleHelper implements EnforcerRuleHelper {
 
-    private MavenProject project;
+    private final MavenProject project;
 
     public MockEnforcerRuleHelper(final MavenProject project) {
         this.project = project;

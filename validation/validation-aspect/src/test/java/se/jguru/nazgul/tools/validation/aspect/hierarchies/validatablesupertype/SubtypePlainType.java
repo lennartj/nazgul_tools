@@ -27,7 +27,7 @@ package se.jguru.nazgul.tools.validation.aspect.hierarchies.validatablesupertype
  */
 public class SubtypePlainType extends ValidatableSuperType {
 
-    private int id;
+    private final int id;
 
     public SubtypePlainType(final int id) {
         super(id);

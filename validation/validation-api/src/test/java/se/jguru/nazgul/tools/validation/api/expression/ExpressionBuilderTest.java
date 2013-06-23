@@ -83,7 +83,7 @@ public class ExpressionBuilderTest {
         map.put(string, string);
 
         // Act & Assert
-        ExpressionBuilder unitUnderTest = InternalStateValidationException.create();
+        final ExpressionBuilder unitUnderTest = InternalStateValidationException.create();
 
         unitUnderTest.notNullOrEmpty(string, "string").endExpressionAndValidate();
         unitUnderTest.notNullOrEmpty(list, "list").endExpressionAndValidate();
@@ -126,9 +126,9 @@ public class ExpressionBuilderTest {
     // Private helpers
     //
 
-    private void validateNullOrEmptyCollectionOrMap(String listName,
-                                                    String expectedExceptionMessage,
-                                                    Object emptyCollectionOrMap) {
+    private void validateNullOrEmptyCollectionOrMap(final String listName,
+                                                    final String expectedExceptionMessage,
+                                                    final Object emptyCollectionOrMap) {
         // Assemble
         final ExpressionBuilder unitUnderTest = InternalStateValidationException.create();
 

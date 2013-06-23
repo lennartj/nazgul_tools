@@ -41,7 +41,7 @@ public class DummyEntity implements Validatable {
         callTrace.add("Default constructor called");
     }
 
-    public DummyEntity(int value) {
+    public DummyEntity(final int value) {
         callTrace.add("Non-default constructor called [" + value + "]");
         this.value = value;
     }

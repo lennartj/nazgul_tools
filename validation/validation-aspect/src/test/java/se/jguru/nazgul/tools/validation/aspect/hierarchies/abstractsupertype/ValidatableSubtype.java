@@ -37,7 +37,7 @@ public class ValidatableSubtype extends ValidatableSupertype {
         super("FooBar");
     }
 
-    public ValidatableSubtype(String name, int age) {
+    public ValidatableSubtype(final String name, final int age) {
         super(name);
         this.age = age;
     }
