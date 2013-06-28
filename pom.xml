@@ -182,7 +182,7 @@
             <!--
                 Provides Plantuml integration into site deployments.
 
-                Why:  Convert Plantuml documents to png images.
+                Why:  Convert Plantuml (*.puml) documents to png images, for use in site documentation.
                 Used: Site lifecycle, mvn site.
             -->
             <plugin>

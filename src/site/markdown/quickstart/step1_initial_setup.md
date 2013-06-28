@@ -51,18 +51,36 @@ documentation](http://forge.jboss.org/docs/using/installing-new-plugins.html#con
     forge find-plugin nazgul
 
 Following a brief selection of which JBoss Forge plugin you want to install,
-the download and installation into JBoss Forge should be automagic.
+the download and installation into JBoss Forge should be automagic. If the nazgul plugin
+has not yet made it to the official JBoss Forge plugin list, you can clone 
+[its GitHub repository](https://github.com/lennartj/nazgul_forge.git) and perform 
+a local installation. 
 
 ### 3. Create a new Nazgul Framework-style project
 
-Description pending.
+Following the installation of the nazgul plugin, you may create a new Nazgul Framwork-style
+project by firing the command `new-nazgul-project` as shown in the listing below:
+
+	new-nazgul-project --projectName foobar --topProjectPackage com.acme
+	
+	***SUCCESS*** Created project [foobar] structure in new working directory [/home/lj/tmp/foobar]
+	Wrote /home/lj/tmp/foobar
+	Wrote /home/lj/tmp/foobar/pom.xml
+	Wrote /home/lj/tmp/foobar/poms
+	Wrote /home/lj/tmp/foobar/poms/pom.xml
+	Wrote /home/lj/tmp/foobar/poms/foobar-parent
+	Wrote /home/lj/tmp/foobar/poms/foobar-parent/pom.xml
+	Wrote /home/lj/tmp/foobar/poms/foobar-api-parent
+	Wrote /home/lj/tmp/foobar/poms/foobar-api-parent/pom.xml
+	Wrote /home/lj/tmp/foobar/poms/foobar-model-parent
+	Wrote /home/lj/tmp/foobar/poms/foobar-model-parent/pom.xml
 
 ### 4. Create a new Nazgul Software Component (NSC)
 
-This section assumes that you reside within a Nazgul Framework-style project, as described
-in step 3 above.
-
-Description pending.
+This section assumes that your current working directory is inside a Nazgul 
+Framework-style project, as described in step 3 above. The nazgul plugin you installed
+can be used to create a NSC. Launch the internal help in Forge to see its
+available options and arguments.
 
 ### 5. Convert an existing project to a Nazgul Framework-style project
 
