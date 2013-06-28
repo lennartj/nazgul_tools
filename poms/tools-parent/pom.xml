@@ -21,8 +21,7 @@
   ~ #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -38,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>2.0.7-SNAPSHOT</version>
+    <version>2.0.7</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/poms/tools-parent</url>
@@ -81,7 +80,7 @@
         <!-- Build-controlling properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <build.number/>
+        <build.number />
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
         <jdk.version>1.6</jdk.version>
@@ -482,7 +481,7 @@
                                         <versionRange>2.5</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -496,7 +495,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -535,7 +534,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -549,7 +548,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -566,7 +565,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -581,7 +580,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute/>
+                                        <execute />
                                     </action>
                                 </pluginExecution>
 
@@ -595,7 +594,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute/>
+                                        <execute />
                                     </action>
                                 </pluginExecution>
 
@@ -609,7 +608,7 @@
                                         <versionRange>[1.0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -623,7 +622,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -638,7 +637,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
 
@@ -1083,7 +1082,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.7-SNAPSHOT</version>
+                            <version>2.0.7</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -1129,7 +1128,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.7-SNAPSHOT</version>
+                            <version>2.0.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1159,7 +1158,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.7-SNAPSHOT</version>
+                            <version>2.0.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1209,7 +1208,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.7-SNAPSHOT</version>
+                            <version>2.0.7</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1325,14 +1324,13 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <requireUpperBoundDeps/>
+                                <requireUpperBoundDeps />
 
                                 <!--
                                     Enforce the ProjectType structure, implying that all projects
                                     must comply with the project template definitions.
                                 -->
-                                <validateProjectTypes
-                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType"/>
+                                <validateProjectTypes implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType" />
 
                                 <!--
                                     Enforce the implementation rules for dependencies, to enforce that
@@ -1344,8 +1342,7 @@
                                     reproduced her to serve as an example of how to configure this enforcement rule
                                     in child reactors - where needs are likely different than here.
                                 -->
-                                <restrictImplDependencies
-                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
+                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPatterns>${enforcer.includedGroupIdPatterns}</includedGroupIdPatterns>
                                     <excludedGroupIdPatterns>${enforcer.excludedGroupIdPatterns}</excludedGroupIdPatterns>
                                 </restrictImplDependencies>
@@ -1357,7 +1354,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.7-SNAPSHOT</version>
+                        <version>2.0.7</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1608,7 +1605,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-2.0.7</tag>
     </scm>
 
     <!--
