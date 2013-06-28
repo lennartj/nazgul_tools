@@ -36,7 +36,7 @@
 
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
-    <version>2.0.7</version>
+    <version>2.0.8-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/codestyle</url>
@@ -420,7 +420,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>nazgul-tools-2.0.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
