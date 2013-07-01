@@ -57,6 +57,7 @@
         <menu name="Setup IDE">
             <item name="IntelliJ IDEA 12.x" href="setup/idea.html"/>
             <item name="Eclipse Juno" href="setup/eclipse.html"/>
+            <item name="Netbeans 7.3+" href="setup/netbeans.html"/>
         </menu>
 
         <menu ref="parent"/>
