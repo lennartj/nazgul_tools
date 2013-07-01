@@ -39,7 +39,11 @@
     <artifactId>nazgul-tools-validation-reactor</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/validation</url>
+    <url>${url.prefix}/${path.in.reactor}</url>
+
+    <properties>
+        <path.in.reactor>validation</path.in.reactor>
+    </properties>
 
     <!--
     ################################################
@@ -64,7 +68,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${site.url.prefix}/${reactor.name}/${project.version}/validation</url>
+            <url>${distro.url.prefix}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
 

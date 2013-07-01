@@ -39,7 +39,11 @@
     <groupId>se.jguru.nazgul.tools.validation.api</groupId>
     <artifactId>nazgul-tools-validation-api</artifactId>    
     <name>${project.artifactId}</name>
-    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/validation/validation-api</url>
+    <url>${url.prefix}/${path.in.reactor}</url>
+
+    <properties>
+        <path.in.reactor>validation/validation-api</path.in.reactor>
+    </properties>
 
     <!--
     ################################################
@@ -140,7 +144,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${site.url.prefix}/${reactor.name}/${project.version}/validation/validation-api</url>
+            <url>${distro.url.prefix}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
 

@@ -40,9 +40,10 @@
     <artifactId>nazgul-tools-external-reactor-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/poms/external/reactor-parent</url>
+    <url>${url.prefix}/${path.in.reactor}</url>
 
     <properties>
+        <path.in.reactor>poms/external/reactor-parent</path.in.reactor>
         <license.id>jguru_apl_v2</license.id>
     </properties>
 
@@ -123,7 +124,7 @@
         <site>
             <id>jGuru_NazgulToolsSite</id>
             <name>jGuru_NazgulToolsSite</name>
-            <url>${site.url.prefix}/${reactor.name}/${project.version}/poms/external/reactor-parent</url>
+            <url>${distro.url.prefix}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
 

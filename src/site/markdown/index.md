@@ -24,9 +24,9 @@ inherited from the choices within the Nazgul Framework.
 
 ## How should I proceed?
 
-Want to get
+Want to get started with your Nazgul Tools-derived project?
 
-1. Spend a few minutes to read the quickstart (i.e. [quickstart](quickstart/step1_initial_setup.html).
+1. Spend a few minutes to read the quickstart (i.e. [quickstart](quickstart/step1_initial_setup.html)).
 
 1. Read [a brief overview of the Nazgul Tools reactor](nazgul_tools.html).
 
@@ -34,3 +34,5 @@ Want to get
 
 3. Import some components from Nazgul Framework: Core for direct use - or use the `nazgul-tools-external-parent` as a
    parent within your development project as shown in [Nazgul Software Components](nazgul_tools.html).
+
+... and we are working on a few screencasts, to shorten the startup time even more...
