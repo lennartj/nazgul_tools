@@ -58,22 +58,36 @@ a local installation.
 
 ### 3. Create a new Nazgul Framework-style project
 
-Following the installation of the nazgul plugin, you may create a new Nazgul Framwork-style
-project by firing the command `new-nazgul-project` as shown in the listing below:
+Following the installation of the nazgul plugin, you may create a new Nazgul Framework-style
+project by firing the command `new-nazgul-project` as shown in the listing below. The command
+primes a new directory (the "projectName" option) with the parent and reactor parent poms:
 
-	new-nazgul-project --projectName foobar --topProjectPackage com.acme
-	
-	***SUCCESS*** Created project [foobar] structure in new working directory [/home/lj/tmp/foobar]
-	Wrote /home/lj/tmp/foobar
-	Wrote /home/lj/tmp/foobar/pom.xml
-	Wrote /home/lj/tmp/foobar/poms
-	Wrote /home/lj/tmp/foobar/poms/pom.xml
-	Wrote /home/lj/tmp/foobar/poms/foobar-parent
-	Wrote /home/lj/tmp/foobar/poms/foobar-parent/pom.xml
-	Wrote /home/lj/tmp/foobar/poms/foobar-api-parent
-	Wrote /home/lj/tmp/foobar/poms/foobar-api-parent/pom.xml
-	Wrote /home/lj/tmp/foobar/poms/foobar-model-parent
-	Wrote /home/lj/tmp/foobar/poms/foobar-model-parent/pom.xml
+	[no project] tmp $ new-nazgul-project --projectName foobar --topProjectPackage com.acme
+
+     ? Where would you like to create the project? [Press ENTER to use the current directory: tmp] [ .../tmp]
+
+    What version do you want to install?
+
+      1 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.6]
+      2 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.7]
+
+     ? Choose an option by typing the number of the selection: 2
+
+    ***SUCCESS*** Created project [foobar] structure in new working directory [/tmp/foobar]
+    Wrote /tmp/foobar
+    Wrote /tmp/foobar/pom.xml
+    Wrote /tmp/foobar/poms
+    Wrote /tmp/foobar/poms/pom.xml
+    Wrote /tmp/foobar/poms/foobar-parent
+    Wrote /tmp/foobar/poms/foobar-parent/pom.xml
+    Wrote /tmp/foobar/poms/foobar-api-parent
+    Wrote /tmp/foobar/poms/foobar-api-parent/pom.xml
+    Wrote /tmp/foobar/poms/foobar-model-parent
+    Wrote /tmp/foobar/poms/foobar-model-parent/pom.xml
+    [foobar-reactor] foobar $
+
+As indicated above, the new-nazgul-project command might ask which version of various Nazgul parent poms you
+would like to use. When asked, it is recommended to choose the lastest stable release possible.
 
 ### 4. Create a new Nazgul Software Component (NSC)
 
@@ -81,7 +95,3 @@ This section assumes that your current working directory is inside a Nazgul
 Framework-style project, as described in step 3 above. The nazgul plugin you installed
 can be used to create a NSC. Launch the internal help in Forge to see its
 available options and arguments.
-
-### 5. Convert an existing project to a Nazgul Framework-style project
-
-Description pending.
