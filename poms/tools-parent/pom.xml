@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>2.0.8</version>
+    <version>2.0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${url.prefix}/${path.in.reactor}</url>
@@ -1098,7 +1098,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.8</version>
+                            <version>2.0.9-SNAPSHOT</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -1144,7 +1144,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.8</version>
+                            <version>2.0.9-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1174,7 +1174,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.8</version>
+                            <version>2.0.9-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1224,7 +1224,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.8</version>
+                            <version>2.0.9-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1370,7 +1370,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.8</version>
+                        <version>2.0.9-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1635,7 +1635,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>nazgul-tools-2.0.8</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
