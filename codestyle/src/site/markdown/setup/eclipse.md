@@ -1,3 +1,3 @@
-# Setting up Eclipse Juno for use with the Nazgul Framework Codestyle
+# Setting up Eclipse Kepler for use with the Nazgul Framework Codestyle
 
 To be described.

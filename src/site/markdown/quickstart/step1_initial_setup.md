@@ -38,7 +38,7 @@ Following a restart of JBoss Forge, the version is indeed updated to the latest 
        |_|  \___/|_|  \__, |\___|
                        |___/
 
-    JBoss Forge, version [ 1.3.1.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
+    JBoss Forge, version [ 1.3.2.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
     [no project] Nazgul $
 
 ### 2. Installing the Nazgul Forge plugins

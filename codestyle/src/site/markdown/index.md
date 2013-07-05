@@ -44,7 +44,7 @@ code formatting, project imports etc. Each IDE has a slightly different way to p
         <td>Release Candidate</td>
     </tr>
     <tr>
-        <td><a href="setup/eclipse.html">Eclipse Juno</a></td>
+        <td><a href="setup/eclipse.html">Eclipse Kepler</a></td>
         <td>To be described</td>
     </tr>
     <tr>
