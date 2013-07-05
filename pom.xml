@@ -20,7 +20,7 @@
 
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
-    <version>2.0.8-SNAPSHOT</version>
+    <version>2.0.8</version>
     <name>${project.artifactId}</name>
     <url>${url.prefix}/${path.in.reactor}</url>
     <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
@@ -77,7 +77,7 @@
             Define the URL prefixes for Site Deployment and DistributionManagement.
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
-        <path.in.reactor></path.in.reactor>
+        <path.in.reactor />
         <reactor.name>nazgul_tools</reactor.name>
         <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
         <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
@@ -298,7 +298,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-2.0.8</tag>
     </scm>
 
     <!--
