@@ -803,7 +803,6 @@
                             </manifest>
                             <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                             <manifestEntries>
-                                <name>${project.name}</name>
                                 <description>${project.description}</description>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>${project.artifactId}</artifactId>
