@@ -1,6 +1,6 @@
 /*
  * #%L
- * nazgul-tools-validation-api
+ * Nazgul Project: nazgul-tools-codestyle
  * %%
  * Copyright (C) 2010 - 2013 jGuru Europe AB
  * %%
@@ -19,7 +19,6 @@
  * limitations under the License.
  * #L%
  */
-
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;

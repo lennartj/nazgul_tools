@@ -1,6 +1,6 @@
 /*
  * #%L
- * nazgul-tools-validation-api
+ * Nazgul Project: nazgul-tools-codestyle
  * %%
  * Copyright (C) 2010 - 2013 jGuru Europe AB
  * %%
@@ -22,9 +22,9 @@
 
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import org.junit.Assert;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.project.MavenProject;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -36,7 +36,7 @@ public class ProjectTypeTest {
     public void validateExceptionOnIncorrectProjectTypeSpecification() {
 
         // Assemble
-        final MavenProject stub = getStub("bundle", "se.jguru.foo.bar", "incognito");
+        final MavenProject stub = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar", "incognito");
 
         // Act & Assert
         ProjectType.getProjectType(stub);
@@ -46,7 +46,7 @@ public class ProjectTypeTest {
     public void validateExceptionOnReactorProjectWithDependencies() {
 
         // Assemble
-        final MavenProject reactor = getStub("pom", "se.jguru.foo.bar", "foo-reactor");
+        final MavenProject reactor = MavenTestUtils.getStub("pom", "se.jguru.foo.bar", "foo-reactor");
 
         final Dependency aDependency = new Dependency();
         aDependency.setGroupId("se.jguru.foo");
@@ -62,7 +62,7 @@ public class ProjectTypeTest {
     public void validateExceptionOnParentProjectWithModules() {
 
         // Assemble
-        final MavenProject parent = getStub("pom", "se.jguru.foo.bar", "foo-parent");
+        final MavenProject parent = MavenTestUtils.getStub("pom", "se.jguru.foo.bar", "foo-parent");
         parent.getModel().addModule("aChildModule");
 
         // Act
@@ -73,25 +73,27 @@ public class ProjectTypeTest {
     public void validateParsingProjectTypes() {
 
         // Assemble
-        final MavenProject parent = getStub("pom", "se.jguru.foo.bar", "bar-parent");
-        final MavenProject reactor = getStub("pom", "se.jguru.foo.bar", "bar-reactor");
-        final MavenProject assembly = getStub("pom", "se.jguru.foo.bar", "bar-assembly");
-        final MavenProject model = getStub("bundle", "se.jguru.foo.bar.model", "bar-model");
-        final MavenProject api = getStub("bundle", "se.jguru.foo.bar.api", "bar-api");
-        final MavenProject spi = getStub("bundle", "se.jguru.foo.bar.spi.something", "bar-spi-something");
-        final MavenProject impl = getStub("bundle", "se.jguru.foo.bar.impl.something", "bar-impl-something");
-        final MavenProject test = getStub("jar", "se.jguru.foo.bar.test.something", "bar-test");
-        final MavenProject poc = getStub("bundle", "se.jguru.foo.bar.poc.something", "bar-poc");
-        final MavenProject war = getStub("war", "se.jguru.foo.applications.bar", "bar-war");
-        final MavenProject ear = getStub("ear", "se.jguru.foo.applications.bar", "bar-ear");
-        final MavenProject ejb = getStub("ejb", "se.jguru.foo.applications.bar", "bar-ejb");
-        final MavenProject codestyle = getStub("jar", "se.jguru.foo.codestyle", "bar-codestyle");
-        final MavenProject javaAgent = getStub("bundle", "se.jguru.foo.bar.agent", "bar-agent");
+        final MavenProject parent = MavenTestUtils.getStub("pom", "se.jguru.foo.bar", "bar-parent");
+        final MavenProject reactor = MavenTestUtils.getStub("pom", "se.jguru.foo.bar", "bar-reactor");
+        final MavenProject assembly = MavenTestUtils.getStub("pom", "se.jguru.foo.bar", "bar-assembly");
+        final MavenProject model = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar.model", "bar-model");
+        final MavenProject api = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar.api", "bar-api");
+        final MavenProject spi = MavenTestUtils.getStub(
+                "bundle", "se.jguru.foo.bar.spi.something", "bar-spi-something");
+        final MavenProject impl = MavenTestUtils.getStub(
+                "bundle", "se.jguru.foo.bar.impl.something", "bar-impl-something");
+        final MavenProject test = MavenTestUtils.getStub("jar", "se.jguru.foo.bar.test.something", "bar-test");
+        final MavenProject poc = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar.poc.something", "bar-poc");
+        final MavenProject war = MavenTestUtils.getStub("war", "se.jguru.foo.applications.bar", "bar-war");
+        final MavenProject ear = MavenTestUtils.getStub("ear", "se.jguru.foo.applications.bar", "bar-ear");
+        final MavenProject ejb = MavenTestUtils.getStub("ejb", "se.jguru.foo.applications.bar", "bar-ejb");
+        final MavenProject codestyle = MavenTestUtils.getStub("jar", "se.jguru.foo.codestyle", "bar-codestyle");
+        final MavenProject javaAgent = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar.agent", "bar-agent");
         final MavenProject standaloneApplication1
-                = getStub("bundle", "se.jguru.foo.bar.application", "bar-application");
+                = MavenTestUtils.getStub("bundle", "se.jguru.foo.bar.application", "bar-application");
         final MavenProject standaloneApplication2
-                = getStub("jar", "se.jguru.foo.bar.application", "bar-application");
-        final MavenProject itest = getStub("jar", "se.jguru.foo.it.bar", "bar-it");
+                = MavenTestUtils.getStub("jar", "se.jguru.foo.bar.application", "bar-application");
+        final MavenProject itest = MavenTestUtils.getStub("jar", "se.jguru.foo.it.bar", "bar-it");
 
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
@@ -287,20 +289,5 @@ public class ProjectTypeTest {
 
         Assert.assertTrue(ProjectType.EXAMPLE.isCompliantGroupID("codestyle.foo.example"));
         Assert.assertFalse(ProjectType.EXAMPLE.isCompliantGroupID("foo.example.codestyle"));
-    }
-
-    //
-    // Private helpers
-    //
-
-    private MavenProject getStub(final String packaging, final String groupId, final String artifactId) {
-
-        final MavenProject project = new MavenProject();
-        project.setPackaging(packaging);
-        project.setVersion("1.0.0");
-        project.setArtifactId(artifactId);
-        project.setGroupId(groupId);
-
-        return project;
     }
 }

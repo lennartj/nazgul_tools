@@ -1,6 +1,6 @@
 /*
  * #%L
- * nazgul-tools-validation-api
+ * Nazgul Project: nazgul-tools-codestyle
  * %%
  * Copyright (C) 2010 - 2013 jGuru Europe AB
  * %%
@@ -53,7 +53,7 @@ public class ValidateProjectTypeTest {
     public void validateCorrectPom() throws Exception {
 
         // Assemble
-        final MavenProject project = readPom("testdata/poms/tools-parent.xml");
+        final MavenProject project = MavenTestUtils.readPom("testdata/poms/tools-parent.xml");
         final EnforcerRuleHelper mockHelper = new MockEnforcerRuleHelper(project);
         final ValidateProjectType unitUnderTest = new ValidateProjectType();
 
@@ -65,7 +65,7 @@ public class ValidateProjectTypeTest {
     public void validateTestProjectTypePom() throws Exception {
 
         // Assemble
-        final MavenProject project = readPom("testdata/poms/osgi-test-pom.xml");
+        final MavenProject project = MavenTestUtils.readPom("testdata/poms/osgi-test-pom.xml");
         final EnforcerRuleHelper mockHelper = new MockEnforcerRuleHelper(project);
         final ValidateProjectType unitUnderTest = new ValidateProjectType();
 
@@ -77,7 +77,7 @@ public class ValidateProjectTypeTest {
     public void validateAspectPom() throws Exception {
 
         // Assemble
-        final MavenProject project = readPom("testdata/poms/aspect-project.xml");
+        final MavenProject project = MavenTestUtils.readPom("testdata/poms/aspect-project.xml");
         final EnforcerRuleHelper mockHelper = new MockEnforcerRuleHelper(project);
         final ValidateProjectType unitUnderTest = new ValidateProjectType();
 
@@ -89,22 +89,11 @@ public class ValidateProjectTypeTest {
     public void validateExceptionOnParentPomWithModules() throws Exception {
 
         // Assemble
-        final MavenProject project = readPom("testdata/poms/incorrect-parent-with-modules.xml");
+        final MavenProject project = MavenTestUtils.readPom("testdata/poms/incorrect-parent-with-modules.xml");
         final EnforcerRuleHelper mockHelper = new MockEnforcerRuleHelper(project);
         final ValidateProjectType unitUnderTest = new ValidateProjectType();
 
         // Act & Assert
         unitUnderTest.execute(mockHelper);
-    }
-
-    private MavenProject readPom(final String filePath) {
-
-        try {
-            final URL pomResource = getClass().getClassLoader().getResource(filePath);
-            final Reader pomReader = new InputStreamReader(pomResource.openStream());
-            return new MavenProject(new MavenXpp3Reader().read(pomReader));
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Could not read pom from [" + filePath + "]", e);
-        }
     }
 }
