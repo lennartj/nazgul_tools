@@ -90,7 +90,7 @@
         <openjpa.version>2.2.2</openjpa.version>
         <activemq.version>5.8.0</activemq.version>
         <maven.release.plugin.version>2.4.1</maven.release.plugin.version>
-        <aspectj.runtime.version>1.7.2</aspectj.runtime.version>
+        <aspectj.runtime.version>1.7.3</aspectj.runtime.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -803,7 +803,6 @@
                             </manifest>
                             <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                             <manifestEntries>
-                                <name>${project.name}</name>
                                 <description>${project.description}</description>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>${project.artifactId}</artifactId>
