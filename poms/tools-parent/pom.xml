@@ -1362,6 +1362,17 @@
                                     <includedGroupIdPatterns>${enforcer.includedGroupIdPatterns}</includedGroupIdPatterns>
                                     <excludedGroupIdPatterns>${enforcer.excludedGroupIdPatterns}</excludedGroupIdPatterns>
                                 </restrictImplDependencies>
+
+                                <!--
+                                    Enforce using correct packages for classes within a NSC project.
+                                    The root package of any project should be identical to its groupId.
+                                    Any package below the root package can safely be used - so ...
+
+                                    if the groupId of a project is "com.acme.foobar",
+                                    then all code within that project must reside within the "com.acme.foobar" package,
+                                    or in any subpackage thereof.
+                                -->
+                                <correctPackaging implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.CorrectPackagingRule"/>
                             </rules>
                         </configuration>
                     </execution>
