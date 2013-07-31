@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>2.0.9-SNAPSHOT</version>
+    <version>2.0.9</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${url.prefix}/${path.in.reactor}</url>
@@ -1097,7 +1097,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.9-SNAPSHOT</version>
+                            <version>2.0.9</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -1143,7 +1143,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.9-SNAPSHOT</version>
+                            <version>2.0.9</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1173,7 +1173,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.9-SNAPSHOT</version>
+                            <version>2.0.9</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1223,7 +1223,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>2.0.9-SNAPSHOT</version>
+                            <version>2.0.9</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1371,7 +1371,7 @@
                                     then all code within that project must reside within the "com.acme.foobar" package,
                                     or in any subpackage thereof.
                                 -->
-                                <correctPackaging implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.CorrectPackagingRule"/>
+                                <correctPackaging implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.CorrectPackagingRule" />
                             </rules>
                         </configuration>
                     </execution>
@@ -1380,7 +1380,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>2.0.9-SNAPSHOT</version>
+                        <version>2.0.9</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1645,7 +1645,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-2.0.9</tag>
     </scm>
 
     <!--
