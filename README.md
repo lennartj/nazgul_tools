@@ -19,4 +19,4 @@ The Nazgul Framework has two main components:
 
 Main documentation found at:
 
-[Main documentation](https://bytebucket.org/lennartj/nazgul_tools/wiki/index.html "Nazgul Framework: Tools docs")
+[Main documentation](https://bitbucket.org/lennartj/nazgul_tools/wiki/Home)
