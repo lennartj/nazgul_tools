@@ -23,7 +23,7 @@ If you have an existing forge installation, simply update it with the command:
 In case there is a newer JBoss Forge version available, forge will respond with something similar to
 the dialog steps below:
 
-    ***INFO*** This Forge installation will be updated to 1.3.1.Final
+    ***INFO*** This Forge installation will be updated to 1.3.3.Final
      ? Is that ok ? [Y/n]
 
     Update in progress. Please wait... |
@@ -38,7 +38,7 @@ Following a restart of JBoss Forge, the version is indeed updated to the latest 
        |_|  \___/|_|  \__, |\___|
                        |___/
 
-    JBoss Forge, version [ 1.3.2.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
+    JBoss Forge, version [ 1.3.3.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
     [no project] Nazgul $
 
 ### 2. Installing the Nazgul Forge plugins
@@ -51,10 +51,45 @@ documentation](http://forge.jboss.org/docs/using/installing-new-plugins.html#con
     forge find-plugin nazgul
 
 Following a brief selection of which JBoss Forge plugin you want to install,
-the download and installation into JBoss Forge should be automagic. If the nazgul plugin
-has not yet made it to the official JBoss Forge plugin list, you can clone 
-[its GitHub repository](https://github.com/lennartj/nazgul_forge.git) and perform 
-a local installation. 
+the download and installation into JBoss Forge should be automagic.
+
+#### 2b. Source installation - in case you need to
+
+You can clone [its GitHub repository](https://github.com/lennartj/nazgul_forge.git) and perform
+a local installation if the Forge's resolution for finding the Nazgul Forge plugins fails for whatever reason.
+This involves cloning the project from Git, building the project with maven and
+finally launching forge within the factory-impl-nazgul project. The commands are shown below without their
+respective output:
+
+    git clone https://github.com/lennartj/nazgul_forge.git
+
+    cd nazgul_forge
+
+    mvn clean install
+
+    cd factory/factory-impl-nazgul
+
+    forge
+
+Having launched forge, you can install the nazgul forge plugin with the following command
+executed within JBoss Forge:
+
+    forge source-plugin .
+
+Forge will re-build the factory-impl-nazgul project, and install the Forge Plugins found
+within it:
+
+        _____
+       |  ___|__  _ __ __ _  ___
+       | |_ / _ \| `__/ _` |/ _ \  \\
+       |  _| (_) | | | (_| |  __/  //
+       |_|  \___/|_|  \__, |\___|
+                       |___/
+
+    JBoss Forge, version [ 1.3.3.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
+    The following plugins have been activated: [add-nazgul-software-component, new-nazgul-project]
+
+You are now all set to start creating your Nazgul Framework-style projects and components.
 
 ### 3. Create a new Nazgul Framework-style project
 
@@ -68,8 +103,8 @@ primes a new directory (the "projectName" option) with the parent and reactor pa
 
     What version do you want to install?
 
-      1 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.6]
-      2 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.7]
+      1 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.8]
+      2 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.9]
 
      ? Choose an option by typing the number of the selection: 2
 
@@ -86,12 +121,41 @@ primes a new directory (the "projectName" option) with the parent and reactor pa
     Wrote /tmp/foobar/poms/foobar-model-parent/pom.xml
     [foobar-reactor] foobar $
 
+Just type `ls -l` to see what was created for you:
+
+    [foobar-reactor] foobar $ ls -l
+    total 1
+    -rw------- owner  users  1830 jul 31 21:26 pom.xml
+    drwx------ owner  users   204 jul 31 21:26 poms/
+
 As indicated above, the new-nazgul-project command might ask which version of various Nazgul parent poms you
 would like to use. When asked, it is recommended to choose the lastest stable release possible.
+You can now open the root pom.xml in your favourite IDE.
 
-### 4. Create a new Nazgul Software Component (NSC)
+### 4. Add a new Nazgul Software Component (NSC)
 
 This section assumes that your current working directory is inside a Nazgul 
-Framework-style project, as described in step 3 above. The nazgul plugin you installed
-can be used to create a NSC. Launch the internal help in Forge to see its
-available options and arguments.
+Framework-style project, as described in step 3 above.
+The nazgul plugin you installed can be used to create a NSC. For assistance,
+simply type `help add-nazgul-software-component` to receive the online help
+describing all available properties.
+
+To create a "messaging" NSC with a model project and a "jms" implementation, fire the command:
+
+    [foobar-reactor] foobar $ add-nazgul-software-component --named messaging --hasModelProject true --implType jms
+    ***SUCCESS*** Created project [foobar] structure in new working directory [/tmp/foobar/messaging]
+    Wrote /tmp/foobar/pom.xml
+    Wrote /tmp/foobar/messaging
+    Wrote /tmp/foobar/messaging/pom.xml
+    Wrote /tmp/foobar/messaging/messaging-model
+    Wrote /tmp/foobar/messaging/messaging-model/pom.xml
+    Wrote /tmp/foobar/messaging/messaging-api
+    Wrote /tmp/foobar/messaging/messaging-api/pom.xml
+    Wrote /tmp/foobar/messaging/messaging-impl-jms
+    Wrote /tmp/foobar/messaging/messaging-impl-jms/pom.xml
+    [foobar-messaging-reactor] messaging $
+
+Note that Forge changed its current directory to the reactor directory of the newly created messaging
+NSC. While the listing emits some files and directory names, quite a few others (including skeleton package
+directories and some test-scope logging definitions) are created as well. Feel free to take a look in your
+favourite IDE.
