@@ -24,9 +24,8 @@ package se.jguru.nazgul.tools.codestyle.enforcer.rules.source;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.regex.Pattern;
 
 /**
@@ -71,8 +70,8 @@ public class JavaPackageExtractor implements PackageExtractor {
     public String getPackage(final File sourceFile) {
 
         try {
-            final BufferedReader bufferedReader
-                    = Files.newBufferedReader(sourceFile.toPath(), Charset.defaultCharset());
+            final String path = sourceFile.getCanonicalPath();
+            final BufferedReader bufferedReader = new BufferedReader(new FileReader(sourceFile));
             String aLine = null;
             while ((aLine = bufferedReader.readLine()) != null) {
 
