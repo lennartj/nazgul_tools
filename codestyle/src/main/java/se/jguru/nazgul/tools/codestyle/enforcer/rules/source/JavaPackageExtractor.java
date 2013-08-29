@@ -56,7 +56,8 @@ public class JavaPackageExtractor implements PackageExtractor {
     public static final FileFilter JAVA_SOURCE_FILEFILTER = new FileFilter() {
         @Override
         public boolean accept(final File aFile) {
-            return aFile != null && (aFile.isFile() && aFile.getName().toLowerCase().trim().endsWith(".java"));
+            return aFile != null
+                    && (aFile.isFile() && aFile.getName().toLowerCase().trim().endsWith(".java"));
         }
     };
 

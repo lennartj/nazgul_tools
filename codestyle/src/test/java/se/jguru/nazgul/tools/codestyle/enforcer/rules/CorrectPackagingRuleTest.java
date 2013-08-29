@@ -67,7 +67,8 @@ public class CorrectPackagingRuleTest {
             final String message = e.getMessage();
 
             // Validate that the message contains the package-->fileName data
-            Assert.assertTrue(message.contains("se.jguru.nazgul.tools.validation.api=[Validatable.java]"));
+            Assert.assertTrue(
+                    message.contains("se.jguru.nazgul.tools.validation.api=[Validatable.java, package-info.java]"));
         }
     }
 

@@ -91,6 +91,7 @@
         <activemq.version>5.8.0</activemq.version>
         <maven.release.plugin.version>2.4.1</maven.release.plugin.version>
         <aspectj.runtime.version>1.7.3</aspectj.runtime.version>
+        <aspectj-maven-plugin.version>1.4</aspectj-maven-plugin.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -108,7 +109,7 @@
         </enforcer.excludedGroupIdPatterns>
 
         <!-- Cobertura configuration parameters. -->
-        <cobertura.plugin.version>2.5.2</cobertura.plugin.version>
+        <cobertura.plugin.version>2.6</cobertura.plugin.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 
         <!-- Checkstyle configuration parameters. -->

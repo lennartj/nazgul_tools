@@ -66,12 +66,67 @@ works.
 
 <table>
     <tr>
-        <th width="50%">Description</th>
-        <th width="50%">Image</th>
+        <th width="33%">Description</th>
+        <th width="66%">Image</th>
     </tr>
     <tr>
         <td>Structure of an example Nazgul Software Component ("NSC"), including permitted dependencies between
         its projects</td>
         <td><img src="../images/plantuml/modularity_mavenProjects.png" style="margin:10px;" /></td>
     </tr>
+    <tr>
+        <td>Structure of the same example Nazgul Software Component ("NSC"), including permitted dependencies between
+        its projects and with POM parent relationships marked. The example project has been omitted in this
+        illustration for brevity.</td>
+        <td><img src="../images/plantuml/modularity_mavenProjects_withparents.png" style="margin:10px;" /></td>
+    </tr>
 </table>
+
+### POM structures: parents and dependencies
+
+While the images above may seem laden with many dependencies, they are accurate and illustrate
+the somewhat simple relations between project POM files. A parent relationship between a POM (and its parent POM) is
+shown below:
+
+<pre class="brush: xml" title="Example POM parent structure."><![CDATA[
+    ...
+    <parent>
+        <groupId>se.jguru.nazgul.core.poms.core-api-parent</groupId>
+        <artifactId>nazgul-core-api-parent</artifactId>
+        <version>1.5.2-SNAPSHOT</version>
+        <relativePath>../../../poms/core-api-parent</relativePath>
+    </parent>
+
+    <groupId>se.jguru.nazgul.core.quickstart.analyzer.api</groupId>
+    <artifactId>nazgul-core-analyzer-api</artifactId>
+    ...
+]]></pre>
+
+In this case, the nazgul-core-analyzer-api project defines the nazgul-core-api-parent pom as its parent.
+Dependencies between POMs are marked with solid diamond-head arrows in the UML diagrams above,
+and imply that one POM defines a dependency from its project's code to another artifact.
+Three such dependencies are defined in the code snippet below (and the versions of the respective dependencies are
+defined within the parent of the pom illustrated).
+
+<pre class="brush: xml" title="Example POM dependencies."><![CDATA[
+     <!-- +=============================================== -->
+     <!-- | Section 2:  Dependency (management) settings   -->
+     <!-- +=============================================== -->
+     <dependencies>
+         <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-lang3</artifactId>
+         </dependency>
+         <dependency>
+             <groupId>junit</groupId>
+             <artifactId>junit</artifactId>
+             <scope>test</scope>
+         </dependency>
+         <dependency>
+             <groupId>ch.qos.logback</groupId>
+             <artifactId>logback-classic</artifactId>
+             <scope>test</scope>
+         </dependency>
+     </dependencies>
+]]></pre>
+

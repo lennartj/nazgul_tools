@@ -95,8 +95,8 @@
         </head>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
+            <item name="Concepts" href="concepts.html"/>
             <item name="Nazgul Tools Overview" href="nazgul_tools.html"/>
-
         </menu>
 
         <menu name="Quick Start">

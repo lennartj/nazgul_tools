@@ -122,9 +122,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.4</version>
+                <version>${aspectj-maven-plugin.version}</version>
                 <configuration>
-                    <complianceLevel>1.6</complianceLevel>
+                    <complianceLevel>${jdk.version}</complianceLevel>
                     <includes>
                         <include>**/*.java</include>
                         <include>**/*.aj</include>
@@ -179,6 +179,27 @@
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>${aspectj-maven-plugin.version}</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <privateScope>true</privateScope>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aspectj-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <!--
     ################################################
