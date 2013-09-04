@@ -110,5 +110,7 @@ public class CorrectPackagingRuleTest {
         Assert.assertEquals(2, extractors.size());
         Assert.assertEquals(SillyPackageExtractor.class.getName(), extractors.get(0).getClass().getName());
         Assert.assertEquals(JavaPackageExtractor.class.getName(), extractors.get(1).getClass().getName());
+
+        Assert.assertNotNull(unitUnderTest.getShortRuleDescription());
     }
 }

@@ -277,6 +277,28 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.plugin.version}</version>
+                <configuration>
+                    <threshold>Low</threshold>
+                    <effort>Max</effort>
+                    <onlyAnalyze>se.jguru.nazgul.codestyle.*</onlyAnalyze>
+                    <includeFilterFile>${project.build.outputDirectory}/codestyle/findbugs.xml</includeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml</excludeFilterFile>
+                    <relaxed>false</relaxed>
+                    <!-- xmlOutput>true</xmlOutput -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

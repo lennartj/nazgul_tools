@@ -70,9 +70,8 @@ public class JavaPackageExtractor implements PackageExtractor {
     public String getPackage(final File sourceFile) {
 
         try {
-            final String path = sourceFile.getCanonicalPath();
             final BufferedReader bufferedReader = new BufferedReader(new FileReader(sourceFile));
-            String aLine = null;
+            String aLine;
             while ((aLine = bufferedReader.readLine()) != null) {
 
                 if (PACKAGE_STATEMENT.matcher(aLine.trim()).matches()) {

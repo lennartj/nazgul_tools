@@ -32,6 +32,7 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -109,9 +110,11 @@ public class CorrectPackagingRule extends AbstractNonCacheableEnforcerRule {
 
             // Correct packaging everywhere?
             final SortedSet<String> incorrectPackages = new TreeSet<String>();
-            for (String currentPackage : packageName2SourceFileNameMap.keySet()) {
-                if (!currentPackage.startsWith(groupId)) {
-                    incorrectPackages.add(currentPackage);
+            for (Map.Entry<String, SortedSet<String>> currentPackage : packageName2SourceFileNameMap.entrySet()) {
+
+                final String candidate = currentPackage.getKey();
+                if (!candidate.startsWith(groupId)) {
+                    incorrectPackages.add(candidate);
                 }
             }
 
