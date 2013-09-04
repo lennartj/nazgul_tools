@@ -1,5 +1,24 @@
 # Nazgul Framework: Quickstart
 
+There are few pre-requisites to getting started with Nazgul Framework-style project development.
+
+## Required software platform
+
+There are 3 pieces of software which you must have installed to be able to build Nazgul Framework-style
+projects:
+
+1. An updated [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html),
+   which should be installed in a directory without whitespace in its path to reduce the potential for
+   build problems. Please follow the instructions on the Java site regarding its installation process.
+2. A recent (3.0.5+) [Maven](http://maven.apache.org/download.cgi) installation, which should also be installed
+   in a directory without whitespace in its path to reduce the potential for build problems. Please follow the
+   instructions on the Maven site regarding its installation process.
+3. A [graphviz](http://www.graphviz.org/Download.php) installation, which is used to generate
+   [PlantUML diagrams](http://plantuml.sourceforge.net/). These occur frequently within the documentation of
+   Nazgul Framework projects. Please follow the instructions on the Graphviz site regarding its installation process.
+
+## Strongly recommended software
+
 Setting up Nazgul-style projects and software components are made considerably quicker with a templating tool,
 such as [Maven Archetype Plugin](http://maven.apache.org/archetype/maven-archetype-plugin) or
 [JBoss Forge](http://forge.jboss.org/index.html).
@@ -9,7 +28,7 @@ prior to launching the step-by-step walkthrough below. The Nazgul Framework face
 within a Github-based project (["Nazgul Forge"](https://github.com/lennartj/nazgul_forge)), as is customary
 for JBoss Forge plugins. Feel free to familiarize yourself with its codebase.
 
-### 0. Download/install JBoss Forge
+### 0. Download/install Required software
 
 Please follow instructions on the [JBoss Forge](http://forge.jboss.org/index.html) site
 for the installation of JBoss Forge itself.
