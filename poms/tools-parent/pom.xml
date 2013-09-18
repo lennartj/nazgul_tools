@@ -83,7 +83,7 @@
         <build.number />
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
-        <jdk.version>1.6</jdk.version>
+        <jdk.version>1.7</jdk.version>
 
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
@@ -91,7 +91,7 @@
         <activemq.version>5.8.0</activemq.version>
         <maven.release.plugin.version>2.4.1</maven.release.plugin.version>
         <aspectj.runtime.version>1.7.3</aspectj.runtime.version>
-        <aspectj-maven-plugin.version>1.4</aspectj-maven-plugin.version>
+        <aspectj-maven-plugin.version>1.5</aspectj-maven-plugin.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -259,7 +259,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
             </dependency>
 
             <!--
