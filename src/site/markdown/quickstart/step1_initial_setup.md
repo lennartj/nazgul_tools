@@ -42,7 +42,7 @@ If you have an existing forge installation, simply update it with the command:
 In case there is a newer JBoss Forge version available, forge will respond with something similar to
 the dialog steps below:
 
-    ***INFO*** This Forge installation will be updated to 1.3.3.Final
+    ***INFO*** This Forge installation will be updated to 1.4.1.Final
      ? Is that ok ? [Y/n]
 
     Update in progress. Please wait... |
@@ -57,7 +57,7 @@ Following a restart of JBoss Forge, the version is indeed updated to the latest 
        |_|  \___/|_|  \__, |\___|
                        |___/
 
-    JBoss Forge, version [ 1.3.3.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
+    JBoss Forge, version [ 1.4.1.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
     [no project] Nazgul $
 
 ### 2. Installing the Nazgul Forge plugins
@@ -105,7 +105,7 @@ within it:
        |_|  \___/|_|  \__, |\___|
                        |___/
 
-    JBoss Forge, version [ 1.3.3.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
+    JBoss Forge, version [ 1.4.1.Final ] - JBoss, by Red Hat, Inc. [ http://forge.jboss.org ]
     The following plugins have been activated: [add-nazgul-software-component, new-nazgul-project]
 
 You are now all set to start creating your Nazgul Framework-style projects and components.
@@ -124,6 +124,13 @@ primes a new directory (the "projectName" option) with the parent and reactor pa
 
       1 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.8]
       2 - [se.jguru.nazgul.tools.poms.external:nazgul-tools-external-reactor-parent:::2.0.9]
+
+     ? Choose an option by typing the number of the selection: 2
+
+    What version do you want to install?
+
+      1 - [se.jguru.nazgul.core.poms.core-parent:nazgul-core-parent:::1.5.0]
+      2 - [se.jguru.nazgul.core.poms.core-parent:nazgul-core-parent:::1.5.1]
 
      ? Choose an option by typing the number of the selection: 2
 
