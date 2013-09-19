@@ -32,7 +32,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools</groupId>
         <artifactId>nazgul-tools-reactor</artifactId>
-        <version>2.0.10-SNAPSHOT</version>
+        <version>3.0.0</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
@@ -85,6 +85,6 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-3.0.0</tag>
     </scm>
 </project>
