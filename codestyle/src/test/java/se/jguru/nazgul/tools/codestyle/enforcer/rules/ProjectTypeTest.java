@@ -168,6 +168,23 @@ public class ProjectTypeTest {
     }
 
     @Test
+    public void validatePluginProjectPatterns() {
+
+        // Act & Assert
+        Assert.assertTrue(ProjectType.PLUGIN.isCompliantArtifactID("test-foo-maven-plugin"));
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantArtifactID("foo-maven-plugin-test"));
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantArtifactID("foo-plugin-test"));
+
+        Assert.assertTrue(ProjectType.PLUGIN.isCompliantGroupID("test.foo.plugin"));
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantGroupID("plugin.test"));
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantGroupID("foo.plugin.test"));
+
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantPackaging("pom"));
+        Assert.assertTrue(ProjectType.PLUGIN.isCompliantPackaging("maven-plugin"));
+        Assert.assertFalse(ProjectType.PLUGIN.isCompliantPackaging("bundle"));
+    }
+
+    @Test
     public void validateApiProjectPatterns() {
 
         // Act & Assert

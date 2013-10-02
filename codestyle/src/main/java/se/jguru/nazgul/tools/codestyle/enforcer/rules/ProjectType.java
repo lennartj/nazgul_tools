@@ -156,6 +156,11 @@ public enum ProjectType {
     CODESTYLE(".*-codestyle$", ".*\\.codestyle$", "jar|bundle"),
 
     /**
+     * Project, defining a Maven plugin.
+     */
+    PLUGIN(".*-maven-plugin$", ".*\\.plugin$", "maven-plugin"),
+
+    /**
      * Proof-of-concept helper project, holding proof of concept implementations.
      * <p/>
      * No dependency rules.
