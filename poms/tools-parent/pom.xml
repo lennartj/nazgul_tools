@@ -83,7 +83,7 @@
         <build.number />
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.6</jdk.version>
 
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
