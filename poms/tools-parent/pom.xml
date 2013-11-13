@@ -359,6 +359,13 @@
                             <phase>pre-site</phase>
                         </execution>
                     </executions>
+		    <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.plantuml</groupId>
+                        <artifactId>plantuml</artifactId>
+                        <version>7985</version>
+                    </dependency>
+                </dependencies>
                 </plugin>
 
                 <!--
