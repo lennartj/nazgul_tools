@@ -88,9 +88,9 @@
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.2.2</openjpa.version>
-        <activemq.version>5.8.0</activemq.version>
+        <activemq.version>5.9.0</activemq.version>
         <maven.release.plugin.version>2.4.1</maven.release.plugin.version>
-        <aspectj.runtime.version>1.7.3</aspectj.runtime.version>
+        <aspectj.runtime.version>1.7.4</aspectj.runtime.version>
         <aspectj-maven-plugin.version>1.5</aspectj-maven-plugin.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
