@@ -67,7 +67,7 @@ Parts of software complexity are defined by the coupling and cohesion of the cod
 Some researchers consider coupling and cohesion to be difficult or impossible to separate.
 One example of this view is hinted at by the article, whose abstract is shown below:
 
-### [The Structural Complexity of Software: An Experimental Test](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=1556556&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1556556)
+### The Structural Complexity of Software: An Experimental Test
 
 Article published in *IEEE Transactions on Software Engineering* (Nov. 2005) by
 authors David P. Darcy, Chris F. Kemerer, Sandra A. Slaughter and James E. Tomayko.
