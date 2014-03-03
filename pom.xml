@@ -67,7 +67,7 @@
         <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.6</jdk.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
@@ -142,7 +142,7 @@
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
                         <artifactId>maven-scm-provider-hg</artifactId>
-                        <version>1.8.1</version>
+                        <version>1.9</version>
                     </dependency>
                 </dependencies>
             </plugin>
