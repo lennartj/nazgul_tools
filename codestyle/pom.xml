@@ -72,9 +72,9 @@
 
         <!-- Code style properties -->
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-        <pmd.plugin.version>3.0.1</pmd.plugin.version>
+        <pmd.plugin.version>3.1</pmd.plugin.version>
         <cobertura.plugin.version>2.6</cobertura.plugin.version>
-        <checkstyle.plugin.version>2.11</checkstyle.plugin.version>
+        <checkstyle.plugin.version>2.12</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <findbugs.plugin.version>2.5.3</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
