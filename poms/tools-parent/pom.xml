@@ -1208,6 +1208,29 @@
                             <root>${project.basedir}/src/test</root>
                             <root>${project.basedir}/src/site</root>
                         </roots>
+                        <excludes>
+                            <!-- Custom excludes -->
+                            <param>**/*.json</param>
+                            <!-- Modelling filetypes -->
+                            <param>**/*.zargo</param>
+                            <param>**/*.uml</param>
+                            <param>**/*.umldi</param>
+                            <param>**/*.umldi</param>
+                            <param>**/*.xmi</param>
+                            <!-- Image filetypes -->
+                            <param>**/*.img</param>
+                            <param>**/*.png</param>
+                            <param>**/*.jpg</param>
+                            <param>**/*.jpeg</param>
+                            <param>**/*.gif</param>
+                            <!-- Archives -->
+                            <param>**/*.zip</param>
+                            <param>**/*.jar</param>
+                            <param>**/*.war</param>
+                            <param>**/*.ear</param>
+                            <param>**/*.tgz</param>
+                            <param>**/*.gz</param>
+                        </excludes>
                     </configuration>
                     <executions>
                         <execution>
