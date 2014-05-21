@@ -94,7 +94,6 @@
     -->
     <modules>
         <module>codestyle</module>
-        <module>plugins</module>
         <module>validation</module>
         <module>poms</module>
     </modules>
