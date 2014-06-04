@@ -69,8 +69,8 @@ public class JavaPackageExtractor implements PackageExtractor {
     @Override
     public String getPackage(final File sourceFile) {
 
-        try {
-            final BufferedReader bufferedReader = new BufferedReader(new FileReader(sourceFile));
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(sourceFile))) {
+
             String aLine;
             while ((aLine = bufferedReader.readLine()) != null) {
 
