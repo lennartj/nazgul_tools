@@ -32,7 +32,7 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
@@ -97,6 +97,7 @@
         <slf4j.version>1.7.7</slf4j.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
         <dependency.plugin.version>2.8</dependency.plugin.version>
+        <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
@@ -270,53 +271,6 @@
                 <artifactId>junit</artifactId>
                 <scope>test</scope>
                 <version>4.11</version>
-            </dependency>
-            <dependency>
-                <groupId>org.dbunit</groupId>
-                <artifactId>dbunit</artifactId>
-                <version>2.4.9</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>1.9.5</version>
-                <scope>test</scope>
-            </dependency>
-
-            <!--
-               JEE dependencies
-            -->
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.transaction</groupId>
-                <artifactId>transaction-api</artifactId>
-                <version>1.1-rev-1</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!--
-               Adapter dependencies
-            -->
-            <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-kernel</artifactId>
-                <version>1.6.2</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-pool</groupId>
-                <artifactId>commons-pool</artifactId>
-                <version>1.6</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib-nodep</artifactId>
-                <version>3.1</version>
             </dependency>
 
         </dependencies>
@@ -1263,7 +1217,7 @@
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.
                 -->
-                <plugin>
+                <!-- plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.1</version>
@@ -1274,6 +1228,19 @@
                             <version>2.2</version>
                         </dependency>
                     </dependencies>
+                </plugin -->
+
+                <!--
+                    Use a working version of the Maven versions plugin.
+                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
+
+                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+                    Used: Only when called.
+                -->
+                <plugin>
+                    <groupId>de.lgohlke.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
                 </plugin>
 
             </plugins>
@@ -1657,6 +1624,12 @@
                         </reports>
                     </reportSet>
                 </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>de.lgohlke.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>

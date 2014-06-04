@@ -4,7 +4,8 @@
   ~ All rights reserved.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -15,7 +16,7 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools</groupId>
@@ -72,12 +73,13 @@
         <wtp.version>2.0</wtp.version>
         <clean.plugin.version>2.5</clean.plugin.version>
         <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+        <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
 
         <!--
             Define the URL prefixes for Site Deployment and DistributionManagement.
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
-        <path.in.reactor />
+        <path.in.reactor/>
         <reactor.name>nazgul_tools</reactor.name>
         <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
         <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
@@ -106,7 +108,21 @@
     <build>
         <pluginManagement>
             <plugins>
+
+                <!--
+                    Use a working version of the Maven versions plugin.
+                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
+
+                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+                    Used: Only when called.
+                -->
                 <plugin>
+                    <groupId>de.lgohlke.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>${versions-maven-plugin.version}</version>
+                </plugin>
+
+                <!-- plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.1</version>
@@ -117,6 +133,12 @@
                             <version>2.2</version>
                         </dependency>
                     </dependencies>
+                </plugin -->
+
+                <plugin>
+                    <groupId>org.codehaus.sonar</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>4.3.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -268,6 +290,12 @@
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>de.lgohlke.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>
