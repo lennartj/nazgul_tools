@@ -53,7 +53,7 @@
     -->
     <dependencies>
         <!--
-            These dependencies contain globally available Aspects.
+            These dependencies contain globally available Aspects and their required runtime libraries.
             No other dependencies must be included here.
         -->
         <dependency>
@@ -63,7 +63,6 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>${aspectj.runtime.version}</version>
         </dependency>
     </dependencies>
 
@@ -73,6 +72,18 @@
                 <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                 <artifactId>nazgul-tools-validation-aspect</artifactId>
                 <version>3.0.2-SNAPSHOT</version>
+            </dependency>
+
+            <!--
+                The AspectJ Runtime is only required in compile scope for projects actually compiling Aspects.
+                For normal project just using the validation-aspect (implying that classes in them implement
+                or extend Validatable), the default scope for AspectJ should be runtime.
+            -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.runtime.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
