@@ -66,7 +66,7 @@
         <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.6</jdk.version>
+        <jdk.version>1.7</jdk.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
@@ -121,19 +121,6 @@
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
-
-                <!-- plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.reporting</groupId>
-                            <artifactId>maven-reporting-impl</artifactId>
-                            <version>2.2</version>
-                        </dependency>
-                    </dependencies>
-                </plugin -->
 
                 <plugin>
                     <groupId>org.codehaus.sonar</groupId>
