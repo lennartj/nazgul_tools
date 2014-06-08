@@ -4,8 +4,7 @@
   ~ All rights reserved.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -21,7 +20,7 @@
 
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>4.0.0</version>
     <name>${project.artifactId}</name>
     <url>${url.prefix}/${path.in.reactor}</url>
     <description>The Nazgul Framework: Tools project holds a collection of Maven best-pracises and sensible
@@ -79,7 +78,7 @@
             Define the URL prefixes for Site Deployment and DistributionManagement.
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
-        <path.in.reactor/>
+        <path.in.reactor />
         <reactor.name>nazgul_tools</reactor.name>
         <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
         <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
@@ -350,7 +349,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-4.0.0</tag>
     </scm>
 
     <!--
