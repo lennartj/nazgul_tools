@@ -23,8 +23,20 @@
 
 <features name="nazgul-tools" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
 
-    <feature name="nazgul-tools" resolver="(obr)" version="${parent.version}"
-             description="Nazgul Framework: Tools" start-level="50">
+    <feature name="logback-classic"
+             resolver="(obr)"
+             version="${parent.version}"
+             description="Nazgul Framework: Tools"
+             start-level="50">
+        <bundle>mvn:ch.qos.logback/logback-core/${ch.qos.logback/logback-core/version}</bundle>
+        <bundle>mvn:ch.qos.logback/logback-classic/${ch.qos.logback/logback-classic/version}</bundle>
+    </feature>
+
+    <feature name="nazgul-tools"
+             resolver="(obr)"
+             version="${parent.version}"
+             description="Nazgul Framework: Tools"
+             start-level="50">
 
         <!-- Include the validation bundles. -->
         <bundle>mvn:se.jguru.nazgul.tools.validation.api/nazgul-tools-validation-api/${parent.version}</bundle>
@@ -34,7 +46,5 @@
         <bundle>mvn:org.apache.commons/commons-lang3/${org.apache.commons/commons-lang3/version}</bundle>
         <bundle>wrap:mvn:org.aspectj/aspectjrt/${org.aspectj/aspectjrt/version}$Bundle-SymbolicName=AspectJ_Runtime&amp;Bundle-Version=${org.aspectj/aspectjrt/version}</bundle>
         <bundle>mvn:org.slf4j/slf4j-api/${org.slf4j/slf4j-api/version}</bundle>
-        <bundle>mvn:ch.qos.logback/logback-core/${ch.qos.logback/logback-core/version}</bundle>
-        <bundle>mvn:ch.qos.logback/logback-classic/${ch.qos.logback/logback-classic/version}</bundle>
     </feature>
 </features>

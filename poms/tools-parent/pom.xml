@@ -88,7 +88,6 @@
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.3.0</openjpa.version>
-        <activemq.version>5.9.1</activemq.version>
         <maven.release.plugin.version>2.5</maven.release.plugin.version>
         <aspectj.runtime.version>1.8.0</aspectj.runtime.version>
         <aspectj-maven-plugin.version>1.6</aspectj-maven-plugin.version>
@@ -207,35 +206,6 @@
             </dependency>
 
             <!--
-                Messaging dependencies
-            -->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-osgi</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-camel</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-pool</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
-                <version>1.1</version>
-            </dependency>
-
-            <!--
                 OSGi dependencies
             -->
             <dependency>
@@ -249,9 +219,6 @@
                 <version>${osgiVersion}</version>
             </dependency>
 
-            <!--
-                Ambiguous dependencies.
-            -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
