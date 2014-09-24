@@ -76,7 +76,7 @@
         <cobertura.plugin.version>2.6</cobertura.plugin.version>
         <checkstyle.plugin.version>2.12.1</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
-        <findbugs.plugin.version>2.5.3</findbugs.plugin.version>
+        <findbugs.plugin.version>3.0.0</findbugs.plugin.version>
         <clean.plugin.version>2.5</clean.plugin.version>
 
         <!--
@@ -343,7 +343,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10</version>
                 <configuration>
                     <stylesheet>java</stylesheet>
                 </configuration>

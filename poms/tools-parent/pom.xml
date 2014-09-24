@@ -88,10 +88,9 @@
         <!-- Version number properties -->
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.3.0</openjpa.version>
-        <activemq.version>5.9.1</activemq.version>
         <maven.release.plugin.version>2.5</maven.release.plugin.version>
-        <aspectj.runtime.version>1.8.0</aspectj.runtime.version>
-        <aspectj-maven-plugin.version>1.6</aspectj-maven-plugin.version>
+        <aspectj.runtime.version>1.8.2</aspectj.runtime.version>
+        <aspectj-maven-plugin.version>1.7</aspectj-maven-plugin.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
         <slf4j.version>1.7.7</slf4j.version>
@@ -124,7 +123,7 @@
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
         <!-- Findbugs configuration parameters. -->
-        <findbugs.plugin.version>2.5.3</findbugs.plugin.version>
+        <findbugs.plugin.version>3.0.0</findbugs.plugin.version>
         <findbugs.only.analyze>se.jguru.nazgul.*</findbugs.only.analyze>
         <findbugs.includeFilterFile>codestyle/findbugs.xml</findbugs.includeFilterFile>
         <findbugs.excludeFilterFile>codestyle/findbugs-excludes.xml</findbugs.excludeFilterFile>
@@ -207,35 +206,6 @@
             </dependency>
 
             <!--
-                Messaging dependencies
-            -->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-osgi</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-camel</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-pool</artifactId>
-                <version>${activemq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.jms</groupId>
-                <artifactId>jms</artifactId>
-                <version>1.1</version>
-            </dependency>
-
-            <!--
                 OSGi dependencies
             -->
             <dependency>
@@ -249,9 +219,6 @@
                 <version>${osgiVersion}</version>
             </dependency>
 
-            <!--
-                Ambiguous dependencies.
-            -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -1512,7 +1479,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10</version>
                 <configuration>
                     <stylesheet>java</stylesheet>
                 </configuration>

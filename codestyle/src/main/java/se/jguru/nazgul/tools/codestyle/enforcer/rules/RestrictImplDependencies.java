@@ -159,7 +159,7 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
 
     /**
      * @return A human-readable short description for this AbstractEnforcerRule.
-     *         (Example: "No -impl dependencies permitted in this project")
+     * (Example: "No -impl dependencies permitted in this project")
      */
     @Override
     protected final String getShortRuleDescription() {
@@ -173,7 +173,7 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
      * A typical configuration of this property within a pom is similar to below:
      * <p/>
      * <code>
-     * &lt;includedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*&lt;/includedGroupIdPatterns>
+     * [includedGroupIdPatterns]^se\\.jguru\\.nazgul\\..*[/includedGroupIdPatterns];
      * </code>
      *
      * @param includedGroupIdPatterns Comma-separated list of regexp patterns that groupID
@@ -189,11 +189,14 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
      * will not be validated by this rule.
      * <p/>
      * <p/>
-     * A typical configuration of this property within a pom is similar to below:
+     * A typical configuration of this property within a pom is similar to below (but using
+     * normal 'less-than' and 'greater-than' tag demarcation):
      * <p/>
      * <code>
-     * &lt;excludedGroupIdPatterns>^se\\.jguru\\.nazgul\\..*\\.generated\\..*,
-     * ^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*&lt;/excludedGroupIdPatterns>
+     * <pre>
+     * &lt;excludedGroupIdPatterns&gt;^se\\.jguru\\.nazgul\\..*\\.generated\\..*,
+     * ^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*&lt;/excludedGroupIdPatterns&gt;
+     * </pre>
      * </code>
      *
      * @param excludedGroupIdPatterns Comma-separated list of groupID prefixes that
