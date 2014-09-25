@@ -150,9 +150,35 @@
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
                         <artifactId>maven-scm-provider-hg</artifactId>
-                        <version>1.9</version>
+                        <version>1.9.2</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <!--
+                Configure the javadoc plugin not to fail on standard HTML
+                constructs when building using JDK 8.
+
+                Typical standard constructs include empty tags, like: <p/>
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <stylesheet>java</stylesheet>
+                    <failOnError>false</failOnError>
+                    <groups>
+                        <group>
+                            <title>Nazgul Framework: Tools Packages</title>
+                            <packages>se.jguru.nazgul.tools.*</packages>
+                        </group>
+                        <group>
+                            <title>Nazgul Framework: Core Packages</title>
+                            <packages>se.jguru.nazgul.core.*</packages>
+                        </group>
+                    </groups>
+                </configuration>
             </plugin>
 
             <!--
@@ -163,6 +189,7 @@
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.3</version>
                 <executions>

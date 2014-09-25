@@ -167,11 +167,9 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
     }
 
     /**
-     * Assigns a set of patterns defining included GroupIds. Any projects whose GroupID
-     * match any of the provided includedGroupIdPatterns will be validated by this rule.
-     * <p/>
-     * A typical configuration of this property within a pom is similar to below:
-     * <p/>
+     * <p>Assigns a set of patterns defining included GroupIds. Any projects whose GroupID
+     * match any of the provided includedGroupIdPatterns will be validated by this rule.</p>
+     * <p>A typical configuration of this property within a pom is similar to below:</p>
      * <code>
      * [includedGroupIdPatterns]^se\\.jguru\\.nazgul\\..*[/includedGroupIdPatterns];
      * </code>
@@ -187,16 +185,11 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
      * Assigns a (comma separated) list of regexp patterns defining excluded GroupIds.
      * Any projects whose GroupID match any of the provided excludedGroupIdPatterns
      * will not be validated by this rule.
-     * <p/>
-     * <p/>
-     * A typical configuration of this property within a pom is similar to below (but using
-     * normal 'less-than' and 'greater-than' tag demarcation):
-     * <p/>
+     * <p>A typical configuration of this property within a pom is similar to below (but using
+     * normal 'less-than' and 'greater-than' tag demarcation):</p>
      * <code>
-     * <pre>
      * &lt;excludedGroupIdPatterns&gt;^se\\.jguru\\.nazgul\\..*\\.generated\\..*,
      * ^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*&lt;/excludedGroupIdPatterns&gt;
-     * </pre>
      * </code>
      *
      * @param excludedGroupIdPatterns Comma-separated list of groupID prefixes that
