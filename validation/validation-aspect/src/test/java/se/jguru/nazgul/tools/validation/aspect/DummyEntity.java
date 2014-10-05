@@ -22,6 +22,8 @@
 
 package se.jguru.nazgul.tools.validation.aspect;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.jguru.nazgul.tools.validation.api.Validatable;
 import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
@@ -33,15 +35,19 @@ import java.util.List;
  */
 public class DummyEntity implements Validatable {
 
+    private static final Logger log = LoggerFactory.getLogger(DummyEntity.class);
+
     // Internal state
     public List<String> callTrace = new ArrayList<String>();
     public int value = 0;
 
     public DummyEntity() {
+        log.info("Default constructor executing.");
         callTrace.add("Default constructor called");
     }
 
     public DummyEntity(final int value) {
+        log.info("Compound constructor executing.");
         callTrace.add("Non-default constructor called [" + value + "]");
         this.value = value;
     }

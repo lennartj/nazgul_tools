@@ -130,7 +130,7 @@
                        Yes - it is a bug in AspectJ.
                        // Lennart, 2011-07-23
                     -->
-                    <!-- XaddSerialVersionUID>true</XaddSerialVersionUID -->
+                    <XaddSerialVersionUID>true</XaddSerialVersionUID>
                 </configuration>
                 <executions>
                     <execution>
@@ -182,6 +182,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <privateScope>true</privateScope>
+                    <detail>true</detail>
                 </configuration>
                 <reportSets>
                     <reportSet>
