@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.0.1</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${url.prefix}/${path.in.reactor}</url>
@@ -1024,7 +1024,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>4.0.1-SNAPSHOT</version>
+                            <version>4.0.1</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -1070,7 +1070,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>4.0.1-SNAPSHOT</version>
+                            <version>4.0.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1100,7 +1100,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>4.0.1-SNAPSHOT</version>
+                            <version>4.0.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1173,7 +1173,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>4.0.1-SNAPSHOT</version>
+                            <version>4.0.1</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1362,7 +1362,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>4.0.1-SNAPSHOT</version>
+                        <version>4.0.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1480,7 +1480,7 @@
                 Configure the javadoc plugin not to fail on standard HTML
                 constructs when building using JDK 8.
 
-                Typical standard constructs include empty tags, like: <p/>
+                Typical standard constructs include empty tags, like: <p />
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1678,7 +1678,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-4.0.1</tag>
     </scm>
 
     <!--
