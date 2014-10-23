@@ -44,7 +44,11 @@
 
     <properties>
         <path.in.reactor>poms/external/reactor-parent</path.in.reactor>
+
+        <!-- License plugin configuration parameters. -->
         <license.id>jguru_apl_v2</license.id>
+        <license.licenseResolver>classpath://codestyle/license</license.licenseResolver>
+        <breakOnFailure.license>true</breakOnFailure.license>
     </properties>
 
     <!--
@@ -61,26 +65,52 @@
     <build>
         <plugins>
             <!--
-                The license plugin is quite inflexible about the format
-                for the injected/detected file header in terms of license
-                structure. Use it as intended.
-            -->
+                    The license plugin is quite inflexible about the format for the injected/detected file header
+                    in terms of license structure. Use it as intended, but provide a variable
+
+                    Why:  Ensures that all files contain a license header.
+                    Used: Standard lifecycle, mvn package.
+                -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <version>1.7</version>
                 <configuration>
-                    <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
                     <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
-                    <failOnMissingHeader>true</failOnMissingHeader>
+                    <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
-                    <licenseResolver>classpath://codestyle/license</licenseResolver>
-                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <licenseResolver>${license.licenseResolver}</licenseResolver>
                     <canUpdateDescription>true</canUpdateDescription>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
                     <roots>
-                        <root>src/main</root>
-                        <root>src/test</root>
-                        <root>src/site</root>
+                        <root>${project.basedir}/src/main</root>
+                        <root>${project.basedir}/src/test</root>
+                        <root>${project.basedir}/src/site</root>
                     </roots>
+                    <excludes>
+                        <!-- Custom excludes -->
+                        <param>**/*.json</param>
+                        <!-- Modelling filetypes -->
+                        <param>**/*.zargo</param>
+                        <param>**/*.uml</param>
+                        <param>**/*.umldi</param>
+                        <param>**/*.umldi</param>
+                        <param>**/*.xmi</param>
+                        <!-- Image filetypes -->
+                        <param>**/*.img</param>
+                        <param>**/*.png</param>
+                        <param>**/*.jpg</param>
+                        <param>**/*.jpeg</param>
+                        <param>**/*.gif</param>
+                        <!-- Archives -->
+                        <param>**/*.zip</param>
+                        <param>**/*.jar</param>
+                        <param>**/*.war</param>
+                        <param>**/*.ear</param>
+                        <param>**/*.tgz</param>
+                        <param>**/*.gz</param>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
