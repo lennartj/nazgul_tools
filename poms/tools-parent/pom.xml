@@ -115,7 +115,7 @@
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 
         <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>2.12.1</checkstyle.plugin.version>
+        <checkstyle.plugin.version>2.13</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>codestyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
@@ -143,6 +143,13 @@
         <breakOnFailure.pmd>true</breakOnFailure.pmd>
         <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
         <breakOnFailure.license>true</breakOnFailure.license>
+
+        <!-- Site plugin properties -->
+        <maven-site-plugin.version>3.4</maven-site-plugin.version>
+        <doxia-modules.version>1.6</doxia-modules.version>
+        <wagon-modules.version>2.7</wagon-modules.version>
+        <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
+        <velocity.version>1.7</velocity.version>
 
         <!--
             Define the URL prefixes for Site Deployment and DistributionManagement.
@@ -879,10 +886,16 @@
                     Why:  Generates site documentation. Adds wagon remote deployment capability.
                     Used: Standard lifecycle, mvn site, mvn site:stage.
                 -->
+                <!--
+                Configures the site plugin. Its use is further documented in the site documentation itself.
+
+                Why:  Make compile and publish the Nazgul documentation.
+                Used: Site lifecycle, mvn site.
+            -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.4</version>
+                    <version>${maven-site-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-descriptor</id>
@@ -903,41 +916,36 @@
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-ssh</artifactId>
-                            <version>2.7</version>
+                            <version>${wagon-modules.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
                             <artifactId>wagon-file</artifactId>
-                            <version>2.7</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.doxia</groupId>
-                            <artifactId>doxia-module-confluence</artifactId>
-                            <version>1.6</version>
+                            <version>${wagon-modules.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-markdown</artifactId>
-                            <version>1.6</version>
+                            <version>${doxia-modules.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.doxia</groupId>
                             <artifactId>doxia-module-xhtml</artifactId>
-                            <version>1.6</version>
+                            <version>${doxia-modules.version}</version>
                         </dependency>
                         <!--
                             Reflow skin and dependencies.
                         -->
-                        <!-- dependency>
+                        <dependency>
                             <groupId>lt.velykis.maven.skins</groupId>
                             <artifactId>reflow-velocity-tools</artifactId>
-                            <version>1.0.0</version>
+                            <version>${reflow-velocity-tools.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.velocity</groupId>
                             <artifactId>velocity</artifactId>
-                            <version>1.7</version>
-                        </dependency -->
+                            <version>${velocity.version}</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
 

@@ -1,4 +1,4 @@
-# Modularity - Definition
+## Modularity - Definition
 
 "Modularity" means dividing complex software development into parts (modules), with the intent to simplify
 development and maintenance. Presumably, all of us developers and software architects know of modularity
@@ -25,20 +25,21 @@ and use of modularity in (large-scale) software engineering projects. The Nazgul
 by a scalable and manageable deployment model; it is important to consider the runtime state from the start
 of development.
 
-## Modularity for Software Engineering improvements
+<img src="../images/plantuml/modularity_mavenProjects.png" style="float:left; margin:10px;" />
+
+### Modularity for Software Engineering improvements
 
 > "Everything Should Be Made as Simple as Possible, But Not Simpler"
 >
 > [Albert Einstein?](http://quoteinvestigator.com/2011/05/13/einstein-simple/ "Einstein quote")
 
-<img src="../images/plantuml/modularity_mavenProjects.png" style="float:left; margin:10px;" />
 The Nazgul Framework provides a development model built around separation-of-concerns.
 by dividing development into [Nazgul Software Component ("NSC")](software_components.html) modules
 consisting of collaborating maven projects, we recieve improved overview and better architecture.
 Even small projects benefit from dividing their public API into one project and their implementation
 into another. As the project codebase or number of developers grows, this benefit becomes more apparent.
 
-## Modularity for JVM runtime improvements
+### Modularity for JVM runtime improvements
 
 The Nazgul Framework provides fully OSGi-compliant projects, where model, API and SPI project types export all
 packages as public, whereas the implementation projects hide all their classes
