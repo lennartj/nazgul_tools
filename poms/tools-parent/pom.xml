@@ -91,7 +91,7 @@
         <maven.version>3.0.4</maven.version>
         <openjpa.version>2.3.0</openjpa.version>
         <maven.release.plugin.version>2.5</maven.release.plugin.version>
-        <aspectj.runtime.version>1.8.2</aspectj.runtime.version>
+        <aspectj.runtime.version>1.8.4</aspectj.runtime.version>
         <aspectj-maven-plugin.version>1.7</aspectj-maven-plugin.version>
         <osgiVersion>4.3.1</osgiVersion>
         <scalaplugin.version>2.15.2</scalaplugin.version>
