@@ -277,8 +277,11 @@
                     </dependency>
                     <!--
                         Reflow skin and dependencies.
+
+                        These velocity tools should only be used if the
+                        reflow maven skin is used for site documentation.
                     -->
-                    <dependency>
+                    <!-- dependency>
                         <groupId>lt.velykis.maven.skins</groupId>
                         <artifactId>reflow-velocity-tools</artifactId>
                         <version>${reflow-velocity-tools.version}</version>
@@ -287,7 +290,7 @@
                         <groupId>org.apache.velocity</groupId>
                         <artifactId>velocity</artifactId>
                         <version>${velocity.version}</version>
-                    </dependency>
+                    </dependency -->
                 </dependencies>
             </plugin>
 
