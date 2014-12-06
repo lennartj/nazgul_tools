@@ -293,7 +293,7 @@
                         <dependency>
                             <groupId>net.sourceforge.plantuml</groupId>
                             <artifactId>plantuml</artifactId>
-                            <version>8008</version>
+                            <version>8010</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -899,6 +899,7 @@
                     <executions>
                         <execution>
                             <id>attach-descriptor</id>
+                            <phase>site</phase>
                             <goals>
                                 <goal>attach-descriptor</goal>
                             </goals>
@@ -935,8 +936,11 @@
                         </dependency>
                         <!--
                             Reflow skin and dependencies.
+
+                            These velocity tools should only be used if the
+                            reflow maven skin is used for site documentation.
                         -->
-                        <dependency>
+                        <!-- dependency>
                             <groupId>lt.velykis.maven.skins</groupId>
                             <artifactId>reflow-velocity-tools</artifactId>
                             <version>${reflow-velocity-tools.version}</version>
@@ -945,7 +949,7 @@
                             <groupId>org.apache.velocity</groupId>
                             <artifactId>velocity</artifactId>
                             <version>${velocity.version}</version>
-                        </dependency>
+                        </dependency -->
                     </dependencies>
                 </plugin>
 
@@ -1522,13 +1526,16 @@
                     </docletArtifact>
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                     <charset>${project.build.sourceEncoding}</charset>
-                    <charset>${project.build.sourceEncoding}</charset>
-                    <charset>${project.build.sourceEncoding}</charset>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <docencoding>${project.build.sourceEncoding}</docencoding>
                     <breakiterator>true</breakiterator>
                     <version>true</version>
                     <author>true</author>
                     <keywords>true</keywords>
-                    <additionalparam>-sourceclasspath ${project.build.outputDirectory}</additionalparam>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <additionalparam>
+                        -sourceclasspath ${project.build.outputDirectory}${path.separator}${project.build.testOutputDirectory}
+                    </additionalparam>
                 </configuration>
             </plugin>
 

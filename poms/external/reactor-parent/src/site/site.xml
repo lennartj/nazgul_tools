@@ -50,8 +50,7 @@
         </links>
 
         <breadcrumbs>
-            <item name="Nazgul_Tools" href="http://www.jguru.se/nazgul/tools/"/>
-            <item name="Nazgul_Codestyle" href="http://www.jguru.se/nazgul/tools/codestyle/"/>
+            <item name="Nazgul_Tools" href="http://www.jguru.se/nazgul/nazgul_tools/current/index.html"/>
         </breadcrumbs>
 
         <menu name="Overview">

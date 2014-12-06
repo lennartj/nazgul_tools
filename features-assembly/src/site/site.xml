@@ -25,10 +25,20 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
-         name="Nazgul Tools Validation Reactor">
+         name="Nazgul Tools: Features Assembly">
 
     <bannerLeft>
-        <name>${project.artifactId}</name>
+        <name><![CDATA[
+            <span class="color-highlight">Nazgul Framework:</span> Tools
+            ]]>
+        </name>
+        <href>https://bitbucket.org/lennartj/nazgul_tools/</href>
     </bannerLeft>
+
+    <body>
+        <breadcrumbs>
+            <item name="Nazgul_Tools" href="http://www.jguru.se/nazgul/nazgul_tools/current/index.html"/>
+        </breadcrumbs>
+    </body>
 
 </project>
