@@ -28,17 +28,16 @@
          name="Nazgul Tools: Features Assembly">
 
     <bannerLeft>
-        <name><![CDATA[
-            <span class="color-highlight">Nazgul Framework:</span> Tools
-            ]]>
-        </name>
-        <href>https://bitbucket.org/lennartj/nazgul_tools/</href>
+        <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
+    <bannerRight>
+        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+    </bannerRight>
 
     <body>
-        <breadcrumbs>
-            <item name="Nazgul_Tools" href="http://www.jguru.se/nazgul/nazgul_tools/current/index.html"/>
-        </breadcrumbs>
+        <menu name="Overview">
+            <item name="Karaf Integration" href="index.html"/>
+        </menu>
     </body>
 
 </project>

@@ -27,15 +27,14 @@
          name="Nazgul Tools Codestyle">
 
     <bannerLeft>
-        <name><![CDATA[
-            <span class="color-highlight">Nazgul Framework:</span> Tools
-            ]]>
-        </name>
-        <href>https://bitbucket.org/lennartj/nazgul_tools/</href>
+        <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
+    <bannerRight>
+        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+    </bannerRight>
 
-    <publishDate position="bottom" format="yyyy-MM-dd"/>
-    <version position="bottom"/>
+    <publishDate position="left" format="yyyy-MM-dd"/>
+    <version position="right"/>
 
     <skin>
         <groupId>org.apache.maven.skins</groupId>
@@ -113,10 +112,6 @@
     </custom>
 
     <body>
-        <links>
-            <item name="Nazgul_Tools" href="http://www.jguru.se/nazgul/nazgul_tools/current/index.html"/>
-        </links>
-
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>

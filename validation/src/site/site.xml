@@ -24,10 +24,14 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
-         name="Nazgul Tools Validation Reactor">
+         name="Nazgul Tools: Validation Reactor">
 
     <bannerLeft>
-        <name>${project.artifactId}</name>
+        <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
+    <bannerRight>
+        <name>
+            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+    </bannerRight>
 
 </project>

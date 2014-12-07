@@ -307,7 +307,7 @@
                     <dependency>
                         <groupId>net.sourceforge.plantuml</groupId>
                         <artifactId>plantuml</artifactId>
-                        <version>8010</version>
+                        <version>8012</version>
                     </dependency>
                 </dependencies>
             </plugin>

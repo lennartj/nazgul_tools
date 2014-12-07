@@ -1,4 +1,4 @@
-# Nazgul Tools: Parent - overview
+# Nazgul Tools: Reactor Parent - overview
 
 There are 3 POM projects to mind when you are using the Nazgul Framework: Tools reactor to enrich
 and simplify your project development. Each of these projects contain a single POM intended to

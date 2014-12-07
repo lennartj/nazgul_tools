@@ -72,13 +72,15 @@ works.
     <tr>
         <td>Structure of an example Nazgul Software Component ("NSC"), including permitted dependencies between
         its projects</td>
-        <td><img src="../images/plantuml/modularity_mavenProjects.png" style="margin:10px;" /></td>
+        <td><img src="../images/plantuml/modularity_mavenProjects.png"
+        style="width: 71%; height: 71%; margin:10px;"/></td>
     </tr>
     <tr>
         <td>Structure of the same example Nazgul Software Component ("NSC"), including permitted dependencies between
         its projects and with POM parent relationships marked. The example project has been omitted in this
         illustration for brevity.</td>
-        <td><img src="../images/plantuml/modularity_mavenProjects_withparents.png" style="margin:10px;" /></td>
+        <td><img src="../images/plantuml/modularity_mavenProjects_withparents.png"
+        style="width: 100%; height: 100%; margin:10px;" /></td>
     </tr>
 </table>
 

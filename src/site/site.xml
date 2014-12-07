@@ -10,9 +10,12 @@
          name="Nazgul Tools: Reactor">
 
     <bannerLeft>
-        <name><![CDATA[<span style="color: #555555;">Nazgul Framework:</span> Tools]]></name>
-        <!-- href>https://bitbucket.org/lennartj/nazgul_tools/</href -->
+        <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
+    <bannerRight>
+        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+        <!-- href>https://bitbucket.org/lennartj/nazgul_tools/</href -->
+    </bannerRight>
 
     <publishDate position="left" format="yyyy-MM-dd"/>
     <version position="right"/>
