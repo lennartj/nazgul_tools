@@ -33,7 +33,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools.poms.external</groupId>
         <artifactId>nazgul-tools-external-reactor</artifactId>
-        <version>4.0.2-SNAPSHOT</version>
+        <version>4.0.2</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.poms.external</groupId>
@@ -132,7 +132,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>4.0.2-SNAPSHOT</version>
+                        <version>4.0.2</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -164,6 +164,6 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-4.0.2</tag>
     </scm>
 </project>
