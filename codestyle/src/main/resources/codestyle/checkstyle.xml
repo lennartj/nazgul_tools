@@ -133,10 +133,11 @@
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
-        <module name="RedundantThrows">
+        <!-- RedundantThrows was removed in Checkstyle 6.2 -->
+        <!-- module name="RedundantThrows">
             <property name="allowUnchecked" value="true"/>
             <property name="allowSubclasses" value="true"/>
-        </module>
+        </module -->
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
         <module name="FinalClass"/>
