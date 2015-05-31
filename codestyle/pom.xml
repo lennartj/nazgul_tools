@@ -20,7 +20,8 @@
   ~ limitations under the License.
   ~ #L%
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -72,7 +73,7 @@
 
         <!-- Code style properties -->
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-        <pmd.plugin.version>3.2</pmd.plugin.version>
+        <pmd.plugin.version>3.3</pmd.plugin.version>
         <cobertura.plugin.version>2.6</cobertura.plugin.version>
         <checkstyle.plugin.version>2.13</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
@@ -85,6 +86,7 @@
         <wagon-modules.version>2.9</wagon-modules.version>
         <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
         <velocity.version>1.7</velocity.version>
+        <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
 
         <!--
             Define the URL prefixes for Site Deployment and DistributionManagement.
@@ -169,17 +171,17 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!--
+                    Use a working version of the Maven versions plugin.
+                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
+
+                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+                    Used: Only when called.
+                -->
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
+                    <groupId>de.lgohlke.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.reporting</groupId>
-                            <artifactId>maven-reporting-impl</artifactId>
-                            <version>2.2</version>
-                        </dependency>
-                    </dependencies>
+                    <version>${versions-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -330,7 +332,8 @@
                     <effort>Max</effort>
                     <onlyAnalyze>se.jguru.nazgul.codestyle.*</onlyAnalyze>
                     <includeFilterFile>${project.build.outputDirectory}/codestyle/findbugs.xml</includeFilterFile>
-                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml
+                    </excludeFilterFile>
                     <relaxed>false</relaxed>
                     <!-- xmlOutput>true</xmlOutput -->
                 </configuration>
@@ -460,11 +463,25 @@
                     <effort>Default</effort>
                     <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
                     <includeFilterFile>${project.build.outputDirectory}/codestyle/findbugs.xml</includeFilterFile>
-                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml
+                    </excludeFilterFile>
                     <relaxed>false</relaxed>
                     <findbugsXmlOutput>true</findbugsXmlOutput>
                     <xmlOutput>true</xmlOutput>
                 </configuration>
+            </plugin>
+
+            <!--
+                    Use a working version of the Maven versions plugin.
+                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
+
+                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+                    Used: Only when called.
+                -->
+            <plugin>
+                <groupId>de.lgohlke.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </reporting>
