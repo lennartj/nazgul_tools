@@ -78,7 +78,7 @@
         <checkstyle.plugin.version>2.13</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <findbugs.plugin.version>3.0.0</findbugs.plugin.version>
-        <clean.plugin.version>2.5</clean.plugin.version>
+        <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Site plugin properties -->
         <maven-site-plugin.version>3.4</maven-site-plugin.version>
