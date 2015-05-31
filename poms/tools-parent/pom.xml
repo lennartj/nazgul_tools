@@ -948,6 +948,11 @@
                             <artifactId>velocity</artifactId>
                             <version>${velocity.version}</version>
                         </dependency -->
+                        <dependency>
+                            <groupId>se.jguru.nazgul.tools.codestyle</groupId>
+                            <artifactId>nazgul-codestyle</artifactId>
+                            <version>4.0.3-SNAPSHOT</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
 
