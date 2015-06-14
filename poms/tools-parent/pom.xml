@@ -3,7 +3,7 @@
   ~ #%L
   ~ Nazgul Project: nazgul-tools-parent
   ~ %%
-  ~ Copyright (C) 2010 - 2014 jGuru Europe AB
+  ~ Copyright (C) 2010 - 2015 jGuru Europe AB
   ~ %%
   ~ Licensed under the jGuru Europe AB license (the "License"), based
   ~ on Apache License, Version 2.0; you may not use this file except
@@ -1133,7 +1133,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.7</version>
+                    <version>1.8</version>
                     <configuration>
                         <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                         <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
