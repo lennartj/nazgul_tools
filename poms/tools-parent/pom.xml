@@ -130,7 +130,9 @@
         <findbugs.excludeFilterFile>codestyle/findbugs-excludes.xml</findbugs.excludeFilterFile>
 
         <!-- Surefire configuration parameters. -->
-        <surefire.argLine>-Dfile.encoding=UTF-8 -Xmx1024m -XX:MaxPermSize=512m</surefire.argLine>
+        <surefire.memconf>-Xmx1024m -XX:MaxPermSize=512m</surefire.memconf>
+        <surefire.encoding>-Dfile.encoding=${project.build.sourceEncoding}</surefire.encoding>
+        <surefire.argLine>${surefire.memconf} ${surefire.encoding}</surefire.argLine>
 
         <!-- License plugin configuration parameters. -->
         <license.id>jguru_apl_v2</license.id>

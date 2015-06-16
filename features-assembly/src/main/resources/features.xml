@@ -45,6 +45,8 @@
         <!-- External dependencies -->
         <bundle>mvn:org.apache.commons/commons-lang3/${org.apache.commons/commons-lang3/version}</bundle>
         <bundle>wrap:mvn:org.aspectj/aspectjrt/${org.aspectj/aspectjrt/version}$Bundle-SymbolicName=AspectJ_Runtime&amp;Bundle-Version=${org.aspectj/aspectjrt/version}</bundle>
-        <bundle>mvn:org.slf4j/slf4j-api/${org.slf4j/slf4j-api/version}</bundle>
+
+        <!-- Use Pax-Logging instead of the org.slf4j bundle. -->
+        <!-- bundle>mvn:org.slf4j/slf4j-api/[1.7,2)</bundle -->
     </feature>
 </features>
