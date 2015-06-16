@@ -24,14 +24,9 @@ package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
 import org.apache.maven.enforcer.rule.api.EnforcerRuleException;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.project.MavenProject;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB

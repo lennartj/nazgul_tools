@@ -32,14 +32,13 @@ import se.jguru.nazgul.tools.validation.api.Validatable;
 import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationException;
 
 /**
- * The aspect enforcing validity on a class implementing Validatable (i.e. Entities).
+ * <p>The aspect enforcing validity on a class implementing Validatable (i.e. Entities).
  * This aspect should be fired immediately after a non-default constructor is invoked,
- * and is intended to run as a singleton.
- * <p/>
- * Validation should be run only once, and only after the constructor of the ultimate
+ * and is intended to run as a singleton.</p>
+ * <p>Validation should be run only once, and only after the constructor of the ultimate
  * created instance is run (default AspectJ behaviour is to run the Aspect after any
  * constructor within the inheritance hierarchy is executed [i.e. after constructors
- * in superclasses are run, within the constructor of subtypes]).
+ * in superclasses are run, within the constructor of subtypes]).</p>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -75,8 +74,7 @@ public class ValidationAspect {
      *
      * @param joinPoint   The currently executing joinPoint.
      * @param validatable The validatable instance just created.
-     * @throws InternalStateValidationException
-     *          if the validation of the validatable failed.
+     * @throws InternalStateValidationException if the validation of the validatable failed.
      */
     @AfterReturning(value = "anyNonDefaultConstructor(joinPoint, validatable)", argNames = "joinPoint, validatable")
     public void performValidationAfterCompoundConstructor(final JoinPoint joinPoint, final Validatable validatable)

@@ -1,4 +1,5 @@
 // The following line should start with a tab.
-    package se.jguru.nazgul.tools.codestyle;
+package se.jguru.nazgul.tools.codestyle;
 
-public class okEvenLongerPackage {}
+public class okEvenLongerPackage {
+}

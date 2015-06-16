@@ -21,7 +21,6 @@
  */
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.project.MavenProject;
 import org.junit.Assert;

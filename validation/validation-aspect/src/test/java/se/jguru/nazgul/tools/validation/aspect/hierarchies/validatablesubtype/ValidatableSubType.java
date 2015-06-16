@@ -50,9 +50,8 @@ public class ValidatableSubType extends SupertypePlainType implements Validatabl
     /**
      * Performs validation of the internal state of this Validatable.
      *
-     * @throws InternalStateValidationException
-     *          if the state of this Validatable was
-     *          in an incorrect state (i.e. invalid).
+     * @throws InternalStateValidationException if the state of this Validatable was
+     *                                          in an incorrect state (i.e. invalid).
      */
     @Override
     public void validateInternalState() throws InternalStateValidationException {

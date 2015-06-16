@@ -84,15 +84,15 @@ public class RestrictImplDependenciesTest {
         Assert.assertFalse(unitUnderTest.isResultValid(null));
     }
 
-    
-	@Test
-	@SuppressWarnings("unchecked")
+
+    @Test
+    @SuppressWarnings("unchecked")
     public void validateIgnoreEvaluationOnEarPackaging() throws Exception {
 
         // Assemble
         final MavenProject earProject = getNazgulGroupIdStub("someApplication", "ear");
         earProject.getDependencyArtifacts().add(fooImplementation);
-        
+
         // Act & Assert
         final EnforcerRuleHelper mock = new MockEnforcerRuleHelper(earProject);
         unitUnderTest.execute(mock);

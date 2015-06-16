@@ -32,7 +32,6 @@ public abstract class AbstractNonCacheableEnforcerRule extends AbstractEnforcerR
 
     /**
      * Always returns {@code false}.
-     * <p/>
      * {@inheritDoc}
      */
     @Override
@@ -42,7 +41,6 @@ public abstract class AbstractNonCacheableEnforcerRule extends AbstractEnforcerR
 
     /**
      * Always returns {@code null}.
-     * <p/>
      * {@inheritDoc}
      */
     @Override

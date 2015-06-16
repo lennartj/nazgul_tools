@@ -40,21 +40,18 @@ import java.util.regex.Pattern;
 public enum ProjectType {
 
     /**
-     * Reactor project, of type pom.
-     * <p>May not contain anything except module definitions.</p>
+     * <p>Reactor project, of type pom. May not contain anything except module definitions.</p>
      */
     REACTOR(".*-reactor$", null, "pom"),
 
     /**
-     * Parent pom project, of type pom, defining dependencies and/or build
-     * life cycles.
-     * <p>May not contain module definitions.</p>
+     * <p>Parent pom project, of type pom, defining dependencies and/or build
+     * life cycles. May not contain module definitions.</p>
      */
     PARENT(".*-parent$", null, "pom"),
 
     /**
-     * Pom project, defining assemblies and/or aggregation projects.
-     * <p>May not contain module definitions.</p>
+     * <p>Pom project, defining assemblies and/or aggregation projects. May not contain module definitions.</p>
      */
     ASSEMBLY(".*-assembly$", null, "pom"),
 
@@ -64,8 +61,7 @@ public enum ProjectType {
     ASPECT(".*-aspect$", ".*\\.aspect$", "bundle|jar"),
 
     /**
-     * Model project defining entities.
-     * <p>May have test-scope dependencies on test and proof-of-concept projects.</p>
+     * <p>Model project defining entities. May have test-scope dependencies on test and proof-of-concept projects.</p>
      */
     MODEL(".*-model$", ".*\\.model$", "bundle|jar"),
 
@@ -82,63 +78,58 @@ public enum ProjectType {
     STANDALONE_APPLICATION(".*-application$", ".*\\.application$", "bundle|jar"),
 
     /**
-     * Example project providing runnable example code for showing the
+     * <p>Example project providing runnable example code for showing the
      * typical scenarios of the component. Should contain relevant documentation
-     * as well as cut-and-paste code.
-     * <p>No dependency rules.</p>
+     * as well as cut-and-paste code. No dependency rules.</p>
      */
     EXAMPLE(".*-example$", ".*\\.example$", null),
 
     /**
-     * {@code javaagent} definition project, holding implementation of a
+     * <p>{@code javaagent} definition project, holding implementation of a
      * JVM agent to be launched in-process on the form
-     * <p><code>-javaagent:[yourpath/][agentjar].jar=[option1]=[value1],[option2]=[value2]</code></p>
+     * <code>-javaagent:[yourpath/][agentjar].jar=[option1]=[value1],[option2]=[value2]</code></p>
      * <p>This project type can import/inject implementation dependencies, as
      * it is considered an application entrypoint.</p>
      */
     JAVA_AGENT(".*-agent$", ".*\\.agent$", "bundle|jar"),
 
     /**
-     * API project, defining service interaction, abstract implementations and exceptions.
-     * <p>May have compile-scope dependencies on model projects within the same component, and test-scope
-     * dependencies on test and proof-of-concept projects.</p>
+     * <p>API project, defining service interaction, abstract implementations and exceptions. May have compile-scope
+     * dependencies on model projects within the same component, and test-scope dependencies on test and
+     * proof-of-concept projects.</p>
      */
     API(".*-api$", ".*\\.api$", "bundle|jar"),
 
     /**
-     * SPI project, defining service interaction, abstract implementations and exceptions.
-     * <p>Must have compile-scope dependencies to API projects within the same component.
-     * May have test-scope dependencies on test and proof-of-concept projects.</p>
+     * <p>SPI project, defining service interaction, abstract implementations and exceptions. Must have compile-scope
+     * dependencies to API projects within the same component. May have test-scope dependencies on test and
+     * proof-of-concept projects.</p>
      */
     SPI(".*-spi-\\w*$", ".*\\.spi\\.\\w*$", "bundle|jar"),
 
     /**
-     * Implementation project, implementing service interactions from an API or SPI project,
-     * including dependencies on 3rd party libraries.
-     * <p>Must have compile-scope dependencies to API or SPI projects within the same component.
-     * May have test-scope dependencies on test and proof-of-concept projects.</p>
+     * <p>Implementation project, implementing service interactions from an API or SPI project,
+     * including dependencies on 3rd party libraries. Must have compile-scope dependencies to API or SPI projects
+     * within the same component. May have test-scope dependencies on test and proof-of-concept projects.</p>
      */
     IMPLEMENTATION(".*-impl-\\w*$", ".*\\.impl\\.\\w*$", "bundle|jar"),
 
     /**
-     * Test artifact helper project, implementing libraries facilitating testing within
-     * other projects.
-     * <p>No dependency rules.</p>
+     * <p>Test artifact helper project, implementing libraries facilitating testing within
+     * other projects. No dependency rules.</p>
      */
     TEST(".*-test$", ".*\\.test\\.\\w*$", null),
 
     /**
-     * Integration test artifact helper project, used to perform automated
-     * tests for several projects.
-     * <p>No dependency rules.</p>
+     * <p>Integration test artifact helper project, used to perform automated
+     * tests for several projects. No dependency rules.</p>
      */
     INTEGRATION_TEST(".*-it$", ".*\\.it\\.\\w*$", null),
 
     /**
-     * Codestyle helper project, providing implementations for use within the build definition cycle.
+     * <p>Codestyle helper project, providing implementations for use within the build definition cycle.
      * Typically used within local reactors to supply changes or augmentations to build configurations
-     * such as {@code checkstyle.xml}, or custom enforcer rule implementations.
-     * <p>No dependency rules.</p>
+     * such as {@code checkstyle.xml}, or custom enforcer rule implementations. No dependency rules.</p>
      */
     CODESTYLE(".*-codestyle$", ".*\\.codestyle$", "jar|bundle"),
 
@@ -148,8 +139,7 @@ public enum ProjectType {
     PLUGIN(".*-maven-plugin$", ".*\\.plugin$", "maven-plugin"),
 
     /**
-     * Proof-of-concept helper project, holding proof of concept implementations.
-     * <p>No dependency rules.</p>
+     * <p>Proof-of-concept helper project, holding proof of concept implementations. No dependency rules.</p>
      */
     PROOF_OF_CONCEPT(".*-poc$", ".*\\.poc\\.\\w*$", null);
 
@@ -163,9 +153,9 @@ public enum ProjectType {
      *
      * @param artifactIdPattern Maven ArtifactID regexp pattern for recognizing a ProjectType.
      */
-    private ProjectType(final String artifactIdPattern,
-                        final String groupIdPattern,
-                        final String packagingPattern) {
+    ProjectType(final String artifactIdPattern,
+                final String groupIdPattern,
+                final String packagingPattern) {
 
         if (artifactIdPattern != null) {
             this.artifactIdPattern = Pattern.compile(artifactIdPattern);
@@ -186,7 +176,7 @@ public enum ProjectType {
      *
      * @param artifactID The artifactID which should be checked for compliance.
      * @return {@code true} if the provided artifactID was compliant with the
-     *         naming rules for this ProjectType.
+     * naming rules for this ProjectType.
      */
     public boolean isCompliantArtifactID(final String artifactID) {
         return artifactID != null && (artifactIdPattern == null || artifactIdPattern.matcher(artifactID).matches());
@@ -198,8 +188,8 @@ public enum ProjectType {
      *
      * @param groupID The groupID which should be checked for compliance.
      * @return {@code true} if the provided groupID was compliant with the
-     *         naming rules for this ProjectType. If no groupID pattern is
-     *         given, {@code true} is returned.
+     * naming rules for this ProjectType. If no groupID pattern is
+     * given, {@code true} is returned.
      */
     public boolean isCompliantGroupID(final String groupID) {
         return groupID != null && (groupIdPattern == null || groupIdPattern.matcher(groupID).matches());
@@ -211,8 +201,8 @@ public enum ProjectType {
      *
      * @param packaging THe packaging which should be checked for compliance.
      * @return {@code true} if the provided packaging was compliant with the
-     *         rules for this ProjectType. If no packaging pattern was given,
-     *         {@code true} is returned.
+     * rules for this ProjectType. If no packaging pattern was given,
+     * {@code true} is returned.
      */
     public boolean isCompliantPackaging(final String packaging) {
         return packaging != null && (packagingPattern == null || packagingPattern.matcher(packaging).matches());

@@ -31,13 +31,14 @@
         <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
     <bannerRight>
-        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+        <name>
+            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
     </bannerRight>
 
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
         </menu>
-        <menu ref="parent" />
+        <menu ref="parent"/>
     </body>
 </project>

@@ -144,10 +144,9 @@ public class CorrectPackagingRule extends AbstractNonCacheableEnforcerRule {
      * string holding fully qualified class names of the PackageExtractor implementations which should be used
      * by this CorrectPackagingRule.
      *
-     * @param packageExtractorImplementations
-     *         a comma-separated string holding fully qualified class names of the
-     *         PackageExtractor implementations. Each such class must have a default
-     *         (i.e. no-argument) constructor.
+     * @param packageExtractorImplementations a comma-separated string holding fully qualified class names of the
+     *                                        PackageExtractor implementations. Each such class must have a default
+     *                                        (i.e. no-argument) constructor.
      * @throws IllegalArgumentException if the supplied packageExtractorImplementations argument could not yield an
      *                                  instantiated PackageExtractor instance.
      */

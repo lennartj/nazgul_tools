@@ -96,7 +96,7 @@ public class JavaPackageExtractorTest {
 
         // Act
         for (File current : packageDir.listFiles()) {
-            if(current.isFile()) {
+            if (current.isFile()) {
                 packageNames.put(current.getName(), unitUnderTest.getPackage(current));
             }
         }

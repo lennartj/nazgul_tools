@@ -54,8 +54,8 @@ public class MockEnforcerRuleHelper implements EnforcerRuleHelper {
         return null;
     }
 
-	@Override
-	@SuppressWarnings("rawtypes")
+    @Override
+    @SuppressWarnings("rawtypes")
     public Object getComponent(final Class clazz) throws ComponentLookupException {
         return null;
     }

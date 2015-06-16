@@ -58,8 +58,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      * @param helper The helper provides access to the log, MavenSession and has
      *               helpers to get common components. It is also able to lookup components
      *               by class name.
-     * @throws org.apache.maven.enforcer.rule.api.EnforcerRuleException
-     *          the enforcer rule exception
+     * @throws org.apache.maven.enforcer.rule.api.EnforcerRuleException the enforcer rule exception
      */
     @Override
     @SuppressWarnings("PMD.PreserveStackTrace")
@@ -118,7 +117,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
 
     /**
      * @return A human-readable short description for this AbstractEnforcerRule.
-     *         (Example: "No -impl dependencies permitted in this project")
+     * (Example: "No -impl dependencies permitted in this project")
      */
     protected abstract String getShortRuleDescription();
 
@@ -197,7 +196,7 @@ public abstract class AbstractEnforcerRule implements EnforcerRule {
      * @param source  The list of strings which could possibly contain toCheck.
      * @param toCheck The string to validate.
      * @return <code>true</code> if any element within source returns true to
-     *         <code>toCheck.startsWith(element)</code>.
+     * <code>toCheck.startsWith(element)</code>.
      */
     protected static boolean containsPrefix(final List<String> source, final String toCheck) {
 
