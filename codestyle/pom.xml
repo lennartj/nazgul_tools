@@ -20,8 +20,7 @@
   ~ limitations under the License.
   ~ #L%
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -37,7 +36,7 @@
 
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
-    <version>4.0.3-SNAPSHOT</version>
+    <version>4.1.0</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/codestyle</url>
@@ -531,7 +530,7 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-4.1.1</tag>
     </scm>
 
     <!--

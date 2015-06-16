@@ -32,7 +32,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.1.0</version>
         <relativePath>../../tools-parent</relativePath>
     </parent>
 
@@ -71,7 +71,7 @@
             <dependency>
                 <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                 <artifactId>nazgul-tools-validation-aspect</artifactId>
-                <version>4.0.3-SNAPSHOT</version>
+                <version>4.1.0</version>
             </dependency>
 
             <!--
@@ -148,7 +148,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
                         <artifactId>nazgul-tools-validation-aspect</artifactId>
-                        <version>4.0.3-SNAPSHOT</version>
+                        <version>4.1.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -200,6 +200,6 @@
         <connection>${scm.url.prefix}/${reactor.name}</connection>
         <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
         <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-4.1.1</tag>
     </scm>
 </project>
