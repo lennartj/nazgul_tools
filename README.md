@@ -1,10 +1,10 @@
 # [1. Nazgul Framework: Tools](http://lennartj.github.io/nazgul_tools)
 
-<img src="src/site/resources/images/nazgul.jpg" style="float:right" width="203" height="236"/>
 The Nazgul Framework project holds a collection of best-pracises and sensible configurations enabling you to start
 projects quickly and scale them considerably without having to change the development or deployment model.
 Moreover, the Nazgul Framework strives to increase code quality, maintainability and usability for the developers
 and architects working on a project, as well as reduce complexity/tanglement and increase productivity.
+<img src="src/site/resources/images/nazgul.jpg" style="float:right" width="203" height="236"/>
 
 The Nazgul Framework consists of software components split between two reactors:
 
@@ -70,7 +70,7 @@ such as `3.3.3`:
 ```
 mvn -N io.takari:maven:wrapper -Dmaven=${MAVEN_VERSION}
 
-./mvnw --show-version --errors --batch-mode validte dependency:go-offline
+./mvnw --show-version --errors --batch-mode validate dependency:go-offline
 
 ./mvnw --show-version --errors --batch-mode clean verify site
 ```
