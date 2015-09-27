@@ -6,7 +6,9 @@ by pressing the Preferences | Import ... button as illustrated in the image belo
 
 <img src="../images/netBeansImportSettings.png" style="width: 50%; height: 50%; border: 1px solid black;" />
 
-Select all parts to import, and press OK. NetBeans will restart and then apply
-the style definitions:
+Select all parts to import, and press OK.
+NetBeans will restart and then apply the style definitions:
 
 <img src="../images/netBeansImportSettingsStep2.png" style="border: 1px solid black;" />
+
+You are now set up with the Nazgul codestyle.

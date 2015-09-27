@@ -41,14 +41,14 @@ code formatting, project imports etc. Each IDE has a slightly different way to p
     </tr>
     <tr>
         <td><a href="setup/idea.html">IntelliJ IDEA 12.x</a></td>
-        <td>Release Candidate</td>
+        <td>Tested OK</td>
     </tr>
     <tr>
         <td><a href="setup/eclipse.html">Eclipse Kepler</a></td>
-        <td>To be described</td>
+        <td>Unverified</td>
     </tr>
     <tr>
         <td><a href="setup/netbeans.html">Netbeans 7.3+</a></td>
-        <td>To be described</td>
+        <td>Unverified</td>
     </tr>
 </table>
