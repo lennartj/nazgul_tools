@@ -4,7 +4,6 @@ The Nazgul Framework project holds a collection of best-pracises and sensible co
 projects quickly and scale them considerably without having to change the development or deployment model.
 Moreover, the Nazgul Framework strives to increase code quality, maintainability and usability for the developers
 and architects working on a project, as well as reduce complexity/tanglement and increase productivity.
-<img src="src/site/resources/images/nazgul.jpg" style="float:right" width="203" height="236"/>
 
 The Nazgul Framework consists of software components split between two reactors:
 
