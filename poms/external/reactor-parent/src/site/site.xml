@@ -31,8 +31,7 @@
         <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
     <bannerRight>
-        <name>
-            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
     </bannerRight>
 
     <publishDate format="yyyy-MM-dd" position="right"/>

@@ -31,7 +31,7 @@
     </bannerLeft>
     <bannerRight>
         <name>
-            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://bitbucket.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
     </bannerRight>
 
     <publishDate position="left" format="yyyy-MM-dd"/>
