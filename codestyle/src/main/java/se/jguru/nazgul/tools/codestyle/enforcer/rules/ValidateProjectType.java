@@ -38,7 +38,8 @@ public class ValidateProjectType extends AbstractNonCacheableEnforcerRule {
      *
      * @param project The active MavenProject.
      * @param helper  The EnforcerRuleHelper instance, from which the MavenProject has been retrieved.
-     * @throws se.jguru.nazgul.tools.codestyle.enforcer.rules.RuleFailureException If the enforcer rule was not satisfied.
+     * @throws se.jguru.nazgul.tools.codestyle.enforcer.rules.RuleFailureException If the enforcer rule
+     *                                                                             was not satisfied.
      */
     @Override
     @SuppressWarnings("PMD.PreserveStackTrace")

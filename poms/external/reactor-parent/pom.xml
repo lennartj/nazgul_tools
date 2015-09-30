@@ -40,9 +40,14 @@
     <artifactId>nazgul-tools-external-reactor-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <url>${url.prefix}/${path.in.reactor}</url>
+    <url>${site.top.url}/${path.in.reactor}</url>
+    <description>Nazgul Tools: External Reactor Parent (POM, version ${project.version})</description>
 
     <properties>
+        <!--
+            Define the URL prefixes for Site Deployment and DistributionManagement.
+            These can be overridden in sub-reactors to tailor releases to other locations.
+        -->
         <path.in.reactor>poms/external/reactor-parent</path.in.reactor>
 
         <!-- License plugin configuration parameters. -->
@@ -140,7 +145,6 @@
         </plugins>
     </build>
 
-
     <!--
     ################################################
     # Section 4:  External systems
@@ -148,23 +152,24 @@
     -->
 
     <!--
-        Define settings for Maven's site plugin.
-    -->
+        Compensate for Maven standard variable extrapolation.
+        Git requires steady URLs (... but Subversion requires path extrapolation, hence the problem).
+     -->
     <distributionManagement>
         <site>
-            <id>jGuru_NazgulToolsSite</id>
-            <name>jGuru_NazgulToolsSite</name>
-            <url>${distro.url.prefix}/${path.in.reactor}</url>
+            <id>github_site</id>
+            <name>GitHub Site for Nazgul Tools</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
 
     <!--
-       Define connections for Maven's Mercurial integration.
+        Define connections for Maven's VCS integration.
     -->
     <scm>
-        <connection>${scm.url.prefix}/${reactor.name}</connection>
-        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
-        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
 </project>

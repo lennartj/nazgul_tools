@@ -21,7 +21,8 @@
   ~ #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -40,9 +41,9 @@
     <version>4.1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <url>${url.prefix}/${path.in.reactor}</url>
+    <url>${site.top.url}/${path.in.reactor}</url>
     <inceptionYear>2010</inceptionYear>
-    <description>Nazgul Framework: ${project.artifactId}</description>
+    <description>Nazgul Tools: Parent (POM, version ${project.version})</description>
 
     <organization>
         <name>jGuru Europe AB</name>
@@ -50,7 +51,7 @@
     </organization>
 
     <prerequisites>
-        <maven>3.1.1</maven>
+        <maven>${maven.version}</maven>
     </prerequisites>
 
     <licenses>
@@ -80,23 +81,44 @@
         <!-- Build-controlling properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <build.number />
+        <build.number/>
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
         <jdk.version>1.7</jdk.version>
 
+        <!--
+            Define the URL prefixes for Site Deployment and DistributionManagement.
+            These can be overridden in sub-reactors to tailor releases to other locations.
+        -->
+        <reactor.name>nazgul_tools</reactor.name>
+        <path.in.reactor>poms/tools-parent</path.in.reactor>
+
+        <!--
+            Define URL prefixes used in the various URL settings of the POM.
+        -->
+        <git.repo.owner>lennartj</git.repo.owner>
+        <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
+        <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
+        <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
+        <site.top.url>${site.url.prefix}/${reactor.name}/Documentation/${project.version}</site.top.url>
+
+        <scm.connection.url>scm:git:${git.repo.url.prefix}/${reactor.name}.git</scm.connection.url>
+        <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
+        <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
+        <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
+        <site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory>
+
         <!-- Version number properties -->
-        <maven.version>3.0.4</maven.version>
+        <maven.version>3.3.1</maven.version>
         <openjpa.version>2.4.0</openjpa.version>
-        <aspectj.runtime.version>1.8.6</aspectj.runtime.version>
-        <maven.release.plugin.version>2.5.1</maven.release.plugin.version>
-        <maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
-        <aspectj-maven-plugin.version>1.7</aspectj-maven-plugin.version>
+        <aspectj.runtime.version>1.8.7</aspectj.runtime.version>
+        <maven.release.plugin.version>2.5.2</maven.release.plugin.version>
+        <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+        <aspectj-maven-plugin.version>1.8</aspectj-maven-plugin.version>
         <osgiVersion>5.0.0</osgiVersion>
-        <scalaplugin.version>2.15.2</scalaplugin.version>
-        <slf4j.version>1.7.12</slf4j.version>
-        <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
-        <dependency.plugin.version>2.9</dependency.plugin.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <maven-project-info-reports-plugin.version>2.8</maven-project-info-reports-plugin.version>
+        <dependency.plugin.version>2.10</dependency.plugin.version>
         <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
 
         <!-- Code style properties -->
@@ -110,21 +132,21 @@
         </enforcer.excludedGroupIdPatterns>
 
         <!-- Cobertura configuration parameters. -->
-        <cobertura.plugin.version>2.6</cobertura.plugin.version>
+        <cobertura.plugin.version>2.7</cobertura.plugin.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
 
         <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>2.13</checkstyle.plugin.version>
+        <checkstyle.plugin.version>2.16</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>codestyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
 
         <!-- PMD configuration parameters. -->
-        <pmd.plugin.version>3.3</pmd.plugin.version>
+        <pmd.plugin.version>3.5</pmd.plugin.version>
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
         <!-- Findbugs configuration parameters. -->
-        <findbugs.plugin.version>3.0.0</findbugs.plugin.version>
+        <findbugs.plugin.version>3.0.1</findbugs.plugin.version>
         <findbugs.only.analyze>se.jguru.nazgul.*</findbugs.only.analyze>
         <findbugs.includeFilterFile>codestyle/findbugs.xml</findbugs.includeFilterFile>
         <findbugs.excludeFilterFile>codestyle/findbugs-excludes.xml</findbugs.excludeFilterFile>
@@ -148,22 +170,9 @@
         <!-- Site plugin properties -->
         <maven-site-plugin.version>3.4</maven-site-plugin.version>
         <doxia-modules.version>1.6</doxia-modules.version>
-        <wagon-modules.version>2.9</wagon-modules.version>
+        <wagon-modules.version>2.10</wagon-modules.version>
         <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
         <velocity.version>1.7</velocity.version>
-
-        <!--
-            Define the URL prefixes for Site Deployment and DistributionManagement.
-            These can be overridden in sub-reactors to tailor releases to other locations.
-        -->
-        <path.in.reactor>poms/tools-parent</path.in.reactor>
-        <reactor.name>nazgul_tools</reactor.name>
-        <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
-        <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
-        <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
-        <scm.url.prefix>scm:hg:${reactor.url.remote.prefix}</scm.url.prefix>
-        <url.prefix>${reactor.url.remote.prefix}/${reactor.name}/${project.version}</url.prefix>
-        <distro.url.prefix>${site.url.prefix}/${reactor.name}/${project.version}</distro.url.prefix>
     </properties>
 
     <!--
@@ -181,24 +190,18 @@
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.1.3</version>
+                <version>1.1.0</version>
                 <scope>test</scope>
             </dependency>
 
             <!--
-                Persistence and JPA jars
+                JavaEE specification.
             -->
             <dependency>
-                <groupId>org.apache.geronimo.specs</groupId>
-                <artifactId>geronimo-jpa_2.0_spec</artifactId>
-                <version>1.1</version>
+                <groupId>org.apache.openejb</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>7.0</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.openjpa</groupId>
-                <artifactId>openjpa</artifactId>
-                <version>${openjpa.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <!--
@@ -237,7 +240,7 @@
             <dependency>
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
-                <version>2.8</version>
+                <version>2.8.2</version>
             </dependency>
 
             <!--
@@ -423,7 +426,7 @@
                                         <versionRange>2.5</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -437,7 +440,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -476,7 +479,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -490,7 +493,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -507,7 +510,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -522,7 +525,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
 
@@ -536,7 +539,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
 
@@ -550,7 +553,7 @@
                                         <versionRange>[1.0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -564,7 +567,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -579,7 +582,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -597,7 +600,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>2.5.4</version>
                     <executions>
                         <execution>
                             <id>bundle-manifest</id>
@@ -630,7 +633,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>2.1</version>
+                    <version>2.2</version>
                 </plugin>
 
                 <!--
@@ -639,20 +642,28 @@
                     Why:  Include some DVCS SCM providers, and define some default values for releases.
                     Used: Standard lifecycle, release process.
                 -->
+                <!--
+
+                    Configures the release plugin to use a custom release profile.
+
+                    Why:  Release artifacts
+                    Used: Normal lifecycle, release goal
+                -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven.release.plugin.version}</version>
-                    <configuration combine.self="override">
-                        <localCheckout>true</localCheckout>
+                    <configuration>
+                        <arguments>-Pnazgul-release</arguments>
                         <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
                         <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
                     </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.scm</groupId>
-                            <artifactId>maven-scm-provider-hg</artifactId>
-                            <version>1.9.2</version>
+                            <artifactId>maven-scm-providers-git</artifactId>
+                            <version>1.9.4</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -666,7 +677,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -693,7 +704,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ear-plugin</artifactId>
-                    <version>2.9.1</version>
+                    <version>2.10.1</version>
                     <executions>
                         <execution>
                             <id>packageEar</id>
@@ -702,7 +713,7 @@
                                 <goal>ear</goal>
                             </goals>
                             <configuration>
-                                <defaultJavaBundleDir>lib</defaultJavaBundleDir>
+                                <!-- defaultJavaBundleDir>lib</defaultJavaBundleDir -->
                                 <defaultLibBundleDir>lib</defaultLibBundleDir>
                                 <version>6</version>
                                 <archive>
@@ -731,7 +742,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ejb-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.5.1</version>
                     <configuration>
                         <generateClient>false</generateClient>
                         <ejbVersion>3.1</ejbVersion>
@@ -759,7 +770,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.6</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -861,7 +872,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.18</version>
+                    <version>2.18.1</version>
                     <configuration>
                         <argLine>${surefire.argLine}</argLine>
                         <trimStackTrace>false</trimStackTrace>
@@ -1092,6 +1103,20 @@
                             <artifactId>nazgul-codestyle</artifactId>
                             <version>4.1.2-SNAPSHOT</version>
                         </dependency>
+                        <!--
+                            Workaround https://github.com/jcgay/maven-color/issues/8
+                            i.e. Maven 2 to 3 incompatibilities.
+                         -->
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>jcl-over-slf4j</artifactId>
+                            <version>${slf4j.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-jdk14</artifactId>
+                            <version>${slf4j.version}</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
 
@@ -1199,24 +1224,6 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    The versions plugin requires a workaround not to crash its reports.
-
-                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
-                    Used: Only when called.
-                -->
-                <!-- plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.reporting</groupId>
-                            <artifactId>maven-reporting-impl</artifactId>
-                            <version>2.2</version>
-                        </dependency>
-                    </dependencies>
-                </plugin -->
 
                 <!--
                     Use a working version of the Maven versions plugin.
@@ -1229,6 +1236,24 @@
                     <groupId>de.lgohlke.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
+                </plugin>
+
+                <!--
+                    Define the version of the maven-gpg-plugina
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.6</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
             </plugins>
@@ -1342,13 +1367,14 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <requireUpperBoundDeps />
+                                <requireUpperBoundDeps/>
 
                                 <!--
                                     Enforce the ProjectType structure, implying that all projects
                                     must comply with the project template definitions.
                                 -->
-                                <validateProjectTypes implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType" />
+                                <validateProjectTypes
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.ValidateProjectType"/>
 
                                 <!--
                                     Enforce the implementation rules for dependencies, to enforce that
@@ -1360,7 +1386,8 @@
                                     reproduced her to serve as an example of how to configure this enforcement rule
                                     in child reactors - where needs are likely different than here.
                                 -->
-                                <restrictImplDependencies implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
+                                <restrictImplDependencies
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.RestrictImplDependencies">
                                     <includedGroupIdPatterns>${enforcer.includedGroupIdPatterns}
                                     </includedGroupIdPatterns>
                                     <excludedGroupIdPatterns>${enforcer.excludedGroupIdPatterns}
@@ -1376,7 +1403,8 @@
                                     then all code within that project must reside within the "com.acme.foobar" package,
                                     or in any subpackage thereof.
                                 -->
-                                <correctPackaging implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.CorrectPackagingRule" />
+                                <correctPackaging
+                                        implementation="se.jguru.nazgul.tools.codestyle.enforcer.rules.CorrectPackagingRule"/>
                             </rules>
                         </configuration>
                     </execution>
@@ -1508,7 +1536,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.1</version>
+                <version>2.10.3</version>
                 <configuration>
                     <failOnError>false</failOnError>
                     <stylesheet>java</stylesheet>
@@ -1551,7 +1579,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
             </plugin>
 
             <!--
@@ -1641,7 +1669,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.6.1</version>
+                <version>2.7</version>
             </plugin>
 
             <!-- plugin>
@@ -1684,59 +1712,104 @@
     -->
 
     <!--
-        Define settings for Maven's site plugin.
+        Define the Continuous Build server address.
     -->
-    <distributionManagement>
-        <site>
-            <id>jGuru_NazgulToolsSite</id>
-            <name>jGuru_NazgulToolsSite</name>
-            <url>${distro.url.prefix}/${path.in.reactor}</url>
-        </site>
-    </distributionManagement>
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/lennartj/nazgul_tools</url>
+    </ciManagement>
 
     <!--
         Define the issue management system.
     -->
     <issueManagement>
-        <system>bitbucket</system>
-        <url>${reactor.url.remote.prefix}/${reactor.name}/issues</url>
+        <system>github</system>
+        <url>https://github.com/lennartj/nazgul_tools/issues</url>
     </issueManagement>
 
     <!--
-       Define connections for Maven's Mercurial integration.
+        Define repository settings for Maven's deploy and release plugins.
+        Move parts to settings.xml, as per recommendation within Maven specs.
+    -->
+    <distributionManagement>
+        <repository>
+            <id>ossrh-staging</id>
+            <name>Sonatype OSS Nexus: Releases</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSS Nexus: Snapshots</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>github_site</id>
+            <name>GitHub Site for Nazgul Tools</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
+        </site>
+    </distributionManagement>
+
+    <!--
+        Define connections for Maven's VCS integration.
     -->
     <scm>
-        <connection>${scm.url.prefix}/${reactor.name}</connection>
-        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
-        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
 
     <!--
     ################################################
-    # Section 5:  Profiles and Reports
+    # Section 5:  Profiles
     ################################################
     -->
-
     <profiles>
 
         <!--
-            Purpose: Use GPG to sign artifacts during release:perform.
+            Release profile for Nazgul Reactors.
         -->
         <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>nazgul-release</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-jar-no-fork</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -1772,37 +1845,6 @@
                             <preparationGoals>-B clean install</preparationGoals>
                             <localCheckout>true</localCheckout>
                         </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-            Purpose:    Create Eclipse workspace including all dependencies
-                        from the checked-out mercurial repository.
-        -->
-        <profile>
-            <id>setupEclipseProfile</id>
-            <build>
-                <defaultGoal>clean</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-eclipse-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>setup.eclipse.project</id>
-                                <phase>clean</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                    <goal>eclipse</goal>
-                                </goals>
-                                <configuration>
-                                    <addGroupIdToProjectName>true</addGroupIdToProjectName>
-                                    <addVersionToProjectName>true</addVersionToProjectName>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>

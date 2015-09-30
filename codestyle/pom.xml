@@ -39,11 +39,8 @@
     <version>4.1.2-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <url>${reactor.url.remote.prefix}/${reactor.name}/${project.version}/codestyle</url>
-    <description>
-        Nazgul Framework: Tools codestyle definitions, including development model, enforcement
-        rules and configurations for code-checking plugins such as PMD, CPD and checkstyle.
-    </description>
+    <url>${site.top.url}/${path.in.reactor}</url>
+    <description>Nazgul Tools: Codestyle (JAR, version ${project.version})</description>
 
     <inceptionYear>2010</inceptionYear>
     <organization>
@@ -52,7 +49,7 @@
     </organization>
 
     <prerequisites>
-        <maven>3.0.5</maven>
+        <maven>${maven.version}</maven>
     </prerequisites>
 
     <licenses>
@@ -65,37 +62,49 @@
     </licenses>
 
     <properties>
+        <!--
+            Define the URL prefixes for Site Deployment and DistributionManagement.
+            These can be overridden in sub-reactors to tailor releases to other locations.
+        -->
+        <reactor.name>nazgul_tools</reactor.name>
+        <path.in.reactor>codestyle</path.in.reactor>
+
+        <!--
+            Define URL prefixes used in the various URL settings of the POM.
+        -->
+        <git.repo.owner>lennartj</git.repo.owner>
+        <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
+        <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
+        <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
+        <site.top.url>${site.url.prefix}/${reactor.name}/Documentation/${project.version}</site.top.url>
+
+        <scm.connection.url>scm:git:${git.repo.url.prefix}/${reactor.name}.git</scm.connection.url>
+        <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
+        <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
+        <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
+        <site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory>
+
         <maven.version>2.2.1</maven.version>
-        <enforcer.api.version>1.4</enforcer.api.version>
+        <enforcer.api.version>1.4.1</enforcer.api.version>
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
         <jdk.version>1.7</jdk.version>
 
         <!-- Code style properties -->
         <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-        <pmd.plugin.version>3.3</pmd.plugin.version>
-        <cobertura.plugin.version>2.6</cobertura.plugin.version>
-        <checkstyle.plugin.version>2.13</checkstyle.plugin.version>
+        <pmd.plugin.version>3.5</pmd.plugin.version>
+        <cobertura.plugin.version>2.7</cobertura.plugin.version>
+        <checkstyle.plugin.version>2.16</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
-        <findbugs.plugin.version>3.0.0</findbugs.plugin.version>
+        <findbugs.plugin.version>3.0.1</findbugs.plugin.version>
         <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Site plugin properties -->
         <maven-site-plugin.version>3.4</maven-site-plugin.version>
         <doxia-modules.version>1.6</doxia-modules.version>
-        <wagon-modules.version>2.9</wagon-modules.version>
+        <wagon-modules.version>2.10</wagon-modules.version>
         <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
         <velocity.version>1.7</velocity.version>
         <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
-
-        <!--
-            Define the URL prefixes for Site Deployment and DistributionManagement.
-            These can be overridden in sub-reactors to tailor releases to other locations.
-        -->
-        <reactor.url.remote.prefix>http://bitbucket.org/lennartj</reactor.url.remote.prefix>
-        <reactor.name>nazgul_tools</reactor.name>
-        <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
-        <site.url.prefix>scp://www-data@angmar/var/www/nazgul</site.url.prefix>
-        <scm.url.prefix>scm:hg:${reactor.url.remote.prefix}</scm.url.prefix>
     </properties>
 
     <developers>
@@ -182,6 +191,25 @@
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
+
+                <!--
+                    Upgrade the Compiler plugin to the latest version.
+
+                    Why:  Use the latest compiler plugin version for upwards JDK compliance.
+                    Used: For compiling all source code to binaries.
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                        <showWarnings>true</showWarnings>
+                        <showDeprecation>true</showDeprecation>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -190,7 +218,6 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>${cobertura.plugin.version}</version>
                 <configuration>
-                    <goal>check</goal>
                     <instrumentation>
                         <includes>
                             <include>se/jguru/nazgul/**/*.class</include>
@@ -216,17 +243,14 @@
                 </executions>
             </plugin>
 
+            <!--
+                Compiles all source code to binaries.
+
+                Used: Standard build, mvn compile.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                    <encoding>UTF-8</encoding>
-                </configuration>
             </plugin>
 
             <!--
@@ -344,6 +368,32 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--
+
+                Configures the release plugin to use a custom release profile.
+
+                Why:  Release artifacts
+                Used: Normal lifecycle, release goal
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <arguments>-Pnazgul-release</arguments>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-providers-git</artifactId>
+                        <version>1.9.4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -354,7 +404,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.8</version>
                 <configuration>
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
@@ -371,7 +421,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.1</version>
+                <version>2.10.3</version>
                 <configuration>
                     <failOnError>false</failOnError>
                     <stylesheet>java</stylesheet>
@@ -447,6 +497,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>${cobertura.plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>cobertura</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
             <!--
                  Due to problems in the Maven 3 site plugin you must enter the configuration twice,
@@ -485,28 +542,115 @@
         </plugins>
     </reporting>
 
+    <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+
+    <!--
+        Define the Continuous Build server address.
+    -->
+    <ciManagement>
+        <system>TravisCI</system>
+        <url>https://travis-ci.org/lennartj/nazgul_tools</url>
+    </ciManagement>
+
+    <!--
+        Define the issue management system.
+    -->
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/lennartj/nazgul_tools/issues</url>
+    </issueManagement>
+
+    <!--
+        Define repository settings for Maven's deploy and release plugins.
+        Move parts to settings.xml, as per recommendation within Maven specs.
+    -->
+    <distributionManagement>
+        <repository>
+            <id>ossrh-staging</id>
+            <name>Sonatype OSS Nexus: Releases</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>ossrh-snapshots</id>
+            <name>Sonatype OSS Nexus: Snapshots</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>github_site</id>
+            <name>GitHub Site for Nazgul Tools</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
+        </site>
+    </distributionManagement>
+
+    <!--
+        Define connections for Maven's VCS integration.
+    -->
+    <scm>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!--
+    ################################################
+    # Section 5:  Profiles
+    ################################################
+    -->
     <profiles>
+
         <!--
-            Purpose: Use GPG to sign artifacts during release:perform.
+            Release profile for Nazgul Reactors.
         -->
         <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
+            <id>nazgul-release</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-jar-no-fork</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>package</phase>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
@@ -517,38 +661,4 @@
             </build>
         </profile>
     </profiles>
-
-    <!--
-    ################################################
-    # Section 4:  External systems
-    ################################################
-    -->
-    <!--
-       Define connections for Maven's Mercurial integration.
-    -->
-    <scm>
-        <connection>${scm.url.prefix}/${reactor.name}</connection>
-        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
-        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <!--
-        Define the issue management system.
-    -->
-    <issueManagement>
-        <system>bitbucket</system>
-        <url>${reactor.url.remote.prefix}/${reactor.name}/issues</url>
-    </issueManagement>
-
-    <!--
-        Define repository settings for Maven's deploy and release plugins.
-    -->
-    <distributionManagement>
-        <site>
-            <id>jGuru_NazgulToolsSite</id>
-            <name>jGuru_NazgulToolsSite</name>
-            <url>${site.url.prefix}/${reactor.name}/${project.version}/codestyle</url>
-        </site>
-    </distributionManagement>
 </project>

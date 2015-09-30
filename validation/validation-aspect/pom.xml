@@ -39,7 +39,8 @@
     <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
     <artifactId>nazgul-tools-validation-aspect</artifactId>
     <name>${project.artifactId}</name>
-    <url>${url.prefix}/${path.in.reactor}</url>
+    <url>${site.top.url}/${path.in.reactor}</url>
+    <description>Nazgul Tools: Validation (Aspect, version ${project.version})</description>
 
     <properties>
         <path.in.reactor>validation/validation-aspect</path.in.reactor>
@@ -202,23 +203,24 @@
     -->
 
     <!--
-        Define settings for Maven's site plugin.
-    -->
+        Compensate for Maven standard variable extrapolation.
+        Git requires steady URLs (... but Subversion requires path extrapolation, hence the problem).
+     -->
     <distributionManagement>
         <site>
-            <id>jGuru_NazgulToolsSite</id>
-            <name>jGuru_NazgulToolsSite</name>
-            <url>${distro.url.prefix}/${path.in.reactor}</url>
+            <id>github_site</id>
+            <name>GitHub Site for Nazgul Tools</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
 
     <!--
-       Define connections for Maven's Mercurial integration.
+        Define connections for Maven's VCS integration.
     -->
     <scm>
-        <connection>${scm.url.prefix}/${reactor.name}</connection>
-        <developerConnection>${scm.url.prefix}/${reactor.name}</developerConnection>
-        <url>${reactor.url.remote.prefix}/${reactor.name}</url>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
 </project>
