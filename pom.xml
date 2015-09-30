@@ -65,7 +65,7 @@
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
         <reactor.name>nazgul_tools</reactor.name>
-        <path.in.reactor>codestyle</path.in.reactor>
+        <path.in.reactor></path.in.reactor>
 
         <!--
             Define URL prefixes used in the various URL settings of the POM.
