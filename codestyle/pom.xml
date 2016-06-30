@@ -36,7 +36,7 @@
 
     <groupId>se.jguru.nazgul.tools.codestyle</groupId>
     <artifactId>nazgul-codestyle</artifactId>
-    <version>4.1.2-SNAPSHOT</version>
+    <version>5.0.0</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -291,7 +291,7 @@
                         <id>default-deploy</id>
                         <phase>site-deploy</phase>
                         <goals>
-                            <goal/>
+                            <goal />
                         </goals>
                     </execution>
                 </executions>
@@ -609,7 +609,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-5.0.0</tag>
     </scm>
 
     <!--
