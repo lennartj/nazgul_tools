@@ -106,7 +106,8 @@
         <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
         <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
-        <site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory>
+        <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
+        <!-- site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory -->
 
         <!-- Version number properties -->
         <maven.version>3.3.1</maven.version>

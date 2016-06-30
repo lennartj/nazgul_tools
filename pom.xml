@@ -80,7 +80,8 @@
         <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
         <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
-        <site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory>
+        <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
+        <!-- site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory -->
 
         <maven.version>3.3.1</maven.version>
 
@@ -124,7 +125,6 @@
 
                 <!--
                     Use a working version of the Maven versions plugin.
-                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
 
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.

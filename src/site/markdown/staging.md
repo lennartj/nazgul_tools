@@ -23,8 +23,8 @@ Maven normally builds documentation sites using the standard commands
 
 These commands are assumed to be executed in the top directory of the maven build reactor.
 When executed from the Nazgul Tools root directory, these commands produce the staged site
-in the directory `/tmp/nazgul_tools/${project.version}`, where `${project.version}` is substituted
-for the actual version of the Nazgul Tools reactor.
+in the directory `/tmp/nazgul_tools/Documentation/${project.version}`, where `${project.version}` is
+substituted for the actual version of the Nazgul Tools reactor.
 
 ### Changing the local staging directory
 
@@ -37,8 +37,8 @@ site appear in another directory:
 
 Again, these commands are assumed to be executed in the top directory of the maven build reactor.
 When executed from the Nazgul Tools root directory, these commands produce the staged site
-in the directory `/another/location/${project.version}`, where `${project.version}` is substituted
-for the actual version of the Nazgul Tools reactor.
+in the directory `/another/location/Documentation/${project.version}`, where `${project.version}`
+is substituted for the actual version of the Nazgul Tools reactor.
 
 If you feel the need to deploy the Nazgul Framework: Tools staged documentation to a 
 remote server, the process is doable, but [a tad more complex](remote_deployment.html).
