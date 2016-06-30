@@ -87,20 +87,18 @@
         <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
-        <clean.plugin.version>2.6.1</clean.plugin.version>
-        <maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+        <clean.plugin.version>3.0.0</clean.plugin.version>
+        <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
         <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
 
         <!-- Site plugin properties -->
         <maven-site-plugin.version>3.4</maven-site-plugin.version>
         <doxia-modules.version>1.6</doxia-modules.version>
         <wagon-modules.version>2.9</wagon-modules.version>
-        <reflow-velocity-tools.version>1.1.1</reflow-velocity-tools.version>
-        <velocity.version>1.7</velocity.version>
     </properties>
 
     <!--
@@ -278,22 +276,6 @@
                         <artifactId>doxia-module-xhtml</artifactId>
                         <version>${doxia-modules.version}</version>
                     </dependency>
-                    <!--
-                        Reflow skin and dependencies.
-
-                        These velocity tools should only be used if the
-                        reflow maven skin is used for site documentation.
-                    -->
-                    <!-- dependency>
-                        <groupId>lt.velykis.maven.skins</groupId>
-                        <artifactId>reflow-velocity-tools</artifactId>
-                        <version>${reflow-velocity-tools.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.velocity</groupId>
-                        <artifactId>velocity</artifactId>
-                        <version>${velocity.version}</version>
-                    </dependency -->
                 </dependencies>
             </plugin>
 
@@ -329,7 +311,7 @@
                     <dependency>
                         <groupId>net.sourceforge.plantuml</groupId>
                         <artifactId>plantuml</artifactId>
-                        <version>8012</version>
+                        <version>8043</version>
                     </dependency>
                 </dependencies>
             </plugin>

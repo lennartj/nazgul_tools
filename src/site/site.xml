@@ -13,9 +13,8 @@
         <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
     <bannerRight>
-        <name>
-            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
-        <!-- href>https://github.org/lennartj/nazgul_tools/</href -->
+        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+        <href>https://github.org/lennartj/nazgul_tools/</href>
     </bannerRight>
 
     <publishDate position="left" format="yyyy-MM-dd"/>
@@ -26,74 +25,11 @@
         <artifactId>maven-fluido-skin</artifactId>
         <version>1.4</version>
     </skin>
-    <!-- skin>
-        <groupId>lt.velykis.maven.skins</groupId>
-        <artifactId>reflow-maven-skin</artifactId>
-        <version>1.1.1</version>
-    </skin -->
 
     <custom>
         <fluidoSkin>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
         </fluidoSkin>
-        <reflowSkin>
-            <!-- Global configuration -->
-            <smoothScroll>true</smoothScroll>
-            <theme>default</theme>
-            <!-- theme>bootswatch-spacelab</theme -->
-            <highlightJs>true</highlightJs>
-            <highlightJsTheme>github</highlightJsTheme>
-            <brand>
-                <name><![CDATA[<span class="color-highlight">Nazgul Framework:</span> Tools]]></name>
-                <href>https://bitbucket.org/lennartj/nazgul_tools/</href>
-            </brand>
-            <slogan>A collection of Maven best-pracises, boosting your productivity.</slogan>
-            <titleTemplate>%1$s | %2$s</titleTemplate>
-            <!-- Use Table of Contents at the top of the page (max 6 elements) -->
-            <toc>sidebar</toc>
-            <tocTopMax>6</tocTopMax>
-            <!-- Include the documentation and tools in the top navigation (in addition to links) -->
-            <!-- topNav>Overview|Theory and Scalability|Contribute|Generating Site Documentation|reports|modules</topNav -->
-            <bottomNav>
-                <column>Overview|Theory and Scalability</column>
-                <column>Generating Site Documentation|reports</column>
-                <column>modules</column>
-            </bottomNav>
-            <bottomDescription>
-                The Nazgul Framework: Tools project enables you to start projects quickly and scale them
-                considerably without needing to change the development or deployment model.
-            </bottomDescription>
-            <breadcrumbs>true</breadcrumbs>
-
-            <!-- Configuration per page -->
-            <pages>
-                <index>
-                    <breadcrumbs>false</breadcrumbs>
-                    <toc>false</toc>
-                    <sections>
-                        <!-- carousel/ -->
-                        <body/>
-                        <!-- sidebar/ -->
-                        <thumbs>2</thumbs>
-                        <columns>3</columns>
-                    </sections>
-                </index>
-                <theory-modularity>
-                    <breadcrumbs>false</breadcrumbs>
-                    <toc>true</toc>
-                    <sections>
-                        <!-- carousel/ -->
-                        <body/>
-                        <!-- sidebar/ -->
-                        <thumbs>2</thumbs>
-                        <columns>1</columns>
-                    </sections>
-                </theory-modularity>
-                <developer-info>
-                    <toc>sidebar</toc>
-                </developer-info>
-            </pages>
-        </reflowSkin>
     </custom>
 
     <body>
@@ -119,10 +55,6 @@
             <item name="Concepts" href="concepts.html"/>
             <item name="Nazgul Tools Overview" href="nazgul_tools.html"/>
         </menu>
-
-        <!-- menu name="Quick Start">
-            <item name="Initial Setup" href="quickstart/step1_initial_setup.html"/>
-        </menu -->
 
         <menu name="Theory and Scalability">
             <item name="Modularity" href="theory/modularity.html"/>
