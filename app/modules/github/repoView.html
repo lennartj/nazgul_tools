@@ -8,7 +8,7 @@
     <div class="col-sm-offset-2"></div>
     <div class="col-sm-8">
         <p>The Github repository {{repo.name}} is owned by {{repo.owner}}, and
-            has {{repo.tagList.length}} release tags.</p>
+            has {{repo.tagList.length}} release tags. (Latest 5 releases shown).</p>
     </div>
 </div>
 
@@ -28,13 +28,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr data-ng-repeat="current in repo.tagList">
+            <tr data-ng-repeat="current in repo.tagList|limitTo:5">
                 <td><nobr>{{current.name}}</nobr></td>
                 <td>{{current.name | releaseNumberFilter}}</td>
                 <td>{{current.commit.sha}}</td>
                 <td>
                     <nobr><a
-                            href="http://mithlond.github.io/mithlond-codestyle/Documentation/{{current.name | releaseNumberFilter}}/index.html">To Maven Documentation</a>
+                            href="https://lennartj.github.io/nazgul_tools/Documentation/{{current.name | releaseNumberFilter}}/index.html">To Maven Documentation</a>
                     </nobr>
                 </td>
             </tr>
