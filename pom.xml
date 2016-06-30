@@ -308,10 +308,16 @@
                     </execution>
                 </executions>
                 <dependencies>
+                    <!--
+                        NOTE!
+
+                        Do not upgrade the plantuml dependency above version 8030, as those plantuml releases
+                        are not binary compatible with the plugin version 7954.
+                    -->
                     <dependency>
                         <groupId>net.sourceforge.plantuml</groupId>
                         <artifactId>plantuml</artifactId>
-                        <version>8043</version>
+                        <version>8030</version>
                     </dependency>
                 </dependencies>
             </plugin>
