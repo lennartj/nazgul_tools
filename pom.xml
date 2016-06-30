@@ -20,7 +20,7 @@
 
     <groupId>se.jguru.nazgul.tools</groupId>
     <artifactId>nazgul-tools-reactor</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <url>${site.top.url}/${path.in.reactor}</url>
     <description>Nazgul Tools: Reactor (POM, version ${project.version})</description>
@@ -435,7 +435,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>nazgul-tools-5.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
