@@ -1,6 +1,6 @@
 # [1. Nazgul Framework: Tools](http://lennartj.github.io/nazgul_tools)
 
-> "[Nazgul Tools](http://lennartj.github.io/nazgul_tools) helps me build stuff quicker and better."
+> "[Nazgul Tools](http://lennartj.github.io/nazgul_tools) helps me setup and build stuff quicker and better."
 
 The Nazgul Framework project holds a collection of best-pracises and sensible configurations enabling you to start
 projects quickly and scale them considerably without having to change the development or deployment model.
