@@ -1,6 +1,6 @@
-# [1. Nazgul Framework: Tools](http://lennartj.github.io/nazgul_tools)
+# [1. Nazgul Framework: Tools](https://lennartj.github.io/nazgul_tools)
 
-> "[Nazgul Tools](http://lennartj.github.io/nazgul_tools) helps me setup and build stuff quicker and better."
+> "[Nazgul Tools](https://lennartj.github.io/nazgul_tools) helps me setup and build stuff quicker and better."
 
 The Nazgul Framework project holds a collection of best-pracises and sensible configurations enabling you to start
 projects quickly and scale them considerably without having to change the development or deployment model.
@@ -21,7 +21,7 @@ The Nazgul Framework consists of software components split between two reactors:
 ## 1.1. Release Documentation
 
 Release documentation (including Maven site documentation) can be found
-at [The Nazgul Framework: Tools Documentation Site](http://lennartj.github.io/nazgul_tools).
+at [The Nazgul Framework: Tools Documentation Site](https://lennartj.github.io/nazgul_tools).
 Select the release version you are interested in, to find its full Maven site documentation.
 
 # 2. Getting and building nazgul_tools
