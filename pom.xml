@@ -178,7 +178,7 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.scm</groupId>
-                        <artifactId>maven-scm-providers-git</artifactId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
                         <version>1.9.4</version>
                     </dependency>
                 </dependencies>
@@ -348,7 +348,6 @@
 
             <!--
                     Use a working version of the Maven versions plugin.
-                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
 
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.
