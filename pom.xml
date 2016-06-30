@@ -4,7 +4,8 @@
   ~ All rights reserved.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -70,6 +71,7 @@
         <!--
             Define URL prefixes used in the various URL settings of the POM.
         -->
+        <github.global.server>nazgul_github</github.global.server>
         <git.repo.owner>lennartj</git.repo.owner>
         <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
         <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
@@ -81,7 +83,6 @@
         <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
-        <!-- site.staging.localDirectory>/tmp/${reactor.name}/${project.version}</site.staging.localDirectory -->
 
         <maven.version>3.3.1</maven.version>
 
@@ -155,6 +156,22 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <!--
+                    Use the site-maven-plugin which works with GitHub site deployments.
+
+                    Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
+                    Used: Only at release time.
+                -->
+                <plugin>
+                    <groupId>com.github.github</groupId>
+                    <artifactId>site-maven-plugin</artifactId>
+                    <version>0.12</version>
+                    <configuration>
+                        <message>Creating site for version ${project.version}</message>
+                        <noJekyll>true</noJekyll>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -174,6 +191,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
+                    <goals>deploy</goals>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -239,11 +257,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${maven-site-plugin.version}</version>
-                <executions>
+                <executions combine.self="override">
                     <execution>
                         <id>attach-descriptor</id>
                         <goals>
                             <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>site-deploy</phase>
+                        <goals>
+                            <goal/>
                         </goals>
                     </execution>
                 </executions>
@@ -472,6 +497,18 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>site-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                                <phase>site</phase>
                             </execution>
                         </executions>
                     </plugin>
