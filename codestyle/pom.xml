@@ -72,6 +72,7 @@
         <!--
             Define URL prefixes used in the various URL settings of the POM.
         -->
+        <github.global.server>nazgul_github</github.global.server>
         <git.repo.owner>lennartj</git.repo.owner>
         <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
         <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
@@ -209,6 +210,22 @@
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
+
+                <!--
+                    Use the site-maven-plugin which works with GitHub site deployments.
+
+                    Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
+                    Used: Only at release time.
+                -->
+                <plugin>
+                    <groupId>com.github.github</groupId>
+                    <artifactId>site-maven-plugin</artifactId>
+                    <version>0.12</version>
+                    <configuration>
+                        <message>Creating site for version ${project.version}</message>
+                        <noJekyll>true</noJekyll>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -262,11 +279,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${maven-site-plugin.version}</version>
-                <executions>
+                <executions combine.self="override">
                     <execution>
                         <id>attach-descriptor</id>
                         <goals>
                             <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>site-deploy</phase>
+                        <goals>
+                            <goal/>
                         </goals>
                     </execution>
                 </executions>
@@ -384,6 +408,7 @@
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
+                    <goals>deploy</goals>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -520,7 +545,6 @@
 
             <!--
                     Use a working version of the Maven versions plugin.
-                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
 
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.
@@ -645,6 +669,18 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>site-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                                <phase>site</phase>
                             </execution>
                         </executions>
                     </plugin>
