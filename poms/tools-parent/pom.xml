@@ -1806,9 +1806,13 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
+                    <!-- plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
+                        <configuration>
+                            <message>Creating site for version ${project.version}</message>
+                            <noJekyll>true</noJekyll>
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
@@ -1817,7 +1821,7 @@
                                 <phase>site</phase>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin -->
                 </plugins>
             </build>
         </profile>
