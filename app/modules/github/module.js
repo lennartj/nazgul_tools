@@ -75,5 +75,5 @@ angular.module('github_light', ['ngResource'])
             function ($scope, $routeParams, $resource, docsService) {
 
                 // Bind the repoDefinition in the scope
-                $scope.repo = docsService.init('lennartj', 'nazgul-tools');
+                $scope.repo = docsService.init('lennartj', 'nazgul_tools');
             }]);
