@@ -21,7 +21,6 @@
  */
 package se.jguru.nazgul.tools.validation.api.expression;
 
-import org.apache.commons.lang3.Validate;
 import se.jguru.nazgul.tools.validation.api.exception.AbstractErrorMessageContainer;
 import se.jguru.nazgul.tools.validation.api.exception.ErrorMessageContainer;
 
@@ -51,7 +50,13 @@ public class ExpressionBuilder implements ValidationExecutor {
      * @throws IllegalArgumentException if the messageContainer instance was <code>null</code>.
      */
     public ExpressionBuilder(final ErrorMessageContainer messageContainer) throws IllegalArgumentException {
-        Validate.notNull(messageContainer, "Cannot handle null messageContainer instance.");
+
+        // Check sanity
+        if(messageContainer == null) {
+            throw new NullPointerException("Cannot handle null 'messageContainer' argument.");
+        }
+
+        // Assign internal state
         this.messageContainer = messageContainer;
     }
 
