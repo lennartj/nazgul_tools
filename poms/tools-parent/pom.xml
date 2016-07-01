@@ -83,7 +83,7 @@
         <build.number />
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
 
         <!--
             Define the URL prefixes for Site Deployment and DistributionManagement.
