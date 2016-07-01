@@ -56,4 +56,24 @@ public class ValidationAspectTest {
         // Act & Assert
         new DummyEntity(ok);
     }
+
+    @Test
+    public void validateNoExceptionForDataSupplied() {
+
+        // Assemble
+        final String[] data = {"foo", "bar"};
+
+        // Act & Assert
+        new Java8DummyEntity(data);
+    }
+
+    @Test(expected = InternalStateValidationException.class)
+    public void validateExceptionOnEmptyData() {
+
+        // Assemble
+        final String[] data = {};
+
+        // Act & Assert
+        new Java8DummyEntity(data);
+    }
 }
