@@ -39,9 +39,10 @@ The parts of the nazgul tools build reactor are - in build order:
 ## Using Nazgul Tools in a subproject
 
 Define a separate parent pom for your subproject, and include the Nazgul Tools external parent as shown below.
-Substitute `com.acme.someproject` for your appropriate values, and `a_released_version` for the latest Nazgul Tools
+Substitute `com.acme.someproject` for your appropriate values, and `5.0.1` for the latest Nazgul Tools
 release.
 
+<pre class="brush: xml" title="Example POM dependencies."><![CDATA[
     <!--
      ################################################
      # Section 1:  Project information
@@ -50,7 +51,7 @@ release.
      <parent>
          <groupId>se.jguru.nazgul.tools.poms.external</groupId>
          <artifactId>nazgul-tools-external-parent</artifactId>
-         <version>a_released_version</version>
+         <version>5.0.1</version>
          <relativePath />
      </parent>
 
@@ -58,3 +59,4 @@ release.
      <artifactId>acme-someproject-parent</artifactId>
      <version>1.0.0-SNAPSHOT</version>
      <packaging>pom</packaging>
+]]></pre>
