@@ -94,6 +94,8 @@ public class ProjectTypeTest {
         final MavenProject standaloneApplication2
                 = MavenTestUtils.getStub("jar", "se.jguru.foo.bar.application", "bar-application");
         final MavenProject itest = MavenTestUtils.getStub("jar", "se.jguru.foo.it.bar", "bar-it");
+        final MavenProject mavenPlugin
+                = MavenTestUtils.getStub("maven-plugin", "se.jguru.foo.bar.plugins.blah", "blah-maven-plugin");
 
         // Act & Assert
         Assert.assertEquals(ProjectType.PARENT, ProjectType.getProjectType(parent));
@@ -113,6 +115,7 @@ public class ProjectTypeTest {
         Assert.assertEquals(ProjectType.STANDALONE_APPLICATION, ProjectType.getProjectType(standaloneApplication2));
         Assert.assertEquals(ProjectType.CODESTYLE, ProjectType.getProjectType(codestyle));
         Assert.assertEquals(ProjectType.INTEGRATION_TEST, ProjectType.getProjectType(itest));
+        Assert.assertEquals(ProjectType.PLUGIN, ProjectType.getProjectType(mavenPlugin));
     }
 
     @Test
@@ -176,8 +179,8 @@ public class ProjectTypeTest {
         Assert.assertFalse(ProjectType.PLUGIN.isCompliantArtifactID("foo-plugin-test"));
 
         Assert.assertTrue(ProjectType.PLUGIN.isCompliantGroupID("test.foo.plugin"));
-        Assert.assertFalse(ProjectType.PLUGIN.isCompliantGroupID("plugin.test"));
-        Assert.assertFalse(ProjectType.PLUGIN.isCompliantGroupID("foo.plugin.test"));
+        Assert.assertTrue(ProjectType.PLUGIN.isCompliantGroupID("plugin.test"));
+        Assert.assertTrue(ProjectType.PLUGIN.isCompliantGroupID("foo.plugin.test"));
 
         Assert.assertFalse(ProjectType.PLUGIN.isCompliantPackaging("pom"));
         Assert.assertTrue(ProjectType.PLUGIN.isCompliantPackaging("maven-plugin"));

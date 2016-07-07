@@ -136,7 +136,7 @@ public enum ProjectType {
     /**
      * Project, defining a Maven plugin.
      */
-    PLUGIN(".*-maven-plugin$", ".*\\.plugin$", "maven-plugin"),
+    PLUGIN(".*-maven-plugin$", null, "maven-plugin"),
 
     /**
      * <p>Proof-of-concept helper project, holding proof of concept implementations. No dependency rules.</p>
