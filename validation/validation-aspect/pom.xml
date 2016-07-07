@@ -32,7 +32,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
-        <version>5.0.2-SNAPSHOT</version>
+        <version>6.0.0</version>
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>se.jguru.nazgul.tools.validation.api</groupId>
             <artifactId>nazgul-tools-validation-api</artifactId>
-            <version>5.0.2-SNAPSHOT</version>
+            <version>6.0.0</version>
         </dependency>
 
         <!--
@@ -221,6 +221,6 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-6.0.0</tag>
     </scm>
 </project>
