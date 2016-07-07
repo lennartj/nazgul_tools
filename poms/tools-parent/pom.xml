@@ -133,10 +133,6 @@
             ^se\\.jguru\\.nazgul\\..*\\.generated\\..*,^se\\.jguru\\.nazgul\\.tools\\.codestyle\\..*
         </enforcer.excludedGroupIdPatterns>
 
-        <!-- Cobertura configuration parameters. -->
-        <cobertura.plugin.version>2.7</cobertura.plugin.version>
-        <cobertura.haltOnFailure>true</cobertura.haltOnFailure>
-
         <!-- Checkstyle configuration parameters. -->
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
@@ -164,7 +160,6 @@
 
         <!-- Define code-breaking constants -->
         <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
-        <breakOnFailure.cobertura>true</breakOnFailure.cobertura>
         <breakOnFailure.pmd>true</breakOnFailure.pmd>
         <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
         <breakOnFailure.license>true</breakOnFailure.license>
@@ -890,59 +885,6 @@
                 </plugin>
 
                 <!--
-                    Configures the cobertura plugin.
-
-                    Why:  Enforces unit test coverage, generates coverage report.
-                    Used: Standard lifecycle, mvn install, mvn site.
-                -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>${cobertura.plugin.version}</version>
-                    <configuration>
-                        <instrumentation>
-                            <includes>
-                                <include>se/jguru/nazgul/**/*.class</include>
-                            </includes>
-                            <excludes>
-
-                                <!-- Don't check Exception classes -->
-                                <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
-                            </excludes>
-                        </instrumentation>
-                        <check>
-                            <branchRate>65</branchRate>
-                            <lineRate>80</lineRate>
-                            <haltOnFailure>${breakOnFailure.cobertura}</haltOnFailure>
-                            <!-- totalBranchRate>85</totalBranchRate>
-                           <totalLineRate>85</totalLineRate>
-                           <packageLineRate>85</packageLineRate>
-                           <packageBranchRate>85</packageBranchRate>
-                           <regexes>
-                               <regex>
-                                   <pattern>com.example.reallyimportant.*</pattern>
-                                   <branchRate>90</branchRate>
-                                   <lineRate>80</lineRate>
-                               </regex>
-                               <regex>
-                                   <pattern>com.example.boringcode.*</pattern>
-                                   <branchRate>40</branchRate>
-                                   <lineRate>30</lineRate>
-                               </regex>
-                           </regexes -->
-                        </check>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>clean</goal>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <!--
                     Provides PMD code-style checking integration into the project.
 
                     Why:  Validates the codestyle.
@@ -1464,20 +1406,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Ensure unit test coverage. -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -1587,6 +1515,10 @@
                  Due to problems in the Maven 3 site plugin you must enter the configuration twice,
                  once for the pluginManagement section and once for the site, see
                  http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+
+                 Cannot use checkstyle reports until https://github.com/apache/maven-plugins/pull/88
+                 is merged into the maven-checkstyle-plugin codebase. (Or until we publish a stable-version
+                 clone with changed GroupID for internal use).
             -->
             <!-- plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1600,25 +1532,13 @@
                 </configuration>
                 <reportSets>
                     <reportSet>
+                        <id>checkstyle-report</id>
                         <reports>
                             <report>checkstyle</report>
                         </reports>
                     </reportSet>
                 </reportSets>
             </plugin -->
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>${cobertura.plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>cobertura</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
 
             <!--
                  Due to problems in the Maven 3 site plugin you must enter the configuration twice,
