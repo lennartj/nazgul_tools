@@ -37,7 +37,7 @@
 
     <groupId>se.jguru.nazgul.tools.poms</groupId>
     <artifactId>nazgul-tools-parent</artifactId>
-    <version>6.0.1</version>
+    <version>6.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -879,7 +879,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>6.0.1</version>
+                            <version>6.0.2-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -916,7 +916,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>6.0.1</version>
+                            <version>6.0.2-SNAPSHOT</version>
                         </dependency>
                         <dependency>
                             <groupId>log4j</groupId>
@@ -938,7 +938,7 @@
                     <version>${checkstyle.plugin.version}</version -->
                     <groupId>se.jguru.nazgul.tools.plugin.checkstyle</groupId>
                     <artifactId>nazgul-tools-checkstyle-maven-plugin</artifactId>
-                    <version>6.0.1</version>
+                    <version>6.0.2-SNAPSHOT</version>
                     <configuration>
                         <skip>${skip.verify.code}</skip>
                         <configLocation>${checkstyle.config.location}</configLocation>
@@ -965,7 +965,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>6.0.1</version>
+                            <version>6.0.2-SNAPSHOT</version>
                         </dependency>
                         <!--
                             Workaround https://github.com/jcgay/maven-color/issues/8
@@ -1009,7 +1009,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>6.0.1</version>
+                            <version>6.0.2-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1083,7 +1083,7 @@
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>
-                            <version>6.0.1</version>
+                            <version>6.0.2-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -1300,7 +1300,7 @@
                     <dependency>
                         <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                         <artifactId>nazgul-codestyle</artifactId>
-                        <version>6.0.1</version>
+                        <version>6.0.2-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -1505,7 +1505,7 @@
                 <version>${checkstyle.plugin.version}</version -->
                 <groupId>se.jguru.nazgul.tools.plugin.checkstyle</groupId>
                 <artifactId>nazgul-tools-checkstyle-maven-plugin</artifactId>
-                <version>6.0.1</version>
+                <version>6.0.2-SNAPSHOT</version>
                 <configuration>
                     <configLocation>${checkstyle.config.location}</configLocation>
                     <suppressionsFile>${checkstyle.suppressions.location}</suppressionsFile>
@@ -1609,7 +1609,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>nazgul-tools-6.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
