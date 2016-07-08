@@ -10,6 +10,9 @@ be used as parent for other POMs. However, the tasks and uses of these 3 POM pro
    project and included by dependency, but some plugin configuration is given directly in the
    Nazgul Tools: Parent POM. The Nazgul Tools: Parent POM is **not** intended to be included as
    parent directly in your development projects; use either of the POMs below instead.
+   Since release 6.0.1, the Nazgul Framework: Tools has targeted Java8 projects and bytecode implying that
+   some code quality plugins which do not support Java8 have been removed (in particular the cobertura-maven-plugin,
+   and the clirr-maven-plugin which do not support Java8 bytecode).
 
 2. **nazgul-tools-external-parent**: This is a POM intended as parent for projects
    which produce an artifact. Such projects typically have a POM whose packaging is JAR, WAR, EAR

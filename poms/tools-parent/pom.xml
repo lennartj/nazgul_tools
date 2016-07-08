@@ -1129,33 +1129,6 @@
                 </plugin>
 
                 <!--
-                    Ensure that the Clirr plugin supports Java 8 bytecode.
-                -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>clirr-maven-plugin</artifactId>
-                    <version>2.7</version>
-                    <dependencies>
-                        <!-- dependency>
-                            <groupId>org.apache.maven.shared</groupId>
-                            <artifactId>maven-shared-jar</artifactId>
-                            <version>1.1</version>
-                            <exclusions>
-                                <exclusion>
-                                    <groupId>org.apache.bcel</groupId>
-                                    <artifactId>bcel</artifactId>
-                                </exclusion>
-                            </exclusions>
-                        </dependency -->
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>bcel-findbugs</artifactId>
-                            <version>6.0</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!--
                     Use the site-maven-plugin which works with GitHub site deployments.
 
                     Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
@@ -1575,12 +1548,6 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>clirr-maven-plugin</artifactId>
-                <version>2.7</version>
             </plugin>
 
             <plugin>
