@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ #%L
+  ~ nazgul-tools-visualization-api
+  ~ %%
+  ~ Copyright (C) 2010 - 2016 jGuru Europe AB
+  ~ %%
+  ~ Licensed under the jGuru Europe AB license (the "License"), based
+  ~ on Apache License, Version 2.0; you may not use this file except
+  ~ in compliance with the License.
+  ~
+  ~ You may obtain a copy of the License at
+  ~
+  ~        http://www.jguru.se/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~ #L%
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
+    <parent>
+        <groupId>se.jguru.nazgul.tools.poms</groupId>
+        <artifactId>nazgul-tools-parent</artifactId>
+        <version>6.0.2-SNAPSHOT</version>
+        <relativePath>../../poms/tools-parent</relativePath>
+    </parent>
+
+    <groupId>se.jguru.nazgul.tools.visualization.api</groupId>
+    <artifactId>nazgul-tools-visualization-api</artifactId>
+    <name>${project.artifactId}</name>
+    <url>${site.top.url}/${path.in.reactor}</url>
+    <description>Nazgul Tools: Visualization (API, version ${project.version})</description>
+
+    <properties>
+        <path.in.reactor>visualization/visualization-api</path.in.reactor>
+        <antlr.version>4.5.3</antlr.version>
+    </properties>
+
+    <!--
+    ################################################
+    # Section 2:  Dependency (management) settings
+    ################################################
+    -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!--
+    ################################################
+    # Section 3:  Build settings
+    ################################################
+    -->
+    <build>
+        <plugins>
+            <!--
+                Use ANTLRv4 to generate a Parser and Lexer from the DOT.g4 grammar file.
+                The generated files are used to parse and generate well-formed Graphviz/dot diagram files.
+            -->
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>${antlr.version}</version>
+                <executions>
+                    <execution>
+                        <id>antlr</id>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <instrumentation>
+                        <includes>
+                            <include>se/jguru/nazgul/tools/visualization/**/*.class</include>
+                        </includes>
+                        <excludes>
+                            <!-- Don't check Exception classes -->
+                            <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                    <check>
+                        <branchRate>65</branchRate>
+                        <lineRate>80</lineRate>
+                        <haltOnFailure>true</haltOnFailure>
+                    </check>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>{local-packages}</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+
+    <!--
+        Compensate for Maven standard variable extrapolation.
+        Git requires steady URLs (... but Subversion requires path extrapolation, hence the problem).
+     -->
+    <distributionManagement>
+        <site>
+            <id>github_site</id>
+            <name>GitHub Site for Nazgul Tools</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
+        </site>
+    </distributionManagement>
+
+    <!--
+        Define connections for Maven's VCS integration.
+    -->
+    <scm>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+</project>
