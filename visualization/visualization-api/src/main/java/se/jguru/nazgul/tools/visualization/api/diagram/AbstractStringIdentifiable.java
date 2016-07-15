@@ -87,10 +87,10 @@ public abstract class AbstractStringIdentifiable implements StringRenderable {
     }
 
     /**
-     * @return A standart string representation of this {@link AbstractStringIdentifiable}.
+     * @return A standard string representation of this {@link AbstractStringIdentifiable}.
      */
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " : " + render();
+        return "[" + getClass().getSimpleName() + "]: " + render();
     }
 }
