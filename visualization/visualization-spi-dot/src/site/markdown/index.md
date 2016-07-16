@@ -28,13 +28,13 @@ try {
 }
 ]]></pre>
 
-## 2. Handling parse data Graphviz/Dot files
+## 2. Handling parsed syntax tree data from Graphviz/Dot files
 
 If you want to access the GraphContext produced by ANTLR4 when parsing the Dot file, it is
 simply returned by the validate method. Although only briefly illustrated, the typical use case 
 is given within a unit test in this project: 
 
-<pre class="brush: java" title="Example validation"><![CDATA[
+<pre class="brush: java" title="Example ParseTree data (GraphContext)"><![CDATA[
     @Test
     public void validateOkDotFile() {
 
