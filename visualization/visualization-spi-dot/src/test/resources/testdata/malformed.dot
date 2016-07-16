@@ -1,0 +1,7 @@
+digraph "malformed" {
+    a;
+    b;
+
+	a -> b;
+	b <- a;
+}
