@@ -19,7 +19,7 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram;
+package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
@@ -29,7 +29,17 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * Attribute list which sorts its key/value pairs alphabetically.
+ * <p>Attribute list which sorts its key/value pairs alphabetically, corresponding to
+ * the DOT grammar specification below. This implementation only uses comma for
+ * delimiters ({@link #DELIMITER}.</p>
+ * <pre>
+ *     attr_list : '[' [ a_list ] ']' [ attr_list ]
+ *     a_list    : ID '=' ID [ (';' | ',') ] [ a_list ]
+ * </pre>
+ * <p>Typically renders into something like the following:</p>
+ * <pre>
+ *     [ sides="7", distortion="-0.687574", orientation="58", skew="-0.180116", color="lightsteelblue1" ] ;
+ * </pre>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -98,6 +108,15 @@ public class SortedAttributeList implements StringRenderable {
 
         // Assign internal state
         attributes.put(key, value);
+    }
+
+    /**
+     * Indicates if this {@link SortedAttributeList} is empty or contains data.
+     *
+     * @return {@code true} if this {@link SortedAttributeList} does not contain data.
+     */
+    public boolean isEmpty() {
+        return attributes == null || attributes.isEmpty();
     }
 
     /**

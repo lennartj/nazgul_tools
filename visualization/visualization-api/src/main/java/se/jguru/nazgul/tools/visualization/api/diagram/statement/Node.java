@@ -19,7 +19,11 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram;
+package se.jguru.nazgul.tools.visualization.api.diagram.statement;
+
+import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
+import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
 
 /**
  * Node statement Renderer, complying to the specification in the
@@ -27,27 +31,27 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeStatement extends AbstractStringIdentifiable {
+public class Node extends AbstractStringIdentifiable implements Statement {
 
     // Internal state
     private NodeID nodeID;
     private SortedAttributeList attributeList;
 
     /**
-     * Convenience constructor creating a {@link NodeStatement} with the supplied ID.
+     * Convenience constructor creating a {@link Node} with the supplied ID.
      *
      * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
      */
-    public NodeStatement(final String id) {
+    public Node(final String id) {
         this(new NodeID(id, null));
     }
 
     /**
-     * Compound constructor creating a {@link NodeStatement} wrapping the supplied {@link NodeID}.
+     * Compound constructor creating a {@link Node} wrapping the supplied {@link NodeID}.
      *
      * @param nodeID A non-null {@link NodeID} instance.
      */
-    public NodeStatement(final NodeID nodeID) {
+    public Node(final NodeID nodeID) {
         super(nodeID.getId());
 
         this.nodeID = nodeID;
@@ -55,18 +59,18 @@ public class NodeStatement extends AbstractStringIdentifiable {
     }
 
     /**
-     * Retrieves the {@link SortedAttributeList} of this {@link NodeStatement}.
+     * Retrieves the {@link SortedAttributeList} of this {@link Node}.
      *
-     * @return the non-null {@link SortedAttributeList} of this {@link NodeStatement}.
+     * @return the non-null {@link SortedAttributeList} of this {@link Node}.
      */
     public SortedAttributeList getAttributeList() {
         return attributeList;
     }
 
     /**
-     * Retrieves the non-null {@link NodeID} for this {@link NodeStatement}.
+     * Retrieves the non-null {@link NodeID} for this {@link Node}.
      *
-     * @return the non-null {@link NodeID} for this {@link NodeStatement}.
+     * @return the non-null {@link NodeID} for this {@link Node}.
      */
     public NodeID getNodeID() {
         return nodeID;

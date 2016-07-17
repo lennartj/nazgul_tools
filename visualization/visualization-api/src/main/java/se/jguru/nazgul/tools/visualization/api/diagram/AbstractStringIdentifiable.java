@@ -42,7 +42,7 @@ public abstract class AbstractStringIdentifiable implements StringRenderable {
     protected AbstractStringIdentifiable(final String id) {
 
         // Check sanity
-        if(id == null || id.isEmpty()) {
+        if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("Cannot handle null or empty 'id' argument.");
         }
 
@@ -92,5 +92,14 @@ public abstract class AbstractStringIdentifiable implements StringRenderable {
     @Override
     public String toString() {
         return "[" + getClass().getSimpleName() + "]: " + render();
+    }
+
+    /**
+     * Convenience method used to quote the id for rendering, as well as surround it with whitespace.
+     *
+     * @return The id, surrounded by whitespace and quoted.
+     */
+    protected String getQuotedId() {
+        return " \"" + getId() + "\" ";
     }
 }

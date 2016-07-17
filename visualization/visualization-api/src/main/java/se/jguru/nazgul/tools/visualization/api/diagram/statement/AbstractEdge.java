@@ -1,0 +1,78 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-api
+ * %%
+ * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+package se.jguru.nazgul.tools.visualization.api.diagram.statement;
+
+import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+
+/**
+ * Abstract implementation of an Edge, storing commonly shared state for all Edge components.
+ *
+ * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ */
+public abstract class AbstractEdge {
+
+    // Internal state
+    private NodeID nodeID;
+    private Subgraph subgraph;
+
+    /**
+     * Creates an AbstractEdge using a NodeID.
+     *
+     * @param nodeID A non-null {@link NodeID} instance.
+     */
+    public AbstractEdge(final NodeID nodeID) {
+
+        // Check sanity
+        if (nodeID == null) {
+            throw new IllegalArgumentException("Cannot handle null 'nodeID' argument.");
+        }
+
+        // Assign internal state
+        this.nodeID = nodeID;
+    }
+
+    /**
+     * Creates an AbstractEdge using a {@link Subgraph} instance.
+     *
+     * @param subgraph A non-null {@link Subgraph} instance.
+     */
+    public AbstractEdge(final Subgraph subgraph) {
+
+        // Check sanity
+        if (subgraph == null) {
+            throw new IllegalArgumentException("Cannot handle null 'subgraph' argument.");
+        }
+
+        // Assign internal state
+        this.subgraph = subgraph;
+    }
+
+    /**
+     * Retrieves the rendering of this {@link AbstractEdge}, implying the rendering of its non-null part
+     * (i.e. NodeID or Subgraph respectively).
+     *
+     * @return the non-null rendering of this {@link AbstractEdge}.
+     */
+    protected String getAbstractEdgeRendering() {
+        return nodeID == null ? subgraph.render() : nodeID.render();
+    }
+}

@@ -44,7 +44,7 @@ public class NodeIDTest {
         final String result = unitUnderTest.render();
 
         // Assert
-        Assert.assertEquals("foobar", result.trim());
+        Assert.assertEquals("\"foobar\"", result.trim());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class NodeIDTest {
         final String result = unitUnderTest.render();
 
         // Assert
-        Assert.assertEquals("foobar : aPort : n", result.trim());
+        Assert.assertEquals("\"foobar\" : aPort : n", result.trim());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NodeIDTest {
         // Assert
         Assert.assertSame(NodeID.CompassPoint.NORTH_EAST, unitUnderTest.getPort().getCompassPoint());
         Assert.assertEquals("foobar", unitUnderTest.getId());
-        Assert.assertEquals("foobar : ne", result.trim());
-        Assert.assertEquals("[NodeID]: foobar : ne ", unitUnderTest.toString());
+        Assert.assertEquals("\"foobar\" : ne", result.trim());
+        Assert.assertEquals("[NodeID]:  \"foobar\" : ne", unitUnderTest.toString());
     }
 }

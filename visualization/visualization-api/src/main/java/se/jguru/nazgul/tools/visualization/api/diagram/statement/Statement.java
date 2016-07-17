@@ -19,37 +19,35 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram;
+package se.jguru.nazgul.tools.visualization.api.diagram.statement;
+
+import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
 /**
+ * <p>Specification for statements, complying to the specification in the
+ * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
+ * Lexically, statements are defined as follows:</p>
+ * <pre>
+ stmt : node_stmt
+ | edge_stmt
+ | attr_stmt
+ | ID '=' ID
+ | subgraph
+ * </pre>
+ *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public abstract class AbstractNodeIdContainer extends AbstractStringIdentifiable {
-
-    // Internal state
-    private NodeID nodeID;
+public interface Statement extends StringRenderable {
 
     /**
-     * Creates an {@link AbstractNodeIdContainer} using the ID of the supplied {@link NodeID} instance,
-     * and also storing the supplied NodeID for later access.
+     * Separator token between statements (within a statement List).
      *
-     * @param nodeID The non-null NodeID wrapped by this {@link AbstractNodeIdContainer}.
+     * <pre>stmt_list : [ stmt [ ';' ] stmt_list ]</pre>
      */
-    public AbstractNodeIdContainer(final NodeID nodeID) {
-
-        // Delegate
-        super(nodeID.getId());
-
-        // Assign internal state
-        this.nodeID = nodeID;
-    }
+    String SEPARATOR = ";";
 
     /**
-     * Retrieves the NodeID wrapped within this {@link AbstractNodeIdContainer}.
-     *
-     * @return the non-null NodeID wrapped within this {@link AbstractNodeIdContainer}.
+     * Fancier Statement separator, which introduces a space before the separator and ends with a newline.
      */
-    public NodeID getNodeID() {
-        return nodeID;
-    }
+    String NEWLINE_SEPARATOR = " " + SEPARATOR + NEWLINE;
 }

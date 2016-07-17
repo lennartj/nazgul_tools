@@ -179,6 +179,6 @@ public class NodeID extends AbstractStringIdentifiable {
      */
     @Override
     public String render() {
-        return getId() + (port != null ? " " + port.render() : "") + " ";
+        return getQuotedId() + (port != null ? "" + port.render() : " ");
     }
 }

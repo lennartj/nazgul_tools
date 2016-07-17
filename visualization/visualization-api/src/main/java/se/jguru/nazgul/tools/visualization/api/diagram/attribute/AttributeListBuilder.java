@@ -19,17 +19,19 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api;
+package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
 /**
- * Renderable which renders its content as a String.
+ * Specification for how to build a {@link SortedAttributeList} instance.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public interface StringRenderable extends Renderable<String> {
+public interface AttributeListBuilder {
 
     /**
-     * OS-neutral newline String/char.
+     * Creates a {@link SortedAttributeList} instance from the state within this {@link AttributeListBuilder}.
+     *
+     * @return a completely set-up {@link SortedAttributeList} instance.
      */
-    String NEWLINE = System.getProperty("line.separator");
+    SortedAttributeList build();
 }

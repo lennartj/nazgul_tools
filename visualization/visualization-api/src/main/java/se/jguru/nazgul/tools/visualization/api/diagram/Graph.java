@@ -21,23 +21,79 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements;
+
 /**
- * Graph
+ * Graph statement Renderer, complying to the specification in the
+ * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 public class Graph extends AbstractStringIdentifiable {
 
+    // Internal state
+    private boolean isDigraph;
+    private boolean isStrict;
+    private Statements statements;
+
     /**
+     * Compound constructor creating a {@link Graph} wrapping the supplied data.
      *
-     * @param id
+     * @param id        The ID of this Graph. While Graphviz/Dot permits the absence of an ID, this
+     *                  builder requires one - and hence the ID can neither be null nor empty.
+     * @param isDigraph {@code true} to make this Graph a directed graph, and false to make it an undirected one.
+     * @param isStrict  {@code true} to make this Graph strict.
      */
-    public Graph(final String id) {
+    public Graph(final String id, final boolean isDigraph, final boolean isStrict) {
+
+        // Delegate
         super(id);
+
+        // Assign internal state
+        this.isDigraph = isDigraph;
+        this.isStrict = isStrict;
+        this.statements = new Statements();
     }
 
+    /**
+     * Indicates if this Graph is directed ("digraph") or not ("graph").
+     *
+     * @return {@code true} if this Graph is directed ("digraph").
+     */
+    public boolean isDigraph() {
+        return isDigraph;
+    }
+
+    /**
+     * Indicates if this Graph is defined as strict or not.
+     *
+     * @return {@code true} if this Graph is strict.
+     */
+    public boolean isStrict() {
+        return isStrict;
+    }
+
+    /**
+     * @return The currently known Statements.
+     */
+    public Statements getStatements() {
+        return statements;
+    }
+
+    /**
+     * <pre>graph :	[ strict ] (graph | digraph) [ ID ] '{' stmt_list '}'</pre>
+     * where <pre>stmt_list	: [ stmt [ ';' ] stmt_list ]</pre>
+     * {@code}
+     */
     @Override
     public String render() {
-        return null;
+
+        return (isStrict() ? "strict " : "")
+                + (isDigraph() ? "digraph" : "graph")
+                + getQuotedId()
+                + "{ " + NEWLINE
+                + statements.render()
+                + " } "
+                + NEWLINE;
     }
 }
