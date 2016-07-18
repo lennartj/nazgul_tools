@@ -34,6 +34,21 @@ public class NodeIDTest {
         new NodeID(null, null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnNullPort() {
+
+        // Assemble
+        final NodeID unitUnderTest = new NodeID("node21", null);
+
+        // Act & Assert
+        unitUnderTest.setPort(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnNullCompassPoint() {
+        new NodeID.Port(null);
+    }
+
     @Test
     public void validateRenderingWithNullPort() {
 
@@ -59,6 +74,7 @@ public class NodeIDTest {
 
         // Assert
         Assert.assertEquals("\"foobar\" : aPort : n", result.trim());
+        Assert.assertEquals("aPort", port.getId());
     }
 
     @Test
@@ -76,5 +92,24 @@ public class NodeIDTest {
         Assert.assertEquals("foobar", unitUnderTest.getId());
         Assert.assertEquals("\"foobar\" : ne", result.trim());
         Assert.assertEquals("[NodeID]:  \"foobar\" : ne", unitUnderTest.toString());
+    }
+
+    @Test
+    public void validateComparisonAndEquality() {
+
+        // Assemble
+        final NodeID nodeID1 = new NodeID("node1");
+        final NodeID nodeID2 = new NodeID("node2");
+
+        // Act & Assert
+        Assert.assertEquals(0, nodeID1.compareTo(nodeID1));
+        Assert.assertEquals(nodeID1.hashCode(), nodeID1.hashCode());
+        Assert.assertEquals(-1, nodeID1.compareTo(null));
+        Assert.assertEquals("node1".compareTo("node2"), nodeID1.compareTo(nodeID2));
+
+        Assert.assertTrue(nodeID1.equals(nodeID1));
+        Assert.assertFalse(nodeID1.equals(null));
+        Assert.assertFalse(nodeID1.equals("node1"));
+        Assert.assertFalse(nodeID1.equals(nodeID2));
     }
 }

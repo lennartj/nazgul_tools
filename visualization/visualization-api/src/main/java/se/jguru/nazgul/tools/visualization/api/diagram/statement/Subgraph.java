@@ -21,7 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
+import se.jguru.nazgul.tools.visualization.api.diagram.AbstractGraph;
 
 /**
  * <p>Subgraph statement implementation, corresponding to the following DOT grammar:</p>
@@ -39,10 +39,7 @@ import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiabl
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class Subgraph extends AbstractStringIdentifiable implements Statement {
-
-    // Internal state
-    private Statements statements;
+public class Subgraph extends AbstractGraph implements Statement {
 
     /**
      * Compound constructor creating a sub-graph statement wrapping the supplied data.
@@ -53,18 +50,6 @@ public class Subgraph extends AbstractStringIdentifiable implements Statement {
 
         // Delegate
         super(id);
-
-        // Assign internal state
-        this.statements = new Statements();
-    }
-
-    /**
-     * Retrieves the currently known List of Statements within this {@link Subgraph}.
-     *
-     * @return the non-null List of Statements within this {@link Subgraph}.
-     */
-    public Statements getStatements() {
-        return statements;
     }
 
     /**
@@ -79,7 +64,7 @@ public class Subgraph extends AbstractStringIdentifiable implements Statement {
         return "subgraph " + getQuotedId()
                 + "{ "
                 + NEWLINE
-                + statements.render()
+                + getStatements().render()
                 + NEWLINE
                 + "} ";
     }

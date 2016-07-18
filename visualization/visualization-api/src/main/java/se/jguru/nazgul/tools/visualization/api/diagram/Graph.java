@@ -21,7 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge;
 
 /**
  * Graph statement Renderer, complying to the specification in the
@@ -29,12 +29,11 @@ import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class Graph extends AbstractStringIdentifiable {
+public class Graph extends AbstractGraph {
 
     // Internal state
     private boolean isDigraph;
     private boolean isStrict;
-    private Statements statements;
 
     /**
      * Compound constructor creating a {@link Graph} wrapping the supplied data.
@@ -52,7 +51,6 @@ public class Graph extends AbstractStringIdentifiable {
         // Assign internal state
         this.isDigraph = isDigraph;
         this.isStrict = isStrict;
-        this.statements = new Statements();
     }
 
     /**
@@ -74,10 +72,15 @@ public class Graph extends AbstractStringIdentifiable {
     }
 
     /**
-     * @return The currently known Statements.
+     * Convenience method to add and return an Edge between a Node/Subgraph and another Node/Subgraph within the
+     * immediate Statements in this Graph.
+     *
+     * @param fromId The non-empty ID of the Node/Subgraph from which the Edge should originate.
+     * @param toId   The non-empty ID of the Node/Subgraph to which the Edge should be directed.
+     * @return The newly created Edge - or {@code null} if the Edge could not be created.
      */
-    public Statements getStatements() {
-        return statements;
+    public Edge addEdge(final String fromId, final String toId) {
+        return getStatements().addEdge(fromId, toId, this);
     }
 
     /**
@@ -92,7 +95,7 @@ public class Graph extends AbstractStringIdentifiable {
                 + (isDigraph() ? "digraph" : "graph")
                 + getQuotedId()
                 + "{ " + NEWLINE
-                + statements.render()
+                + getStatements().render()
                 + " } "
                 + NEWLINE;
     }

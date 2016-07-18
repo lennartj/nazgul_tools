@@ -79,8 +79,8 @@ public class SortedAttributeList implements StringRenderable {
      * Creates a new {@link SortedAttributeList} with an empty attributes Map using the
      * supplied {@link Comparator} for sort ordering.
      *
-     * @param comparator  An optional (i.e. nullable) Comparator indicating the sort order within the underlying
-     *                    attributes {@link SortedMap}. If null, the {@link TreeMap} natural sort order is used.
+     * @param comparator An optional (i.e. nullable) Comparator indicating the sort order within the underlying
+     *                   attributes {@link SortedMap}. If null, the {@link TreeMap} natural sort order is used.
      * @see TreeMap#TreeMap(Comparator)
      */
     public SortedAttributeList(final Comparator<String> comparator) {
@@ -128,17 +128,18 @@ public class SortedAttributeList implements StringRenderable {
     @Override
     public String render() {
 
-        final StringBuilder builder = new StringBuilder(START_TOKEN);
-
-        if(!attributes.isEmpty()) {
-
-            for (Map.Entry<String, String> current : attributes.entrySet()) {
-                builder.append(current.getKey() + SEPARATOR + "\"" + current.getValue() + "\"" + DELIMITER);
-            }
-
-            // Remove the last delimiter
-            builder.delete(builder.length() - DELIMITER.length(), builder.length());
+        // Fail fast
+        if (attributes.isEmpty()) {
+            return "";
         }
+
+        final StringBuilder builder = new StringBuilder(START_TOKEN);
+        for (Map.Entry<String, String> current : attributes.entrySet()) {
+            builder.append(current.getKey() + SEPARATOR + "\"" + current.getValue() + "\"" + DELIMITER);
+        }
+
+        // Remove the last delimiter
+        builder.delete(builder.length() - DELIMITER.length(), builder.length());
 
         // All Done.
         builder.append(END_TOKEN);

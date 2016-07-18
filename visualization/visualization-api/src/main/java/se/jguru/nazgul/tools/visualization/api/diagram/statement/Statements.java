@@ -22,7 +22,10 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
 import se.jguru.nazgul.tools.visualization.api.diagram.Comment;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -106,7 +109,7 @@ public class Statements implements StringRenderable {
 
         // Assign default Comments
         for (Class<? extends Statement> current : DEFAULT_STATEMENT_ORDER) {
-            setCommentFor(current, Comment.createSingleLineComment(current.getSimpleName() + " statements."));
+            setCommentFor(current, new Comment(current.getSimpleName() + " statements."));
         }
     }
 
@@ -135,6 +138,7 @@ public class Statements implements StringRenderable {
      *
      * @param toAdd One or more {@link Statement} instances.
      */
+    @SuppressWarnings("PMD")
     public void add(final Statement... toAdd) {
 
         if (toAdd != null) {
@@ -159,6 +163,165 @@ public class Statements implements StringRenderable {
     }
 
     /**
+     * Finds known {@link Statements} which are also {@link AbstractStringIdentifiable} subclasses and have the
+     * supplied identifier. The search does not descend into contained {@link Subgraph}s.
+     *
+     * @param type       The type of Statement to find.
+     * @param identifier The identifier of the Statement to find.
+     * @param <T>        The type of Statement to find.
+     * @return The {@link Statement} having its identifier (i.e. {@link AbstractStringIdentifiable#getId()}) equal to
+     * the supplied identifier, or null if none was found.
+     */
+    public <T extends AbstractStringIdentifiable & Statement> T find(
+            final Class<T> type,
+            final String identifier) {
+        return find(type, identifier, false);
+    }
+
+    /**
+     * Finds known {@link Statements} which are also {@link AbstractStringIdentifiable} subclasses and have the
+     * supplied identifier.
+     *
+     * @param type              The type of Statement to find.
+     * @param identifier        The identifier of the Statement to find.
+     * @param searchRecursively If {@code true}, the search will descend into {@link Subgraph}s, and otherwise only
+     *                          this {@link Statements}' content are searched.
+     * @param <T>               The type of Statement to find.
+     * @return The {@link Statement} having its identifier (i.e. {@link AbstractStringIdentifiable#getId()}) equal to
+     * the supplied identifier, or null if none was found.
+     */
+    public <T extends AbstractStringIdentifiable & Statement> T find(
+            final Class<T> type,
+            final String identifier,
+            final boolean searchRecursively) {
+
+        // Check sanity
+        if (type == null) {
+            throw new IllegalArgumentException("Cannot handle null 'type' argument.");
+        }
+        if (identifier == null || identifier.isEmpty()) {
+            throw new IllegalArgumentException("Cannot handle null or empty 'identifier' argument.");
+        }
+
+        // Find the Statement with the supplied identifier.
+        final List<Statement> existingStatements = type2StatementsMap.get(type);
+        if (existingStatements != null && !existingStatements.isEmpty()) {
+
+            for (Statement current : existingStatements) {
+
+                final String currentId = ((AbstractStringIdentifiable) current).getId();
+                if (identifier.equals(currentId)) {
+                    return (T) current;
+                }
+
+                // Descend?
+                if (current instanceof Subgraph && searchRecursively) {
+                    final T toReturn = ((Subgraph) current).getStatements().find(type, identifier, true);
+                    if (toReturn != null) {
+                        return toReturn;
+                    }
+                }
+            }
+        }
+
+        // None found.
+        return null;
+    }
+
+    /**
+     * Convenience method to add and return an Edge between a Node/Subgraph and another Node/Subgraph.
+     *
+     * @param fromId      The non-empty ID of the Node/Subgraph from which the Edge should originate.
+     * @param toId        The non-empty ID of the Node/Subgraph to which the Edge should be directed.
+     * @param parentGraph The non-null parent {@link Graph} where the Edge is about to be created.
+     * @return The newly created Edge - or {@code null} if the Edge could not be created.
+     */
+    public Edge addEdge(final String fromId, final String toId, final Graph parentGraph) {
+
+        // Check sanity
+        if (fromId == null || fromId.isEmpty()) {
+            throw new IllegalArgumentException("Cannot handle null or empty 'fromId' argument.");
+        }
+        if (toId == null || toId.isEmpty()) {
+            throw new IllegalArgumentException("Cannot handle null or empty 'toId' argument.");
+        }
+        if(parentGraph == null) {
+            throw new IllegalArgumentException("Cannot handle null 'parentGraph' argument.");
+        }
+
+        Edge toReturn = null;
+
+        // Find the nodes between which the Edge should be created.
+        final Node fromNode = find(Node.class, fromId);
+        final Subgraph fromSubgraph = find(Subgraph.class, fromId);
+        if (fromNode != null || fromSubgraph != null) {
+
+            // Find the RHS edge data.
+            final Node toNode = find(Node.class, toId);
+            final Subgraph toSubgraph = find(Subgraph.class, toId);
+            final NodeID toNodeId = toNode == null ? null : toNode.getNodeID();
+
+            // Can we actually create an Edge?
+            if (toNodeId != null || toSubgraph != null) {
+
+                // Start by creating the RightSideEdge.
+                final RightSideEdge rightSideEdge = toNodeId == null
+                        ? new RightSideEdge(toSubgraph, parentGraph)
+                        : new RightSideEdge(toNodeId, parentGraph);
+
+                // Finally, create the Edge to return.
+                toReturn = fromNode == null
+                        ? new Edge(fromSubgraph, rightSideEdge)
+                        : new Edge(fromNode.getNodeID(), rightSideEdge);
+            }
+        }
+
+        // Add the newly created Edge, if applicable.
+        if (toReturn != null) {
+            add(toReturn);
+        }
+
+        // All Done.
+        return toReturn;
+    }
+
+    /**
+     * Finds the Edge with the given from ID, and whose {@link RightSideEdge}'s ID matches the to ID.
+     *
+     * @param fromId The non-null ID of the Edge to match.
+     * @param toId   The non-null ID of the {@link RightSideEdge} of the Edge to match.
+     * @return An Edge whose ID matches the fromId argument and whose immediate {@link RightSideEdge}'s ID matches
+     * the toId argument.
+     */
+    @SuppressWarnings("PMD")
+    public Edge findEdge(final String fromId, final String toId) {
+
+        // Check sanity
+        if (fromId == null) {
+            throw new IllegalArgumentException("Cannot handle null 'fromId' argument.");
+        }
+        if (toId == null) {
+            throw new IllegalArgumentException("Cannot handle null 'toId' argument.");
+        }
+
+        for (Statement current : type2StatementsMap.get(Edge.class)) {
+
+            // Find the current Edge's from and to IDs.
+            final Edge currentEdge = (Edge) current;
+            final String currentFromID = currentEdge.getId();
+            final String currentToID = currentEdge.getRightSideEdge().getId();
+
+            // Match?
+            if (fromId.equals(currentFromID) && toId.equals(currentToID)) {
+                return currentEdge;
+            }
+        }
+
+        // All Done.
+        return null;
+    }
+
+    /**
      * <p>Returns a commented, suite of all provided Statements, in the following order:</p>
      * <ol>
      * <li>{@link Attribute} statements</li>
@@ -171,6 +334,7 @@ public class Statements implements StringRenderable {
      * @return
      */
     @Override
+    @SuppressWarnings("PMD")
     public String render() {
 
         final StringBuilder builder = new StringBuilder("");

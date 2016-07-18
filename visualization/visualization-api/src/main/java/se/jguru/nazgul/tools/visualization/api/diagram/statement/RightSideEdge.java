@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 
 /**
@@ -45,18 +46,37 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
     /**
      * Creates a {@link RightSideEdge} wrapping the supplied data.
      *
-     * @param nodeID          A non-null {@link NodeID} instance.
-     * @param isDirectedGraph {@code true} if the Graph within which {@link RightSideEdge} should be rendered is a
-     *                        directed Graph, and {@code false} otherwise.
+     * @param nodeID      A non-null {@link NodeID} instance.
+     * @param owningGraph The non-null {@link Graph} instance wherein this {@link RightSideEdge} is part.
      */
-    public RightSideEdge(final NodeID nodeID, final boolean isDirectedGraph) {
+    public RightSideEdge(final NodeID nodeID, final Graph owningGraph) {
         super(nodeID);
-        this.isDirectedGraph = isDirectedGraph;
+
+        // Check sanity
+        if (owningGraph == null) {
+            throw new IllegalArgumentException("Cannot handle null 'owningGraph' argument.");
+        }
+
+        // Assign internal state
+        this.isDirectedGraph = owningGraph.isDigraph();
     }
 
-    public RightSideEdge(final Subgraph subgraph, final boolean isDirectedGraph) {
+    /**
+     * Creates a {@link RightSideEdge} wrapping the supplied data.
+     *
+     * @param subgraph    A non-null {@link Subgraph} instance.
+     * @param owningGraph The non-null {@link Graph} instance wherein this {@link RightSideEdge} is part.
+     */
+    public RightSideEdge(final Subgraph subgraph, final Graph owningGraph) {
         super(subgraph);
-        this.isDirectedGraph = isDirectedGraph;
+
+        // Check sanity
+        if (owningGraph == null) {
+            throw new IllegalArgumentException("Cannot handle null 'owningGraph' argument.");
+        }
+
+        // Assign internal state
+        this.isDirectedGraph = owningGraph.isDigraph();
     }
 
     /**
@@ -92,11 +112,48 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
         final String prefix = (isDirectedGraph ? "->" : "--") + " " + getAbstractEdgeRendering();
 
         // Done?
-        if(rightSideEdge == null) {
+        if (rightSideEdge == null) {
             return prefix;
         }
 
         // All Done.
         return prefix + " " + rightSideEdge.render();
+    }
+
+    /**
+     * Factory method creating a {@link RightSideEdge} which terminates in the Node or Subgraph with the supplied ID
+     * and within the supplied Graph.
+     *
+     * @param id          A non-null identifier of a NodeID or Subgraph to which this {@link RightSideEdge} should go.
+     * @param withinGraph The non-null Graph within which the returned {@link RightSideEdge} should reside.
+     * @return A newly constructed {@link RightSideEdge} which <strong>is not yet added to any {@link Edge} or
+     * {@link RightSideEdge}</strong> - or null if no Node or Subgraph with the supplied id was
+     * found in the withinGraph.
+     */
+    public static RightSideEdge to(final String id, final Graph withinGraph) {
+
+        // Check sanity
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot handle null 'id' argument.");
+        }
+        if (withinGraph == null) {
+            throw new IllegalArgumentException("Cannot handle null 'withinGraph' argument.");
+        }
+
+        // First, assume that the ID is a NodeID.
+        final Statements statements = withinGraph.getStatements();
+        final Node node = statements.find(Node.class, id);
+        if (node != null) {
+            return new RightSideEdge(node.getNodeID(), withinGraph);
+        }
+
+        // Next, assume that the ID is a Subgraph.
+        final Subgraph subgraph = statements.find(Subgraph.class, id);
+        if (subgraph != null) {
+            return new RightSideEdge(subgraph, withinGraph);
+        }
+
+        // All Done.
+        return null;
     }
 }

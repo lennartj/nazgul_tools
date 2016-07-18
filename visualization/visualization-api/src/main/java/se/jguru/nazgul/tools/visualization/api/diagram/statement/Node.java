@@ -81,6 +81,6 @@ public class Node extends AbstractStringIdentifiable implements Statement {
      */
     @Override
     public String render() {
-        return nodeID.render() + " " + attributeList.render();
+        return nodeID.render() + (attributeList.isEmpty() ? "" : " " + attributeList.render());
     }
 }

@@ -35,18 +35,34 @@ import java.util.List;
 public class Comment implements StringRenderable {
 
     // Internal state
-    private List<String> commentLines = new ArrayList<>();
+    private List<String> commentLines;
 
     /**
-     * Adds a line to this comment, if 'toAdd' is not null.
-     * Also, {@link #NEWLINE} strings are substituted for a single space.
+     * Creates a new Comment wrapping the supplied lines
      *
-     * @param toAdd a line to add to this comment. 'ToAdd' should not be null.
+     * @param lines One or more comment lines.
      */
-    public void addLine(final String toAdd) {
+    public Comment(final String ... lines) {
 
-        if (toAdd != null) {
-            commentLines.add(toAdd.replace(NEWLINE, " "));
+        // Create internal state
+        commentLines = new ArrayList<>();
+
+        // Add all supplied lines.
+        add(lines);
+    }
+
+    /**
+     * If non-null, adds one or more lines to this comment.
+     * Also, {@link #NEWLINE} strings are removed from each line.
+     *
+     * @param lines one or more lines to add to this comment.
+     */
+    public final void add(final String ... lines) {
+
+        if (lines != null) {
+            for(String current : lines) {
+                commentLines.add(current.replace(NEWLINE, ""));
+            }
         }
     }
 
@@ -78,18 +94,5 @@ public class Comment implements StringRenderable {
 
         // All Done.
         return builder.toString();
-    }
-
-    /**
-     * Convenience builder method to create a single-line (i.e. '//') Comment.
-     *
-     * @param singleLineComment The text of the Comment.
-     * @return A single-line Comment.
-     */
-    public static Comment createSingleLineComment(final String singleLineComment) {
-
-        final Comment toReturn = new Comment();
-        toReturn.addLine(singleLineComment);
-        return toReturn;
     }
 }

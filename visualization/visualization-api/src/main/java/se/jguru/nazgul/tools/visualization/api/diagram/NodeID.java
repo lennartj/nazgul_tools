@@ -23,13 +23,15 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
+import java.util.Objects;
+
 /**
  * NodeID statement Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeID extends AbstractStringIdentifiable {
+public class NodeID extends AbstractStringIdentifiable implements Comparable<NodeID> {
 
     /**
      * An enumeration corresponding to
@@ -94,7 +96,7 @@ public class NodeID extends AbstractStringIdentifiable {
 
             // Check sanity
             if (compassPoint == null) {
-                throw new NullPointerException("Cannot hanlde null 'compassPoint' argument.");
+                throw new IllegalArgumentException("Cannot handle null 'compassPoint' argument.");
             }
 
             // Assign internal state
@@ -139,6 +141,15 @@ public class NodeID extends AbstractStringIdentifiable {
     private Port port;
 
     /**
+     * Convenience constructor creating a NodeID instance with a null {@link Port}.
+     *
+     * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
+     */
+    public NodeID(final String id) {
+        this(id, null);
+    }
+
+    /**
      * Compound constructor creating a {@link NodeID} with the supplied ID and optional
      * (i.e. nullable) Port values. Corresponds to <strong><code>node_id : ID [ port ]</code></strong> in the
      * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
@@ -160,7 +171,7 @@ public class NodeID extends AbstractStringIdentifiable {
 
         // Check sanity
         if (port == null) {
-            throw new NullPointerException("Cannot handle null 'port' argument.");
+            throw new IllegalArgumentException("Cannot handle null 'port' argument.");
         }
 
         // Assign internal state
@@ -179,6 +190,54 @@ public class NodeID extends AbstractStringIdentifiable {
      */
     @Override
     public String render() {
-        return getQuotedId() + (port != null ? "" + port.render() : " ");
+        return getQuotedId() + (port != null ? "" + port.render() : "");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final NodeID that = (NodeID) o;
+        return super.equals(that)
+                && Objects.equals(port, that.port);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), port);
+    }
+
+    /**
+     * Compares the supplied NodeID to this one.
+     *
+     * @param that A NodeID to compare to this one.
+     * @return THe difference in
+     */
+    @Override
+    public int compareTo(final NodeID that) {
+
+        // Fail fast
+        if (that == this) {
+            return 0;
+        } else if (null == that) {
+            return -1;
+        }
+
+        // Delegate to internal state
+        return this.getId().compareTo(that.getId());
     }
 }

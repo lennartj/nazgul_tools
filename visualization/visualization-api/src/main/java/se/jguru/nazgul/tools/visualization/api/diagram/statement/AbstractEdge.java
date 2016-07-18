@@ -67,6 +67,15 @@ public abstract class AbstractEdge {
     }
 
     /**
+     * Retrieves the ID of the non-null NodeID/Subgraph instance within this {@link AbstractEdge}.
+     *
+     * @return The non-null identifier of this {@link AbstractEdge}.
+     */
+    public String getId() {
+        return nodeID == null ? subgraph.getId() : nodeID.getId();
+    }
+
+    /**
      * Retrieves the rendering of this {@link AbstractEdge}, implying the rendering of its non-null part
      * (i.e. NodeID or Subgraph respectively).
      *
