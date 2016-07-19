@@ -1,0 +1,12 @@
+strict digraph "Example" {
+
+    // Node statements.
+    "node_1"  ;
+    "node_2"  ;
+
+    // Identifier statements.
+    "node_1"  = "foobar"  ;
+
+    // Edge statements.
+    "node_1"  ->  "node_2"  ;
+}

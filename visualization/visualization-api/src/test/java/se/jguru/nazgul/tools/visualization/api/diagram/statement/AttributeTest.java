@@ -58,7 +58,7 @@ public class AttributeTest extends AbstractGraphTest {
         graph.add(Attribute.AttributeType.NODE.get().addAttribute("gnu", "gnorp"));
 
         final Node node1 = graph.getStatements().find(Node.class, "node1");
-        node1.getAttributeList().addAttribute("some", "attribute");
+        node1.getAttributes().addAttribute("some", "attribute");
 
         // Act
         validateGraph(graph, expectedTexts);

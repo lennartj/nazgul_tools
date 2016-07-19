@@ -63,7 +63,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
      *
      * @return the non-null {@link SortedAttributeList} of this {@link Node}.
      */
-    public SortedAttributeList getAttributeList() {
+    public SortedAttributeList getAttributes() {
         return attributeList;
     }
 

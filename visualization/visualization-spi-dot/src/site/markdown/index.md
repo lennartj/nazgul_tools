@@ -6,7 +6,7 @@ produce Java classes more in tune with the Java Language specification WRT case.
 project also contains some utility classes to validate the syntax of a stream containing
 data conforming to the <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
 
-The typical two usage for this component is as follows:
+The typical two usages for this component are shown below:
 
 ## 1. Simple validation of Graphviz/Dot files
 
