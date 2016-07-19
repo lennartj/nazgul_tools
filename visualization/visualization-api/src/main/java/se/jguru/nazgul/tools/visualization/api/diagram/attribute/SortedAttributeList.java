@@ -95,8 +95,9 @@ public class SortedAttributeList implements StringRenderable {
      *
      * @param key   The non-null and non-empty attribute key.
      * @param value The non-null attribute value.
+     * @return This {@link SortedAttributeList}, for chaining.
      */
-    public void addAttribute(final String key, final String value) {
+    public SortedAttributeList addAttribute(final String key, final String value) {
 
         // Check sanity
         if (key == null || key.isEmpty()) {
@@ -108,6 +109,9 @@ public class SortedAttributeList implements StringRenderable {
 
         // Assign internal state
         attributes.put(key, value);
+
+        // All Done.
+        return this;
     }
 
     /**

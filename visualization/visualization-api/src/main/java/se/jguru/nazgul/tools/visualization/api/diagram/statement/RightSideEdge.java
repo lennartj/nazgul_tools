@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.diagram.AbstractGraph;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 
@@ -124,31 +125,37 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
      * Factory method creating a {@link RightSideEdge} which terminates in the Node or Subgraph with the supplied ID
      * and within the supplied Graph.
      *
-     * @param id          A non-null identifier of a NodeID or Subgraph to which this {@link RightSideEdge} should go.
-     * @param withinGraph The non-null Graph within which the returned {@link RightSideEdge} should reside.
+     * @param id              A non-null identifier of a NodeID or Subgraph to which this {@link RightSideEdge}
+     *                        should go.
+     * @param immediateParent The non-null {@link AbstractGraph} within which the returned {@link RightSideEdge}
+     *                        should reside.
+     * @param withinGraph     The non-null Graph which is the ultimate parent of the {@link RightSideEdge} to create.
      * @return A newly constructed {@link RightSideEdge} which <strong>is not yet added to any {@link Edge} or
      * {@link RightSideEdge}</strong> - or null if no Node or Subgraph with the supplied id was
      * found in the withinGraph.
      */
-    public static RightSideEdge to(final String id, final Graph withinGraph) {
+    public static RightSideEdge to(final String id, final AbstractGraph immediateParent, final Graph withinGraph) {
 
         // Check sanity
         if (id == null) {
             throw new IllegalArgumentException("Cannot handle null 'id' argument.");
+        }
+        if (immediateParent == null) {
+            throw new IllegalArgumentException("Cannot handle null 'immediateParent' argument.");
         }
         if (withinGraph == null) {
             throw new IllegalArgumentException("Cannot handle null 'withinGraph' argument.");
         }
 
         // First, assume that the ID is a NodeID.
-        final Statements statements = withinGraph.getStatements();
-        final Node node = statements.find(Node.class, id);
+        final Statements statements = immediateParent.getStatements();
+        final Node node = statements.find(Node.class, id, true);
         if (node != null) {
             return new RightSideEdge(node.getNodeID(), withinGraph);
         }
 
         // Next, assume that the ID is a Subgraph.
-        final Subgraph subgraph = statements.find(Subgraph.class, id);
+        final Subgraph subgraph = statements.find(Subgraph.class, id, true);
         if (subgraph != null) {
             return new RightSideEdge(subgraph, withinGraph);
         }

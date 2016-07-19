@@ -31,6 +31,7 @@ import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class RightSideEdgeTest {
+public class RightSideEdgeTest extends AbstractGraphTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void validateExceptionOnNullGraphForNodeID() {
@@ -78,23 +79,27 @@ public class RightSideEdgeTest {
     public void validateExceptionOnNullIdInFactoryMethod() {
 
         // Assemble
-        final Graph graph = createStandardGraph(true);
+        final Graph parent = createStandardGraph(true);
 
         // Act & Assert
-        RightSideEdge.to(null, graph);
+        RightSideEdge.to(null, parent, parent);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullGraphInFactoryMethod() {
+    public void validateExceptionOnNullImmediateParentInFactoryMethod() {
+
+        // Assemble
+        final Graph parent = createStandardGraph(false);
 
         // Act & Assert
-        RightSideEdge.to("foo", null);
+        RightSideEdge.to("foo", null, parent);
     }
 
     @Test
     public void validateRenderingWithinDirectedGraph() {
 
         // Assemble
+        final List<String> expectedTexts = getBaseExpectedTests("->");
         final Graph graph = createStandardGraph(true);
 
         // Act
@@ -102,7 +107,45 @@ public class RightSideEdgeTest {
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
-        validateGraph(unitUnderTest, graph, "->");
+        validateGraph(graph, expectedTexts);
+    }
+
+    @Test
+    public void validateRenderingWithinDirectedSubgraph() {
+
+        // Assemble
+        final Graph graph = createStandardGraph(true);
+        final List<String> expectedTexts = new ArrayList<>(getBaseExpectedTests("->"));
+        expectedTexts.add("subgraph\"subgraph_1\"{\"node3\";\"subgraph_1\"->\"node3\";}");
+
+        /*
+        // Subgraph statements.
+        subgraph  "subgraph_1" {
+
+        // Node statements.
+        "node3"  ;
+
+        // Edge statements.
+        "subgraph_1" ->  "node3"  ;
+
+        }  ;
+         */
+
+        final Subgraph subgraph = new Subgraph("subgraph_1");
+        final Node node3 = new Node("node3");
+
+        subgraph.add(node3);
+        graph.add(subgraph);
+
+        final Edge edgeIntoSubgraph = new Edge(subgraph, RightSideEdge.to("node3", subgraph, graph));
+        subgraph.add(edgeIntoSubgraph);
+
+        // Act
+        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final RightSideEdge unitUnderTest = edge.getRightSideEdge();
+
+        // Assert
+        validateGraph(graph, expectedTexts);
     }
 
     @Test
@@ -110,13 +153,14 @@ public class RightSideEdgeTest {
 
         // Assemble
         final Graph graph = createStandardGraph(false);
+        final List<String> expectedTexts = getBaseExpectedTests("--");
 
         // Act
         final Edge edge = graph.getStatements().findEdge("node1", "node2");
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
-        validateGraph(unitUnderTest, graph, "--");
+        validateGraph(graph, expectedTexts);
     }
 
     @Test
@@ -129,7 +173,7 @@ public class RightSideEdgeTest {
         // Act
         final Edge edge = graph.getStatements().findEdge("node1", "node2");
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
-        unitUnderTest.setRightSideEdge(RightSideEdge.to("node3", graph));
+        unitUnderTest.setRightSideEdge(RightSideEdge.to("node3", graph, graph));
 
         /*
         graph "foobar" {
@@ -172,6 +216,15 @@ public class RightSideEdgeTest {
     // Private helpers
     //
 
+    /*
+    private List<String> getBaseExpectedTests(final String edgeOp) {
+        return Arrays.asList(
+                "\"node1\"",
+                "\"node2\"",
+                "\"node1\"=\"foobar\"",
+                "\"node1\"" + edgeOp + "\"node2\"");
+    }
+
     private Graph createStandardGraph(final boolean directed) {
 
         final Graph graph = new Graph("foobar", directed, false);
@@ -187,30 +240,29 @@ public class RightSideEdgeTest {
         return graph;
     }
 
-    private void validateGraph(final RightSideEdge unitUnderTest, final Graph graph, final String edgeOp) {
+    private void validateGraph(final RightSideEdge unitUnderTest,
+                               final Graph graph,
+                               final List<String> expectedTexts) {
 
-        final String result = unitUnderTest.render();
-        Assert.assertEquals(edgeOp + "  \"node2\"", result.trim());
+        System.out.println("Got rendered Graph:\n" + graph.render());
 
         final InputStream in = new ByteArrayInputStream(graph.render().getBytes());
         final DotParser.GraphContext graphContext = DotDiagramValidator.validate(in);
         Assert.assertNotNull(graphContext);
 
         final List<DotParser.StmtContext> parsedStatements = graphContext.stmt_list().stmt();
-        Assert.assertEquals(4, parsedStatements.size());
-
         final List<String> parsedStatementTexts = parsedStatements.stream()
                 .map(RuleContext::getText)
                 .collect(Collectors.toList());
 
-        final List<String> expectedTexts = Arrays.asList(
-                "\"node1\"",
-                "\"node2\"",
-                "\"node1\"=\"foobar\"",
-                "\"node1\"" + edgeOp + "\"node2\"");
+        Assert.assertEquals("Got " + parsedStatementTexts + ", but expected " + expectedTexts,
+                expectedTexts.size(),
+                parsedStatements.size());
 
-        for(String current : expectedTexts) {
+
+        for (String current : expectedTexts) {
             Assert.assertTrue(parsedStatementTexts.contains(current));
         }
     }
+    */
 }

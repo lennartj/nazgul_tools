@@ -82,6 +82,6 @@ public abstract class AbstractEdge {
      * @return the non-null rendering of this {@link AbstractEdge}.
      */
     protected String getAbstractEdgeRendering() {
-        return nodeID == null ? subgraph.render() : nodeID.render();
+        return nodeID == null ? "\"" + subgraph.getId() + "\"" : nodeID.render();
     }
 }

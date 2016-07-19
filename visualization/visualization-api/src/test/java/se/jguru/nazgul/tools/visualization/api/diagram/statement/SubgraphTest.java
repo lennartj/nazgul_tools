@@ -30,13 +30,14 @@ import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class SubgraphTest {
+public class SubgraphTest extends AbstractGraphTest {
 
     @Test
     public void validateAddingSubgraphsAndNodes() {
@@ -48,11 +49,33 @@ public class SubgraphTest {
         validateGraph(standardGraph, "->");
     }
 
+    @Test
+    public void validateFindingNodesRecursively() {
+
+        // Assemble
+        final Graph standardGraph = createStandardGraph(true);
+
+        // Act
+        final List<Node> nodeList = new ArrayList<>();
+        for(int i = 1; i < 4; i++) {
+            nodeList.add(standardGraph.getStatements().find(Node.class, "node_" + i, true));
+        }
+
+        // Assert
+        Assert.assertEquals(3, nodeList.size());
+        for(int i = 0; i < nodeList.size(); i++) {
+
+            final Node current = nodeList.get(i);
+            Assert.assertNotNull(current);
+            Assert.assertEquals("node_" + (i + 1), current.getId());
+        }
+    }
+
     //
     // Private helpers
     //
 
-    private Graph createStandardGraph(final boolean directed) {
+    protected Graph createStandardGraph(final boolean directed) {
 
         final Graph graph = new Graph("subgraphTest", directed, false);
 

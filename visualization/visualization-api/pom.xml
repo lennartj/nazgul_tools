@@ -65,6 +65,15 @@
             External dependencies
         -->
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <scope>test</scope>
@@ -97,9 +106,16 @@
                         </excludes>
                     </instrumentation>
                     <check>
-                        <branchRate>65</branchRate>
-                        <lineRate>80</lineRate>
+                        <branchRate>50</branchRate>
+                        <lineRate>75</lineRate>
                         <haltOnFailure>true</haltOnFailure>
+                        <!-- regexes>
+                            <regex>
+                                <pattern>se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements</pattern>
+                                <branchRate>50</branchRate>
+                                <lineRate>75</lineRate>
+                            </regex>
+                        </regexes -->
                     </check>
                 </configuration>
                 <executions>

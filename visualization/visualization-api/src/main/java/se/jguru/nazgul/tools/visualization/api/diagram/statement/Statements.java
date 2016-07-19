@@ -21,6 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
 import se.jguru.nazgul.tools.visualization.api.diagram.Comment;
@@ -43,9 +45,12 @@ import java.util.TreeMap;
  */
 public class Statements implements StringRenderable {
 
+    // Our Log
+    public static final Logger log = LoggerFactory.getLogger(Statement.class);
+
     /**
      * <p>The order in which statements should normally be rendered, i.e:</p>
-     *
+     * <p>
      * <ol>
      * <li>{@link Attribute} statements</li>
      * <li>{@link Node} statements</li>
@@ -190,6 +195,7 @@ public class Statements implements StringRenderable {
      * @return The {@link Statement} having its identifier (i.e. {@link AbstractStringIdentifiable#getId()}) equal to
      * the supplied identifier, or null if none was found.
      */
+    @SuppressWarnings("PMD")
     public <T extends AbstractStringIdentifiable & Statement> T find(
             final Class<T> type,
             final String identifier,
@@ -203,6 +209,11 @@ public class Statements implements StringRenderable {
             throw new IllegalArgumentException("Cannot handle null or empty 'identifier' argument.");
         }
 
+        if(log.isDebugEnabled()) {
+            log.debug("Searching for [" + identifier + "] of type [" + type.getSimpleName()
+                    + "] within Statements [" + hashCode() + "]");
+        }
+
         // Find the Statement with the supplied identifier.
         final List<Statement> existingStatements = type2StatementsMap.get(type);
         if (existingStatements != null && !existingStatements.isEmpty()) {
@@ -213,12 +224,24 @@ public class Statements implements StringRenderable {
                 if (identifier.equals(currentId)) {
                     return (T) current;
                 }
+            }
+        }
 
-                // Descend?
-                if (current instanceof Subgraph && searchRecursively) {
-                    final T toReturn = ((Subgraph) current).getStatements().find(type, identifier, true);
-                    if (toReturn != null) {
-                        return toReturn;
+        // Recursive search?
+        if (searchRecursively) {
+
+            // Find all our Subgraphs, and extend the search into them.
+            final List<Statement> subgraphs = type2StatementsMap.get(Subgraph.class);
+
+            if(subgraphs != null) {
+
+                for (Statement stmnt : subgraphs) {
+
+                    final Subgraph current = (Subgraph) stmnt;
+                    final T result = current.getStatements().find(type, identifier, true);
+
+                    if (result != null) {
+                        return result;
                     }
                 }
             }
@@ -245,7 +268,7 @@ public class Statements implements StringRenderable {
         if (toId == null || toId.isEmpty()) {
             throw new IllegalArgumentException("Cannot handle null or empty 'toId' argument.");
         }
-        if(parentGraph == null) {
+        if (parentGraph == null) {
             throw new IllegalArgumentException("Cannot handle null 'parentGraph' argument.");
         }
 

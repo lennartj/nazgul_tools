@@ -32,6 +32,20 @@ import static se.jguru.nazgul.tools.visualization.api.StringRenderable.NEWLINE;
 public class CommentTest {
 
     @Test
+    public void validateIgnoringAddingNulls() {
+
+        // Assemble
+        final String aComment = "This is a Standard Comment.";
+
+        // Act
+        final Comment singleLineComment = new Comment(aComment);
+        singleLineComment.add(null);
+
+        // Assert
+        Assert.assertEquals("// " + aComment + NEWLINE, singleLineComment.render());
+    }
+
+    @Test
     public void validateCreatingSingleLineComment() {
 
         // Assemble

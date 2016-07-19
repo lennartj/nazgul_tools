@@ -66,6 +66,15 @@ public class Attribute implements Statement {
         public String render() {
             return dotToken;
         }
+
+        /**
+         * Retrieves an Attribute wrapping this AttributeType.
+         *
+         * @return an Attribute wrapping this AttributeType.
+         */
+        public Attribute get() {
+            return new Attribute(this);
+        }
     }
 
     // Internal state
@@ -105,6 +114,23 @@ public class Attribute implements Statement {
      */
     public SortedAttributeList getAttributeList() {
         return attributeList;
+    }
+
+    /**
+     * Convenience method to add a new key/value pair to this Attribute.
+     *
+     * @param key   A non-null and non-empty string constituting the key in the key/value pair.
+     * @param value A non-null string constituting the value in the key/value pair.
+     * @return This {@link Attribute} instance, for chaining.
+     * @see SortedAttributeList#addAttribute(String, String)
+     */
+    public Attribute addAttribute(final String key, final String value) {
+
+        // Delegate
+        getAttributeList().addAttribute(key, value);
+
+        // All Done.
+        return this;
     }
 
     /**

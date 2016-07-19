@@ -30,6 +30,7 @@ import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -49,7 +50,8 @@ public class GraphTest {
         final Node node2 = new Node("node2");
 
         unitUnderTest.add(node1, node2);
-        unitUnderTest.add(new Identifier(node1.getId(), "foobar"));
+        unitUnderTest.add(new Identifier(node1.getId(), "foobar"), null);
+        unitUnderTest.add(null);
         unitUnderTest.addEdge("node1", "node2");
 
         // Act
