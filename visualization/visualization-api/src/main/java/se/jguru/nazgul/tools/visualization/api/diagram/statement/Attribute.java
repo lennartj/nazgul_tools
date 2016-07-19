@@ -22,7 +22,11 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AbstractDelegatingAttributeList;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.builder.EdgeAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.builder.GraphAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.builder.NodeAttributeList;
 
 /**
  * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
@@ -39,6 +43,7 @@ import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttribute
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@SuppressWarnings("PMD")
 public class Attribute implements Statement {
 
     /**
@@ -79,23 +84,28 @@ public class Attribute implements Statement {
 
     // Internal state
     private AttributeType attributeType;
-    private SortedAttributeList attributeList;
+    private AbstractDelegatingAttributeList attributeList;
 
     /**
      * Creates an {@link Attribute} for the supplied {@link AttributeType}.
      *
      * @param attributeType A non-null {@link AttributeType} indicating which
      */
-    public Attribute(final AttributeType attributeType) {
-
-        // Check sanity
-        if (attributeType == null) {
-            throw new IllegalArgumentException("Cannot handle null 'attributeType' argument.");
-        }
+    private Attribute(final AttributeType attributeType) {
 
         // Assign internal state
         this.attributeType = attributeType;
-        this.attributeList = new SortedAttributeList();
+        switch (attributeType) {
+            case NODE:
+                this.attributeList = new NodeAttributeList();
+                break;
+            case GRAPH:
+                this.attributeList = new GraphAttributeList();
+                break;
+            default:
+                this.attributeList = new EdgeAttributeList();
+                break;
+        }
     }
 
     /**
@@ -108,12 +118,13 @@ public class Attribute implements Statement {
     }
 
     /**
-     * Retrieves the current {@link SortedAttributeList} of this {@link Attribute}.
+     * Retrieves the {@link AbstractDelegatingAttributeList} subtype pertaining to
+     * this {@link AttributeType}'s Attribute.
      *
-     * @return the non-null {@link SortedAttributeList} of this {@link Attribute}.
+     * @return the non-null {@link AbstractDelegatingAttributeList} subtype pertaining to  this {@link Attribute}.
      */
-    public SortedAttributeList getAttributeList() {
-        return attributeList;
+    public <A extends AbstractDelegatingAttributeList> A getAttributeList() {
+        return (A) attributeList;
     }
 
     /**

@@ -135,7 +135,7 @@ public class GraphTest {
      */
 
     @Test
-    public void createExampleGraphWithAttributes() {
+    public void createExampleGraphWithAttributesForMost() {
 
         // Create a directed and strict Graph parent.
         // Add some default attributes for the Graph and for its Nodes.

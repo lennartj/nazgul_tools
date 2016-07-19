@@ -32,13 +32,6 @@ import java.util.List;
  */
 public class AttributeTest extends AbstractGraphTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullAttributeType() {
-
-        // Act & Assert
-        new Attribute(null);
-    }
-
     @Test
     public void validateGraphWithAttributes() {
 

@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AttributeList;
 import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ public class EdgeTest extends AbstractGraphTest {
         final Edge unitUnderTest = graph.getStatements().findEdge("node1", "node2");
         Assert.assertNotNull(unitUnderTest);
 
-        final SortedAttributeList attributes = unitUnderTest.getAttributes();
+        final AttributeList attributes = unitUnderTest.getAttributes();
         for (int i = 3; i > 0; i--) {
             attributes.addAttribute("key_" + i, "value_" + i);
         }

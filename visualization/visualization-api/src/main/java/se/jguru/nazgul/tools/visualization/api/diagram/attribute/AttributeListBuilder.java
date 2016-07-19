@@ -33,5 +33,5 @@ public interface AttributeListBuilder {
      *
      * @return a completely set-up {@link SortedAttributeList} instance.
      */
-    SortedAttributeList build();
+    AttributeList build();
 }

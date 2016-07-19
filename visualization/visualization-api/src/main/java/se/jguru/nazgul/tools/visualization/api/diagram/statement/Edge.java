@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AttributeList;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
 
 /**
@@ -40,7 +41,7 @@ import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttribute
 public class Edge extends AbstractEdge implements Statement {
 
     // Internal state
-    private SortedAttributeList attributes;
+    private AttributeList attributes;
     private RightSideEdge rightSideEdge;
 
     /**
@@ -86,11 +87,11 @@ public class Edge extends AbstractEdge implements Statement {
     }
 
     /**
-     * Retrieves the {@link SortedAttributeList} of this Edge.
+     * Retrieves the {@link AttributeList} of this Edge.
      *
-     * @return a non-null {@link SortedAttributeList}.
+     * @return a non-null {@link AttributeList}.
      */
-    public SortedAttributeList getAttributes() {
+    public AttributeList getAttributes() {
         return attributes;
     }
 

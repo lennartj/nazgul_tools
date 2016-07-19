@@ -83,7 +83,8 @@ public abstract class AbstractGraphTest {
 
 
         for (String current : expectedTexts) {
-            Assert.assertTrue(parsedStatementTexts.contains(current));
+            Assert.assertTrue("Expected '" + current + "'\n ParsedStatementTexts: '" + parsedStatementTexts + "'",
+                    parsedStatementTexts.contains(current));
         }
 
         return graphContext;

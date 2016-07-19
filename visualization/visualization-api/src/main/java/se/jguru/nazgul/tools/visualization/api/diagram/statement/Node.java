@@ -23,6 +23,7 @@ package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AttributeList;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
 
 /**
@@ -35,7 +36,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
 
     // Internal state
     private NodeID nodeID;
-    private SortedAttributeList attributeList;
+    private AttributeList attributeList;
 
     /**
      * Convenience constructor creating a {@link Node} with the supplied ID.
@@ -63,7 +64,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
      *
      * @return the non-null {@link SortedAttributeList} of this {@link Node}.
      */
-    public SortedAttributeList getAttributes() {
+    public AttributeList getAttributes() {
         return attributeList;
     }
 

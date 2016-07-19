@@ -21,8 +21,6 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
-
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
@@ -43,27 +41,7 @@ import java.util.TreeMap;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class SortedAttributeList implements StringRenderable {
-
-    /**
-     * The token starting a SortedAttributeList.
-     */
-    public static final String START_TOKEN = "[ ";
-
-    /**
-     * The token ending a SortedAttributeList.
-     */
-    public static final String END_TOKEN = " ]";
-
-    /**
-     * The token separating attribute (key/value) pairs from one another.
-     */
-    public static final String DELIMITER = ", ";
-
-    /**
-     * The token separating key and value attributes from one another.
-     */
-    public static final String SEPARATOR = "=";
+public class SortedAttributeList implements AttributeList {
 
     // Internal state
     private SortedMap<String, String> attributes;
@@ -90,14 +68,10 @@ public class SortedAttributeList implements StringRenderable {
     }
 
     /**
-     * Adds the supplied attribute key/value pair to this {@link SortedAttributeList}
-     * Any key already present will be overwritten - the latest added attribute is the one being rendered.
-     *
-     * @param key   The non-null and non-empty attribute key.
-     * @param value The non-null attribute value.
-     * @return This {@link SortedAttributeList}, for chaining.
+     * {@inheritDoc}
      */
-    public SortedAttributeList addAttribute(final String key, final String value) {
+    @Override
+    public AttributeList addAttribute(final String key, final String value) {
 
         // Check sanity
         if (key == null || key.isEmpty()) {
@@ -115,10 +89,9 @@ public class SortedAttributeList implements StringRenderable {
     }
 
     /**
-     * Indicates if this {@link SortedAttributeList} is empty or contains data.
-     *
-     * @return {@code true} if this {@link SortedAttributeList} does not contain data.
+     * {@inheritDoc}
      */
+    @Override
     public boolean isEmpty() {
         return attributes == null || attributes.isEmpty();
     }

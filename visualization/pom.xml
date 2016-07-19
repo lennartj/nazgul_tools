@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ #%L
-  ~ nazgul-tools-visualization-api
+  ~ nazgul-tools-visualization-reactor
   ~ %%
   ~ Copyright (C) 2010 - 2016 jGuru Europe AB
   ~ %%
@@ -54,7 +54,7 @@
     <modules>
         <module>visualization-api</module>
         <module>visualization-spi-dot</module>
-        <!-- module>visualization-impl-doclet</module -->
+        <module>visualization-impl-doclet</module>
     </modules>
 
     <!--
