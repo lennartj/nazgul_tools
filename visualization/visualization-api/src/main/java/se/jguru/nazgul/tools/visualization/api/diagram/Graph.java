@@ -23,17 +23,41 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Graph statement Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlRootElement(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"isDigraph", "isStrict"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Graph extends AbstractGraph {
 
+    /**
+     * The XML namespace used by the visualization API classes.
+     */
+    public static final String NAMESPACE = "http://www.jguru.se/nazgul/tools/visualization";
+
     // Internal state
+    @XmlAttribute
     private boolean isDigraph;
+
+    @XmlAttribute
     private boolean isStrict;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Graph() {
+        // Do nothing
+    }
 
     /**
      * Compound constructor creating a {@link Graph} wrapping the supplied data.

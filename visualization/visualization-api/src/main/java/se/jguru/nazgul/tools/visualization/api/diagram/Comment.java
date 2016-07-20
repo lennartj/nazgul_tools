@@ -23,7 +23,13 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,17 +38,28 @@ import java.util.List;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Comment implements StringRenderable {
 
     // Internal state
+    @XmlElementWrapper
+    @XmlElement(name = "line")
     private List<String> commentLines;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Comment() {
+        // Do nothing
+    }
 
     /**
      * Creates a new Comment wrapping the supplied lines
      *
      * @param lines One or more comment lines.
      */
-    public Comment(final String ... lines) {
+    public Comment(final String... lines) {
 
         // Create internal state
         commentLines = new ArrayList<>();
@@ -57,13 +74,22 @@ public class Comment implements StringRenderable {
      *
      * @param lines one or more lines to add to this comment.
      */
-    public final void add(final String ... lines) {
+    public final void add(final String... lines) {
 
         if (lines != null) {
-            for(String current : lines) {
+            for (String current : lines) {
                 commentLines.add(current.replace(NEWLINE, ""));
             }
         }
+    }
+
+    /**
+     * Retrieves an unmodifiable List containing the wrapped comment lines.
+     *
+     * @return an <strong>unmodifiable</strong> List containing the wrapped comment lines.
+     */
+    public List<String> getCommentLines() {
+        return Collections.unmodifiableList(commentLines);
     }
 
     /**

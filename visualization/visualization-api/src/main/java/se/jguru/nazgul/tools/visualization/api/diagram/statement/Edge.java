@@ -21,9 +21,14 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AttributeList;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.EdgeAttributeList;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Edge statement implementation, corresponding to the following DOT grammar:</p>
@@ -38,11 +43,23 @@ import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttribute
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes", "rightSideEdge"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Edge extends AbstractEdge implements Statement {
 
     // Internal state
-    private AttributeList attributes;
+    @XmlElement
+    private EdgeAttributeList attributes;
+
+    @XmlElement(required = true)
     private RightSideEdge rightSideEdge;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Edge() {
+        // Do nothing.
+    }
 
     /**
      * Compound constructor creating an {@link Edge} wrapping the supplied data.
@@ -62,7 +79,7 @@ public class Edge extends AbstractEdge implements Statement {
 
         // Assign internal state
         this.rightSideEdge = rightSideEdge;
-        this.attributes = new SortedAttributeList();
+        this.attributes = new EdgeAttributeList();
     }
 
     /**
@@ -83,15 +100,15 @@ public class Edge extends AbstractEdge implements Statement {
 
         // Assign internal state
         this.rightSideEdge = rightSideEdge;
-        this.attributes = new SortedAttributeList();
+        this.attributes = new EdgeAttributeList();
     }
 
     /**
-     * Retrieves the {@link AttributeList} of this Edge.
+     * Retrieves the {@link EdgeAttributeList} of this Edge.
      *
-     * @return a non-null {@link AttributeList}.
+     * @return a non-null {@link EdgeAttributeList}.
      */
-    public AttributeList getAttributes() {
+    public EdgeAttributeList getAttributes() {
         return attributes;
     }
 

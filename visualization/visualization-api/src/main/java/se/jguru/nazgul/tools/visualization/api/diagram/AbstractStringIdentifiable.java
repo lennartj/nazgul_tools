@@ -23,16 +23,31 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Abstract identifiable Renderable implementation, sporting a string ID and standard implementations of the
  * {@link Object#hashCode()} and {@link Object#equals(Object)} methods.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractStringIdentifiable implements StringRenderable {
 
     // Internal state
+    @XmlElement(required = true)
     private String id;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public AbstractStringIdentifiable() {
+        // Do nothing.
+    }
 
     /**
      * Creates an {@link AbstractStringIdentifiable} wrapping the supplied data.

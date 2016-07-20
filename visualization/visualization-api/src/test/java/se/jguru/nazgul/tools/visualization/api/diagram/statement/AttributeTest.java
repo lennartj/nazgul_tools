@@ -21,8 +21,16 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import org.junit.Rule;
 import org.junit.Test;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.EdgeAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.GraphAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.PointOrRectangle;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.jaxb.PlainJaxbContextRule;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.AttributeStatement;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.NodeAttribute;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,28 +40,70 @@ import java.util.List;
  */
 public class AttributeTest extends AbstractGraphTest {
 
+    @Rule public PlainJaxbContextRule jaxb = new PlainJaxbContextRule();
+
     @Test
     public void validateGraphWithAttributes() {
 
         // Assemble
-        final Graph graph = createStandardGraph(true);
+        final Graph graph = createAttributedGraph();
         final List<String> expectedTexts = (Arrays.asList(
-                "edge[foo=\"bar\"]",
-                "graph[baz=\"gnat\"]",
+                "edge[color=\"#FAFAD2\"]",
+                "graph[bgcolor=\"#7FFFD4\",margin=\"10.0,10.0\",pad=\"5.0,5.0\"]",
                 "node[gnu=\"gnorp\"]",
                 "\"node1\"[some=\"attribute\"]",
                 "\"node2\"",
                 "\"node1\"=\"foobar\"",
                 "\"node1\"->\"node2\""));
 
-        graph.add(Attribute.AttributeType.EDGE.get().addAttribute("foo", "bar"));
-        graph.add(Attribute.AttributeType.GRAPH.get().addAttribute("baz", "gnat"));
-        graph.add(Attribute.AttributeType.NODE.get().addAttribute("gnu", "gnorp"));
+        // Act & Assert
+        validateGraph(graph, expectedTexts);
+    }
 
-        final Node node1 = graph.getStatements().find(Node.class, "node1");
-        node1.getAttributes().addAttribute("some", "attribute");
+    @Test
+    public void validateMarshalling() {
+
+        // Assemble
+        final Graph graph = createAttributedGraph();
+        jaxb.add(Graph.class, AttributeStatement.class);
 
         // Act
-        validateGraph(graph, expectedTexts);
+        final String result = jaxb.marshal(Thread.currentThread().getContextClassLoader(), false, null, graph);
+        System.out.println("Got: " + result);
+
+        // Assert
+    }
+
+    //
+    // Private helpers
+    //
+
+    private Graph createAttributedGraph() {
+
+        final Graph toReturn = createStandardGraph(true);
+
+        // First, use the builder pattern to add a new GraphAttribute statement.
+        toReturn.add(new GraphAttributeList()
+                .withBgColor(StandardCssColor.Aquamarine)
+                .withPad(new PointOrRectangle(5, 5))
+                .withMargin(new PointOrRectangle(10, 10))
+                .toGraphAttributeStatement());
+
+        // Second, use the generic addAttribute method to enable
+        // adding an arbitrary property.
+        final NodeAttribute nodeAttributeStatement = new NodeAttribute();
+        nodeAttributeStatement.getAttributes()
+                .addAttribute("gnu", "gnorp");
+        toReturn.add(nodeAttributeStatement);
+
+        // Third, use the builder pattern to add a new EdgeAttributeStatement.
+        toReturn.add(new EdgeAttributeList()
+                .withColor(StandardCssColor.LightGoldenRodYellow)
+                .toEdgeAttributeStatement());
+
+        final Node node1 = toReturn.getStatements().find(Node.class, "node1");
+        node1.getAttributes().addAttribute("some", "attribute");
+
+        return toReturn;
     }
 }

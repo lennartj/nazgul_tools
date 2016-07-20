@@ -23,6 +23,8 @@ package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
+import java.util.Map;
+
 /**
  * <p>Specification for an Attribute list which sorts its key/value pairs alphabetically, corresponding to
  * the DOT grammar specification below. This implementation only uses comma for
@@ -71,6 +73,13 @@ public interface AttributeList extends StringRenderable {
      * @return This {@link AttributeList}, for chaining.
      */
     AttributeList addAttribute(String key, String value);
+
+    /**
+     * Converts this {@link AttributeList} to a string-to-string Map.
+     *
+     * @return A Map representation of this {@link AttributeList}.
+     */
+    Map<String, String> toMap();
 
     /**
      * Indicates if this {@link AttributeList} is empty or contains data.

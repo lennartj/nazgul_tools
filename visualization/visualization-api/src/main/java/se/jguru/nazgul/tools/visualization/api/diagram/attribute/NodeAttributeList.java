@@ -19,10 +19,16 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.attribute.builder;
+package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AbstractDelegatingAttributeList;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.color.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.EdgeAttribute;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.NodeAttribute;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Attributes relevant for {@link se.jguru.nazgul.tools.visualization.api.diagram.statement.Node} objects.
@@ -31,7 +37,25 @@ import se.jguru.nazgul.tools.visualization.api.diagram.attribute.color.StandardC
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class NodeAttributeList extends AbstractDelegatingAttributeList {
+
+    /**
+     * Creates a NodeAttribute statement from this {@link NodeAttributeList}.
+     *
+     * @return A {@link NodeAttribute} populated with the state within this {@link NodeAttributeList}.
+     */
+    public NodeAttribute toNodeAttributeStatement() {
+
+        final NodeAttribute toReturn = new NodeAttribute();
+
+        // Copy all properties from this NodeAttributeList.
+        delegate.toMap().entrySet().forEach(c -> toReturn.getAttributes().addAttribute(c.getKey(), c.getValue()));
+
+        // All Done.
+        return toReturn;
+    }
 
     /**
      * Basic drawing color for graphics, not text. For the latter, use the fontcolor attribute.

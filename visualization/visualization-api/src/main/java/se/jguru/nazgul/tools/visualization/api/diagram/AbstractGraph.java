@@ -24,16 +24,31 @@ package se.jguru.nazgul.tools.visualization.api.diagram;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statement;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Abstract specification for a container of {@link Statement} subclasses.
  * This implies either a Graph or a Subgraph.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"statements"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractGraph extends AbstractStringIdentifiable {
 
     // Internal state
+    @XmlElement
     private Statements statements;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public AbstractGraph() {
+        // Do nothing
+    }
 
     /**
      * Compound constructor creating an {@link AbstractGraph} instance wrapping the supplied data.

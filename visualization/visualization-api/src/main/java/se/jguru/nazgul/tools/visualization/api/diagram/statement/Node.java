@@ -22,9 +22,14 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AttributeList;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.NodeAttributeList;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Node statement Renderer, complying to the specification in the
@@ -32,11 +37,23 @@ import se.jguru.nazgul.tools.visualization.api.diagram.attribute.SortedAttribute
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"nodeID", "attributeList"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Node extends AbstractStringIdentifiable implements Statement {
 
     // Internal state
+    @XmlElement(required = true)
     private NodeID nodeID;
-    private AttributeList attributeList;
+
+    @XmlElement
+    private NodeAttributeList attributeList;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Node() {
+        // Do nothing
+    }
 
     /**
      * Convenience constructor creating a {@link Node} with the supplied ID.
@@ -56,15 +73,15 @@ public class Node extends AbstractStringIdentifiable implements Statement {
         super(nodeID.getId());
 
         this.nodeID = nodeID;
-        this.attributeList = new SortedAttributeList();
+        this.attributeList = new NodeAttributeList();
     }
 
     /**
-     * Retrieves the {@link SortedAttributeList} of this {@link Node}.
+     * Retrieves the {@link NodeAttributeList} of this {@link Node}.
      *
-     * @return the non-null {@link SortedAttributeList} of this {@link Node}.
+     * @return the non-null {@link NodeAttributeList} of this {@link Node}.
      */
-    public AttributeList getAttributes() {
+    public NodeAttributeList getAttributes() {
         return attributeList;
     }
 

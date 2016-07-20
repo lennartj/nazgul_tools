@@ -21,8 +21,10 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Objects;
 
 /**
@@ -31,114 +33,20 @@ import java.util.Objects;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"port"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class NodeID extends AbstractStringIdentifiable implements Comparable<NodeID> {
 
-    /**
-     * An enumeration corresponding to
-     * <strong><code>compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)</code></strong> in the
-     * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
-     */
-    public enum CompassPoint implements StringRenderable {
-        NORTH("n"),
-        NORTH_EAST("ne"),
-        EAST("e"),
-        SOUTH_EAST("se"),
-        SOUTH("s"),
-        SOUTH_WEST("sw"),
-        WEST("w"),
-        NORTH_WEST("nw"),
-        CENTER("c"),
-        UNKNOWN("_");
-
-        // Internal state
-        private String dotToken;
-
-        CompassPoint(final String dotToken) {
-            this.dotToken = dotToken;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String render() {
-            return dotToken;
-        }
-    }
-
-    /**
-     * A Port which corresponds to the following
-     * <strong><code>port : ':' ID [ ':' compass_pt ] | ':' compass_pt</code></strong> in the
-     * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
-     */
-    public static class Port implements StringRenderable {
-
-        // Internal state
-        private String identifier;
-        private CompassPoint compassPoint;
-
-        /**
-         * Convenience constructor for an anonymous Port with the supplied {@link CompassPoint}.
-         *
-         * @param compassPoint A non-null {@link CompassPoint} value.
-         */
-        public Port(final CompassPoint compassPoint) {
-            this(null, compassPoint);
-        }
-
-        /**
-         * Compound constructor, creating a Port wrapping the supplied data.
-         *
-         * @param identifier   An optional (i.e. nullable) identifier for this Port.
-         * @param compassPoint A non-null {@link CompassPoint} value.
-         */
-        public Port(final String identifier, final CompassPoint compassPoint) {
-
-            // Check sanity
-            if (compassPoint == null) {
-                throw new IllegalArgumentException("Cannot handle null 'compassPoint' argument.");
-            }
-
-            // Assign internal state
-            this.identifier = identifier;
-            this.compassPoint = compassPoint;
-        }
-
-        /**
-         * Retrieves the optional (i.e. nullable) identifier of this NodeID.
-         *
-         * @return the optional (i.e. nullable) identifier of this NodeID.
-         */
-        public String getId() {
-            return identifier;
-        }
-
-        /**
-         * The non-null CompassPoint of this NodeID.
-         *
-         * @return the non-null CompassPoint of this NodeID.
-         */
-        public CompassPoint getCompassPoint() {
-            return compassPoint;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String render() {
-
-            final String prefix = identifier != null && !identifier.isEmpty()
-                    ? ": " + identifier + " "
-                    : "";
-
-            // All Done.
-            return prefix + ": " + compassPoint.render();
-        }
-    }
-
     // Internal state
+    @XmlElement
     private Port port;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public NodeID() {
+        // Do nothing.
+    }
 
     /**
      * Convenience constructor creating a NodeID instance with a null {@link Port}.

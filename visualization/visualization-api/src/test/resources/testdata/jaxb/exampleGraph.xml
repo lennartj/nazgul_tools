@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nazgulviz:graph xmlns:nazgulviz="http://www.jguru.se/nazgul/tools/visualization" isDigraph="true" isStrict="true">
+    <id>Example</id>
+    <statements>
+        <type2StatementsMap>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Node</key>
+                <value>[Node]: &quot;node_1&quot; [Node]: &quot;node_2&quot; </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Identifier</key>
+                <value>[Identifier]: &quot;node_1&quot; = &quot;foobar&quot; </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge</key>
+                <value>se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge@4470f8a6</value>
+            </entry>
+        </type2StatementsMap>
+        <type2CommentMap>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.AttributeStatement</key>
+                <value>
+                    <commentLines>
+                        <line>Attribute statements.</line>
+                    </commentLines>
+                </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Node</key>
+                <value>
+                    <commentLines>
+                        <line>Node statements.</line>
+                    </commentLines>
+                </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Identifier</key>
+                <value>
+                    <commentLines>
+                        <line>Identifier statements.</line>
+                    </commentLines>
+                </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge</key>
+                <value>
+                    <commentLines>
+                        <line>Edge statements.</line>
+                    </commentLines>
+                </value>
+            </entry>
+            <entry>
+                <key>se.jguru.nazgul.tools.visualization.api.diagram.statement.Subgraph</key>
+                <value>
+                    <commentLines>
+                        <line>Subgraph statements.</line>
+                    </commentLines>
+                </value>
+            </entry>
+        </type2CommentMap>
+    </statements>
+</nazgulviz:graph>

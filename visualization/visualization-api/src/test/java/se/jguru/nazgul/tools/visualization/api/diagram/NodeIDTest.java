@@ -46,7 +46,7 @@ public class NodeIDTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void validateExceptionOnNullCompassPoint() {
-        new NodeID.Port(null);
+        new NodeID(null);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class NodeIDTest {
     public void validateRenderingWithPort() {
 
         // Assemble
-        final NodeID.Port port = new NodeID.Port("aPort", NodeID.CompassPoint.NORTH);
+        final Port port = new Port("aPort", Port.CompassPoint.NORTH);
         final NodeID unitUnderTest = new NodeID("foobar", port);
 
         // Act
@@ -81,14 +81,14 @@ public class NodeIDTest {
     public void validateRenderingWithIDlessPort() {
 
         // Assemble
-        final NodeID.Port port = new NodeID.Port(NodeID.CompassPoint.NORTH_EAST);
+        final Port port = new Port(Port.CompassPoint.NORTH_EAST);
         final NodeID unitUnderTest = new NodeID("foobar", port);
 
         // Act
         final String result = unitUnderTest.render();
 
         // Assert
-        Assert.assertSame(NodeID.CompassPoint.NORTH_EAST, unitUnderTest.getPort().getCompassPoint());
+        Assert.assertSame(Port.CompassPoint.NORTH_EAST, unitUnderTest.getPort().getCompassPoint());
         Assert.assertEquals("foobar", unitUnderTest.getId());
         Assert.assertEquals("\"foobar\" : ne", result.trim());
         Assert.assertEquals("[NodeID]:  \"foobar\" : ne", unitUnderTest.toString());

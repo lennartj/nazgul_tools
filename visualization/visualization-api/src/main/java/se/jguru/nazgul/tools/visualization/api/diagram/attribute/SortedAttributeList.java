@@ -21,6 +21,14 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.jaxb.StringMapAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
@@ -41,9 +49,13 @@ import java.util.TreeMap;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class SortedAttributeList implements AttributeList {
 
     // Internal state
+    @XmlJavaTypeAdapter(StringMapAdapter.class)
+    @XmlElementWrapper
     private SortedMap<String, String> attributes;
 
     /**
@@ -86,6 +98,14 @@ public class SortedAttributeList implements AttributeList {
 
         // All Done.
         return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, String> toMap() {
+        return attributes;
     }
 
     /**

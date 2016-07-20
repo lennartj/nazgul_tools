@@ -22,6 +22,11 @@
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Identifier statement implementation, corresponding to the following DOT grammar:</p>
@@ -29,10 +34,19 @@ import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiabl
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"targetIdentifier"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Identifier extends AbstractStringIdentifiable implements Statement {
 
     // Internal state
     private String targetIdentifier;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Identifier() {
+        // Do nothing
+    }
 
     /**
      * Compound constructor creating an {@link Identifier} wrapping the supplied data.

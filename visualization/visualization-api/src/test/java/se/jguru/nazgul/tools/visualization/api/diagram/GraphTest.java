@@ -22,11 +22,15 @@
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
-import se.jguru.nazgul.tools.visualization.api.diagram.statement.Attribute;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.GraphAttributeList;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.jaxb.PlainJaxbContextRule;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Identifier;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.NodeAttribute;
 import se.jguru.nazgul.tools.visualization.spi.dot.DotDiagramValidator;
 import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
@@ -42,6 +46,8 @@ import java.util.stream.Stream;
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 public class GraphTest {
+
+    @Rule public PlainJaxbContextRule jaxb = new PlainJaxbContextRule();
 
     @Test
     public void validateCreatingDigraph() {
@@ -93,25 +99,11 @@ public class GraphTest {
     @Test
     public void createSimpleExampleGraph() {
 
-        // Create the Graph parent.
-        final boolean directed = true;
-        final boolean strict = true;
-        final Graph graph = new Graph("Example", directed, strict);
-
-        // Add two Nodes to the Graph
-        final Node node1 = new Node("node_1");
-        final Node node2 = new Node("node_2");
-        graph.add(node1, node2);
-
-        // Add an extra identifier for node 1.
-        graph.add(new Identifier(node1.getId(), "foobar"));
-
-        // Add an Edge between Node1 and Node2.
-        // Note:
-        graph.addEdge("node_1", "node_2");
+        // Assemble
+        final Graph simpleGraph = createSimpleGraph();
 
         // Render the Graph to create a Graphviz/Dot diagram
-        final String diagram = graph.render();
+        final String diagram = simpleGraph.render();
         System.out.println("Got:\n" + diagram);
     }
 
@@ -141,12 +133,18 @@ public class GraphTest {
         // Add some default attributes for the Graph and for its Nodes.
         //
         final Graph graph = new Graph("Example", true, true);
-        graph.add(Attribute.AttributeType.GRAPH.get().addAttribute("bgcolor", "#eeeeee"));
-        graph.add(Attribute.AttributeType.NODE.get()
+
+        graph.add(new GraphAttributeList()
+                .withBgColor(StandardCssColor.Silver)
+                .toGraphAttributeStatement());
+
+        final NodeAttribute nodeAttributeStatement = new NodeAttribute();
+        graph.add(nodeAttributeStatement);
+        nodeAttributeStatement.getAttributes()
                 .addAttribute("color", "#555599")
                 .addAttribute("fillcolor", "#cccccc")
                 .addAttribute("penwidth", "2.0")
-                .addAttribute("style", "filled"));
+                .addAttribute("style", "filled");
 
         // Add some Nodes to the Graph
         // Add some Attributes to override the standard ones.
@@ -181,5 +179,47 @@ public class GraphTest {
         //
         final String diagram = graph.render();
         System.out.println("Got:\n" + diagram);
+    }
+
+
+    @Test
+    public void validateJaxbMarshalling() {
+
+        // Assemble
+        final Graph simpleGraph = createSimpleGraph();
+        jaxb.add(Graph.class);
+
+        // Act
+        final String result = jaxb.marshal(Thread.currentThread().getContextClassLoader(), false, null, simpleGraph);
+
+        // Assert
+        System.out.println("Got: " + result);
+    }
+
+    //
+    // Private helpers
+    //
+
+    private Graph createSimpleGraph() {
+
+        // Create the Graph parent.
+        final boolean directed = true;
+        final boolean strict = true;
+        final Graph graph = new Graph("Example", directed, strict);
+
+        // Add two Nodes to the Graph
+        final Node node1 = new Node("node_1");
+        final Node node2 = new Node("node_2");
+        graph.add(node1, node2);
+
+        // Add an extra identifier for node 1.
+        graph.add(new Identifier(node1.getId(), "foobar"));
+
+        // Add an Edge between Node1 and Node2.
+        // Note: The strings contains the IDs of the respective nodes - not node references.
+        graph.addEdge("node_1", "node_2");
+
+        // All Done.
+        return graph;
     }
 }

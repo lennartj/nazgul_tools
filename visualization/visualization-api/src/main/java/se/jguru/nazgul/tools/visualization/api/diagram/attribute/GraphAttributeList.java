@@ -19,12 +19,17 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.attribute.builder;
+package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.AbstractDelegatingAttributeList;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.color.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.PointOrRectangle;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.SplineType;
+import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.GraphAttribute;
 
-import java.math.BigDecimal;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Attributes relevant for {@link se.jguru.nazgul.tools.visualization.api.diagram.Graph} objects.
@@ -33,7 +38,25 @@ import java.math.BigDecimal;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GraphAttributeList extends AbstractDelegatingAttributeList {
+
+    /**
+     * Creates a GraphAttribute statement from this {@link GraphAttributeList}.
+     *
+     * @return A {@link GraphAttribute} populated with the state within this {@link GraphAttributeList}.
+     */
+    public GraphAttribute toGraphAttributeStatement() {
+
+        final GraphAttribute toReturn = new GraphAttribute();
+
+        // Copy all properties from this GraphAttributeList.
+        delegate.toMap().entrySet().forEach(c -> toReturn.getAttributes().addAttribute(c.getKey(), c.getValue()));
+
+        // All Done.
+        return toReturn;
+    }
 
     /**
      * When attached to the root graph, this color is used as the background for entire canvas.
@@ -81,7 +104,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
     /**
      * Mode used for handling clusters.
      * If clusterrank is "local", a subgraph whose name begins with "cluster" is given special treatment.
-     * The  subgraph is laid out separately, and then integrated as a unit into its parent graph, with a bounding
+     * The subgraph is laid out separately, and then integrated as a unit into its parent graph, with a bounding
      * rectangle drawn about it.
      * If the cluster has a label parameter, this label is displayed within the rectangle.
      * Note also that there can be clusters within clusters.
@@ -144,13 +167,13 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * that text rendering will be done more accurately, both in size and in placement. For SVG output, it is used
      * to guarantee that the dimensions in the output correspond to the correct number of points or inches.
      *
-     * @param dpi A positive integer, typically 72, 96 or 144.
+     * @param dpiResolution A positive integer, typically 72, 96 or 144.
      * @return This {@link GraphAttributeList}.
      */
-    public GraphAttributeList withDPI(final int dpi) {
+    public GraphAttributeList withResolution(final int dpiResolution) {
 
-        if (dpi > 0) {
-            addAttribute("dpi", "" + dpi);
+        if (dpiResolution > 0) {
+            addAttribute("resolution", "" + dpiResolution);
         }
 
         // All Done.
@@ -374,18 +397,18 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withLabelHeight(final double heightInInches) {
-        return (GraphAttributeList) addAttribute("lheight", BigDecimal.valueOf(heightInInches).toString());
+        return (GraphAttributeList) addAttribute("lheight", heightInInches);
     }
 
     /**
      * Label position, in points. The position indicates the center of the label.
      * At present, most device-independent units are either inches or points, which we take as 72 points per inch.
      *
-     * @param positionInPoints The position in points.
+     * @param positionOfCenter The position of the center of the label.
      * @return This {@link GraphAttributeList}.
      */
-    public GraphAttributeList withLabelPosition(final int positionInPoints) {
-        return (GraphAttributeList) addAttribute("lp", "" + positionInPoints);
+    public GraphAttributeList withLabelPosition(final PointOrRectangle positionOfCenter) {
+        return (GraphAttributeList) addAttribute("lp", "" + positionOfCenter);
     }
 
     /**
@@ -395,7 +418,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withLabelWidth(final double widthInInches) {
-        return (GraphAttributeList) addAttribute("lwidth", BigDecimal.valueOf(widthInInches).toString());
+        return (GraphAttributeList) addAttribute("lwidth", widthInInches);
     }
 
     /**
@@ -410,17 +433,17 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * <p>"%f,%f('!')?" representing the point (x,y). The optional '!' indicates the node position should not change
      * (input-only). If dim is 3, point may also have the format "%f,%f,%f('!')?" to represent the point (x,y,z).</p>
      *
-     * @param horizontalMarginInInches The horizontal margin, in inches.
-     * @param verticalMarginInInches   The vertical margin, in inches.
+     * @param margin The margin rectangle, with measurements in inches.
      * @return This {@link GraphAttributeList}.
      */
-    public GraphAttributeList withMargin(final double horizontalMarginInInches, final double verticalMarginInInches) {
+    public GraphAttributeList withMargin(final PointOrRectangle margin) {
 
-        final String horizontalMargin = BigDecimal.valueOf(horizontalMarginInInches).toPlainString();
-        final String verticalMargin = BigDecimal.valueOf(verticalMarginInInches).toPlainString();
+        if (margin != null) {
+            addAttribute("margin", margin.toString());
+        }
 
-        // Add the Margin.
-        return (GraphAttributeList) addAttribute("margin", horizontalMargin + "," + verticalMargin);
+        // All Done.
+        return this;
     }
 
     /**
@@ -432,7 +455,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withMultiplicativeScaleLimit(final double limit) {
-        return (GraphAttributeList) addAttribute("mclimit", "" + limit);
+        return (GraphAttributeList) addAttribute("mclimit", limit);
     }
 
     /**
@@ -442,7 +465,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withMinimumDistanceBetweenNodes(final double minDistance) {
-        return (GraphAttributeList) addAttribute("mindist", "" + minDistance);
+        return (GraphAttributeList) addAttribute("mindist", minDistance);
     }
 
     /**
@@ -452,7 +475,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withMinimumDistanceBetweenSameRankAdjacentNodes(final double minimumDistanceInInches) {
-        return (GraphAttributeList) addAttribute("nodesep", "" + minimumDistanceInInches);
+        return (GraphAttributeList) addAttribute("nodesep", minimumDistanceInInches);
     }
 
     /**
@@ -481,7 +504,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @see #withNsLimit1(double)
      */
     public GraphAttributeList withNsLimit(final double nsLimit) {
-        return (GraphAttributeList) addAttribute("nslimit", "" + nsLimit);
+        return (GraphAttributeList) addAttribute("nslimit", nsLimit);
     }
 
     /**
@@ -494,7 +517,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @see #withNsLimit(double)
      */
     public GraphAttributeList withNsLimit1(final double nsLimit) {
-        return (GraphAttributeList) addAttribute("nslimit1", "" + nsLimit);
+        return (GraphAttributeList) addAttribute("nslimit1", nsLimit);
     }
 
     /**
@@ -627,12 +650,11 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * <p>Normally, a small pad is used for aesthetic reasons, especially when a background color is used, to avoid
      * having nodes and edges abutting the boundary of the drawn region.</p>
      *
-     * @param xPad The padding in x-direction (width).
-     * @param yPad The padding in y-direction (height).
+     * @param pad The padding definition.
      * @return This {@link GraphAttributeList}.
      */
-    public GraphAttributeList withPad(final double xPad, final double yPad) {
-        return (GraphAttributeList) addAttribute("pad", "" + xPad + "," + yPad);
+    public GraphAttributeList withPad(final PointOrRectangle pad) {
+        return (GraphAttributeList) addAttribute("pad", pad.toString());
     }
 
     /**
@@ -642,7 +664,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      * @return This {@link GraphAttributeList}.
      */
     public GraphAttributeList withQuantum(final double quantum) {
-        return (GraphAttributeList) addAttribute("quantum", "" + quantum);
+        return (GraphAttributeList) addAttribute("quantum", quantum);
     }
 
     /**
@@ -670,7 +692,7 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
          */
         @Override
         public String toString() {
-            return super.toString();
+            return dotPropertyValue;
         }
     }
 
@@ -680,10 +702,162 @@ public class GraphAttributeList extends AbstractDelegatingAttributeList {
      *
      * @param rankDirection A non-null {@link RankDirection} indicating the direction to use.
      * @return This {@link GraphAttributeList}.
+     * @see RankDirection
      */
-    public GraphAttributeList withRankDir(final RankDirection rankDirection) {
+    public GraphAttributeList withRankDirection(final RankDirection rankDirection) {
         return (GraphAttributeList) addAttribute("rankdir", rankDirection.toString());
     }
 
+    /**
+     * <p>In dot, this gives the desired rank separation, in inches. This is the minimum vertical distance between the
+     * bottom of the nodes in one rank and the tops of nodes in the next. If the value contains "equally", the
+     * centers of all ranks are spaced equally apart. Note that both settings are possible, e.g., ranksep = "1.2
+     * equally".</p>
+     *
+     * @param separationDefinition A separation definition.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withRankSeparation(final String separationDefinition) {
+        return (GraphAttributeList) addAttribute("ranksep", separationDefinition);
+    }
 
+    /**
+     * <p>Sets the aspect ratio (drawing height/drawing width) for the drawing. Note that this is adjusted before the
+     * size attribute constraints are enforced. In addition, the calculations usually ignore the node sizes, so the
+     * final drawing size may only approximate what is desired.</p>
+     * <p>If ratio is <strong><code>numeric</code></strong>, it is taken as the desired aspect ratio. Then, if the actual
+     * aspect ratio is less than the desired ratio, the drawing height is scaled up to achieve the desired ratio; if
+     * the actual ratio is greater than that desired ratio, the drawing width is scaled up.</p>
+     * <p>If ratio = <strong><code>"fill"</code></strong> and the size attribute is set, node positions are scaled, separately in both x and y, so
+     * that the final drawing exactly fills the specified size. If both size values exceed the width and height of
+     * the drawing, then both coordinate values of each node are scaled up accordingly. However, if either size
+     * dimension is smaller than the corresponding dimension in the drawing, one dimension is scaled up so that the
+     * final drawing has the same aspect ratio as specified by size. Then, when rendered, the layout will be scaled
+     * down uniformly in both dimensions to fit the given size, which may cause nodes and text to shrink as well.
+     * This may not be what the user wants, but it avoids the hard problem of how to reposition the nodes in an
+     * acceptable fashion to reduce the drawing size.</p>
+     * <p>If ratio = <strong><code>"compress"</code></strong> and the size attribute is set, dot attempts to
+     * compress the initial layout to fit in the given size. This achieves a tighter packing of nodes but reduces
+     * the balance and symmetry. This feature only works in dot.</p>
+     * <p>If ratio = <strong><code>"expand"</code></strong>, the size attribute is set, and both the width and the height of the graph are less than
+     * the value in size, node positions are scaled uniformly until at least one dimension fits size exactly. Note
+     * that this is distinct from using size as the desired size, as here the drawing is expanded before edges are
+     * generated and all node and text sizes remain unchanged.</p>
+     * <p>If ratio = <strong><code>"auto"</code></strong>, the page attribute is set and the graph cannot be drawn on a single page, then size is set
+     * to an "ideal" value. In particular, the size in a given dimension will be the smallest integral multiple of
+     * the page size in that dimension which is at least half the current size. The two dimensions are then scaled
+     * independently to the new size. This feature only works in dot.</p>
+     *
+     * @param ratio The ratio specification, as described above.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withRatio(final String ratio) {
+        return (GraphAttributeList) addAttribute("ratio", ratio);
+    }
+
+    /**
+     * If true and there are multiple clusters, run crossing minimization a second time.
+     *
+     * @param isMinimizationRunTwice True to set the <strong><code>remincross</code></strong> flag.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withRerunningClusterCrossingMinimisation(final boolean isMinimizationRunTwice) {
+        return (GraphAttributeList) addAttribute("remincross", "" + isMinimizationRunTwice);
+    }
+
+    /**
+     * Causes the final layout to be rotated counter-clockwise by the specified number of degrees.
+     *
+     * @param degreesRotated The number of degrees of counter-clockwise rotation that should be applied to the graph.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withRotation(final int degreesRotated) {
+        return (GraphAttributeList) addAttribute("rotation", "" + degreesRotated);
+    }
+
+    /**
+     * During network simplex, maximum number of edges with negative cut values to search when looking
+     * for one with minimum cut value. Defaults to <strong>30</strong>.
+     *
+     * @param searchSize A positive integer.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withSearchSize(final int searchSize) {
+        return (GraphAttributeList) addAttribute("searchsize", "" + searchSize);
+    }
+
+    /**
+     * Print guide boxes in PostScript at the beginning of routesplines if 1, or at the end if 2. (Debugging)
+     *
+     * @param atStart If true, the value "1" is assigned to the property "showboxes" - and otherwise the value is "2".
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withShowBoxes(final boolean atStart) {
+        return (GraphAttributeList) addAttribute("showboxes", atStart ? "1" : "2");
+    }
+
+    /**
+     * <p>Maximum width and height of drawing, in inches. If only a single number is given, this is used for both the
+     * width and the height. If defined and the drawing is larger than the given size, the drawing is uniformly
+     * scaled down so that it fits within the given size.</p>
+     * <p>If size ends in an exclamation point (i.e. if the {@link PointOrRectangle#setUnchangeable(boolean)} method
+     * is called), then it is taken to be the desired size. In this case, if both dimensions of the drawing are less
+     * than size, the drawing is scaled up uniformly until at least one dimension equals its dimension in size.</p>
+     * <p>Note that there is some interaction between the size and ratio attributes.</p>
+     *
+     * @param size A {@link PointOrRectangle} containing the width as X and height as Y properties.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withSize(final PointOrRectangle size) {
+        return (GraphAttributeList) addAttribute("size", size.toString());
+    }
+
+    /**
+     * If packmode indicates an array packing, this attribute specifies an insertion order among the components,
+     * with smaller values inserted first.
+     *
+     * @param sortv The insertion order index among the components, with smaller values inserted first.
+     * @return This {@link GraphAttributeList}.
+     * @see #withPackMode(String)
+     */
+    public GraphAttributeList withInsertionOrder(final int sortv) {
+        return (GraphAttributeList) addAttribute("sortv", "" + sortv);
+    }
+
+    /**
+     * Controls how, and if, Edges are represented. By default, DOT uses {@link SplineType#SPLINES}.
+     *
+     * @param splineType A non-null {@link SplineType} instance defining the spline type used.
+     * @return This {@link GraphAttributeList}.
+     * @see SplineType
+     */
+    public GraphAttributeList withSplines(final SplineType splineType) {
+        return (GraphAttributeList) addAttribute("splines", splineType.toString());
+    }
+
+    /**
+     * A URL or pathname specifying an XML style sheet, used only for SVG output.
+     *
+     * @param urlOrPathToStylesheet The URL or Path to a Stylesheet to be used.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withStylesheet(final String urlOrPathToStylesheet) {
+        return (GraphAttributeList) addAttribute("stylesheet", urlOrPathToStylesheet);
+    }
+
+    /**
+     * <p>If set explicitly to true or false, the value determines whether or not internal bitmap rendering relies on a
+     * truecolor color model or uses a color palette. If the attribute is unset, truecolor is not used unless there
+     * is a shapefile property for some node in the graph. The output model will use the input model when possible.</p>
+     * <p>Use of color palettes results in less memory usage during creation of the bitmaps and smaller output files.</p>
+     * <p>Usually, the only time it is necessary to specify the truecolor model is if the graph uses more than 256
+     * colors. However, if one uses bgcolor=transparent with a color palette, font antialiasing can show up as a
+     * fuzzy white area around characters. Using truecolor=true avoids this problem.</p>
+     *
+     * @param useTrueColor Assigns the value of the "truecolor" attribute.
+     * @return This {@link GraphAttributeList}.
+     */
+    public GraphAttributeList withTrueColor(final boolean useTrueColor) {
+        return (GraphAttributeList) addAttribute("truecolor", "" + useTrueColor);
+    }
 }

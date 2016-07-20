@@ -21,18 +21,36 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Abstract implementation of an Edge, storing commonly shared state for all Edge components.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"nodeID", "subgraph"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractEdge {
 
     // Internal state
+    @XmlElement
     private NodeID nodeID;
+
+    @XmlElement
     private Subgraph subgraph;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public AbstractEdge() {
+        // Do nothing
+    }
 
     /**
      * Creates an AbstractEdge using a NodeID.

@@ -28,7 +28,14 @@ import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiabl
 import se.jguru.nazgul.tools.visualization.api.diagram.Comment;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.AttributeStatement;
+import se.jguru.nazgul.tools.visualization.api.jaxb.ClassToCommentListAdapter;
+import se.jguru.nazgul.tools.visualization.api.jaxb.ClassToStatementListAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,6 +50,8 @@ import java.util.TreeMap;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"type2CommentMap", "type2StatementsMap"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Statements implements StringRenderable {
 
     // Our Log
@@ -52,7 +61,7 @@ public class Statements implements StringRenderable {
      * <p>The order in which statements should normally be rendered, i.e:</p>
      * <p>
      * <ol>
-     * <li>{@link Attribute} statements</li>
+     * <li>{@link AttributeStatement} statements</li>
      * <li>{@link Node} statements</li>
      * <li>{@link Identifier} statements</li>
      * <li>{@link Edge} statements</li>
@@ -60,7 +69,7 @@ public class Statements implements StringRenderable {
      * </ol>
      */
     public static final List<Class<? extends Statement>> DEFAULT_STATEMENT_ORDER = Collections.unmodifiableList(
-            Arrays.asList(Attribute.class, Node.class, Identifier.class, Edge.class, Subgraph.class));
+            Arrays.asList(AttributeStatement.class, Node.class, Identifier.class, Edge.class, Subgraph.class));
 
     /**
      * A Comparator sorting as per the order defined within the {@link #DEFAULT_STATEMENT_ORDER} List.
@@ -84,7 +93,10 @@ public class Statements implements StringRenderable {
     };
 
     // Internal state
+    @XmlJavaTypeAdapter(ClassToStatementListAdapter.class)
     private Map<Class<? extends Statement>, List<Statement>> type2StatementsMap;
+
+    @XmlJavaTypeAdapter(ClassToCommentListAdapter.class)
     private Map<Class<? extends Statement>, Comment> type2CommentMap;
 
     /**
@@ -152,12 +164,15 @@ public class Statements implements StringRenderable {
 
                     // Get the actual implementation of the current Statement
                     final Class<? extends Statement> currentType = current.getClass();
+                    final Class<? extends Statement> effType = AttributeStatement.class.isAssignableFrom(currentType)
+                            ? AttributeStatement.class
+                            : currentType;
 
                     // Get or create the List of Statements for the supplied type.
-                    List<Statement> statementList = type2StatementsMap.get(currentType);
+                    List<Statement> statementList = type2StatementsMap.get(effType);
                     if (statementList == null) {
                         statementList = new ArrayList<>();
-                        type2StatementsMap.put(currentType, statementList);
+                        type2StatementsMap.put(effType, statementList);
                     }
 
                     // Add the current Statement to the List.
@@ -209,13 +224,17 @@ public class Statements implements StringRenderable {
             throw new IllegalArgumentException("Cannot handle null or empty 'identifier' argument.");
         }
 
-        if(log.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             log.debug("Searching for [" + identifier + "] of type [" + type.getSimpleName()
                     + "] within Statements [" + hashCode() + "]");
         }
 
         // Find the Statement with the supplied identifier.
-        final List<Statement> existingStatements = type2StatementsMap.get(type);
+        final Class<? extends Statement> effType = AttributeStatement.class.isAssignableFrom(type)
+                ? AttributeStatement.class
+                : type;
+        final List<Statement> existingStatements = type2StatementsMap.get(effType);
+
         if (existingStatements != null && !existingStatements.isEmpty()) {
 
             for (Statement current : existingStatements) {
@@ -233,7 +252,7 @@ public class Statements implements StringRenderable {
             // Find all our Subgraphs, and extend the search into them.
             final List<Statement> subgraphs = type2StatementsMap.get(Subgraph.class);
 
-            if(subgraphs != null) {
+            if (subgraphs != null) {
 
                 for (Statement stmnt : subgraphs) {
 
@@ -347,7 +366,7 @@ public class Statements implements StringRenderable {
     /**
      * <p>Returns a commented, suite of all provided Statements, in the following order:</p>
      * <ol>
-     * <li>{@link Attribute} statements</li>
+     * <li>{@link AttributeStatement} statements</li>
      * <li>{@link Node} statements</li>
      * <li>{@link Identifier} statements</li>
      * <li>{@link Edge} statements</li>

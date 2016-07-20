@@ -19,8 +19,12 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.attribute.color;
+package se.jguru.nazgul.tools.visualization.api.diagram.attribute.model;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
@@ -31,6 +35,8 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(name = Graph.NAMESPACE)
+@XmlEnum(String.class)
 public enum StandardCssColor implements Serializable {
 
     AliceBlue("F0F8FF"),

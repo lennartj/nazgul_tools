@@ -21,15 +21,32 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import java.math.BigDecimal;
+import java.util.Map;
+
 /**
  * Abstract AttributeList implementation delegating all calls to an internal AttributeList delegate.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Graph.NAMESPACE, propOrder = {"delegate"})
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({SortedAttributeList.class, EdgeAttributeList.class, NodeAttributeList.class, GraphAttributeList.class})
 public abstract class AbstractDelegatingAttributeList implements AttributeList {
 
     // Internal state
-    private AttributeList delegate;
+    @XmlElements({
+        @XmlElement(name = "SortedAttributeList", type = SortedAttributeList.class)
+    })
+    protected AttributeList delegate;
 
     /**
      * Default constructor creating an {@link AbstractDelegatingAttributeList} delegating all calls to
@@ -74,12 +91,36 @@ public abstract class AbstractDelegatingAttributeList implements AttributeList {
     public final AttributeList addAttribute(final String key, final String value) {
 
         // Check sanity, and add the Attribute in the delegate.
-        if(value != null && !value.isEmpty()) {
+        if(key != null && !key.isEmpty() && value != null && !value.isEmpty()) {
             delegate.addAttribute(key, value);
         }
 
         // Return this object, for chaining.
         return this;
+    }
+
+    /**
+     * Convenience method to handle converting doubles to Strings in a gentle way.
+     *
+     * @param key   The non-null and non-empty attribute key.
+     * @param value The double attribute value.
+     * @return This {@link AttributeList}, for chaining.
+     */
+    protected final AttributeList addAttribute(final String key, final double value) {
+
+        // Convert the double to a String gently.
+        final String doubleValue = BigDecimal.valueOf(value).toPlainString();
+
+        // Delegate.
+        return addAttribute(key, doubleValue);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, String> toMap() {
+        return delegate.toMap();
     }
 
     /**
