@@ -34,6 +34,7 @@ import se.jguru.nazgul.tools.visualization.api.jaxb.ClassToStatementListAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
@@ -94,9 +95,11 @@ public class Statements implements StringRenderable {
 
     // Internal state
     @XmlJavaTypeAdapter(ClassToStatementListAdapter.class)
+    @XmlElement
     private Map<Class<? extends Statement>, List<Statement>> type2StatementsMap;
 
     @XmlJavaTypeAdapter(ClassToCommentListAdapter.class)
+    @XmlElement
     private Map<Class<? extends Statement>, Comment> type2CommentMap;
 
     /**
