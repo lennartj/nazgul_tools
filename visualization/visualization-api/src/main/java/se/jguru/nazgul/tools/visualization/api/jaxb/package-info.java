@@ -20,12 +20,7 @@
  * #L%
  */
 /**
- * <p>Package containing Attribute Statements for Graphviz/Dot diagram synthesis, complying to the specification in the
- * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
- * These classes simplify setting global defaults for Graph, Node and Edge structures.</p>
- *
- * <p>All relevant classes are JAXB-annotated to ensure that the model can be converted
- * in a simple manner to and from XML and JSON formats.</p>
+ * Package containing JAXB helper classes.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -38,7 +33,7 @@
         }
 )
 @XmlAccessorType(XmlAccessType.FIELD)
-package se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute;
+package se.jguru.nazgul.tools.visualization.api.jaxb;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 

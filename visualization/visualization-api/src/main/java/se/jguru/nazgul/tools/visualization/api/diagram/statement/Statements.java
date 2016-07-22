@@ -29,12 +29,13 @@ import se.jguru.nazgul.tools.visualization.api.diagram.Comment;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.AttributeStatement;
-import se.jguru.nazgul.tools.visualization.api.jaxb.ClassToCommentListAdapter;
-import se.jguru.nazgul.tools.visualization.api.jaxb.ClassToStatementListAdapter;
+import se.jguru.nazgul.tools.visualization.api.jaxb.TypedCommentsAdapter;
+import se.jguru.nazgul.tools.visualization.api.jaxb.TypedStatementsAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
@@ -94,12 +95,12 @@ public class Statements implements StringRenderable {
     };
 
     // Internal state
-    @XmlJavaTypeAdapter(ClassToStatementListAdapter.class)
     @XmlElement
+    @XmlJavaTypeAdapter(TypedStatementsAdapter.class)
     private Map<Class<? extends Statement>, List<Statement>> type2StatementsMap;
 
-    @XmlJavaTypeAdapter(ClassToCommentListAdapter.class)
-    @XmlElement
+    @XmlElement(name = "typedComments")
+    @XmlJavaTypeAdapter(TypedCommentsAdapter.class)
     private Map<Class<? extends Statement>, Comment> type2CommentMap;
 
     /**

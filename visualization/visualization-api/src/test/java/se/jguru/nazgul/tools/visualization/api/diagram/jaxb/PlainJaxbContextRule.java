@@ -1,3 +1,24 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-api
+ * %%
+ * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.visualization.api.diagram.jaxb;
 
 import org.apache.commons.lang3.Validate;
@@ -11,6 +32,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -227,9 +252,9 @@ public class PlainJaxbContextRule extends TestWatcher {
      */
     @SuppressWarnings("all")
     public String marshal(final ClassLoader loader,
-            final boolean emitJSON,
-            final Schema schema,
-            final Object... objects)
+                          final boolean emitJSON,
+                          final Schema schema,
+                          final Object... objects)
             throws IllegalArgumentException {
 
         // Use EclipseLink?
@@ -332,9 +357,9 @@ public class PlainJaxbContextRule extends TestWatcher {
      * @see #add(Class[])
      */
     public <T> T unmarshal(final ClassLoader loader,
-            final boolean assumeJSonInput,
-            final Class<T> resultType,
-            final String toUnmarshal) {
+                           final boolean assumeJSonInput,
+                           final Class<T> resultType,
+                           final String toUnmarshal) {
 
         // Check sanity
         Validate.notNull(resultType, "resultType");
@@ -396,6 +421,61 @@ public class PlainJaxbContextRule extends TestWatcher {
      */
     public Object unmarshal(final ClassLoader loader, final boolean assumeJSonInput, final String xmlToUnmarshal) {
         return unmarshal(loader, assumeJSonInput, Object.class, xmlToUnmarshal);
+    }
+
+    /**
+     * Helper utility class to create a StreamSource from a supplied resource path.
+     *
+     * @param resourcePath A non-null resource path.
+     * @return The {@link StreamSource} corresponding to the given resourcePath.
+     */
+    public static StreamSource getSource(final String resourcePath) {
+
+        if (resourcePath == null) {
+            throw new IllegalArgumentException("Cannot handle null 'resourcePath' argument.");
+        }
+
+        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        final String effectiveResourcePath = resourcePath.charAt(0) == '/'
+                ? resourcePath.substring(1)
+                : resourcePath;
+        final InputStream data = contextClassLoader.getResourceAsStream(effectiveResourcePath);
+
+        // All Done.
+        return new StreamSource(data);
+    }
+
+    /**
+     * Convenience method to read the content of a resource fully.
+     *
+     * @param resourcePath The resource path.
+     * @return The resource, converted to a String.
+     */
+    public static String readFully(final String resourcePath) {
+
+        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        final String effectiveResourcePath = resourcePath.charAt(0) == '/'
+                ? resourcePath.substring(1)
+                : resourcePath;
+
+        final BufferedReader in = new BufferedReader(
+                new InputStreamReader(
+                        contextClassLoader.getResourceAsStream(effectiveResourcePath)));
+        final StringWriter out = new StringWriter();
+
+        // Perform a Buffered read.
+        final char[] buffer = new char[1024 * 4];
+        int n = 0;
+        try {
+            while (-1 != (n = in.read(buffer))) {
+                out.write(buffer, 0, n);
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Could not read resource [" + resourcePath + "]", e);
+        }
+
+        // All Done.
+        return out.toString();
     }
 
     //

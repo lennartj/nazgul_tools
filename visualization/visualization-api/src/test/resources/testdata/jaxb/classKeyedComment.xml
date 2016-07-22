@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nazgulviz:classKeyedComment xmlns:nazgulviz="http://www.jguru.se/nazgul/tools/visualization" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" className="se.jguru.nazgul.tools.visualization.api.diagram.statement.Node">
+    <commentLines>
+        <line>This</line>
+        <line>is</line>
+        <line>a</line>
+        <line>multi-line</line>
+        <line>comment.</line>
+    </commentLines>
+</nazgulviz:classKeyedComment>
