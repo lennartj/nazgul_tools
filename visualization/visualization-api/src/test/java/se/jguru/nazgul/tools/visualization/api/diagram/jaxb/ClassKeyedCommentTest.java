@@ -41,6 +41,7 @@ import java.util.List;
 public class ClassKeyedCommentTest {
 
     @Rule public PlainJaxbContextRule jaxb = new PlainJaxbContextRule();
+    @Rule public XmlValidationRule xmlValidation = new XmlValidationRule();
 
     // Shared state
     private Class<? extends Statement> theType = Node.class;
@@ -61,15 +62,8 @@ public class ClassKeyedCommentTest {
 
         // Assert
         Assert.assertNotNull(result);
-
-        final Diff theDiff = DiffBuilder.compare(xmlForm).withTest(result)
-                .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byName))
-                .checkForIdentical()
-                .ignoreWhitespace()
-                .ignoreComments()
-                .normalizeWhitespace()
-                .build();
-        Assert.assertFalse("Expected identical XML " + theDiff.toString(), theDiff.hasDifferences());
+        Assert.assertTrue("Non-identical: " + xmlValidation.getDiffForIdenticalStructures(xmlForm, result),
+                xmlValidation.identical(xmlForm, result));
 
     }
 
