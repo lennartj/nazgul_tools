@@ -33,6 +33,8 @@ import se.jguru.nazgul.tools.visualization.api.diagram.statement.Node;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statement;
 import se.jguru.nazgul.tools.visualization.api.jaxb.ClassKeyedComment;
 
+import java.util.List;
+
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -77,6 +79,7 @@ public class ClassKeyedCommentTest {
         // Assemble
         final String resourcePath = "testdata/jaxb/classKeyedComment.xml";
         final String toUnmarshal = PlainJaxbContextRule.readFully(resourcePath);
+        jaxb.add(ClassKeyedComment.class);
 
         // Act
         final Object resurrected = jaxb.unmarshal(Thread.currentThread().getContextClassLoader(), false, toUnmarshal);
@@ -86,6 +89,14 @@ public class ClassKeyedCommentTest {
 
         final ClassKeyedComment<? extends Statement> unmarshalled =
                 (ClassKeyedComment<? extends Statement>) resurrected;
-        // Assert.assertEquals(unmarshalled.getClass(), );
+        Assert.assertEquals(unmarshalled.getResolvedClass(), theType);
+
+        final List<String> expectedLines = aComment.getCommentLines();
+        final List<String> receivedLines = unmarshalled.getComment().getCommentLines();
+        Assert.assertEquals(expectedLines.size(), receivedLines.size());
+
+        for(int i = 0; i < expectedLines.size(); i++) {
+            Assert.assertEquals(expectedLines.get(i), receivedLines.get(i));
+        }
     }
 }
