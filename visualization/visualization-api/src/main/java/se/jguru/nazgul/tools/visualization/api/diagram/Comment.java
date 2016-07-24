@@ -21,7 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,9 +39,9 @@ import java.util.List;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"commentLines"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Comment implements StringRenderable {
+public class Comment extends AbstractStringRenderable {
 
     // Internal state
     @XmlElementWrapper
@@ -51,7 +52,7 @@ public class Comment implements StringRenderable {
      * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
      */
     public Comment() {
-        // Do nothing
+        // Do nothing.
     }
 
     /**
@@ -60,6 +61,9 @@ public class Comment implements StringRenderable {
      * @param lines One or more comment lines.
      */
     public Comment(final String... lines) {
+
+        // Delegate
+        super(0);
 
         // Create internal state
         commentLines = new ArrayList<>();
@@ -99,23 +103,23 @@ public class Comment implements StringRenderable {
      * @return A Graphviz/Dot compliant comment line.
      */
     @Override
-    public String render() {
+    public String doRender() {
 
         // Check sanity
         final StringBuilder builder = new StringBuilder("");
         if (commentLines.size() == 1) {
 
             // Use a '//' single-line comment
-            builder.append("// ").append(commentLines.get(0)).append(NEWLINE);
+            builder.append("// ").append(commentLines.get(0));
 
         } else if (commentLines.size() > 1) {
 
             // Use a '/*' ... '*/' multi-line comment
             builder.append("/* ").append(NEWLINE);
             for (String current : commentLines) {
-                builder.append(" * ").append(current).append(NEWLINE);
+                builder.append(getIndentation()).append(" * ").append(current).append(NEWLINE);
             }
-            builder.append(" */").append(NEWLINE);
+            builder.append(getIndentation()).append(" */");
         }
 
         // All Done.

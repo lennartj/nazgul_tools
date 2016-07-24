@@ -31,6 +31,11 @@ import java.io.Serializable;
 public interface Renderable<T> extends Serializable {
 
     /**
+     * The XML namespace used by the visualization API classes.
+     */
+    String NAMESPACE = "http://www.jguru.se/nazgul/tools/visualization";
+
+    /**
      * Renders this Renderable for output.
      *
      * @return the output of this Renderable in its current state.

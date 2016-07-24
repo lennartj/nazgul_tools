@@ -21,10 +21,15 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
-import se.jguru.nazgul.tools.visualization.api.diagram.AbstractGraph;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Right-side Edge part statement implementation, corresponding to the following DOT grammar:</p>
@@ -38,11 +43,23 @@ import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class RightSideEdge extends AbstractEdge implements StringRenderable {
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"isDirectedGraph", "rightSideEdge"})
+@XmlAccessorType(XmlAccessType.FIELD)
+public class RightSideEdge extends AbstractEdge {
 
     // Internal state
+    @XmlAttribute(required = true)
     private boolean isDirectedGraph;
+
+    @XmlElement
     private RightSideEdge rightSideEdge;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public RightSideEdge() {
+        // Do nothing.
+    }
 
     /**
      * Creates a {@link RightSideEdge} wrapping the supplied data.
@@ -51,7 +68,9 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
      * @param owningGraph The non-null {@link Graph} instance wherein this {@link RightSideEdge} is part.
      */
     public RightSideEdge(final NodeID nodeID, final Graph owningGraph) {
-        super(nodeID);
+
+        // Delegate
+        super(nodeID, nodeID.getIndentationLevel());
 
         // Check sanity
         if (owningGraph == null) {
@@ -69,7 +88,9 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
      * @param owningGraph The non-null {@link Graph} instance wherein this {@link RightSideEdge} is part.
      */
     public RightSideEdge(final Subgraph subgraph, final Graph owningGraph) {
-        super(subgraph);
+
+        // Delegate
+        super(subgraph, subgraph.getIndentationLevel());
 
         // Check sanity
         if (owningGraph == null) {
@@ -108,7 +129,7 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
      * instances linked to it.
      */
     @Override
-    public String render() {
+    public String doRender() {
 
         final String prefix = (isDirectedGraph ? "->" : "--") + " " + getAbstractEdgeRendering();
 
@@ -125,37 +146,32 @@ public class RightSideEdge extends AbstractEdge implements StringRenderable {
      * Factory method creating a {@link RightSideEdge} which terminates in the Node or Subgraph with the supplied ID
      * and within the supplied Graph.
      *
-     * @param id              A non-null identifier of a NodeID or Subgraph to which this {@link RightSideEdge}
-     *                        should go.
-     * @param immediateParent The non-null {@link AbstractGraph} within which the returned {@link RightSideEdge}
-     *                        should reside.
-     * @param withinGraph     The non-null Graph which is the ultimate parent of the {@link RightSideEdge} to create.
+     * @param id          A non-null identifier of a NodeID or Subgraph to which this {@link RightSideEdge}
+     *                    should go.
+     * @param withinGraph The non-null Graph which is the ultimate parent of the {@link RightSideEdge} to create.
      * @return A newly constructed {@link RightSideEdge} which <strong>is not yet added to any {@link Edge} or
      * {@link RightSideEdge}</strong> - or null if no Node or Subgraph with the supplied id was
      * found in the withinGraph.
      */
-    public static RightSideEdge to(final String id, final AbstractGraph immediateParent, final Graph withinGraph) {
+    public static RightSideEdge to(final String id, final Graph withinGraph) {
 
         // Check sanity
         if (id == null) {
             throw new IllegalArgumentException("Cannot handle null 'id' argument.");
-        }
-        if (immediateParent == null) {
-            throw new IllegalArgumentException("Cannot handle null 'immediateParent' argument.");
         }
         if (withinGraph == null) {
             throw new IllegalArgumentException("Cannot handle null 'withinGraph' argument.");
         }
 
         // First, assume that the ID is a NodeID.
-        final Statements statements = immediateParent.getStatements();
-        final Node node = statements.find(Node.class, id, true);
+        // final Statements statements = immediateParent.getStatements();
+        final Node node = withinGraph.getStatements().findNode(id, true);
         if (node != null) {
             return new RightSideEdge(node.getNodeID(), withinGraph);
         }
 
         // Next, assume that the ID is a Subgraph.
-        final Subgraph subgraph = statements.find(Subgraph.class, id, true);
+        final Subgraph subgraph = withinGraph.getStatements().findSubgraph(id, true);
         if (subgraph != null) {
             return new RightSideEdge(subgraph, withinGraph);
         }

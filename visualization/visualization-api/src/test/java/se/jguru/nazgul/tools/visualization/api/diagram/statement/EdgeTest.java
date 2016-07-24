@@ -62,7 +62,7 @@ public class EdgeTest extends AbstractGraphTest {
                 "\"node1\"=\"foobar\"",
                 "\"node1\"->\"node2\"[key_1=\"value_1\",key_2=\"value_2\",key_3=\"value_3\"]"));
 
-        final Edge unitUnderTest = graph.getStatements().findEdge("node1", "node2");
+        final Edge unitUnderTest = graph.getStatements().findEdge("node1", "node2", true);
         Assert.assertNotNull(unitUnderTest);
 
         final AttributeList attributes = unitUnderTest.getAttributes();

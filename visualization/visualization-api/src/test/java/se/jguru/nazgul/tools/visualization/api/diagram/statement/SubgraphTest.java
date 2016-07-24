@@ -58,7 +58,7 @@ public class SubgraphTest extends AbstractGraphTest {
         // Act
         final List<Node> nodeList = new ArrayList<>();
         for(int i = 1; i < 4; i++) {
-            nodeList.add(standardGraph.getStatements().find(Node.class, "node_" + i, true));
+            nodeList.add(standardGraph.getStatements().findNode("node_" + i, true));
         }
 
         // Assert

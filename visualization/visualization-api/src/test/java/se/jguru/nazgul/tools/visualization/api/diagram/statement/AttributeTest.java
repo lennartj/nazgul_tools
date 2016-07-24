@@ -101,7 +101,7 @@ public class AttributeTest extends AbstractGraphTest {
                 .withColor(StandardCssColor.LightGoldenRodYellow)
                 .toEdgeAttributeStatement());
 
-        final Node node1 = toReturn.getStatements().find(Node.class, "node1");
+        final Node node1 = toReturn.getStatements().findNode("node1", false);
         node1.getAttributes().addAttribute("some", "attribute");
 
         return toReturn;

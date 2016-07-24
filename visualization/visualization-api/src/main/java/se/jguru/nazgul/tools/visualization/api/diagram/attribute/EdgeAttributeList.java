@@ -21,11 +21,10 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.ArrowType;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.EdgeAttribute;
-import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.GraphAttribute;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EdgeAttributeList extends AbstractDelegatingAttributeList {
 

@@ -21,8 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.NodeAttributeList;
 
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"nodeID", "attributeList"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"nodeID", "attributeList"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Node extends AbstractStringIdentifiable implements Statement {
 
@@ -58,7 +58,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
     /**
      * Convenience constructor creating a {@link Node} with the supplied ID.
      *
-     * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
+     * @param id               a non-null and non-empty identifier, assumed to be unique within a Graph.
      */
     public Node(final String id) {
         this(new NodeID(id, null));
@@ -67,10 +67,11 @@ public class Node extends AbstractStringIdentifiable implements Statement {
     /**
      * Compound constructor creating a {@link Node} wrapping the supplied {@link NodeID}.
      *
-     * @param nodeID A non-null {@link NodeID} instance.
+     * @param nodeID           A non-null {@link NodeID} instance.
      */
     public Node(final NodeID nodeID) {
-        super(nodeID.getId());
+
+        super(nodeID.getId(), 0);
 
         this.nodeID = nodeID;
         this.attributeList = new NodeAttributeList();
@@ -98,7 +99,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
      * {@inheritDoc}
      */
     @Override
-    public String render() {
+    public String doRender() {
         return nodeID.render() + (attributeList.isEmpty() ? "" : " " + attributeList.render());
     }
 }

@@ -21,7 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -47,9 +48,9 @@ import java.util.TreeMap;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class SortedAttributeList implements AttributeList {
+public class SortedAttributeList extends AbstractStringRenderable implements AttributeList {
 
     // Internal state
     // @XmlJavaTypeAdapter(StringMapAdapter.class)
@@ -121,7 +122,7 @@ public class SortedAttributeList implements AttributeList {
      * namely {@code attr_list : '[' [ a_list ] ']' [ attr_list ]}
      */
     @Override
-    public String render() {
+    public String doRender() {
 
         // Fail fast
         if (attributes.isEmpty()) {

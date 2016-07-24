@@ -21,6 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -35,15 +36,10 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlRootElement(namespace = Graph.NAMESPACE)
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"isDigraph", "isStrict"})
+@XmlRootElement(namespace = Renderable.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"isDigraph", "isStrict"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Graph extends AbstractGraph {
-
-    /**
-     * The XML namespace used by the visualization API classes.
-     */
-    public static final String NAMESPACE = "http://www.jguru.se/nazgul/tools/visualization";
 
     // Internal state
     @XmlAttribute
@@ -70,7 +66,7 @@ public class Graph extends AbstractGraph {
     public Graph(final String id, final boolean isDigraph, final boolean isStrict) {
 
         // Delegate
-        super(id);
+        super(id, 0);
 
         // Assign internal state
         this.isDigraph = isDigraph;
@@ -113,7 +109,7 @@ public class Graph extends AbstractGraph {
      * {@code}
      */
     @Override
-    public String render() {
+    public String doRender() {
 
         return (isStrict() ? "strict " : "")
                 + (isDigraph() ? "digraph" : "graph")

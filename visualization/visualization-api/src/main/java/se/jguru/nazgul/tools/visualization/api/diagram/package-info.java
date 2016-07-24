@@ -29,7 +29,7 @@
  */
 @XmlSchema(
         xmlns = {
-                @XmlNs(prefix = "nazgulviz", namespaceURI = Graph.NAMESPACE),
+                @XmlNs(prefix = "nazgulviz", namespaceURI = Renderable.NAMESPACE),
                 @XmlNs(prefix = "xs", namespaceURI = "http://www.w3.org/2001/XMLSchema"),
                 @XmlNs(prefix = "xsi", namespaceURI = "http://www.w3.org/2001/XMLSchema-instance"),
                 @XmlNs(prefix = "vc", namespaceURI = "http://www.w3.org/2007/XMLSchema-versioning")
@@ -37,6 +37,8 @@
 )
 @XmlAccessorType(XmlAccessType.FIELD)
 package se.jguru.nazgul.tools.visualization.api.diagram;
+
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -21,7 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"nodeID", "subgraph"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"nodeID", "subgraph"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class AbstractEdge {
+public abstract class AbstractEdge extends AbstractStringRenderable {
 
     // Internal state
     @XmlElement
@@ -55,9 +56,13 @@ public abstract class AbstractEdge {
     /**
      * Creates an AbstractEdge using a NodeID.
      *
+     * @param indentationLevel The non-negative indentation level.
      * @param nodeID A non-null {@link NodeID} instance.
      */
-    public AbstractEdge(final NodeID nodeID) {
+    public AbstractEdge(final NodeID nodeID, final int indentationLevel) {
+
+        // Delegate
+        super(indentationLevel);
 
         // Check sanity
         if (nodeID == null) {
@@ -71,9 +76,13 @@ public abstract class AbstractEdge {
     /**
      * Creates an AbstractEdge using a {@link Subgraph} instance.
      *
+     * @param indentationLevel The non-negative indentation level.
      * @param subgraph A non-null {@link Subgraph} instance.
      */
-    public AbstractEdge(final Subgraph subgraph) {
+    public AbstractEdge(final Subgraph subgraph, final int indentationLevel) {
+
+        // Delegate
+        super(indentationLevel);
 
         // Check sanity
         if (subgraph == null) {

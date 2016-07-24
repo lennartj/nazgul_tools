@@ -21,7 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statement;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 @SuppressWarnings("PMD")
-@XmlType(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public interface AttributeStatement extends Statement {
 }

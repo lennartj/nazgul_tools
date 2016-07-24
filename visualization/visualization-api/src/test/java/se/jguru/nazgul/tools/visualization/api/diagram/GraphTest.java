@@ -31,8 +31,6 @@ import se.jguru.nazgul.tools.visualization.api.diagram.statement.Edge;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Identifier;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Node;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.NodeAttribute;
-import se.jguru.nazgul.tools.visualization.api.jaxb.ClassKeyedComment;
-import se.jguru.nazgul.tools.visualization.api.jaxb.ClassKeyedStatements;
 import se.jguru.nazgul.tools.visualization.spi.dot.DotDiagramValidator;
 import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
@@ -190,8 +188,6 @@ public class GraphTest {
         // Assemble
         final Graph simpleGraph = createSimpleGraph();
         jaxb.add(Graph.class);
-        jaxb.add(ClassKeyedComment.class);
-        jaxb.add(ClassKeyedStatements.class);
 
         // Act
         final String result = jaxb.marshal(Thread.currentThread().getContextClassLoader(), false, null, simpleGraph);

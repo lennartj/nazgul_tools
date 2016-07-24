@@ -21,7 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.PointOrRectangle;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.SplineType;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.model.StandardCssColor;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GraphAttributeList extends AbstractDelegatingAttributeList {
 

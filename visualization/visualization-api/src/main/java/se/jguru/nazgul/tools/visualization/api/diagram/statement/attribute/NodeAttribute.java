@@ -21,8 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.NodeAttributeList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NodeAttribute extends AbstractStringIdentifiable implements AttributeStatement {
 
@@ -59,10 +59,22 @@ public class NodeAttribute extends AbstractStringIdentifiable implements Attribu
     public NodeAttribute() {
 
         // Delegate
-        super("node");
+        super("node", 1);
 
         // Assign internal state
         this.attributes = new NodeAttributeList();
+    }
+
+    /**
+     * Creates a {@link NodeAttribute} with the supplied indentationLevel.
+     *
+     * @param indentationLevel The indentation level of this {@link NodeAttribute}.
+     */
+    public NodeAttribute(final int indentationLevel) {
+
+        this();
+
+        setIndentationLevel(indentationLevel);
     }
 
     /**
@@ -81,7 +93,7 @@ public class NodeAttribute extends AbstractStringIdentifiable implements Attribu
      * <pre>node attr_list</pre>
      */
     @Override
-    public String render() {
+    public String doRender() {
         return getId() + " " + attributes.render();
     }
 }

@@ -36,7 +36,7 @@ import org.xmlunit.diff.ElementSelectors;
  *         \@Rule public XmlValidationRule xmlValidation = new XmlValidationRule();
  *
  *         // Within some test ...
- *         Assert.assertFalse("Non-identical: " + xmlValidation.getDiffForIdenticalStructures(expected, actual),
+ *         Assert.assertTrue("Non-identical: " + xmlValidation.getDiffForIdenticalStructures(expected, actual),
  *              xmlValidation.identical(expected, actual));
  *     </code>
  * </pre>

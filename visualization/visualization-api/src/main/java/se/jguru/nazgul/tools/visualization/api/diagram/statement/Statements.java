@@ -23,135 +23,222 @@ package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
-import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.Comment;
 import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.AttributeStatement;
-import se.jguru.nazgul.tools.visualization.api.jaxb.TypedCommentsAdapter;
-import se.jguru.nazgul.tools.visualization.api.jaxb.TypedStatementsAdapter;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.EdgeAttribute;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.GraphAttribute;
+import se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute.NodeAttribute;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Optional;
 
 /**
- * <p>Utility class which orders statements and comments in a particular order. The default order is given by the
- * {@link #DEFAULT_STATEMENT_ORDER} type Listing.</p>
+ * <p>Utility class which orders statements and comments in a particular order. The default order (which should
+ * yield no problematic references) is:</p>
+ * <ol>
+ * <li>{@link AttributeStatement} statements</li>
+ * <li>{@link Node} statements</li>
+ * <li>{@link Identifier} statements</li>
+ * <li>{@link Edge} statements</li>
+ * <li>{@link Subgraph} statements</li>
+ * </ol>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"type2CommentMap", "type2StatementsMap"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"commonAttributesComment", "commonGraphAttributes",
+        "commonNodeAttributes", "commonEdgeAttributes", "nodesComment", "nodes", "identifiersComment", "identifiers",
+        "edgesComment", "edges", "subgraphComment", "subgraphs"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Statements implements StringRenderable {
+public class Statements extends AbstractStringRenderable {
 
     // Our Log
+    @XmlTransient
     public static final Logger log = LoggerFactory.getLogger(Statement.class);
 
     /**
-     * <p>The order in which statements should normally be rendered, i.e:</p>
-     * <p>
-     * <ol>
-     * <li>{@link AttributeStatement} statements</li>
-     * <li>{@link Node} statements</li>
-     * <li>{@link Identifier} statements</li>
-     * <li>{@link Edge} statements</li>
-     * <li>{@link Subgraph} statements</li>
-     * </ol>
+     * A comment to be rendered before the common/shared attribute statements.
      */
-    public static final List<Class<? extends Statement>> DEFAULT_STATEMENT_ORDER = Collections.unmodifiableList(
-            Arrays.asList(AttributeStatement.class, Node.class, Identifier.class, Edge.class, Subgraph.class));
-
-    /**
-     * A Comparator sorting as per the order defined within the {@link #DEFAULT_STATEMENT_ORDER} List.
-     */
-    public static Comparator<Class<? extends Statement>> DEFAULT_STATEMENT_COMPARATOR
-            = new Comparator<Class<? extends Statement>>() {
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int compare(final Class<? extends Statement> left, final Class<? extends Statement> right) {
-
-            // Handle nulls
-            final int leftIndex = left == null ? -1 : DEFAULT_STATEMENT_ORDER.indexOf(left);
-            final int rightIndex = right == null ? -1 : DEFAULT_STATEMENT_ORDER.indexOf(right);
-
-            // All Done.
-            return leftIndex - rightIndex;
-        }
-    };
-
-    // Internal state
     @XmlElement
-    @XmlJavaTypeAdapter(TypedStatementsAdapter.class)
-    private Map<Class<? extends Statement>, List<Statement>> type2StatementsMap;
-
-    @XmlElement(name = "typedComments")
-    @XmlJavaTypeAdapter(TypedCommentsAdapter.class)
-    private Map<Class<? extends Statement>, Comment> type2CommentMap;
+    private Comment commonAttributesComment;
 
     /**
-     * Default constructor uses {@link #DEFAULT_STATEMENT_COMPARATOR} for comparator between {@link Statement} types.
+     * An optional statement containing common/shared Graph attributes. The attributes defined within the
+     * GraphAttribute statement will be set as default on all Graph/Subgraphs.
+     *
+     * @see #subgraphs
+     */
+    @XmlElement
+    private GraphAttribute commonGraphAttributes;
+
+    /**
+     * An optional statement containing common/shared Node attributes. The attributes defined within the
+     * NodeAttribute statement will be set as default on all Nodes.
+     *
+     * @see #nodes
+     */
+    @XmlElement
+    private NodeAttribute commonNodeAttributes;
+
+    /**
+     * An optional statement containing common/shared Edge attributes. The attributes defined within the
+     * EdgeAttribute statement will be set as default on all Nodes.
+     *
+     * @see #nodes
+     */
+    @XmlElement
+    private EdgeAttribute commonEdgeAttributes;
+
+    /**
+     * A comment to be rendered before the Node statements.
+     */
+    @XmlElement
+    private Comment nodesComment;
+
+    /**
+     * A sequence of all Nodes added/known to this Statements wrapper.
+     */
+    @XmlElementWrapper
+    @XmlElement(name = "node")
+    private List<Node> nodes;
+
+    /**
+     * A comment to be rendered before the Identifier statements.
+     */
+    @XmlElement
+    private Comment identifiersComment;
+
+    /**
+     * A sequence of all Identifiers added/known to this statements wrapper.
+     */
+    @XmlElementWrapper
+    @XmlElement(name = "identifier")
+    private List<Identifier> identifiers;
+
+    /**
+     * A comment to be rendered before the Edge statements.
+     */
+    @XmlElement
+    private Comment edgesComment;
+
+    /**
+     * A sequence of all Edges added/known to this Statements wrapper.
+     */
+    @XmlElementWrapper
+    @XmlElement(name = "edge")
+    private List<Edge> edges;
+
+    /**
+     * A comment to be rendered before the Subgraph statements.
+     */
+    @XmlElement
+    private Comment subgraphComment;
+
+    /**
+     * A sequence of all Subgraphs added/known to this Statements wrapper.
+     */
+    @XmlElement
+    private List<Subgraph> subgraphs;
+
+    /**
+     * Default constructor, assigning default lines to all Comments.
+     * Reserved for framework use only.
      */
     public Statements() {
-        this(null);
-    }
 
-    /**
-     * Compound constructor creating a Statements instance using the supplied {@link Comparator} to order statements.
-     * If a null Comparator is supplied, {@link #DEFAULT_STATEMENT_COMPARATOR} is used.
-     *
-     * @param orderComparator An optional (i.e. nullable) Comparator used to order all known {@link Statement}
-     *                        instance types within this {@link Statements} holder.
-     */
-    public Statements(final Comparator<Class<? extends Statement>> orderComparator) {
-
-        // Check sanity
-        final Comparator<Class<? extends Statement>> comparator = orderComparator == null
-                ? DEFAULT_STATEMENT_COMPARATOR
-                : orderComparator;
+        super();
 
         // Assign internal state
-        type2StatementsMap = new TreeMap<>(comparator);
-        type2CommentMap = new TreeMap<>(comparator);
+        this.nodes = new ArrayList<>();
+        this.identifiers = new ArrayList<>();
+        this.edges = new ArrayList<>();
+        this.subgraphs = new ArrayList<>();
 
-        // Assign default Comments
-        for (Class<? extends Statement> current : DEFAULT_STATEMENT_ORDER) {
-            setCommentFor(current, new Comment(current.getSimpleName() + " statements."));
-        }
+        setCommonAttributesComment(null);
+        setNodesComment(null);
+        setIdentifiersComment(null);
+        setEdgesComment(null);
+        setSubgraphComment(null);
     }
 
     /**
-     * Assigns the Comment to be emitted before all Statements of the supplied type are rendered.
+     * Compound constructor creating a {@link Statements} instance with the supplied level of indentation.
      *
-     * @param statementType The non-null type of {@link Statement} for which a {@link Comment} should be set.
-     * @param comment       The non-null {@link Comment} to set.
+     * @param indentationLevel The non-negative level of indentation.
      */
-    public void setCommentFor(final Class<? extends Statement> statementType, final Comment comment) {
+    public Statements(final int indentationLevel) {
 
-        // Check sanity
-        if (statementType == null) {
-            throw new IllegalArgumentException("Cannot handle null 'statementType' argument.");
-        }
-        if (comment == null) {
-            throw new IllegalArgumentException("Cannot handle null 'comment' argument.");
-        }
+        // Delegate.
+        this();
 
-        // Add the comment.
-        type2CommentMap.put(statementType, comment);
+        // Assign internal state
+        setIndentationLevel(indentationLevel);
+    }
+
+    /**
+     * Assigns the comment to be rendered before the Common/Shared attribute statements.
+     *
+     * @param lines The line(s) within the Comment. A standard Comment will be used if lines is {@code null}.
+     */
+    public final void setCommonAttributesComment(final String... lines) {
+        this.commonAttributesComment = lines == null
+                ? new Comment("Common Attribute Statements")
+                : new Comment(lines);
+    }
+
+    /**
+     * Assigns the comment to be rendered before the Node statements.
+     *
+     * @param lines The line(s) within the Comment. A standard Comment will be used if lines is {@code null}.
+     */
+    public final void setNodesComment(final String... lines) {
+        this.nodesComment = lines == null
+                ? new Comment("Node Statements")
+                : new Comment(lines);
+    }
+
+    /**
+     * Assigns the comment to be rendered before the Identifier statements.
+     *
+     * @param lines The line(s) within the Comment. A standard Comment will be used if lines is {@code null}.
+     */
+    public final void setIdentifiersComment(final String... lines) {
+        this.identifiersComment = lines == null
+                ? new Comment("Identifier Statements")
+                : new Comment(lines);
+    }
+
+    /**
+     * Assigns the comment to be rendered before the Edge statements.
+     *
+     * @param lines The line(s) within the Comment. A standard Comment will be used if lines is {@code null}.
+     */
+    public final void setEdgesComment(final String... lines) {
+        this.edgesComment = lines == null
+                ? new Comment("Edge Statements")
+                : new Comment(lines);
+    }
+
+    /**
+     * Assigns the comment to be rendered before the Subgraph statements.
+     *
+     * @param lines The line(s) within the Comment. A standard Comment will be used if lines is {@code null}.
+     */
+    public final void setSubgraphComment(final String... lines) {
+        this.subgraphComment = (lines == null
+                ? new Comment("Subgraph Statements")
+                : new Comment(lines));
     }
 
     /**
@@ -163,115 +250,133 @@ public class Statements implements StringRenderable {
     public void add(final Statement... toAdd) {
 
         if (toAdd != null) {
-            for (Statement current : toAdd) {
-                if (current != null) {
 
-                    // Get the actual implementation of the current Statement
-                    final Class<? extends Statement> currentType = current.getClass();
-                    final Class<? extends Statement> effType = AttributeStatement.class.isAssignableFrom(currentType)
-                            ? AttributeStatement.class
-                            : currentType;
+            Arrays.stream(toAdd)
+                    .filter(c -> c != null)
+                    .forEach(c -> {
 
-                    // Get or create the List of Statements for the supplied type.
-                    List<Statement> statementList = type2StatementsMap.get(effType);
-                    if (statementList == null) {
-                        statementList = new ArrayList<>();
-                        type2StatementsMap.put(effType, statementList);
-                    }
-
-                    // Add the current Statement to the List.
-                    statementList.add(current);
-                }
-            }
+                        // Resolve the type of the current Statement, and assign it to
+                        // the appropriate internal state.
+                        if (c instanceof EdgeAttribute) {
+                            this.commonEdgeAttributes = (EdgeAttribute) c;
+                        } else if (c instanceof GraphAttribute) {
+                            this.commonGraphAttributes = (GraphAttribute) c;
+                        } else if (c instanceof NodeAttribute) {
+                            this.commonNodeAttributes = (NodeAttribute) c;
+                        } else if (c instanceof Node) {
+                            this.nodes.add((Node) c);
+                        } else if (c instanceof Identifier) {
+                            this.identifiers.add((Identifier) c);
+                        } else if (c instanceof Edge) {
+                            this.edges.add((Edge) c);
+                        } else if (c instanceof Subgraph) {
+                            this.subgraphs.add((Subgraph) c);
+                        }
+                    });
         }
     }
 
     /**
-     * Finds known {@link Statements} which are also {@link AbstractStringIdentifiable} subclasses and have the
-     * supplied identifier. The search does not descend into contained {@link Subgraph}s.
+     * Retrieves all Nodes within this Statement instance. No recursion into any Subgraph is done.
      *
-     * @param type       The type of Statement to find.
-     * @param identifier The identifier of the Statement to find.
-     * @param <T>        The type of Statement to find.
-     * @return The {@link Statement} having its identifier (i.e. {@link AbstractStringIdentifiable#getId()}) equal to
-     * the supplied identifier, or null if none was found.
+     * @return all Nodes being immediate children to this {@link Statements} instance.
      */
-    public <T extends AbstractStringIdentifiable & Statement> T find(
-            final Class<T> type,
-            final String identifier) {
-        return find(type, identifier, false);
+    public List<Node> getNodes() {
+        return nodes;
     }
 
     /**
-     * Finds known {@link Statements} which are also {@link AbstractStringIdentifiable} subclasses and have the
-     * supplied identifier.
+     * Retrieves all Identifiers within this Statement instance. No recursion into any Subgraph is done.
      *
-     * @param type              The type of Statement to find.
-     * @param identifier        The identifier of the Statement to find.
-     * @param searchRecursively If {@code true}, the search will descend into {@link Subgraph}s, and otherwise only
-     *                          this {@link Statements}' content are searched.
-     * @param <T>               The type of Statement to find.
-     * @return The {@link Statement} having its identifier (i.e. {@link AbstractStringIdentifiable#getId()}) equal to
-     * the supplied identifier, or null if none was found.
+     * @return all Identifiers being immediate children to this {@link Statements} instance.
      */
-    @SuppressWarnings("PMD")
-    public <T extends AbstractStringIdentifiable & Statement> T find(
-            final Class<T> type,
-            final String identifier,
-            final boolean searchRecursively) {
+    public List<Identifier> getIdentifiers() {
+        return identifiers;
+    }
 
-        // Check sanity
-        if (type == null) {
-            throw new IllegalArgumentException("Cannot handle null 'type' argument.");
-        }
-        if (identifier == null || identifier.isEmpty()) {
-            throw new IllegalArgumentException("Cannot handle null or empty 'identifier' argument.");
-        }
+    /**
+     * Retrieves all Edges within this Statement instance. No recursion into any Subgraph is done.
+     *
+     * @return all Edges being immediate children to this {@link Statements} instance.
+     */
+    public List<Edge> getEdges() {
+        return edges;
+    }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Searching for [" + identifier + "] of type [" + type.getSimpleName()
-                    + "] within Statements [" + hashCode() + "]");
-        }
+    /**
+     * Retrieves all Subgraphs within this Statement instance. No recursion into any child Subgraph is done.
+     *
+     * @return all Subgraphs being immediate children to this {@link Statements} instance.
+     */
+    public List<Subgraph> getSubgraphs() {
+        return subgraphs;
+    }
 
-        // Find the Statement with the supplied identifier.
-        final Class<? extends Statement> effType = AttributeStatement.class.isAssignableFrom(type)
-                ? AttributeStatement.class
-                : type;
-        final List<Statement> existingStatements = type2StatementsMap.get(effType);
+    /**
+     * Finds the Node with the supplied identifier within this Statements (and within any contained Subgraphs, if the
+     * {@code recursive} flag is true).
+     *
+     * @param identifier The identifier to match against the {@link Node#getId()} of a matching Node.
+     * @param recursive  If {@code true}, the search should recurse into the Statements of Subgraphs.
+     * @return The Node with the supplied identifier - or null if none was found.
+     */
+    public Node findNode(final String identifier, final boolean recursive) {
 
-        if (existingStatements != null && !existingStatements.isEmpty()) {
+        Optional<Node> toReturn = getNodes().stream().filter(c -> c.getId().equals(identifier)).findFirst();
+        if (!toReturn.isPresent() && recursive) {
 
-            for (Statement current : existingStatements) {
-
-                final String currentId = ((AbstractStringIdentifiable) current).getId();
-                if (identifier.equals(currentId)) {
-                    return (T) current;
-                }
-            }
-        }
-
-        // Recursive search?
-        if (searchRecursively) {
-
-            // Find all our Subgraphs, and extend the search into them.
-            final List<Statement> subgraphs = type2StatementsMap.get(Subgraph.class);
-
-            if (subgraphs != null) {
-
-                for (Statement stmnt : subgraphs) {
-
-                    final Subgraph current = (Subgraph) stmnt;
-                    final T result = current.getStatements().find(type, identifier, true);
-
-                    if (result != null) {
-                        return result;
-                    }
-                }
-            }
+            // Does the Node with the given identifier exist in any Subgraph?
+            toReturn = subgraphs.stream().map(c -> c.getStatements().findNode(identifier, true)).findFirst();
         }
 
-        // None found.
-        return null;
+        // All Done.
+        return toReturn.orElse(null);
+    }
+
+    /**
+     * Finds the Edge with the supplied identifier within this Statements (and within any contained Subgraphs, if the
+     * {@code recursive} flag is true).
+     *
+     * @param fromId    The Node or Subgraph identifier of the starting point of the Edge to find.
+     * @param toId      The Node or Subgraph identifier of the finishing point of the Edge to find.
+     * @param recursive If {@code true}, the search should recurse into the Statements of Subgraphs.
+     * @return The Edge with the supplied identifier - or null if none was found.
+     */
+    public Edge findEdge(final String fromId, final String toId, final boolean recursive) {
+
+        Optional<Edge> toReturn = getEdges().stream()
+                .filter(c -> c.getId().equals(fromId) && c.getRightSideEdge().getId().equals(toId))
+                .findFirst();
+
+        if (!toReturn.isPresent() && recursive) {
+
+            // Does the Node with the given identifier exist in any Subgraph?
+            toReturn = subgraphs.stream().map(c -> c.getStatements().findEdge(fromId, toId, true)).findFirst();
+        }
+
+        // All Done.
+        return toReturn.orElse(null);
+    }
+
+    /**
+     * Finds the Subgraph with the supplied identifier within this Statements (and within any contained Subgraphs, if
+     * the {@code recursive} flag is true).
+     *
+     * @param identifier The identifier to match against the {@link Subgraph#getId()} of a matching Node.
+     * @param recursive  If {@code true}, the search should recurse into the Statements of Subgraphs.
+     * @return The Subgraph with the supplied identifier - or null if none was found.
+     */
+    public Subgraph findSubgraph(final String identifier, final boolean recursive) {
+
+        Optional<Subgraph> toReturn = getSubgraphs().stream().filter(c -> c.getId().equals(identifier)).findFirst();
+        if (!toReturn.isPresent() && recursive) {
+
+            // Does the Node with the given identifier exist in any Subgraph?
+            toReturn = subgraphs.stream().map(c -> c.getStatements().findSubgraph(identifier, true)).findFirst();
+        }
+
+        // All Done.
+        return toReturn.orElse(null);
     }
 
     /**
@@ -298,13 +403,14 @@ public class Statements implements StringRenderable {
         Edge toReturn = null;
 
         // Find the nodes between which the Edge should be created.
-        final Node fromNode = find(Node.class, fromId);
-        final Subgraph fromSubgraph = find(Subgraph.class, fromId);
+        final Node fromNode = findNode(fromId, true);
+        final Subgraph fromSubgraph = findSubgraph(fromId, true);
+
         if (fromNode != null || fromSubgraph != null) {
 
             // Find the RHS edge data.
-            final Node toNode = find(Node.class, toId);
-            final Subgraph toSubgraph = find(Subgraph.class, toId);
+            final Node toNode = findNode(toId, true);
+            final Subgraph toSubgraph = findSubgraph(toId, true);
             final NodeID toNodeId = toNode == null ? null : toNode.getNodeID();
 
             // Can we actually create an Edge?
@@ -332,42 +438,6 @@ public class Statements implements StringRenderable {
     }
 
     /**
-     * Finds the Edge with the given from ID, and whose {@link RightSideEdge}'s ID matches the to ID.
-     *
-     * @param fromId The non-null ID of the Edge to match.
-     * @param toId   The non-null ID of the {@link RightSideEdge} of the Edge to match.
-     * @return An Edge whose ID matches the fromId argument and whose immediate {@link RightSideEdge}'s ID matches
-     * the toId argument.
-     */
-    @SuppressWarnings("PMD")
-    public Edge findEdge(final String fromId, final String toId) {
-
-        // Check sanity
-        if (fromId == null) {
-            throw new IllegalArgumentException("Cannot handle null 'fromId' argument.");
-        }
-        if (toId == null) {
-            throw new IllegalArgumentException("Cannot handle null 'toId' argument.");
-        }
-
-        for (Statement current : type2StatementsMap.get(Edge.class)) {
-
-            // Find the current Edge's from and to IDs.
-            final Edge currentEdge = (Edge) current;
-            final String currentFromID = currentEdge.getId();
-            final String currentToID = currentEdge.getRightSideEdge().getId();
-
-            // Match?
-            if (fromId.equals(currentFromID) && toId.equals(currentToID)) {
-                return currentEdge;
-            }
-        }
-
-        // All Done.
-        return null;
-    }
-
-    /**
      * <p>Returns a commented, suite of all provided Statements, in the following order:</p>
      * <ol>
      * <li>{@link AttributeStatement} statements</li>
@@ -381,26 +451,71 @@ public class Statements implements StringRenderable {
      */
     @Override
     @SuppressWarnings("PMD")
-    public String render() {
+    public String doRender() {
 
         final StringBuilder builder = new StringBuilder("");
 
         // Render the statements in order.
-        for (Map.Entry<Class<? extends Statement>, List<Statement>> current : type2StatementsMap.entrySet()) {
+        final int indentationLevel = getIndentationLevel();
 
-            // Render the comment, if we have one.
-            final Comment comment = type2CommentMap.get(current.getKey());
-            if (comment != null) {
-                builder.append(NEWLINE).append(comment.render());
+        // #1) Render the AttributeStatements plus comment, if they exist.
+        final boolean hasAttributeStatements = commonGraphAttributes != null
+                || commonEdgeAttributes != null
+                || commonNodeAttributes != null;
+        if (hasAttributeStatements) {
+
+            commonAttributesComment.setIndentationLevel(indentationLevel);
+            builder.append(commonAttributesComment.render());
+
+            if (commonGraphAttributes != null) {
+                commonGraphAttributes.setIndentationLevel(indentationLevel);
+                builder.append(commonGraphAttributes.render());
             }
 
-            // Render all statements of the same type, each on a line of its own.
-            for (Statement currentStatement : current.getValue()) {
-                builder.append(currentStatement.render()).append(Statement.NEWLINE_SEPARATOR);
+            if (commonNodeAttributes != null) {
+                commonNodeAttributes.setIndentationLevel(indentationLevel);
+                builder.append(commonNodeAttributes.render());
+            }
+
+            if (commonEdgeAttributes != null) {
+                commonEdgeAttributes.setIndentationLevel(indentationLevel);
+                builder.append(commonEdgeAttributes.render());
             }
         }
 
+        // #2) Render the other Statements in order, namely
+        //
+        //     Node statements
+        //     Identifier statements
+        //     Edge statements
+        //     Subgraph statements
+        process(builder, nodesComment, nodes, indentationLevel);
+        process(builder, identifiersComment, identifiers, indentationLevel);
+        process(builder, edgesComment, edges, indentationLevel);
+        process(builder, subgraphComment, subgraphs, indentationLevel);
+
         // All Done.
         return builder.toString();
+    }
+
+    //
+    // Private helpers
+    //
+
+    private static void process(final StringBuilder builder,
+                                final Comment comment,
+                                final List<? extends AbstractStringRenderable> renderables,
+                                final int indentationLevel) {
+        if(!renderables.isEmpty()) {
+
+            comment.setIndentationLevel(indentationLevel);
+            builder.append(comment.render());
+
+            renderables.stream().filter(c -> c != null).forEach(c -> {
+
+                c.setIndentationLevel(indentationLevel);
+                builder.append(c.render());
+            });
+        }
     }
 }

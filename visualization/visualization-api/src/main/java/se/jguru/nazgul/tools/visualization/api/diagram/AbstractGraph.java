@@ -21,6 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statement;
 import se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements;
 
@@ -35,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"statements"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"statements"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractGraph extends AbstractStringIdentifiable {
 
@@ -53,15 +54,16 @@ public abstract class AbstractGraph extends AbstractStringIdentifiable {
     /**
      * Compound constructor creating an {@link AbstractGraph} instance wrapping the supplied data.
      *
-     * @param id a non-null and non-empty identifier, assumed to be unique (within a Graph).
+     * @param id               a non-null and non-empty identifier, assumed to be unique (within a Graph).
+     * @param indentationLevel The non-negative indentation level.
      */
-    protected AbstractGraph(final String id) {
+    protected AbstractGraph(final String id, final int indentationLevel) {
 
         // Delegate
-        super(id);
+        super(id, indentationLevel);
 
         // Create internal state
-        this.statements = new Statements();
+        this.statements = new Statements(indentationLevel);
     }
 
     /**

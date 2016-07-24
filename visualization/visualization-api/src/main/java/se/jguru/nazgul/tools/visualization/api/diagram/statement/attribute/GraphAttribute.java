@@ -21,8 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.GraphAttributeList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GraphAttribute extends AbstractStringIdentifiable implements AttributeStatement {
 
@@ -59,10 +59,24 @@ public class GraphAttribute extends AbstractStringIdentifiable implements Attrib
     public GraphAttribute() {
 
         // Delegate
-        super("graph");
+        super("graph", 1);
 
         // Assign internal state
         this.attributes = new GraphAttributeList();
+    }
+
+    /**
+     * Creates a {@link GraphAttribute} wrapping the supplied state.
+     *
+     * @param indentationLevel The indentation level of this {@link GraphAttribute}.
+     */
+    public GraphAttribute(final int indentationLevel) {
+
+        // Delegate
+        this();
+
+        // Overwrite the indentation level
+        setIndentationLevel(indentationLevel);
     }
 
     /**
@@ -80,7 +94,7 @@ public class GraphAttribute extends AbstractStringIdentifiable implements Attrib
      * <pre>graph attr_list</pre>
      */
     @Override
-    public String render() {
+    public String doRender() {
         return getId() + " " + attributes.render();
     }
 }

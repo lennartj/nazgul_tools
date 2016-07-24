@@ -21,7 +21,12 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractGraph;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Subgraph statement implementation, corresponding to the following DOT grammar:</p>
@@ -39,7 +44,16 @@ import se.jguru.nazgul.tools.visualization.api.diagram.AbstractGraph;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = Renderable.NAMESPACE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Subgraph extends AbstractGraph implements Statement {
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public Subgraph() {
+        // Do nothing
+    }
 
     /**
      * Compound constructor creating a sub-graph statement wrapping the supplied data.
@@ -47,9 +61,7 @@ public class Subgraph extends AbstractGraph implements Statement {
      * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
      */
     public Subgraph(final String id) {
-
-        // Delegate
-        super(id);
+        super(id, 0);
     }
 
     /**
@@ -59,13 +71,16 @@ public class Subgraph extends AbstractGraph implements Statement {
      * @return the output of this {@link Subgraph} in its current state.
      */
     @Override
-    public String render() {
+    public String doRender() {
 
-        return "subgraph " + getQuotedId()
-                + "{ "
+        // First, update the indentation level of the statements within this Subgraph
+        final int childIndentationLevel = getIndentationLevel() + 1;
+        getStatements().setIndentationLevel(childIndentationLevel);
+
+        // Now render this Subgraph fully
+        return "subgraph " + getQuotedId() + " { "
                 + NEWLINE
                 + getStatements().render()
-                + NEWLINE
-                + "} ";
+                + getIndentation() + "}";
     }
 }

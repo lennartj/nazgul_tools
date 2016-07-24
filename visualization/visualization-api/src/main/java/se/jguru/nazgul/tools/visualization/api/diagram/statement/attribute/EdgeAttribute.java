@@ -21,8 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.EdgeAttributeList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  * @see EdgeAttributeList
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EdgeAttribute extends AbstractStringIdentifiable implements AttributeStatement {
 
@@ -55,15 +55,29 @@ public class EdgeAttribute extends AbstractStringIdentifiable implements Attribu
     private EdgeAttributeList attributes;
 
     /**
-     * Default constructor
+     * Default constructor, using the default indentation level of 1.
      */
     public EdgeAttribute() {
 
         // Delegate
-        super("edge");
+        super("edge", 1);
 
         // Assign internal state
         this.attributes = new EdgeAttributeList();
+    }
+
+    /**
+     * Compound constructor creating an {@link EdgeAttribute} statement with the supplied indentationLevel.
+     *
+     * @param indentationLevel A non-negative indentation level.
+     */
+    public EdgeAttribute(final int indentationLevel) {
+
+        // Delegate
+        this();
+
+        // Assign the indentationLevel.
+        setIndentationLevel(indentationLevel);
     }
 
     /**
@@ -82,7 +96,7 @@ public class EdgeAttribute extends AbstractStringIdentifiable implements Attribu
      * <pre>edge attr_list</pre>
      */
     @Override
-    public String render() {
+    public String doRender() {
         return getId() + " " + attributes.render();
     }
 }

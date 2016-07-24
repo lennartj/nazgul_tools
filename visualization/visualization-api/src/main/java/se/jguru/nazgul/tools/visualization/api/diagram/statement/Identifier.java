@@ -21,11 +21,12 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -34,11 +35,12 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"targetIdentifier"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"targetIdentifier"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Identifier extends AbstractStringIdentifiable implements Statement {
 
     // Internal state
+    @XmlElement(required = true)
     private String targetIdentifier;
 
     /**
@@ -57,7 +59,7 @@ public class Identifier extends AbstractStringIdentifiable implements Statement 
     public Identifier(final String id, final String targetIdentifier) {
 
         // Delegate
-        super(id);
+        super(id, 0);
 
         // Check sanity
         if (targetIdentifier == null || targetIdentifier.isEmpty()) {
@@ -87,7 +89,7 @@ public class Identifier extends AbstractStringIdentifiable implements Statement 
      * <p>Both identifiers are quoted.</p>
      */
     @Override
-    public String render() {
+    public String doRender() {
         return getQuotedId() + " = \"" + getTargetIdentifier() + "\" ";
     }
 }

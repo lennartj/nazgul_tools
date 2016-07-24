@@ -21,6 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -36,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(name = Graph.NAMESPACE, propOrder = {"id", "compassPoint"})
 @XmlEnum(String.class)
-public class Port implements StringRenderable {
+public class Port extends AbstractStringRenderable {
 
     /**
      * An enumeration corresponding to
@@ -71,6 +72,30 @@ public class Port implements StringRenderable {
         public String render() {
             return dotToken;
         }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setIndentationLevel(final int indentationLevel) throws IllegalArgumentException {
+            // Do nothing
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int getIndentationLevel() {
+            return 0;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String getSingleIndent() {
+            return "";
+        }
     }
 
     // Internal state
@@ -84,7 +109,7 @@ public class Port implements StringRenderable {
      * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
      */
     public Port() {
-        // Do nothing.
+        super(0);
     }
 
     /**
@@ -103,6 +128,8 @@ public class Port implements StringRenderable {
      * @param compassPoint A non-null {@link CompassPoint} value.
      */
     public Port(final String identifier, final CompassPoint compassPoint) {
+
+        super(0);
 
         // Check sanity
         if (compassPoint == null) {
@@ -136,7 +163,7 @@ public class Port implements StringRenderable {
      * {@inheritDoc}
      */
     @Override
-    public String render() {
+    public String doRender() {
 
         final String prefix = identifier != null && !identifier.isEmpty()
                 ? ": " + identifier + " "

@@ -21,7 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -37,10 +38,10 @@ import java.util.Map;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"delegate"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"delegate"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({SortedAttributeList.class, EdgeAttributeList.class, NodeAttributeList.class, GraphAttributeList.class})
-public abstract class AbstractDelegatingAttributeList implements AttributeList {
+public abstract class AbstractDelegatingAttributeList extends AbstractStringRenderable implements AttributeList {
 
     // Internal state
     @XmlElements({
@@ -77,8 +78,8 @@ public abstract class AbstractDelegatingAttributeList implements AttributeList {
      * {@inheritDoc}
      */
     @Override
-    public final String render() {
-        return delegate.render();
+    public final String doRender() {
+        return delegate.doRender();
     }
 
     /**

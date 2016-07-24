@@ -21,6 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
 import se.jguru.nazgul.tools.visualization.api.StringRenderable;
 
 import java.util.Map;
@@ -87,4 +88,12 @@ public interface AttributeList extends StringRenderable {
      * @return {@code true} if this {@link AttributeList} does not contain data.
      */
     boolean isEmpty();
+
+    /**
+     * Override this method to perform rendering without any trailing newlines or starting indentations.
+     *
+     * @return The result of the plain rendering
+     * @see AbstractStringRenderable#doRender()
+     */
+    String doRender();
 }

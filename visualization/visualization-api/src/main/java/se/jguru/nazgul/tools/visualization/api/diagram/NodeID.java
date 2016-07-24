@@ -21,6 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import se.jguru.nazgul.tools.visualization.api.Renderable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -33,7 +35,7 @@ import java.util.Objects;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"port"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"port"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NodeID extends AbstractStringIdentifiable implements Comparable<NodeID> {
 
@@ -66,7 +68,7 @@ public class NodeID extends AbstractStringIdentifiable implements Comparable<Nod
      * @param port An optional (i.e. nullable) Port for this {@link NodeID}.
      */
     public NodeID(final String id, final Port port) {
-        super(id);
+        super(id, 1);
         this.port = port;
     }
 
@@ -97,8 +99,8 @@ public class NodeID extends AbstractStringIdentifiable implements Comparable<Nod
      * {@inheritDoc}
      */
     @Override
-    public String render() {
-        return getQuotedId() + (port != null ? "" + port.render() : "");
+    protected String doRender() {
+        return getQuotedId() + (port != null ? "" + port.doRender() : "");
     }
 
     /**

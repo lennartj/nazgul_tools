@@ -68,7 +68,7 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         final Graph graph = createStandardGraph(true);
 
         // Act
-        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final Edge edge = graph.getStatements().findEdge("node1", "node2", true);
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
@@ -82,17 +82,17 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         final Graph parent = createStandardGraph(true);
 
         // Act & Assert
-        RightSideEdge.to(null, parent, parent);
+        RightSideEdge.to(null, parent);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullImmediateParentInFactoryMethod() {
+    public void validateExceptionOnNullParentInFactoryMethod() {
 
         // Assemble
         final Graph parent = createStandardGraph(false);
 
         // Act & Assert
-        RightSideEdge.to("foo", null, parent);
+        RightSideEdge.to("foo", null);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         final Graph graph = createStandardGraph(true);
 
         // Act
-        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final Edge edge = graph.getStatements().findEdge("node1", "node2", true);
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
@@ -137,11 +137,11 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         subgraph.add(node3);
         graph.add(subgraph);
 
-        final Edge edgeIntoSubgraph = new Edge(subgraph, RightSideEdge.to("node3", subgraph, graph));
+        final Edge edgeIntoSubgraph = new Edge(subgraph, RightSideEdge.to("node3", graph));
         subgraph.add(edgeIntoSubgraph);
 
         // Act
-        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final Edge edge = graph.getStatements().findEdge("node1", "node2", true);
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
@@ -156,7 +156,7 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         final List<String> expectedTexts = getBaseExpectedTests("--");
 
         // Act
-        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final Edge edge = graph.getStatements().findEdge("node1", "node2", true);
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
 
         // Assert
@@ -171,9 +171,9 @@ public class RightSideEdgeTest extends AbstractGraphTest {
         graph.add(new Node("node3"));
 
         // Act
-        final Edge edge = graph.getStatements().findEdge("node1", "node2");
+        final Edge edge = graph.getStatements().findEdge("node1", "node2", true);
         final RightSideEdge unitUnderTest = edge.getRightSideEdge();
-        unitUnderTest.setRightSideEdge(RightSideEdge.to("node3", graph, graph));
+        unitUnderTest.setRightSideEdge(RightSideEdge.to("node3", graph));
 
         /*
         graph "foobar" {

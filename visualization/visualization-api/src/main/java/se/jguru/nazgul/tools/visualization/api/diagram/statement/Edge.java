@@ -21,7 +21,7 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 import se.jguru.nazgul.tools.visualization.api.diagram.attribute.EdgeAttributeList;
 
@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE, propOrder = {"attributes", "rightSideEdge"})
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"attributes", "rightSideEdge"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Edge extends AbstractEdge implements Statement {
 
@@ -70,7 +70,7 @@ public class Edge extends AbstractEdge implements Statement {
     public Edge(final NodeID nodeID, final RightSideEdge rightSideEdge) {
 
         // Delegate
-        super(nodeID);
+        super(nodeID, 0);
 
         // Check sanity
         if (rightSideEdge == null) {
@@ -91,7 +91,7 @@ public class Edge extends AbstractEdge implements Statement {
     public Edge(final Subgraph subgraph, final RightSideEdge rightSideEdge) {
 
         // Delegate
-        super(subgraph);
+        super(subgraph, 0);
 
         // Check sanity
         if (rightSideEdge == null) {
@@ -131,11 +131,11 @@ public class Edge extends AbstractEdge implements Statement {
      * @see RightSideEdge
      */
     @Override
-    public String render() {
+    public String doRender() {
 
-        final String prefix = getAbstractEdgeRendering() + " " + getRightSideEdge().render();
+        final String prefix = getAbstractEdgeRendering() + " " + getRightSideEdge().doRender();
 
-        if(getAttributes().isEmpty()) {
+        if (getAttributes().isEmpty()) {
             return prefix;
         }
 

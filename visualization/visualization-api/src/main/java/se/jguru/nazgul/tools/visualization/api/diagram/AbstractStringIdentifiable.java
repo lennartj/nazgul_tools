@@ -21,7 +21,8 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
+import se.jguru.nazgul.tools.visualization.api.Renderable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = Graph.NAMESPACE)
+@XmlType(namespace = Renderable.NAMESPACE, propOrder = {"id"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class AbstractStringIdentifiable implements StringRenderable {
+public abstract class AbstractStringIdentifiable extends AbstractStringRenderable {
 
     // Internal state
     @XmlElement(required = true)
@@ -52,9 +53,13 @@ public abstract class AbstractStringIdentifiable implements StringRenderable {
     /**
      * Creates an {@link AbstractStringIdentifiable} wrapping the supplied data.
      *
-     * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
+     * @param id               a non-null and non-empty identifier, assumed to be unique within a Graph.
+     * @param indentationLevel the non-negative indentation level of this {@link AbstractStringIdentifiable}.
      */
-    protected AbstractStringIdentifiable(final String id) {
+    protected AbstractStringIdentifiable(final String id, final int indentationLevel) {
+
+        // Delegate
+        super(indentationLevel);
 
         // Check sanity
         if (id == null || id.isEmpty()) {
