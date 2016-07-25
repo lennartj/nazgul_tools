@@ -1,0 +1,96 @@
+package se.jguru.nazgul.tools.visualization.model.diagram;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+
+/**
+ * Abstract implementation for types which should be uniquely identifiable, sporting a string ID and standard
+ * implementations of the {@link Object#hashCode()} and {@link Object#equals(Object)} methods.
+ *
+ * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ */
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"id"})
+@XmlAccessorType(XmlAccessType.FIELD)
+public abstract class AbstractIdentifiable implements Serializable {
+
+    /**
+     * The XML namespace used by the Nazgul Tool Visualization Model.
+     */
+    public static final String NAMESPACE = "http://www.jguru.se/nazgul/tools/visualization";
+
+    // Internal state
+    @XmlElement(required = true)
+    private String id;
+
+    /**
+     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     */
+    public AbstractIdentifiable() {
+        // Do nothing
+    }
+
+    /**
+     * Compound constructor creating an {@link AbstractIdentifiable} instance wrapping the supplied data.
+     *
+     * @param id a non-null and non-empty identifier, assumed to be unique (within a Graph).
+     */
+    protected AbstractIdentifiable(final String id) {
+        this.id = id;
+    }
+
+    /**
+     * Retrieves the identifier of this {@link AbstractIdentifiable}. Should be unique within a Graph.
+     *
+     * @return the unique identifier of this {@link AbstractIdentifiable}.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractIdentifiable)) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final AbstractIdentifiable that = (AbstractIdentifiable) o;
+        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
+
+    /**
+     * @return A standard string representation of this {@link AbstractIdentifiable}.
+     */
+    @Override
+    public String toString() {
+        return "[" + getClass().getSimpleName() + "]: " + getId();
+    }
+
+    /**
+     * Convenience method used to quote the id for rendering, as well as surround it with whitespace.
+     *
+     * @return The id, surrounded by whitespace and quoted.
+     */
+    public String getQuotedId() {
+        return " \"" + getId() + "\" ";
+    }
+}
