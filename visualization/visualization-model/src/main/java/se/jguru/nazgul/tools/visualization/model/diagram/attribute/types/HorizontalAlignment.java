@@ -19,31 +19,50 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.model.diagram.statement;
+package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
- * <pre>
- *     attr_stmt : node attr_list
- * </pre>
- * <p>Typically renders into something like the following:</p>
- * <pre>
- *     node [	fontname = "Helvetica-Oblique",
- *              fontsize = "36",
- *              label = "\n\n\n\nObject Oriented Graphs\nStephen North, 3/19/93",
- *              size = "6,6" ];
- * </pre>
+ * Enumeration for specifying the horizontal alignment (i.e. left, center, right).
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- * @see GraphAttributeList
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"attributes"})
-@XmlAccessorType(XmlAccessType.FIELD)
-public class NodeAttributes extends AbstractIdentifiable implements Statement {
+@XmlType(name = AbstractIdentifiable.NAMESPACE)
+@XmlEnum(String.class)
+public enum HorizontalAlignment {
+
+    /**
+     * Left justified.
+     */
+    LEFT("l"),
+
+    /**
+     * Centered.
+     */
+    CENTER("c"),
+
+    /**
+     * Right justified.
+     */
+    RIGHT("r");
+
+    // Internal state
+    private String dotTokenValue;
+
+    HorizontalAlignment(final String dotTokenValue) {
+        this.dotTokenValue = dotTokenValue;
+    }
+
+    /**
+     * Retrieves the Token value of the corresponding attribute.
+     *
+     * @return the Token value of the corresponding attribute.
+     */
+    public String getDotTokenValue() {
+        return dotTokenValue;
+    }
 }

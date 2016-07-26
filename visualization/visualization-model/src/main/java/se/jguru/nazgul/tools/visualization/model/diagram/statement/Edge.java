@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Nazgul Project: nazgul-tools-visualization-api
+ * Nazgul Project: nazgul-tools-visualization-model
  * %%
  * Copyright (C) 2010 - 2016 jGuru Europe AB
  * %%
@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

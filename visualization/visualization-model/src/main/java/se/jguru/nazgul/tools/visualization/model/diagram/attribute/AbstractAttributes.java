@@ -19,49 +19,44 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.model.diagram.statement;
+package se.jguru.nazgul.tools.visualization.model.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.model.diagram.AbstractGraph;
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
- * <p>Subgraph statement implementation, corresponding to the following DOT grammar:</p>
- * <pre>
- *     subgraph	: [ subgraph [ ID ] ] '{' stmt_list '}'
- * </pre>
- * <p>Typically renders into something like the following:</p>
- * <pre>
- *  subgraph cluster_1 {
- *      label="Subgraph B";
- *      a -> f;
- *      f -> c;
- *  }
- * </pre>
+ * Abstract implementation containing common utilities for attribute entities.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE)
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "textColor"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Subgraph extends AbstractGraph implements Statement {
+public abstract class AbstractAttributes implements Serializable {
 
     /**
-     * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
+     * When attached to the root graph, this color is used as the background for entire canvas.
+     * When a cluster attribute, it is used as the initial background for the cluster.
+     * If a cluster has a filled style, the cluster's fillcolor will overlay the background color.
      */
-    public Subgraph() {
-        // Do nothing
-    }
+    @XmlAttribute
+    private StandardCssColor backgroundColor;
 
     /**
-     * Compound constructor creating a sub-graph statement wrapping the supplied data.
-     *
-     * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
+     * Color used for text.
      */
-    public Subgraph(final String id) {
-        super(id);
-    }
+    @XmlAttribute
+    private StandardCssColor textColor;
 
+    /**
+     * Comments are inserted into output. Device-dependent.
+     */
+    @XmlElement
+    private String comment;
 }

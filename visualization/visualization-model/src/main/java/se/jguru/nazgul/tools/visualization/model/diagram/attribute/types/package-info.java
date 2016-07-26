@@ -20,9 +20,11 @@
  * #L%
  */
 /**
- * Package containing model entities for <a href="http://www.graphviz.org">Graphviz/Dot</a> diagram file synthesis.
- * All entity classes are JAXB-annotated to ensure that the model can be converted in a simple manner to and from XML
- * and JSON formats.
+ * Package containing simple POJO entity definitions for types described on the
+ * <a href="http://www.graphviz.org/content/attrs">Node, Edge and Graph Attributes</a> page.
+ * These types are all JAXB-annotated to ensure that the model can be converted in a simple manner to and from XML
+ * and JSON formats - both to simplify reading configuration from other sources than the Dot DSL, and to ensure that
+ * typed builders can be constructed with relative ease.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -35,7 +37,9 @@
         }
 )
 @XmlAccessorType(XmlAccessType.FIELD)
-package se.jguru.nazgul.tools.visualization.model.diagram;
+package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
+
+import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

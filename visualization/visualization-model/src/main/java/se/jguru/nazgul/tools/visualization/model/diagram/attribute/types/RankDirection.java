@@ -19,21 +19,36 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.model.diagram.statement;
+package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
 
 /**
- * <p>Specification for statements, complying to the specification in the
- * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
- * Lexically, statements are defined as follows:</p>
- * <pre>
- stmt : node_stmt
- | edge_stmt
- | attr_stmt
- | ID '=' ID
- | subgraph
- * </pre>
+ * Enum specifying permitted RankDirection values.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public interface Statement {
+public enum RankDirection {
+
+    TopToBottom("TB"),
+
+    LeftToRight("LR"),
+
+    BottomToTop("BT"),
+
+    RightToLeft("RL");
+
+    // Internal state
+    private String dotPropertyValue;
+
+    RankDirection(final String dotPropertyValue) {
+        this.dotPropertyValue = dotPropertyValue;
+    }
+
+    /**
+     * Retrieves the Token value for this {@link RankDirection}.
+     *
+     * @return the Token value for this {@link RankDirection}.
+     */
+    public String getDotTokenValue() {
+        return dotPropertyValue;
+    }
 }

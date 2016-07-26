@@ -19,31 +19,44 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.model.diagram.statement;
+package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
- * <pre>
- *     attr_stmt : node attr_list
- * </pre>
- * <p>Typically renders into something like the following:</p>
- * <pre>
- *     node [	fontname = "Helvetica-Oblique",
- *              fontsize = "36",
- *              label = "\n\n\n\nObject Oriented Graphs\nStephen North, 3/19/93",
- *              size = "6,6" ];
- * </pre>
+ * Enumeration for specifying the vertical alignment (i.e. top, middle/center, bottom).
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- * @see GraphAttributeList
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"attributes"})
-@XmlAccessorType(XmlAccessType.FIELD)
-public class NodeAttributes extends AbstractIdentifiable implements Statement {
+@XmlType(name = AbstractIdentifiable.NAMESPACE)
+@XmlEnum(String.class)
+public enum VerticalAlignment {
+
+    /**
+     *
+     */
+    TOP("t"),
+
+    CENTER("c"),
+
+    BOTTOM("b");
+
+    // Internal state
+    private String dotTokenValue;
+
+    VerticalAlignment(final String dotTokenValue) {
+        this.dotTokenValue = dotTokenValue;
+    }
+
+    /**
+     * Retrieves the Token value for this {@link VerticalAlignment}.
+     *
+     * @return the Token value for this {@link VerticalAlignment}.
+     */
+    public String getDotTokenValue() {
+        return dotTokenValue;
+    }
 }

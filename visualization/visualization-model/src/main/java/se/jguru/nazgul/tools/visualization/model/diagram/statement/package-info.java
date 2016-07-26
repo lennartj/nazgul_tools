@@ -20,7 +20,8 @@
  * #L%
  */
 /**
- * Package containing model entities for <a href="http://www.graphviz.org">Graphviz/Dot</a> diagram file synthesis.
+ * Package containing model entities for diagram Statements, complying to the
+ * <a href="http://www.graphviz.org">Graphviz/Dot</a> specification for the respective statement types.
  * All entity classes are JAXB-annotated to ensure that the model can be converted in a simple manner to and from XML
  * and JSON formats.
  *
@@ -35,7 +36,9 @@
         }
 )
 @XmlAccessorType(XmlAccessType.FIELD)
-package se.jguru.nazgul.tools.visualization.model.diagram;
+package se.jguru.nazgul.tools.visualization.model.diagram.statement;
+
+import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

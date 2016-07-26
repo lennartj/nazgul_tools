@@ -1,3 +1,24 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-model
+ * %%
+ * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.visualization.model.diagram;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -24,15 +45,55 @@ public class Port extends AbstractIdentifiable {
     @XmlType(name = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
     public enum CompassPoint implements Serializable {
+
+        /**
+         * Anchor to the north (i.e. top/center).
+         */
         NORTH("n"),
+
+        /**
+         * Anchor to the northeast (i.e. top/right).
+         */
         NORTH_EAST("ne"),
+
+        /**
+         * Anchor to the east (i.e. center/right).
+         */
         EAST("e"),
+
+        /**
+         * Anchor to the southeast (i.e. bottom/right).
+         */
         SOUTH_EAST("se"),
+
+        /**
+         * Anchor to the south (i.e. bottom/center).
+         */
         SOUTH("s"),
+
+        /**
+         * Anchor to the south west (i.e. bottom/left).
+         */
         SOUTH_WEST("sw"),
+
+        /**
+         * Anchor to the west (i.e. center/left).
+         */
         WEST("w"),
+
+        /**
+         * Anchor to the north west (i.e. top/left).
+         */
         NORTH_WEST("nw"),
+
+        /**
+         * Anchor to the south west (i.e. center/center).
+         */
         CENTER("c"),
+
+        /**
+         * Unspecified positioning.
+         */
         UNKNOWN("_");
 
         // Internal state
