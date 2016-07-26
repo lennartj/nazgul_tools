@@ -36,7 +36,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "textColor"})
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "textColor", "comment"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractAttributes implements Serializable {
 
@@ -46,17 +46,17 @@ public abstract class AbstractAttributes implements Serializable {
      * If a cluster has a filled style, the cluster's fillcolor will overlay the background color.
      */
     @XmlAttribute
-    private StandardCssColor backgroundColor;
+    public StandardCssColor backgroundColor;
 
     /**
      * Color used for text.
      */
     @XmlAttribute
-    private StandardCssColor textColor;
+    public StandardCssColor textColor;
 
     /**
      * Comments are inserted into output. Device-dependent.
      */
     @XmlElement
-    private String comment;
+    public String comment;
 }
