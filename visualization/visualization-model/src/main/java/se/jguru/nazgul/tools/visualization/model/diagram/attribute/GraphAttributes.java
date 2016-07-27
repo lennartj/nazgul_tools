@@ -38,19 +38,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * Attributes relevant for {@link se.jguru.nazgul.tools.visualization.model.diagram.Graph} objects.
+ * POJO implementation of an entity containing attributes relevant for
+ * {@link se.jguru.nazgul.tools.visualization.model.diagram.Graph} objects.
  * Property descriptions copied from <a href="http://www.graphviz.org/content/attrs">The Graphviz Website's
  * description of attributes.</a>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"centered", "charset", "clusterRank",
-        "colorScheme", "compound", "concentrateGraph", "fontName", "fontSizeInPoints", "forceLabels",
+        "colorScheme", "compound", "concentrateGraph", "forceLabels",
         "labelHorizontalAlignment", "labelVerticalAlignment", "labelPosition", "labelSize", "layerListSeparator",
         "layers", "layerSelect", "layerSeparator", "layoutAlgorithm", "imagePath", "margin",
         "minimumDistanceBetweenNodes", "minimumDistanceBetweenSameRankAdjacentNodes", "multiplicativeScaleLimit",
-        "noMultiLineLabelJustification", "nsLimit", "nsLimit1", "orientation", "outputOrder", "outOrdering",
-        "degreesRotated", "insertionOrder", "pack", "packMode", "padding","printGuideBoxesAtStart", "quantum",
+        "nsLimit", "nsLimit1", "orientation", "outputOrder", "outOrdering",
+        "degreesRotated", "insertionOrder", "pack", "packMode", "padding", "quantum",
         "rankDirection", "rankSeparation", "ratio", "resolution", "runCrossClusterMinimisationTwice", "searchSize",
         "size", "splineType", "urlOrPathToStylesheet", "useTrueColor"})
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -119,40 +120,6 @@ public class GraphAttributes extends AbstractAttributes {
      */
     @XmlAttribute
     public Integer resolution;
-
-    /**
-     * <p>Font used for text. This very much depends on the output format and, for non-bitmap output such as PostScript
-     * or SVG, the availability of the font when the graph is displayed or printed. As such, it is best to rely on
-     * font faces that are generally available, such as Times-Roman, Helvetica or Courier.
-     * How font names are resolved also depends on the underlying library that handles font name resolution. If
-     * Graphviz was built using the fontconfig library, the latter library will be used to search for the font. See
-     * the commands fc-list, fc-match and the other fontconfig commands for how names are resolved and which fonts
-     * are available. Other systems may provide their own font package, such as Quartz for OS X.</p>
-     * <p>
-     * <p>Note that various font attributes, such as weight and slant, can be built into the font name. Unfortunately,
-     * the syntax varies depending on which font system is dominant. Thus, using fontname="times bold italic" will
-     * produce a bold, slanted Times font using Pango, the usual main font library. Alternatively,
-     * fontname="times:italic" will produce a slanted Times font from fontconfig, while fontname="times-bold" will
-     * resolve to a bold Times using Quartz. You will need to ascertain which package is used by your Graphviz
-     * system and refer to the relevant documentation.</p>
-     * <p>If Graphviz is not built with a high-level font library, fontname will be considered the name of a Type 1 or
-     * True Type font file. If you specify fontname=schlbk, the tool will look for a file named schlbk.ttf or
-     * schlbk.pfa or schlbk.pfb in one of the directories specified by the fontpath attribute. The lookup does
-     * support various aliases for the common fonts.</p>
-     * Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dfontname">fontname</i></a>.
-     */
-    @XmlElement
-    public String fontName;
-
-
-    /**
-     * Font size, in points (i.e. 72 points per inch), used for text. Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dfontsize">fontsize</i></a>. (C.f.
-     * <a href="https://en.wikipedia.org/wiki/Point_(typography)">Wikipedia's Definition of Point</a>
-     */
-    @XmlAttribute
-    public Integer fontSizeInPoints;
 
     /**
      * <p>If true, all "External Label" attributes are placed, even if there is some overlap with nodes or other labels.
@@ -333,20 +300,6 @@ public class GraphAttributes extends AbstractAttributes {
     public Double minimumDistanceBetweenSameRankAdjacentNodes;
 
     /**
-     * <p>By default, the justification of multi-line labels is done within the largest context that makes sense. Thus,
-     * in the label of a polygonal node, a left-justified line will align with the left side of the node (shifted by
-     * the prescribed margin). In record nodes, left-justified line will line up with the left side of the enclosing
-     * column of fields. If nojustify is "true", multi-line labels will be justified in the context of itself. For
-     * example, if the attribute is set, the first label line is long, and the second is shorter and left-justified,
-     * the second will align with the left-most character in the first line, regardless of how large the node might
-     * be.</p >
-     * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dnojustify">nojustify</i></a>.</p>
-     */
-    @XmlAttribute
-    public Boolean noMultiLineLabelJustification;
-
-    /**
      * <p>Used to set number of iterations in network simplex applications. nslimit is used in computing node x
      * coordinates, nslimit1 for ranking nodes. If defined, # iterations = nslimit(1) * # nodes; otherwise, #
      * iterations = MAXINT.</p>
@@ -376,7 +329,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dordering">ordering</i></a>.</p>
      */
     @XmlAttribute
-    public Boolean outOrdering; // "ordering", (isOut ? "out" : "in"));
+    public Boolean outOrdering;
 
     /**
      * <p>"breadthfirst","nodesfirst","edgesfirst" These specify the order in which nodes and edges are drawn in
@@ -535,14 +488,6 @@ public class GraphAttributes extends AbstractAttributes {
     public int searchSize;
 
     /**
-     * <p>Print guide boxes in PostScript at the beginning of route splines if true (translated to the dot
-     * parameter 1), or at the end if false (translated to the dot parameter value 2).</p>
-     * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dshowboxes">showboxes</i></a>.</p>
-     */
-    public Boolean printGuideBoxesAtStart; // "showboxes", atStart ? "1" : "2");
-
-    /**
      * <p>Maximum width and height of drawing, in inches. If only a single number is given, this is used for both the
      * width and the height. If defined and the drawing is larger than the given size, the drawing is uniformly
      * scaled down so that it fits within the given size.</p>
@@ -553,6 +498,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <p>Corresponds to DOT property
      * <a href="http://www.graphviz.org/content/attrs#dshowboxes">showboxes</i></a>.</p>
      */
+    @XmlElement
     public PointOrRectangle size;
 
     /**
@@ -561,6 +507,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <p>Corresponds to DOT property
      * <a href="http://www.graphviz.org/content/attrs#dsortv">sortv</i></a>.</p>
      */
+    @XmlAttribute
     public int insertionOrder; // "sortv", "" + sortv);
 
     /**
@@ -570,6 +517,7 @@ public class GraphAttributes extends AbstractAttributes {
      *
      * @see SplineType
      */
+    @XmlAttribute
     public SplineType splineType;
 
     /**
@@ -577,6 +525,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <p>Corresponds to DOT property
      * <a href="http://www.graphviz.org/content/attrs#dstylesheet">stylesheet</i></a>.</p>
      */
+    @XmlElement
     public String urlOrPathToStylesheet;
 
     /**
@@ -590,5 +539,6 @@ public class GraphAttributes extends AbstractAttributes {
      * <p>Corresponds to DOT property
      * <a href="http://www.graphviz.org/content/attrs#dtruecolor">truecolor</i></a>.</p>
      */
+    @XmlAttribute
     public Boolean useTrueColor;
 }

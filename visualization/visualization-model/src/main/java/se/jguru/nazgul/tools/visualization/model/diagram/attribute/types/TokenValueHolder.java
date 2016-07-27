@@ -21,48 +21,19 @@
  */
 package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
 
-import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
-
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
- * Enumeration for specifying the vertical alignment (i.e. top, middle/center, bottom).
+ * Uniform specification for how to retrieve a TokenValue from enum-style implementations.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(name = AbstractIdentifiable.NAMESPACE)
-@XmlEnum(String.class)
-public enum VerticalAlignment {
+public interface TokenValueHolder extends Serializable {
 
     /**
-     * Vertical alignment to the top.
-     */
-    TOP("t"),
-
-    /**
-     * Centered vertical alignment.
-     */
-    CENTER("c"),
-
-    /**
-     * Bottom vertical alignment.
-     */
-    BOTTOM("b");
-
-    // Internal state
-    private String dotTokenValue;
-
-    VerticalAlignment(final String dotTokenValue) {
-        this.dotTokenValue = dotTokenValue;
-    }
-
-    /**
-     * Retrieves the Token value for this {@link VerticalAlignment}.
+     * Retrieves the value of this {@link TokenValueHolder} instance.
      *
-     * @return the Token value for this {@link VerticalAlignment}.
+     * @return the value of this {@link TokenValueHolder} instance.
      */
-    public String getDotTokenValue() {
-        return dotTokenValue;
-    }
+    String getTokenValue();
 }

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(name = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum HorizontalAlignment {
+public enum HorizontalAlignment implements TokenValueHolder {
 
     /**
      * Left justified.
@@ -58,11 +58,10 @@ public enum HorizontalAlignment {
     }
 
     /**
-     * Retrieves the Token value of the corresponding attribute.
-     *
-     * @return the Token value of the corresponding attribute.
+     * {@inheritDoc}
      */
-    public String getDotTokenValue() {
+    @Override
+    public String getTokenValue() {
         return dotTokenValue;
     }
 }

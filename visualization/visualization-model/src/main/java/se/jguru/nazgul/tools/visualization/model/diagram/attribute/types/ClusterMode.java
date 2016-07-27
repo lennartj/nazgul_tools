@@ -38,7 +38,7 @@ import java.io.Serializable;
  */
 @XmlType(name = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum ClusterMode implements Serializable {
+public enum ClusterMode implements TokenValueHolder {
 
     /**
      * If clusterrank is "local", a subgraph whose name begins with "cluster" is given
@@ -64,7 +64,7 @@ public enum ClusterMode implements Serializable {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
+    public String getTokenValue() {
         return name().toLowerCase();
     }
 }
