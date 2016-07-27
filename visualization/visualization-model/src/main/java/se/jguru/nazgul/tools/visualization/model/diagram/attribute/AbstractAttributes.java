@@ -36,7 +36,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "comment",
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "comment", "colorScheme",
         "fontName", "fontSizeInPoints", "label", "noMultiLineLabelJustification", "printGuideBoxesAtStart",
         "textColor"})
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -128,4 +128,13 @@ public abstract class AbstractAttributes implements Serializable {
      */
     @XmlAttribute
     public Boolean printGuideBoxesAtStart;
+
+    /**
+     * This attribute specifies a color scheme namespace. If defined, it specifies the context for interpreting
+     * color names. In particular, if a color value has form "xxx" or "//xxx", then the color xxx will be evaluated
+     * according to the current color scheme. If no color scheme is set, the standard X11 naming is used. For
+     * example, if colorscheme=bugn9, then color=7 is interpreted as "/bugn9/7"
+     */
+    @XmlElement
+    public String colorScheme;
 }
