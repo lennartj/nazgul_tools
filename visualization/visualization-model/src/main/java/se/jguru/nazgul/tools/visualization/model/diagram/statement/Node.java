@@ -21,9 +21,9 @@
  */
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
-import se.jguru.nazgul.tools.visualization.api.diagram.attribute.NodeAttributeList;
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"nodeID", "attributeList"})
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"nodeID", "nodeAttributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Node extends AbstractIdentifiable implements Statement {
 
@@ -50,7 +50,7 @@ public class Node extends AbstractIdentifiable implements Statement {
      * The optional node attribute list within this Node.
      */
     @XmlElement
-    private NodeAttributeList attributeList;
+    private NodeAttributes nodeAttributes;
 
     /**
      * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
@@ -75,19 +75,19 @@ public class Node extends AbstractIdentifiable implements Statement {
      */
     public Node(final NodeID nodeID) {
 
-        super(nodeID.getId(), 0);
+        super(nodeID.getId());
 
         this.nodeID = nodeID;
-        this.attributeList = new NodeAttributeList();
+        this.nodeAttributes = new NodeAttributes();
     }
 
     /**
-     * Retrieves the {@link NodeAttributeList} of this {@link Node}.
+     * Retrieves the {@link NodeAttributes} of this {@link Node}.
      *
-     * @return the non-null {@link NodeAttributeList} of this {@link Node}.
+     * @return the non-null {@link NodeAttributes} of this {@link Node}.
      */
-    public NodeAttributeList getAttributes() {
-        return attributeList;
+    public NodeAttributes getAttributes() {
+        return nodeAttributes;
     }
 
     /**

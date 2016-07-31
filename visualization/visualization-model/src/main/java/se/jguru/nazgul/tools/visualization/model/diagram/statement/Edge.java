@@ -23,6 +23,7 @@ package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
 import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.EdgeAttributes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -48,7 +49,7 @@ public class Edge extends AbstractEdge implements Statement {
 
     // Internal state
     @XmlElement
-    private EdgeAttributeList attributes;
+    private EdgeAttributes attributes;
 
     @XmlElement(required = true)
     private RightSideEdge rightSideEdge;
@@ -78,7 +79,7 @@ public class Edge extends AbstractEdge implements Statement {
 
         // Assign internal state
         this.rightSideEdge = rightSideEdge;
-        this.attributes = new EdgeAttributeList();
+        this.attributes = new EdgeAttributes();
     }
 
     /**
@@ -90,7 +91,7 @@ public class Edge extends AbstractEdge implements Statement {
     public Edge(final Subgraph subgraph, final RightSideEdge rightSideEdge) {
 
         // Delegate
-        super(subgraph, 0);
+        super(subgraph);
 
         // Check sanity
         if (rightSideEdge == null) {
@@ -99,15 +100,15 @@ public class Edge extends AbstractEdge implements Statement {
 
         // Assign internal state
         this.rightSideEdge = rightSideEdge;
-        this.attributes = new EdgeAttributeList();
+        this.attributes = new EdgeAttributes();
     }
 
     /**
-     * Retrieves the {@link EdgeAttributeList} of this Edge.
+     * Retrieves the {@link EdgeAttributes} of this Edge.
      *
-     * @return a non-null {@link EdgeAttributeList}.
+     * @return a non-null {@link EdgeAttributes}.
      */
-    public EdgeAttributeList getAttributes() {
+    public EdgeAttributes getAttributes() {
         return attributes;
     }
 

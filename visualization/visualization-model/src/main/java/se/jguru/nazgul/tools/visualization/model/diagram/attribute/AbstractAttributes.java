@@ -38,7 +38,7 @@ import java.io.Serializable;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "comment", "colorScheme",
         "fontName", "fontSizeInPoints", "label", "noMultiLineLabelJustification", "printGuideBoxesAtStart",
-        "textColor"})
+        "targetURL", "textColor"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class AbstractAttributes implements Serializable {
 
@@ -137,4 +137,12 @@ public abstract class AbstractAttributes implements Serializable {
      */
     @XmlElement
     public String colorScheme;
+
+    /**
+     * <p>If the object has a URL, this attribute determines which window of the browser is used for the URL.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dtarget">target</i></a>.</p>
+     */
+    @XmlElement
+    public String targetURL;
 }

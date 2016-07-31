@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.EdgeAttributes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -29,48 +30,52 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
+ * /**
  * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
  * <pre>
- *     attr_stmt : graph attr_list
+ *     attr_stmt : edge attr_list
  * </pre>
  * <p>Typically renders into something like the following:</p>
  * <pre>
- *     graph [	fontname = "Helvetica-Oblique",
+ *     edge [	fontname = "Helvetica-Oblique",
  *              fontsize = "36",
  *              label = "\n\n\n\nObject Oriented Graphs\nStephen North, 3/19/93",
  *              size = "6,6" ];
  * </pre>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- * @see GraphAttributeList
+ * @see EdgeAttributes
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GraphAttributes extends AbstractIdentifiable implements Statement {
-
-    // Internal state
-    @XmlElement
-    private GraphAttributeList attributes;
+public class CommonEdgeAttributes extends AbstractIdentifiable implements Statement {
 
     /**
-     * Default constructor
+     * The configured attributes for this EdgeAttributes statement.
      */
-    public GraphAttributes() {
+    @XmlElement
+    private EdgeAttributes attributes;
+
+    /**
+     * Default constructor.
+     */
+    public CommonEdgeAttributes() {
 
         // Delegate
-        super("graph");
+        super("edge");
 
         // Assign internal state
-        this.attributes = new GraphAttributeList();
+        this.attributes = new EdgeAttributes();
     }
 
     /**
-     * Retrieves the {@link GraphAttributeList} which can be used to add attributes to this Graph Attribute Statement.
+     * Retrieves the non-null {@link EdgeAttributes} instance containing the properties of this
+     * {@link CommonEdgeAttributes} statement.
      *
-     * @return the {@link GraphAttributeList} which can be used to add attributes to this {@link GraphAttribute}
-     * Statement.
+     * @return the non-null {@link EdgeAttributes} instance containing the properties of this
+     * {@link CommonEdgeAttributes} statement.
      */
-    public GraphAttributeList getAttributes() {
+    public EdgeAttributes getAttributes() {
         return attributes;
     }
 }

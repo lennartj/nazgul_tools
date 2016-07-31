@@ -21,9 +21,9 @@
  */
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
-import se.jguru.nazgul.tools.visualization.api.diagram.NodeID;
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -133,13 +133,13 @@ public class RightSideEdge extends AbstractEdge {
         // final Statements statements = immediateParent.getStatements();
         final Node node = withinGraph.getStatements().findNode(id, true);
         if (node != null) {
-            return new RightSideEdge(node.getNodeID(), withinGraph);
+            return new RightSideEdge(node.getNodeID());
         }
 
         // Next, assume that the ID is a Subgraph.
         final Subgraph subgraph = withinGraph.getStatements().findSubgraph(id, true);
         if (subgraph != null) {
-            return new RightSideEdge(subgraph, withinGraph);
+            return new RightSideEdge(subgraph);
         }
 
         // All Done.

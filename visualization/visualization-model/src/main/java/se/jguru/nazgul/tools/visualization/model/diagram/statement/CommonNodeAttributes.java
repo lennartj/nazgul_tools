@@ -22,9 +22,11 @@
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -41,9 +43,36 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- * @see GraphAttributeList
+ * @see NodeAttributes
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"attributes"})
 @XmlAccessorType(XmlAccessType.FIELD)
-public class NodeAttributes extends AbstractIdentifiable implements Statement {
+public class CommonNodeAttributes extends AbstractIdentifiable implements Statement {
+
+    /**
+     * The configured attributes for this CommonGraphAttributes statement.
+     */
+    @XmlElement
+    private NodeAttributes attributes;
+
+    /**
+     * Default constructor
+     */
+    public CommonNodeAttributes() {
+
+        // Delegate
+        super("node");
+
+        // Assign internal state
+        this.attributes = new NodeAttributes();
+    }
+
+    /**
+     * Retrieves the {@link NodeAttributes} wrapped within this {@link CommonNodeAttributes} statement.
+     *
+     * @return the non-null {@link NodeAttributes} wrapped within this {@link CommonNodeAttributes} statement.
+     */
+    public NodeAttributes getAttributes() {
+        return attributes;
+    }
 }

@@ -40,7 +40,10 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"distortion"})
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"degreesRotated", "distortion", "fixedSize",
+        "gradientAngle", "group", "image", "imageScale", "insertionOrder", "isRegular", "labelAlignment", "layer",
+        "margin", "numberOfSides", "outOrdering", "penWidthInPoints", "peripheries", "position", "samplepoints",
+        "shape", "size", "skew", "style", "tooltip"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NodeAttributes extends AbstractAttributes {
 
@@ -326,14 +329,6 @@ public class NodeAttributes extends AbstractAttributes {
      */
     @XmlAttribute
     public NodeStyle style;
-
-    /**
-     * <p>If the object has a URL, this attribute determines which window of the browser is used for the URL.</p>
-     * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dtarget">target</i></a>.</p>
-     */
-    @XmlElement
-    public String targetURL;
 
     /**
      * <p>Tooltip annotation attached to the node or edge. If unset, Graphviz will use the object's label if defined.

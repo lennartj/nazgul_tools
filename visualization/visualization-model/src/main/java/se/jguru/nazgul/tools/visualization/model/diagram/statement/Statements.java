@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractGraph;
 import se.jguru.nazgul.tools.visualization.model.diagram.Comment;
+import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -43,8 +44,8 @@ import java.util.Optional;
  * <p>Utility class which orders statements and comments in a particular order. The default order (which should
  * yield no problematic references) is:</p>
  * <ol>
- * <li>AttributeStatements, which implies zero or all of the types {@link GraphAttributes}, {@link EdgeAttributes} and
- * {@link NodeAttributes}</li>
+ * <li>AttributeStatements, which implies zero or all of the types {@link CommonGraphAttributes},
+ * {@link CommonEdgeAttributes} and {@link CommonNodeAttributes}</li>
  * <li>{@link Node} statements</li>
  * <li>{@link Identifier} statements</li>
  * <li>{@link Edge} statements</li>
@@ -76,7 +77,7 @@ public class Statements implements Serializable {
      * @see #subgraphs
      */
     @XmlElement
-    private GraphAttributes commonGraphAttributes;
+    private CommonGraphAttributes commonGraphAttributes;
 
     /**
      * An optional statement containing common/shared Node attributes. The attributes defined within the
@@ -85,7 +86,7 @@ public class Statements implements Serializable {
      * @see #nodes
      */
     @XmlElement
-    private NodeAttributes commonNodeAttributes;
+    private CommonNodeAttributes commonNodeAttributes;
 
     /**
      * An optional statement containing common/shared Edge attributes. The attributes defined within the
@@ -94,7 +95,7 @@ public class Statements implements Serializable {
      * @see #nodes
      */
     @XmlElement
-    private EdgeAttributes commonEdgeAttributes;
+    private CommonEdgeAttributes commonEdgeAttributes;
 
     /**
      * A comment to be rendered before the Node statements.
@@ -239,12 +240,12 @@ public class Statements implements Serializable {
 
                         // Resolve the type of the current Statement, and assign it to
                         // the appropriate internal state.
-                        if (c instanceof EdgeAttributes) {
-                            this.commonEdgeAttributes = (EdgeAttributes) c;
-                        } else if (c instanceof GraphAttributes) {
-                            this.commonGraphAttributes = (GraphAttributes) c;
-                        } else if (c instanceof NodeAttributes) {
-                            this.commonNodeAttributes = (NodeAttributes) c;
+                        if (c instanceof CommonEdgeAttributes) {
+                            this.commonEdgeAttributes = (CommonEdgeAttributes) c;
+                        } else if (c instanceof CommonGraphAttributes) {
+                            this.commonGraphAttributes = (CommonGraphAttributes) c;
+                        } else if (c instanceof CommonNodeAttributes) {
+                            this.commonNodeAttributes = (CommonNodeAttributes) c;
                         } else if (c instanceof Node) {
                             this.nodes.add((Node) c);
                         } else if (c instanceof Identifier) {
@@ -400,8 +401,8 @@ public class Statements implements Serializable {
 
                 // Start by creating the RightSideEdge.
                 final RightSideEdge rightSideEdge = toNodeId == null
-                        ? new RightSideEdge(toSubgraph, parentGraph)
-                        : new RightSideEdge(toNodeId, parentGraph);
+                        ? new RightSideEdge(toSubgraph)
+                        : new RightSideEdge(toNodeId);
 
                 // Finally, create the Edge to return.
                 toReturn = fromNode == null
