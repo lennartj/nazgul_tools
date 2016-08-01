@@ -56,7 +56,7 @@ public class Comment implements Serializable {
      * JAXB-friendly constructor, <strong>reserved for framework use.</strong>
      */
     public Comment() {
-        // Do nothing.
+        commentLines = new ArrayList<>();
     }
 
     /**
@@ -66,8 +66,8 @@ public class Comment implements Serializable {
      */
     public Comment(final String... lines) {
 
-        // Create internal state
-        commentLines = new ArrayList<>();
+        // Delegate
+        this();
 
         // Add all supplied lines.
         add(lines);

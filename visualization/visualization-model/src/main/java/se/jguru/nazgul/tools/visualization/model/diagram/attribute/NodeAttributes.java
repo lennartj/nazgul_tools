@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 /**
  * POJO implementation of an entity containing attributes relevant for
@@ -210,7 +211,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dordering">ordering</i></a>.</p>
      */
     @XmlAttribute
-    public int degreesRotated;
+    public Integer degreesRotated;
 
     /**
      * <p>Specifies the width of the pen, in points, used to draw lines and curves, including the boundaries of
@@ -221,7 +222,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpenwidth">penwidth</i></a>.</p>
      */
     @XmlAttribute
-    public int penWidthInPoints;
+    public Integer penWidthInPoints;
 
     /**
      * <p>Set number of peripheries used in polygonal shapes and cluster boundaries. Note that user-defined shapes are
@@ -232,7 +233,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dperipheries">peripheries</i></a>.</p>
      */
     @XmlAttribute
-    public int peripheries;
+    public Integer peripheries;
 
     /**
      * <p>Position of node, or spline control points. For nodes, the position indicates the center of the node. On
@@ -267,7 +268,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsamplepoints">samplepoints</i></a>.</p>
      */
     @XmlAttribute
-    public int samplepoints;
+    public Integer samplepoints;
 
     /**
      * <p>Set the shape of a node.</p>
@@ -288,7 +289,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsides">sides</i></a>.</p>
      */
     @XmlAttribute
-    public int numberOfSides;
+    public Integer numberOfSides;
 
     /**
      * <p>Skew factor for {@link #shape}=polygon. Positive values skew top of polygon to right; negative to left.</p>
@@ -296,7 +297,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsides">sides</i></a>.</p>
      */
     @XmlAttribute
-    public double skew;
+    public Double skew;
 
     /**
      * <p>If packMode indicates an array packing, this attribute specifies an insertion order among the
@@ -305,7 +306,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsortv">sortv</i></a>.</p>
      */
     @XmlAttribute
-    public int insertionOrder;
+    public Integer insertionOrder;
 
     /**
      * <p><strong>NOTE:</strong>The styles tapered, striped and wedged are only available in release 2.30 and later.</p>
@@ -339,4 +340,79 @@ public class NodeAttributes extends AbstractAttributes {
      */
     @XmlElement
     public String tooltip;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final NodeAttributes that = (NodeAttributes) o;
+        return Objects.equals(distortion, that.distortion) &&
+                Objects.equals(fixedSize, that.fixedSize) &&
+                Objects.equals(gradientAngle, that.gradientAngle) &&
+                Objects.equals(group, that.group) &&
+                Objects.equals(size, that.size) &&
+                Objects.equals(image, that.image) &&
+                Objects.equals(imageScale, that.imageScale) &&
+                labelAlignment == that.labelAlignment &&
+                Objects.equals(layer, that.layer) &&
+                Objects.equals(margin, that.margin) &&
+                Objects.equals(outOrdering, that.outOrdering) &&
+                Objects.equals(degreesRotated, that.degreesRotated) &&
+                Objects.equals(penWidthInPoints, that.penWidthInPoints) &&
+                Objects.equals(peripheries, that.peripheries) &&
+                Objects.equals(position, that.position) &&
+                Objects.equals(isRegular, that.isRegular) &&
+                Objects.equals(samplepoints, that.samplepoints) &&
+                Objects.equals(shape, that.shape) &&
+                Objects.equals(numberOfSides, that.numberOfSides) &&
+                Objects.equals(skew, that.skew) &&
+                Objects.equals(insertionOrder, that.insertionOrder) &&
+                style == that.style &&
+                Objects.equals(tooltip, that.tooltip);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(),
+                distortion,
+                fixedSize,
+                gradientAngle,
+                group,
+                size,
+                image,
+                imageScale,
+                labelAlignment,
+                layer,
+                margin,
+                outOrdering,
+                degreesRotated,
+                penWidthInPoints,
+                peripheries,
+                position,
+                isRegular,
+                samplepoints,
+                shape,
+                numberOfSides,
+                skew,
+                insertionOrder,
+                style,
+                tooltip);
+    }
 }

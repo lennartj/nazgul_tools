@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 /**
  * POJO implementation of an entity containing attributes relevant for
@@ -467,7 +468,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#drotation">rotation</i></a>.</p>
      */
     @XmlAttribute
-    public int degreesRotated;
+    public Integer degreesRotated;
 
     /**
      * <p>During network simplex, maximum number of edges with negative cut values to search when looking
@@ -476,7 +477,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsearchsize">searchsize</i></a>.</p>
      */
     @XmlAttribute
-    public int searchSize;
+    public Integer searchSize;
 
     /**
      * <p>Maximum width and height of drawing, in inches. If only a single number is given, this is used for both the
@@ -499,7 +500,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsortv">sortv</i></a>.</p>
      */
     @XmlAttribute
-    public int insertionOrder; // "sortv", "" + sortv);
+    public Integer insertionOrder; // "sortv", "" + sortv);
 
     /**
      * <p>Controls how, and if, Edges are represented. By default, DOT uses {@link SplineType#SPLINES}.</p>
@@ -532,4 +533,116 @@ public class GraphAttributes extends AbstractAttributes {
      */
     @XmlAttribute
     public Boolean useTrueColor;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GraphAttributes)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final GraphAttributes that = (GraphAttributes) o;
+        return Objects.equals(degreesRotated, that.degreesRotated) &&
+                Objects.equals(searchSize, that.searchSize) &&
+                Objects.equals(insertionOrder, that.insertionOrder) &&
+                Objects.equals(centered, that.centered) &&
+                Objects.equals(charset, that.charset) &&
+                clusterRank == that.clusterRank &&
+                Objects.equals(compound, that.compound) &&
+                Objects.equals(concentrateGraph, that.concentrateGraph) &&
+                Objects.equals(resolution, that.resolution) &&
+                Objects.equals(forceLabels, that.forceLabels) &&
+                Objects.equals(imagePath, that.imagePath) &&
+                labelHorizontalAlignment == that.labelHorizontalAlignment &&
+                labelVerticalAlignment == that.labelVerticalAlignment &&
+                orientation == that.orientation &&
+                Objects.equals(layers, that.layers) &&
+                Objects.equals(layerSeparator, that.layerSeparator) &&
+                Objects.equals(layerSelect, that.layerSelect) &&
+                Objects.equals(layerListSeparator, that.layerListSeparator) &&
+                Objects.equals(layoutAlgorithm, that.layoutAlgorithm) &&
+                Objects.equals(labelSize, that.labelSize) &&
+                Objects.equals(labelPosition, that.labelPosition) &&
+                Objects.equals(margin, that.margin) &&
+                Objects.equals(multiplicativeScaleLimit, that.multiplicativeScaleLimit) &&
+                Objects.equals(minimumDistanceBetweenNodes, that.minimumDistanceBetweenNodes) &&
+                Objects.equals(minimumDistanceBetweenSameRankAdjacentNodes,
+                        that.minimumDistanceBetweenSameRankAdjacentNodes) &&
+                Objects.equals(nsLimit, that.nsLimit) &&
+                Objects.equals(nsLimit1, that.nsLimit1) &&
+                Objects.equals(outOrdering, that.outOrdering) &&
+                outputOrder == that.outputOrder &&
+                Objects.equals(pack, that.pack) &&
+                Objects.equals(packMode, that.packMode) &&
+                Objects.equals(padding, that.padding) &&
+                Objects.equals(quantum, that.quantum) &&
+                rankDirection == that.rankDirection &&
+                Objects.equals(rankSeparation, that.rankSeparation) &&
+                Objects.equals(ratio, that.ratio) &&
+                Objects.equals(runCrossClusterMinimisationTwice, that.runCrossClusterMinimisationTwice) &&
+                Objects.equals(size, that.size) &&
+                splineType == that.splineType &&
+                Objects.equals(urlOrPathToStylesheet, that.urlOrPathToStylesheet) &&
+                Objects.equals(useTrueColor, that.useTrueColor);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(),
+                centered,
+                charset,
+                clusterRank,
+                compound,
+                concentrateGraph,
+                resolution,
+                forceLabels,
+                imagePath,
+                labelHorizontalAlignment,
+                labelVerticalAlignment,
+                orientation,
+                layers,
+                layerSeparator,
+                layerSelect,
+                layerListSeparator,
+                layoutAlgorithm,
+                labelSize,
+                labelPosition,
+                margin,
+                multiplicativeScaleLimit,
+                minimumDistanceBetweenNodes,
+                minimumDistanceBetweenSameRankAdjacentNodes,
+                nsLimit,
+                nsLimit1,
+                outOrdering,
+                outputOrder,
+                pack,
+                packMode,
+                padding,
+                quantum,
+                rankDirection,
+                rankSeparation,
+                ratio,
+                runCrossClusterMinimisationTwice,
+                degreesRotated,
+                searchSize,
+                size,
+                insertionOrder,
+                splineType,
+                urlOrPathToStylesheet,
+                useTrueColor);
+    }
 }

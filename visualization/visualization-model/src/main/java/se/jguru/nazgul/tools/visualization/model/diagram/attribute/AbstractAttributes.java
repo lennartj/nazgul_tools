@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Abstract implementation containing common utilities for attribute entities.
@@ -145,4 +146,49 @@ public abstract class AbstractAttributes implements Serializable {
      */
     @XmlElement
     public String targetURL;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractAttributes)) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final AbstractAttributes that = (AbstractAttributes) o;
+        return backgroundColor == that.backgroundColor
+                && textColor == that.textColor
+                && Objects.equals(comment, that.comment)
+                && Objects.equals(fontSizeInPoints, that.fontSizeInPoints)
+                && Objects.equals(fontName, that.fontName)
+                && Objects.equals(label, that.label)
+                && Objects.equals(noMultiLineLabelJustification, that.noMultiLineLabelJustification)
+                && Objects.equals(printGuideBoxesAtStart, that.printGuideBoxesAtStart)
+                && Objects.equals(colorScheme, that.colorScheme)
+                && Objects.equals(targetURL, that.targetURL);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(backgroundColor,
+                textColor,
+                comment,
+                fontSizeInPoints,
+                fontName,
+                label,
+                noMultiLineLabelJustification,
+                printGuideBoxesAtStart,
+                colorScheme,
+                targetURL);
+    }
 }

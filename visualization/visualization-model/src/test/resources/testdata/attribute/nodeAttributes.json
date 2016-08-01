@@ -1,0 +1,22 @@
+{
+  "genericRoot": {
+    "items": [
+      {
+        "backgroundColor": "Silver",
+        "textColor": "Brown",
+        "degreesRotated": 45,
+        "distortion": 5.5,
+        "numberOfSides": 8,
+        "penWidthInPoints": 2,
+        "type": "nodeAttributes",
+        "label": "This is a Node",
+        "labelAlignment": "BOTTOM",
+        "margin": {
+          "xOrWidth": 4.0,
+          "yOrHeight": 5.0,
+          "isUnchangeable": false
+        }
+      }
+    ]
+  }
+}

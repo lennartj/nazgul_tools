@@ -27,31 +27,36 @@ import org.junit.Test;
 import se.jguru.nazgul.tools.visualization.model.AbstractEntityTest;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.PointOrRectangle;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.VerticalAlignment;
 import se.jguru.nazgul.tools.visualization.model.jaxb.GenericRoot;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class GraphAttributesTest extends AbstractEntityTest {
+public class NodeAttributesTest extends AbstractEntityTest {
 
     // Shared state
-    private GraphAttributes unitUnderTest;
+    private NodeAttributes unitUnderTest;
     private GenericRoot container;
 
     @Before
     public void setupSharedState() {
 
         // Configure the PlainJaxbContextRule
-        jaxb.add(GenericRoot.class, GraphAttributes.class);
+        jaxb.add(GenericRoot.class, NodeAttributes.class);
 
         // Create the unit under test
-        unitUnderTest = new GraphAttributes();
-        jaxb.add(GraphAttributes.class);
+        unitUnderTest = new NodeAttributes();
 
-        unitUnderTest.pack = true;
-        unitUnderTest.backgroundColor = StandardCssColor.AliceBlue;
-        unitUnderTest.textColor = StandardCssColor.Black;
-        unitUnderTest.padding = new PointOrRectangle(2.0, 3.0, true);
+        unitUnderTest.degreesRotated = 45;
+        unitUnderTest.backgroundColor = StandardCssColor.Silver;
+        unitUnderTest.labelAlignment = VerticalAlignment.BOTTOM;
+        unitUnderTest.distortion = 5.5;
+        unitUnderTest.label = "This is a Node";
+        unitUnderTest.margin = new PointOrRectangle(4.0, 5.0);
+        unitUnderTest.penWidthInPoints = 2;
+        unitUnderTest.textColor = StandardCssColor.Brown;
+        unitUnderTest.numberOfSides = 8;
 
         this.container = new GenericRoot(unitUnderTest);
     }
@@ -69,8 +74,8 @@ public class GraphAttributesTest extends AbstractEntityTest {
         // System.out.println("Got: " + marshalledJson);
 
         // Assert
-        validateIdenticalXml("testdata/attribute/simpleGraphAttributes.xml", marshalledXml);
-        validateIdenticalJson("testdata/attribute/simpleGraphAttributes.json", marshalledJson);
+        validateIdenticalXml("testdata/attribute/nodeAttributes.xml", marshalledXml);
+        validateIdenticalJson("testdata/attribute/nodeAttributes.json", marshalledJson);
     }
 
     @Test
@@ -79,13 +84,11 @@ public class GraphAttributesTest extends AbstractEntityTest {
         // Assemble
 
         // Act
-        final GenericRoot fromXml = unmarshalFromXml(GenericRoot.class,
-                "testdata/attribute/simpleGraphAttributes.xml");
-        final GenericRoot fromJSon = unmarshalFromJson(GenericRoot.class,
-                "testdata/attribute/simpleGraphAttributes.json");
+        final GenericRoot fromXml = unmarshalFromXml(GenericRoot.class, "testdata/attribute/nodeAttributes.xml");
+        final GenericRoot fromJSon = unmarshalFromJson(GenericRoot.class, "testdata/attribute/nodeAttributes.json");
 
-        final GraphAttributes xmlAttributes = getGraphAttributesFrom(fromXml);
-        final GraphAttributes jsonAttributes = getGraphAttributesFrom(fromJSon);
+        final NodeAttributes xmlAttributes = getNodeAttributesFrom(fromXml);
+        final NodeAttributes jsonAttributes = getNodeAttributesFrom(fromJSon);
 
         // Assert
         validateIdenticalPublicFields(unitUnderTest, xmlAttributes);
@@ -102,7 +105,7 @@ public class GraphAttributesTest extends AbstractEntityTest {
     // Private helpers
     //
 
-    final GraphAttributes getGraphAttributesFrom(final GenericRoot genericRoot) {
-        return (GraphAttributes) genericRoot.getItems().get(0);
+    private NodeAttributes getNodeAttributesFrom(final GenericRoot genericRoot) {
+        return (NodeAttributes) genericRoot.getItems().get(0);
     }
 }

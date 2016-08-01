@@ -1,0 +1,11 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "nodeID",
+      "id" : "someNode",
+      "port" : {
+        "compassPoint" : "EAST"
+      }
+    } ]
+  }
+}

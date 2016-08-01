@@ -94,6 +94,8 @@ public class PlainJaxbContextRule extends TestWatcher {
     private static final String ECLIPSELINK_MEDIA_TYPE = "eclipselink.media-type";
     private static final String ECLIPSELINK_JSON_MARSHAL_EMPTY_COLLECTIONS
             = "eclipselink.json.marshal-empty-collections";
+    private static final String ECLIPSELINK_JSON_WRAPPER_AS_ARRAY_NAME
+            = "eclipselink.json.wrapper-as-array-name";
     private static final SortedSet<String> STD_IGNORED_CLASSPATTERNS;
 
     static {
@@ -293,6 +295,7 @@ public class PlainJaxbContextRule extends TestWatcher {
         if (emitJSON) {
             try {
                 marshaller.setProperty(ECLIPSELINK_MEDIA_TYPE, JSON_CONTENT_TYPE);
+                marshaller.setProperty(ECLIPSELINK_JSON_WRAPPER_AS_ARRAY_NAME, Boolean.TRUE);
                 marshaller.setProperty(ECLIPSELINK_JSON_MARSHAL_EMPTY_COLLECTIONS, Boolean.FALSE);
             } catch (PropertyException e) {
                 // This is likely not the EclipseLink Marshaller.
@@ -396,7 +399,7 @@ public class PlainJaxbContextRule extends TestWatcher {
             if (assumeJSonInput) {
                 try {
                     unmarshaller.setProperty(ECLIPSELINK_MEDIA_TYPE, JSON_CONTENT_TYPE);
-                    // unmarshaller.setProperty(ECLIPSELINK_JSON_MARSHAL_EMPTY_COLLECTIONS, Boolean.FALSE);
+                    unmarshaller.setProperty(ECLIPSELINK_JSON_WRAPPER_AS_ARRAY_NAME, Boolean.TRUE);
                 } catch (PropertyException e) {
                     // This is likely not the EclipseLink Marshaller.
                 }

@@ -1,0 +1,17 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "backgroundColor" : "AliceBlue",
+      "textColor" : "Black",
+      "charset" : "UTF-8",
+      "labelHorizontalAlignment" : "CENTER",
+      "pack" : true,
+      "type" : "graphAttributes",
+      "padding" : {
+        "xOrWidth" : 2.0,
+        "yOrHeight" : 3.0,
+        "isUnchangeable" : true
+      }
+    } ]
+  }
+}

@@ -57,8 +57,15 @@ public abstract class AbstractIdentifiable implements Serializable {
      * Compound constructor creating an {@link AbstractIdentifiable} instance wrapping the supplied data.
      *
      * @param id a non-null and non-empty identifier, assumed to be unique (within a Graph).
+     * @throws IllegalArgumentException if the 'id' argument is null or empty.
      */
-    protected AbstractIdentifiable(final String id) {
+    protected AbstractIdentifiable(final String id) throws IllegalArgumentException {
+
+        // Check sanity
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Cannot handle null or empty 'id' argument.");
+        }
+
         this.id = id;
     }
 

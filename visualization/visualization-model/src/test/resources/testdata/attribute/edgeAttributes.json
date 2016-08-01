@@ -1,0 +1,16 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "backgroundColor" : "Beige",
+      "arrowSize" : 14.0,
+      "constraint" : true,
+      "type" : "edgeAttributes",
+      "label" : "Some edge",
+      "arrowHead" : {
+        "isFilled" : false,
+        "shape" : "DIAMOND"
+      },
+      "labelFontColor" : "Brown"
+    } ]
+  }
+}

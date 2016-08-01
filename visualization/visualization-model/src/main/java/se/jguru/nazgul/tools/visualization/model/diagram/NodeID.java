@@ -99,6 +99,14 @@ public class NodeID extends AbstractIdentifiable implements Comparable<NodeID> {
      * {@inheritDoc}
      */
     @Override
+    public String toString() {
+        return super.toString() + ", port=" + port;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean equals(final Object o) {
 
         // Fail fast

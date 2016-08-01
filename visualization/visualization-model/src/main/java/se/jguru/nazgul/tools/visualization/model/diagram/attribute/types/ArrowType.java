@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * <p>Entity specifying the shape of an Arrow. According to the Dot documentation:</p>
@@ -241,14 +242,10 @@ public class ArrowType implements Serializable {
         }
 
         // Delegate to internal state
-        final ArrowType that = (ArrowType) o;
-        if (isFilled != that.isFilled) {
-            return false;
-        }
-        if (clipSide != that.clipSide) {
-            return false;
-        }
-        return shape == that.shape;
+        final ArrowType arrowType = (ArrowType) o;
+        return isFilled == arrowType.isFilled
+                && clipSide == arrowType.clipSide
+                && shape == arrowType.shape;
     }
 
     /**
@@ -256,9 +253,6 @@ public class ArrowType implements Serializable {
      */
     @Override
     public int hashCode() {
-        int result = (isFilled ? 1 : 0);
-        result = 31 * result + (clipSide != null ? clipSide.hashCode() : 0);
-        result = 31 * result + shape.hashCode();
-        return result;
+        return Objects.hash(isFilled, clipSide, shape);
     }
 }

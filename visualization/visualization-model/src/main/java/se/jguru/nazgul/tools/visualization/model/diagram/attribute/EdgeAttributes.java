@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 /**
  * POJO implementation of an entity containing attributes relevant for
@@ -61,7 +62,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#darrowsize">arrowsize</i></a>.</p>
      */
     @XmlAttribute
-    public double arrowSize;
+    public Double arrowSize;
 
     /**
      * <p>Style of arrowhead on the head node of an edge. This will only appear if the dir attribute is "forward" or
@@ -341,7 +342,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpenwidth">penwidth</i></a>.</p>
      */
     @XmlAttribute
-    public int penWidthInPoints;
+    public Integer penWidthInPoints;
 
     /**
      * <p>Position of node, or spline control points. For nodes, the position indicates the center of the node. On
@@ -483,4 +484,117 @@ public class EdgeAttributes extends AbstractAttributes {
      */
     @XmlAttribute
     public Integer weight;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof EdgeAttributes)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final EdgeAttributes that = (EdgeAttributes) o;
+        return Double.compare(that.arrowSize, arrowSize) == 0
+                && Objects.equals(penWidthInPoints, that.penWidthInPoints)
+                && Objects.equals(arrowHead, that.arrowHead)
+                && Objects.equals(arrowTail, that.arrowTail)
+                && Objects.equals(constraint, that.constraint)
+                && Objects.equals(decorate, that.decorate)
+                && direction == that.direction
+                && Objects.equals(edgeURL, that.edgeURL)
+                && Objects.equals(edgeTarget, that.edgeTarget)
+                && Objects.equals(edgeTooltip, that.edgeTooltip)
+                && Objects.equals(centerOfHeadLabel, that.centerOfHeadLabel)
+                && Objects.equals(headClip, that.headClip)
+                && Objects.equals(headURL, that.headURL)
+                && Objects.equals(headPort, that.headPort)
+                && Objects.equals(headTarget, that.headTarget)
+                && Objects.equals(headLabel, that.headLabel)
+                && Objects.equals(headTooltip, that.headTooltip)
+                && Objects.equals(labelAngle, that.labelAngle)
+                && Objects.equals(labelDistance, that.labelDistance)
+                && Objects.equals(labelFloat, that.labelFloat)
+                && labelFontColor == that.labelFontColor
+                && Objects.equals(labelFontName, that.labelFontName)
+                && Objects.equals(labelFontSizeInPoints, that.labelFontSizeInPoints)
+                && Objects.equals(labelTarget, that.labelTarget)
+                && Objects.equals(labelTooltip, that.labelTooltip)
+                && Objects.equals(layer, that.layer)
+                && Objects.equals(logicalHead, that.logicalHead)
+                && Objects.equals(logicalTail, that.logicalTail)
+                && Objects.equals(labelPosition, that.labelPosition)
+                && Objects.equals(minimumLength, that.minimumLength)
+                && Objects.equals(position, that.position)
+                && Objects.equals(samehead, that.samehead)
+                && Objects.equals(sametail, that.sametail)
+                && style == that.style
+                && Objects.equals(tailURL, that.tailURL)
+                && Objects.equals(centerOfTailLabel, that.centerOfTailLabel)
+                && Objects.equals(tailClip, that.tailClip)
+                && Objects.equals(tailLabel, that.tailLabel)
+                && Objects.equals(tailPort, that.tailPort)
+                && Objects.equals(tailTarget, that.tailTarget)
+                && Objects.equals(tailTooltip, that.tailTooltip)
+                && Objects.equals(tooltip, that.tooltip)
+                && Objects.equals(weight, that.weight);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                super.hashCode(),
+                arrowSize,
+                arrowHead,
+                arrowTail,
+                constraint,
+                decorate,
+                direction,
+                edgeURL,
+                edgeTarget,
+                edgeTooltip,
+                centerOfHeadLabel,
+                headClip,
+                headURL,
+                headPort,
+                headTarget,
+                headLabel,
+                headTooltip,
+                labelAngle,
+                labelDistance,
+                labelFloat,
+                labelFontColor,
+                labelFontName,
+                labelFontSizeInPoints,
+                labelTarget,
+                labelTooltip,
+                layer,
+                logicalHead,
+                logicalTail,
+                labelPosition,
+                minimumLength,
+                penWidthInPoints,
+                position,
+                samehead,
+                sametail,
+                style,
+                tailURL,
+                centerOfTailLabel,
+                tailClip,
+                tailLabel,
+                tailPort,
+                tailTarget,
+                tailTooltip,
+                tooltip,
+                weight);
+    }
 }

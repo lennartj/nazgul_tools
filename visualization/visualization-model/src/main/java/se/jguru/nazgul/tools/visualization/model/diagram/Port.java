@@ -21,10 +21,13 @@
  */
 package se.jguru.nazgul.tools.visualization.model.diagram;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A Port which corresponds to the following
@@ -35,7 +38,8 @@ import java.io.Serializable;
  */
 @XmlType(name = AbstractIdentifiable.NAMESPACE, propOrder = {"id", "compassPoint"})
 @XmlEnum(String.class)
-public class Port extends AbstractIdentifiable {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Port implements Serializable {
 
     /**
      * An enumeration corresponding to
@@ -114,6 +118,12 @@ public class Port extends AbstractIdentifiable {
     }
 
     /**
+     * An optional Identifier of this Port.
+     */
+    @XmlElement
+    private String id;
+
+    /**
      * The optional {@link CompassPoint} of this Port.
      */
     @XmlElement
@@ -143,14 +153,13 @@ public class Port extends AbstractIdentifiable {
      */
     public Port(final String identifier, final CompassPoint compassPoint) {
 
-        super(identifier);
-
         // Check sanity
         if (compassPoint == null) {
             throw new IllegalArgumentException("Cannot handle null 'compassPoint' argument.");
         }
 
         // Assign internal state
+        this.id = identifier;
         this.compassPoint = compassPoint;
     }
 
@@ -161,5 +170,42 @@ public class Port extends AbstractIdentifiable {
      */
     public CompassPoint getCompassPoint() {
         return compassPoint;
+    }
+
+    /**
+     * Retrieves the optional (i.e. nullable) identifier of this Port.
+     *
+     * @return the optional (i.e. nullable) identifier of this Port.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final Port port = (Port) o;
+        return Objects.equals(id, port.id)
+                && compassPoint == port.compassPoint;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, compassPoint);
     }
 }

@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * <p>A 2D Point or Rectangle with a {@link #toString()} method conforming to the
@@ -98,6 +99,35 @@ public class PointOrRectangle implements Serializable {
      */
     public void setUnchangeable(final boolean isUnchangeable) {
         this.isUnchangeable = isUnchangeable;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
+
+        // Fail fast
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        // Delegate to internal state
+        final PointOrRectangle that = (PointOrRectangle) o;
+        return Double.compare(that.xOrWidth, xOrWidth) == 0 &&
+                Double.compare(that.yOrHeight, yOrHeight) == 0 &&
+                isUnchangeable == that.isUnchangeable;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(xOrWidth, yOrHeight, isUnchangeable);
     }
 
     /**
