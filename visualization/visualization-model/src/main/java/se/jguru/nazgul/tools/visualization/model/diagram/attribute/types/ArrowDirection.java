@@ -21,11 +21,18 @@
  */
 package se.jguru.nazgul.tools.visualization.model.diagram.attribute.types;
 
+import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;
+
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * Enumeration defining possible values for Arrow direction.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE)
+@XmlEnum(String.class)
 public enum ArrowDirection implements TokenValueHolder {
 
     /**

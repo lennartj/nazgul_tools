@@ -21,7 +21,8 @@
   ~ #L%
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -103,6 +104,14 @@
     ################################################
     -->
     <build>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-resources/schemagen</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -148,6 +157,34 @@
                     <instructions>
                         <Export-Package>{local-packages}</Export-Package>
                     </instructions>
+                </configuration>
+            </plugin>
+
+            <!--
+                Configures the Jaxb2 Maven Plugin.
+
+                Why:  Ensure we use a reasonably new JAXB plugin implementation.
+                Used: Model lifecycle, generate sources.
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <id>schemagen</id>
+                        <goals>
+                            <goal>schemagen</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformSchemas>
+                        <transformSchema>
+                            <uri>http://www.jguru.se/nazgul/tools/visualization</uri>
+                            <toFile>nazgul-visualization.xsd</toFile>
+                        </transformSchema>
+                    </transformSchemas>
                 </configuration>
             </plugin>
         </plugins>

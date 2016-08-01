@@ -36,7 +36,7 @@ import java.util.Objects;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(name = AbstractIdentifiable.NAMESPACE, propOrder = {"id", "compassPoint"})
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"id", "compassPoint"})
 @XmlEnum(String.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Port implements Serializable {
@@ -46,7 +46,7 @@ public class Port implements Serializable {
      * <strong><code>compass_pt : (n | ne | e | se | s | sw | w | nw | c | _)</code></strong> in the
      * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
      */
-    @XmlType(name = AbstractIdentifiable.NAMESPACE)
+    @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
     public enum CompassPoint implements Serializable {
 

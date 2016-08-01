@@ -36,7 +36,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(name = AbstractIdentifiable.NAMESPACE)
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
 public enum ClusterMode implements TokenValueHolder {
 

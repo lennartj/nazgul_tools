@@ -64,7 +64,7 @@ public class ArrowType implements Serializable {
      * Enumeration defining the possible Clip settings defined for
      * <a href="http://www.graphviz.org/content/arrow-shapes">Arrow shapes</a>.
      */
-    @XmlType(name = AbstractIdentifiable.NAMESPACE)
+    @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
     public enum Clip {
 
@@ -99,7 +99,7 @@ public class ArrowType implements Serializable {
      * Enumeration defining the possible Shapes defined for
      * <a href="http://www.graphviz.org/content/arrow-shapes">Arrows</a>.
      */
-    @XmlType(name = AbstractIdentifiable.NAMESPACE)
+    @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
     public enum Shape {
 
