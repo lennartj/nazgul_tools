@@ -40,10 +40,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Graph extends AbstractGraph {
 
-    // Internal state
+    /**
+     * 'true' to make this Graph a directed graph, and 'false' to make it an undirected one.
+     */
     @XmlAttribute
     private boolean isDigraph;
 
+    /**
+     * 'true' to make this Graph strict.
+     */
     @XmlAttribute
     private boolean isStrict;
 
