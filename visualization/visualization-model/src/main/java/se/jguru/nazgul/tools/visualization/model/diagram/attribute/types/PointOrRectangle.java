@@ -102,6 +102,28 @@ public class PointOrRectangle implements Serializable {
     }
 
     /**
+     * @return The X-value (or width) of this PointOrRectangle.
+     */
+    public double getxOrWidth() {
+        return xOrWidth;
+    }
+
+    /**
+     *
+     * @return The Y-value (or height) of this PointOrRectangle.
+     */
+    public double getyOrHeight() {
+        return yOrHeight;
+    }
+
+    /**
+     * @return true if this PointOrRectangle is defined as unchangeable, i.e. readonly.
+     */
+    public boolean isUnchangeable() {
+        return isUnchangeable;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -117,9 +139,9 @@ public class PointOrRectangle implements Serializable {
 
         // Delegate to internal state
         final PointOrRectangle that = (PointOrRectangle) o;
-        return Double.compare(that.xOrWidth, xOrWidth) == 0 &&
-                Double.compare(that.yOrHeight, yOrHeight) == 0 &&
-                isUnchangeable == that.isUnchangeable;
+        return Double.compare(that.xOrWidth, xOrWidth) == 0
+                && Double.compare(that.yOrHeight, yOrHeight) == 0
+                && isUnchangeable == that.isUnchangeable;
     }
 
     /**
@@ -137,6 +159,6 @@ public class PointOrRectangle implements Serializable {
     public String toString() {
         final String xValue = BigDecimal.valueOf(xOrWidth).toPlainString();
         final String yValue = BigDecimal.valueOf(yOrHeight).toPlainString();
-        return "" + xValue + "," + yValue + (isUnchangeable ? "!" : "");
+        return "[PointOrRectangle]: (" + xValue + "," + yValue + ")" + (isUnchangeable() ? "!" : "");
     }
 }

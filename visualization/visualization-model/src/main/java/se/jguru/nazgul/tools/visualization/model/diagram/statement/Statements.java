@@ -260,6 +260,63 @@ public class Statements implements Serializable {
     }
 
     /**
+     * Retrieves an optional comment to be rendered before the common/shared attribute statements.
+     *
+     * @return an optional (i.e. nullable) comment to be rendered before the common/shared attribute statements.
+     */
+    public Comment getCommonAttributesComment() {
+        return commonAttributesComment;
+    }
+
+    public CommonGraphAttributes getCommonGraphAttributes() {
+        return commonGraphAttributes;
+    }
+
+    public CommonNodeAttributes getCommonNodeAttributes() {
+        return commonNodeAttributes;
+    }
+
+    public CommonEdgeAttributes getCommonEdgeAttributes() {
+        return commonEdgeAttributes;
+    }
+
+    /**
+     * Retrieves an optional comment to be rendered before the Node statements.
+     *
+     * @return an optional (i.e. nullable) comment to be rendered before the Node statements.
+     */
+    public Comment getNodesComment() {
+        return nodesComment;
+    }
+
+    /**
+     * Retrieves an optional (i.e. nullable) comment to be rendered before the Identifier statements.
+     *
+     * @return An optional (i.e. nullable) comment to be rendered before the Identifier statements.
+     */
+    public Comment getIdentifiersComment() {
+        return identifiersComment;
+    }
+
+    /**
+     * Retrieves an optional comment to be rendered before the Edge statements.
+     *
+     * @return an optional (i.e. nullable) comment to be rendered before the Edge statements.
+     */
+    public Comment getEdgesComment() {
+        return edgesComment;
+    }
+
+    /**
+     * Retrieves an optional comment to be rendered before the Subgraph statements.
+     *
+     * @return an optional (i.e. nullable) comment to be rendered before the Subgraph statements.
+     */
+    public Comment getSubgraphComment() {
+        return subgraphComment;
+    }
+
+    /**
      * Retrieves all Nodes within this Statement instance. No recursion into any Subgraph is done.
      *
      * @return all Nodes being immediate children to this {@link Statements} instance.

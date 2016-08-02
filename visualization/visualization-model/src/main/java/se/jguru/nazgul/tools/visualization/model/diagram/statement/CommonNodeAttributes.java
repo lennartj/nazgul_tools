@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlType;
 public class CommonNodeAttributes extends AbstractIdentifiable implements Statement {
 
     /**
-     * The configured attributes for this CommonGraphAttributes statement.
+     * The configured attributes for this CommonNodeAttributes statement.
      */
     @XmlElement
     private NodeAttributes attributes;

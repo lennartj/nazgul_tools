@@ -137,13 +137,13 @@
                         <branchRate>50</branchRate>
                         <lineRate>75</lineRate>
                         <haltOnFailure>true</haltOnFailure>
-                        <!-- regexes>
+                        <regexes>
                             <regex>
-                                <pattern>se.jguru.nazgul.tools.visualization.api.diagram.statement.Statements</pattern>
+                                <pattern>se.jguru.nazgul.tools.visualization.model.diagram.attribute.*Attributes.class</pattern>
                                 <branchRate>50</branchRate>
                                 <lineRate>75</lineRate>
                             </regex>
-                        </regexes -->
+                        </regexes>
                     </check>
                 </configuration>
                 <executions>

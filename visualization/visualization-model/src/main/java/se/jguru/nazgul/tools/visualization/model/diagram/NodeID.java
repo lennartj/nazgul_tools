@@ -100,7 +100,7 @@ public class NodeID extends AbstractIdentifiable implements Comparable<NodeID> {
      */
     @Override
     public String toString() {
-        return super.toString() + ", port=" + port;
+        return super.toString() + ", (" + port + ")";
     }
 
     /**

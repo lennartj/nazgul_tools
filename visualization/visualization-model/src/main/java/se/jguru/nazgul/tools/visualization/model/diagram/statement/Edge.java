@@ -47,10 +47,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Edge extends AbstractEdge implements Statement {
 
-    // Internal state
+    /**
+     * The EdgeAttributes of this Edge.
+     */
     @XmlElement
     private EdgeAttributes attributes;
 
+    /**
+     * The RightSideEdge to which this edge leads.
+     */
     @XmlElement(required = true)
     private RightSideEdge rightSideEdge;
 

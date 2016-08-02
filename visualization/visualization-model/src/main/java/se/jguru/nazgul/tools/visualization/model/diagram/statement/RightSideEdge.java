@@ -98,6 +98,15 @@ public class RightSideEdge extends AbstractEdge {
     }
 
     /**
+     * Retrieves the optional RightSideEdge to the right of this {@link RightSideEdge}.
+     *
+     * @return the optional (i.e. nullable) RightSideEdge to the right of this {@link RightSideEdge}.
+     */
+    public RightSideEdge getRightSideEdge() {
+        return rightSideEdge;
+    }
+
+    /**
      * Retrieves the RightSideEdge separator as indicated within the DOT language specification.
      *
      * @param isDirectedGraph if {@code true}, the edge symbol of a directed graph (i.e. "-&lt;") and otherwise the

@@ -27,7 +27,7 @@ import org.junit.Test;
 import se.jguru.nazgul.tools.visualization.model.AbstractEntityTest;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Identifier;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
-import se.jguru.nazgul.tools.visualization.model.jaxb.GenericRoot;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Statement;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
@@ -78,17 +78,50 @@ public class GraphTest extends AbstractEntityTest {
         Assert.assertEquals(unitUnderTest.isStrict(), fromJSon.isStrict());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnNullIdentifier() {
+
+        new Graph(null, true, true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnEmptyIdentifier() {
+
+        new Graph("", true, true);
+    }
+
+    @Test
+    public void validateComparisons() {
+
+        // Assemble
+        final Graph gnatGraph = createStandardGraph("gnat", true);
+        final Graph anotherGnatGraph = createStandardGraph("gnat", true);
+
+        // Act & Assert
+        Assert.assertTrue(gnatGraph.equals(gnatGraph));
+        Assert.assertTrue(gnatGraph.equals(anotherGnatGraph));
+        Assert.assertFalse(gnatGraph.equals("gnat"));
+        Assert.assertFalse(gnatGraph.equals(null));
+        Assert.assertFalse(gnatGraph.equals(unitUnderTest));
+        Assert.assertEquals(gnatGraph.hashCode(), anotherGnatGraph.hashCode());
+    }
+
     //
     // Helpers
     //
 
     public static Graph createStandardGraph(final boolean directed) {
+        return createStandardGraph("foobar", directed);
+    }
 
-        final Graph graph = new Graph("foobar", directed, false);
+    public static Graph createStandardGraph(final String id, final boolean directed) {
+
+        final Graph graph = new Graph(id, directed, false);
 
         final Node node1 = new Node("node1");
         final Node node2 = new Node("node2");
 
+        graph.add((Statement) null);
         graph.add(node1, node2);
         graph.add(new Identifier(node1.getId(), "foobar"));
         graph.addEdge("node1", "node2");

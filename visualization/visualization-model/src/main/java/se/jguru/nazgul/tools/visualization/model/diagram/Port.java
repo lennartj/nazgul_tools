@@ -197,8 +197,8 @@ public class Port implements Serializable {
 
         // Delegate to internal state
         final Port port = (Port) o;
-        return Objects.equals(id, port.id)
-                && compassPoint == port.compassPoint;
+        return Objects.equals(getId(), port.getId())
+                && getCompassPoint() == port.getCompassPoint();
     }
 
     /**
@@ -207,5 +207,15 @@ public class Port implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, compassPoint);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+
+        final String idString = getId() == null ? "<anonymous>" : getId();
+        return "[" + getClass().getSimpleName() + "]: " + idString + ", CompassPoint: " + getCompassPoint();
     }
 }

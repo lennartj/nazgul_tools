@@ -51,6 +51,28 @@ public class NodeIDTest extends AbstractEntityTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnSettingNullPort() {
+
+        // Act & Assert
+        unitUnderTest.setPort(null);
+    }
+
+    @Test
+    public void validatePortHandling() {
+
+        // Assemble
+        unitUnderTest.setPort(new Port(Port.CompassPoint.NORTH));
+
+        // Act
+        final Port thePort = unitUnderTest.getPort();
+        final String compassPointDotToken = thePort.getCompassPoint().getDotToken();
+
+        // Assert
+        Assert.assertEquals("n", compassPointDotToken);
+        Assert.assertEquals("[NodeID]: someNode, ([Port]: <anonymous>, CompassPoint: NORTH)", unitUnderTest.toString());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void validateExceptionOnNullPort() {
 
         // Assemble

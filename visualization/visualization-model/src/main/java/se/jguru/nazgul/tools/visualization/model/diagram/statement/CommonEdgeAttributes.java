@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlType;
 public class CommonEdgeAttributes extends AbstractIdentifiable implements Statement {
 
     /**
-     * The configured attributes for this EdgeAttributes statement.
+     * The configured attributes for this CommonEdgeAttributes statement.
      */
     @XmlElement
     private EdgeAttributes attributes;

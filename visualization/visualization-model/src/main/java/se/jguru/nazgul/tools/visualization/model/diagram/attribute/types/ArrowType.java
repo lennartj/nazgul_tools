@@ -66,7 +66,7 @@ public class ArrowType implements Serializable {
      */
     @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
-    public enum Clip {
+    public enum Clip implements TokenValueHolder {
 
         /**
          * Clip the shape, leaving only the part to the left of the edge.
@@ -90,7 +90,8 @@ public class ArrowType implements Serializable {
          *
          * @return the non-empty DOT configuration value for the supplied Clip.
          */
-        public String getConfigurationValue() {
+        @Override
+        public String getTokenValue() {
             return dotToken;
         }
     }
@@ -101,7 +102,7 @@ public class ArrowType implements Serializable {
      */
     @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
     @XmlEnum(String.class)
-    public enum Shape {
+    public enum Shape implements TokenValueHolder {
 
         BOX,
 
@@ -130,7 +131,8 @@ public class ArrowType implements Serializable {
          *
          * @return the non-empty DOT configuration value for the supplied Clip.
          */
-        public String getConfigurationValue() {
+        @Override
+        public String getTokenValue() {
             return name().toLowerCase();
         }
     }
@@ -223,8 +225,8 @@ public class ArrowType implements Serializable {
      */
     @Override
     public String toString() {
-        final String clipInfo = (clipSide == null ? "" : ", clipSide: " + clipSide);
-        return "ArrowType [shape: " + shape.getConfigurationValue() + ", filled: " + isFilled + clipInfo + "]";
+        final String clipInfo = (getClipSide() == null ? "" : ", clipSide: " + getClipSide());
+        return "ArrowType [shape: " + getShape().getTokenValue() + ", filled: " + isFilled + clipInfo + "]";
     }
 
     /**
@@ -243,9 +245,9 @@ public class ArrowType implements Serializable {
 
         // Delegate to internal state
         final ArrowType arrowType = (ArrowType) o;
-        return isFilled == arrowType.isFilled
-                && clipSide == arrowType.clipSide
-                && shape == arrowType.shape;
+        return isFilled() == arrowType.isFilled()
+                && getClipSide() == arrowType.getClipSide()
+                && getShape() == arrowType.getShape();
     }
 
     /**
