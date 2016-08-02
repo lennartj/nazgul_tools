@@ -113,6 +113,13 @@
             </resource>
         </resources>
         <plugins>
+
+            <!--
+                Configures the Cobertura Maven Plugin.
+
+                Why:  Ensure we use a sensible level of unit test code coverage.
+                Used: Standard lifecycle, check test coverage.
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>

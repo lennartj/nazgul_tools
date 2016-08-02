@@ -97,8 +97,9 @@ public abstract class AbstractEdge extends AbstractIdentifiable {
     }
 
     /**
-     * Retrieves the optional {@link Subgraph} of this A
-     * @return
+     * Retrieves the optional {@link Subgraph} of this {@link AbstractEdge}.
+     *
+     * @return the optional Subgraph of this {@link AbstractEdge}.
      */
     public Subgraph getSubgraph() {
         return subgraph;
