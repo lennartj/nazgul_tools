@@ -41,8 +41,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * <p>Utility class which orders statements and comments in a particular order. The default order (which should
- * yield no problematic references) is:</p>
+ * <p>Utility class which orders statements and comments in a particular order.
+ * The default order (which should yield no problematic/circular references) is:</p>
  * <ol>
  * <li>AttributeStatements, which implies zero or all of the types {@link CommonGraphAttributes},
  * {@link CommonEdgeAttributes} and {@link CommonNodeAttributes}</li>
@@ -71,8 +71,8 @@ public class Statements implements Serializable {
     private Comment commonAttributesComment;
 
     /**
-     * An optional statement containing common/shared Graph attributes. The attributes defined within the
-     * GraphAttribute statement will be set as default on all Graph/Subgraphs.
+     * An optional statement containing common/shared Graph attributes.
+     * The attributes defined within the CommonGraphAttributes statement will be set as default on all Graph/Subgraphs.
      *
      * @see #subgraphs
      */
@@ -80,8 +80,8 @@ public class Statements implements Serializable {
     private CommonGraphAttributes commonGraphAttributes;
 
     /**
-     * An optional statement containing common/shared Node attributes. The attributes defined within the
-     * NodeAttribute statement will be set as default on all Nodes.
+     * An optional statement containing common/shared Node attributes.
+     * The attributes defined within the CommonNodeAttributes statement will be set as default on all Nodes.
      *
      * @see #nodes
      */
@@ -89,8 +89,8 @@ public class Statements implements Serializable {
     private CommonNodeAttributes commonNodeAttributes;
 
     /**
-     * An optional statement containing common/shared Edge attributes. The attributes defined within the
-     * EdgeAttribute statement will be set as default on all Nodes.
+     * An optional statement containing common/shared Edge attributes.
+     * The attributes defined within the CommonEdgeAttributes statement will be set as default on all Edges.
      *
      * @see #nodes
      */
@@ -260,63 +260,6 @@ public class Statements implements Serializable {
     }
 
     /**
-     * Retrieves an optional comment to be rendered before the common/shared attribute statements.
-     *
-     * @return an optional (i.e. nullable) comment to be rendered before the common/shared attribute statements.
-     */
-    public Comment getCommonAttributesComment() {
-        return commonAttributesComment;
-    }
-
-    public CommonGraphAttributes getCommonGraphAttributes() {
-        return commonGraphAttributes;
-    }
-
-    public CommonNodeAttributes getCommonNodeAttributes() {
-        return commonNodeAttributes;
-    }
-
-    public CommonEdgeAttributes getCommonEdgeAttributes() {
-        return commonEdgeAttributes;
-    }
-
-    /**
-     * Retrieves an optional comment to be rendered before the Node statements.
-     *
-     * @return an optional (i.e. nullable) comment to be rendered before the Node statements.
-     */
-    public Comment getNodesComment() {
-        return nodesComment;
-    }
-
-    /**
-     * Retrieves an optional (i.e. nullable) comment to be rendered before the Identifier statements.
-     *
-     * @return An optional (i.e. nullable) comment to be rendered before the Identifier statements.
-     */
-    public Comment getIdentifiersComment() {
-        return identifiersComment;
-    }
-
-    /**
-     * Retrieves an optional comment to be rendered before the Edge statements.
-     *
-     * @return an optional (i.e. nullable) comment to be rendered before the Edge statements.
-     */
-    public Comment getEdgesComment() {
-        return edgesComment;
-    }
-
-    /**
-     * Retrieves an optional comment to be rendered before the Subgraph statements.
-     *
-     * @return an optional (i.e. nullable) comment to be rendered before the Subgraph statements.
-     */
-    public Comment getSubgraphComment() {
-        return subgraphComment;
-    }
-
-    /**
      * Retrieves all Nodes within this Statement instance. No recursion into any Subgraph is done.
      *
      * @return all Nodes being immediate children to this {@link Statements} instance.
@@ -350,6 +293,71 @@ public class Statements implements Serializable {
      */
     public List<Subgraph> getSubgraphs() {
         return subgraphs;
+    }
+
+    /**
+     * Retrieves an optional statement containing common/shared Graph attributes.
+     * The attributes defined within the GraphAttribute statement will be set as default on all Graph/Subgraphs.
+     *
+     * @return an optional (i.e. nullable) statement containing common/shared Graph attributes.
+     */
+    public CommonGraphAttributes getCommonGraphAttributes() {
+        return commonGraphAttributes;
+    }
+
+    /**
+     * Retrieves an optional statement containing common/shared Node attributes.
+     * The attributes defined within the NodeAttribute statement will be set as default on all Nodes.
+     *
+     * @return an optional (i.e. nullable) statement containing common/shared Node attributes.
+     */
+    public CommonNodeAttributes getCommonNodeAttributes() {
+        return commonNodeAttributes;
+    }
+
+    /**
+     * Retrieves an optional statement containing common/shared Edge attributes.
+     * The attributes defined within the EdgeAttribute statement will be set as default on all Edges.
+     *
+     * @return an optional (i.e. nullable) statement containing common/shared Edge attributes.
+     */
+    public CommonEdgeAttributes getCommonEdgeAttributes() {
+        return commonEdgeAttributes;
+    }
+
+    /**
+     * @return A comment to be rendered before the common/shared attribute statements.
+     */
+    public Comment getCommonAttributesComment() {
+        return commonAttributesComment;
+    }
+
+    /**
+     * @return A comment to be rendered before the Node statements.
+     */
+    public Comment getNodesComment() {
+        return nodesComment;
+    }
+
+    /**
+     * @return A comment to be rendered before the Identifier statements.
+     */
+    public Comment getIdentifiersComment() {
+        return identifiersComment;
+    }
+
+    /**
+     * @return A comment to be rendered before the Edge statements.
+     */
+    public Comment getEdgesComment() {
+        return edgesComment;
+    }
+
+    /**
+     * @return A comment to be rendered before the Subgraph statements.
+     */
+    public Comment getSubgraphComment() {
+        return subgraphComment;
     }
 
     /**

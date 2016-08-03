@@ -1,0 +1,9 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "identifier",
+      "id" : "foo",
+      "targetIdentifier" : "bar"
+    } ]
+  }
+}
