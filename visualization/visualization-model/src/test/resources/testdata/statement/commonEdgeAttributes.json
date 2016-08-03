@@ -1,0 +1,24 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "commonEdgeAttributes",
+      "id" : "edge",
+      "attributes" : {
+        "backgroundColor" : "AntiqueWhite",
+        "textColor" : "RosyBrown",
+        "label" : "This is a FooBar",
+        "arrowHead" : {
+          "isFilled" : true,
+          "clipSide" : "LEFT",
+          "shape" : "DIAMOND"
+        },
+        "centerOfHeadLabel" : {
+          "xOrWidth" : 8.0,
+          "yOrHeight" : 16.0,
+          "isUnchangeable" : false
+        },
+        "edgeTooltip" : "Foobar!"
+      }
+    } ]
+  }
+}

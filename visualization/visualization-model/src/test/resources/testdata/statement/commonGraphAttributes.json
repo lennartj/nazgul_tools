@@ -1,0 +1,21 @@
+{
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "commonGraphAttributes",
+      "id" : "graph",
+      "attributes" : {
+        "backgroundColor" : "Silver",
+        "textColor" : "Beige",
+        "charset" : "UTF-8",
+        "labelHorizontalAlignment" : "CENTER",
+        "minimumDistanceBetweenNodes" : 4.2,
+        "searchSize" : 5,
+        "padding" : {
+          "xOrWidth" : 2.0,
+          "yOrHeight" : 4.0,
+          "isUnchangeable" : false
+        }
+      }
+    } ]
+  }
+}

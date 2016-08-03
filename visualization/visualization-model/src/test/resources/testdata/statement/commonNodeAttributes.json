@@ -1,0 +1,21 @@
+{
+  "genericRoot": {
+    "items": [
+      {
+        "type": "commonNodeAttributes",
+        "id": "node",
+        "attributes": {
+          "backgroundColor": "Silver",
+          "textColor": "Beige",
+          "numberOfSides": 5,
+          "penWidthInPoints": 2,
+          "margin": {
+            "xOrWidth": 2.0,
+            "yOrHeight": 4.0,
+            "isUnchangeable": false
+          }
+        }
+      }
+    ]
+  }
+}
