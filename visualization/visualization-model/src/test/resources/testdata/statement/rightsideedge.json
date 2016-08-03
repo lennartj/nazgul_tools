@@ -1,0 +1,118 @@
+{
+  "graph": {
+    "isDigraph": true,
+    "isStrict": true,
+    "id": "rightSideEdgeTestGraph",
+    "statements": {
+      "commonAttributesComment": {
+        "commentLines": [
+          "Common Attribute Statements"
+        ]
+      },
+      "nodesComment": {
+        "commentLines": [
+          "Node Statements"
+        ]
+      },
+      "nodes": [
+        {
+          "id": "node1",
+          "nodeID": {
+            "id": "node1"
+          },
+          "nodeAttributes": {
+          }
+        },
+        {
+          "id": "node2",
+          "nodeID": {
+            "id": "node2"
+          },
+          "nodeAttributes": {
+          }
+        }
+      ],
+      "identifiersComment": {
+        "commentLines": [
+          "Identifier Statements"
+        ]
+      },
+      "edgesComment": {
+        "commentLines": [
+          "Edge Statements"
+        ]
+      },
+      "edges": [
+        {
+          "id": "node1",
+          "nodeID": {
+            "id": "node1"
+          },
+          "attributes": {
+          },
+          "rightSideEdge": {
+            "id": "node3",
+            "nodeID": {
+              "id": "node3"
+            }
+          }
+        }
+      ],
+      "subgraphComment": {
+        "commentLines": [
+          "Subgraph Statements"
+        ]
+      },
+      "subgraphs": [
+        {
+          "id": "subgraph",
+          "statements": {
+            "commonAttributesComment": {
+              "commentLines": [
+                "Common Attribute Statements"
+              ]
+            },
+            "nodesComment": {
+              "commentLines": [
+                "Node Statements"
+              ]
+            },
+            "nodes": [
+              {
+                "id": "node3",
+                "nodeID": {
+                  "id": "node3"
+                },
+                "nodeAttributes": {
+                }
+              },
+              {
+                "id": "node4",
+                "nodeID": {
+                  "id": "node4"
+                },
+                "nodeAttributes": {
+                }
+              }
+            ],
+            "identifiersComment": {
+              "commentLines": [
+                "Identifier Statements"
+              ]
+            },
+            "edgesComment": {
+              "commentLines": [
+                "Edge Statements"
+              ]
+            },
+            "subgraphComment": {
+              "commentLines": [
+                "Subgraph Statements"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

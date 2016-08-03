@@ -371,10 +371,13 @@ public class Statements implements Serializable {
     public Node findNode(final String identifier, final boolean recursive) {
 
         Optional<Node> toReturn = getNodes().stream().filter(c -> c.getId().equals(identifier)).findFirst();
-        if (!toReturn.isPresent() && recursive) {
+        if (!toReturn.isPresent() && recursive && getSubgraphs() != null && !getSubgraphs().isEmpty()) {
 
             // Does the Node with the given identifier exist in any Subgraph?
-            toReturn = subgraphs.stream().map(c -> c.getStatements().findNode(identifier, true)).findFirst();
+            toReturn = getSubgraphs().stream()
+                    .map(c -> c.getStatements().findNode(identifier, true))
+                    .filter(c -> c != null)
+                    .findFirst();
         }
 
         // All Done.
@@ -417,10 +420,13 @@ public class Statements implements Serializable {
     public Subgraph findSubgraph(final String identifier, final boolean recursive) {
 
         Optional<Subgraph> toReturn = getSubgraphs().stream().filter(c -> c.getId().equals(identifier)).findFirst();
-        if (!toReturn.isPresent() && recursive) {
+        if (!toReturn.isPresent() && recursive && getSubgraphs() != null && !getSubgraphs().isEmpty()) {
 
             // Does the Node with the given identifier exist in any Subgraph?
-            toReturn = subgraphs.stream().map(c -> c.getStatements().findSubgraph(identifier, true)).findFirst();
+            toReturn = getSubgraphs().stream()
+                    .map(c -> c.getStatements().findSubgraph(identifier, true))
+                    .filter(c -> c != null)
+                    .findFirst();
         }
 
         // All Done.

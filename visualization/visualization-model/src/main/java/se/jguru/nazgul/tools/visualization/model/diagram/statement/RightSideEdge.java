@@ -109,7 +109,7 @@ public class RightSideEdge extends AbstractEdge {
     /**
      * Retrieves the RightSideEdge separator as indicated within the DOT language specification.
      *
-     * @param isDirectedGraph if {@code true}, the edge symbol of a directed graph (i.e. "-&lt;") and otherwise the
+     * @param isDirectedGraph if {@code true}, the edge symbol of a directed graph (i.e. "-&gt;") and otherwise the
      *                        edge symbol of an undirected graph (i.e. "--") is returned.
      * @return The edge separator given the status of a Graph.
      */

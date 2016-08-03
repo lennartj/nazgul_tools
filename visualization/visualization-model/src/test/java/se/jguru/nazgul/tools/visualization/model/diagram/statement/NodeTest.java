@@ -25,25 +25,32 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import se.jguru.nazgul.tools.visualization.model.AbstractEntityTest;
-import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.model.diagram.Port;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.model.jaxb.GenericRoot;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class IdentifierTest extends AbstractEntityTest {
+public class NodeTest extends AbstractEntityTest {
 
     // Shared state
-    private Identifier unitUnderTest;
+    private Node unitUnderTest;
     private GenericRoot container;
 
     @Before
     public void setupSharedState() {
 
-        jaxb.add(GenericRoot.class, Identifier.class);
+        jaxb.add(GenericRoot.class, Node.class);
 
-        unitUnderTest = new Identifier("foo", "bar");
+        unitUnderTest = new Node(new NodeID("node1", new Port(Port.CompassPoint.NORTH)));
+
+        final NodeAttributes attributes = unitUnderTest.getAttributes();
+        attributes.numberOfSides = 8;
+        attributes.textColor = StandardCssColor.Brown;
+
         container = new GenericRoot(unitUnderTest);
     }
 
@@ -60,8 +67,8 @@ public class IdentifierTest extends AbstractEntityTest {
         // System.out.println("Got: " + marshalledJson);
 
         // Assert
-        validateIdenticalXml("testdata/statement/identifier.xml", marshalledXml);
-        validateIdenticalJson("testdata/statement/identifier.json", marshalledJson);
+        validateIdenticalXml("testdata/statement/node.xml", marshalledXml);
+        validateIdenticalJson("testdata/statement/node.json", marshalledJson);
     }
 
     @Test
@@ -70,11 +77,11 @@ public class IdentifierTest extends AbstractEntityTest {
         // Assemble
 
         // Act
-        final GenericRoot fromXml = unmarshalFromXml(GenericRoot.class, "testdata/statement/identifier.xml");
-        final GenericRoot fromJSon = unmarshalFromJson(GenericRoot.class, "testdata/statement/identifier.json");
+        final GenericRoot fromXml = unmarshalFromXml(GenericRoot.class, "testdata/statement/node.xml");
+        final GenericRoot fromJSon = unmarshalFromJson(GenericRoot.class, "testdata/statement/node.json");
 
-        final Identifier xmlNodeID = getIdentifierFrom(fromXml);
-        final Identifier jsonNodeID = getIdentifierFrom(fromJSon);
+        final Node xmlNodeID = getNodeFrom(fromXml);
+        final Node jsonNodeID = getNodeFrom(fromJSon);
 
         // Assert
         validateIdenticalPublicFields(unitUnderTest, xmlNodeID);
@@ -85,55 +92,26 @@ public class IdentifierTest extends AbstractEntityTest {
 
         Assert.assertEquals(unitUnderTest.hashCode(), xmlNodeID.hashCode());
         Assert.assertEquals(unitUnderTest.hashCode(), jsonNodeID.hashCode());
-    }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullIdentifier() {
-        new Identifier(null, "bar");
+        Assert.assertEquals(unitUnderTest.getNodeID(), xmlNodeID.getNodeID());
+        Assert.assertEquals(unitUnderTest.getNodeID(), jsonNodeID.getNodeID());
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnEmptyIdentifier() {
-        new Identifier("", "bar");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullTargetIdentifier() {
-        new Identifier("foo", null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnEmptyTargetIdentifier() {
-        new Identifier("foo", "");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnEqualIdentifiers() {
-        new Identifier("foo", "foo");
-    }
-
 
     @Test
-    public void validateComparisons() {
+    public void validateNodeId() {
 
         // Assemble
-        final Identifier identifier1 = new Identifier("foo", "bar");
-        final Identifier identifier3 = new Identifier("gnat", "gnu");
+        final Node aNode = new Node("foo");
 
         // Act & Assert
-        Assert.assertTrue(identifier1.equals(unitUnderTest));
-        Assert.assertTrue(identifier1.equals(identifier1));
-        Assert.assertFalse(unitUnderTest.equals(identifier3));
-        Assert.assertFalse(identifier1.equals(null));
-        Assert.assertFalse(identifier3.equals(unitUnderTest));
-        Assert.assertEquals(identifier1.hashCode(), unitUnderTest.hashCode());
+        Assert.assertEquals(aNode.getId(), aNode.getNodeID().getId());
     }
 
     //
     // Private helpers
     //
 
-    private Identifier getIdentifierFrom(final GenericRoot genericRoot) {
-        return (Identifier) genericRoot.getItems().get(0);
+    private Node getNodeFrom(final GenericRoot genericRoot) {
+        return (Node) genericRoot.getItems().get(0);
     }
 }

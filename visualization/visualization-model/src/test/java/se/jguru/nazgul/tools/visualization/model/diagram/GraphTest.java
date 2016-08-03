@@ -106,6 +106,11 @@ public class GraphTest extends AbstractEntityTest {
         Assert.assertEquals(gnatGraph.hashCode(), anotherGnatGraph.hashCode());
     }
 
+    @Test
+    public void validateAddingRightSideEdge() {
+
+    }
+
     //
     // Helpers
     //

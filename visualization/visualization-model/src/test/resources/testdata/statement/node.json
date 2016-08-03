@@ -1,0 +1,20 @@
+{
+  "genericRoot": {
+    "items": [
+      {
+        "type": "node",
+        "id": "node1",
+        "nodeID": {
+          "id": "node1",
+          "port": {
+            "compassPoint": "NORTH"
+          }
+        },
+        "nodeAttributes": {
+          "textColor": "Brown",
+          "numberOfSides": 8
+        }
+      }
+    ]
+  }
+}

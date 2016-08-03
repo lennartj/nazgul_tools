@@ -1,0 +1,58 @@
+{
+  "genericRoot": {
+    "items": [
+      {
+        "type": "subgraph",
+        "id": "subgraph",
+        "statements": {
+          "commonAttributesComment": {
+            "commentLines": [
+              "Common Attribute Statements"
+            ]
+          },
+          "nodesComment": {
+            "commentLines": [
+              "Node Statements"
+            ]
+          },
+          "nodes": [
+            {
+              "id": "node1",
+              "nodeID": {
+                "id": "node1",
+                "port": {
+                  "compassPoint": "NORTH"
+                }
+              },
+              "nodeAttributes": {
+              }
+            },
+            {
+              "id": "node2",
+              "nodeID": {
+                "id": "node2"
+              },
+              "nodeAttributes": {
+              }
+            }
+          ],
+          "identifiersComment": {
+            "commentLines": [
+              "Identifier Statements"
+            ]
+          },
+          "edgesComment": {
+            "commentLines": [
+              "Edge Statements"
+            ]
+          },
+          "subgraphComment": {
+            "commentLines": [
+              "Subgraph Statements"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

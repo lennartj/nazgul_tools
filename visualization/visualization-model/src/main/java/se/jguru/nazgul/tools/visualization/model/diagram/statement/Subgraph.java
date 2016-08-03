@@ -63,5 +63,4 @@ public class Subgraph extends AbstractGraph implements Statement {
     public Subgraph(final String id) {
         super(id);
     }
-
 }

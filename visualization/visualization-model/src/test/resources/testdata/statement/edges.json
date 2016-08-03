@@ -1,0 +1,90 @@
+{
+  "genericRoot": {
+    "items": [
+      {
+        "type": "edge",
+        "id": "sourceNode",
+        "nodeID": {
+          "id": "sourceNode"
+        },
+        "attributes": {
+        },
+        "rightSideEdge": {
+          "id": "targetNode",
+          "nodeID": {
+            "id": "targetNode"
+          }
+        }
+      },
+      {
+        "type": "edge",
+        "id": "sourceSubgraph",
+        "subgraph": {
+          "id": "sourceSubgraph",
+          "statements": {
+            "commonAttributesComment": {
+              "commentLines": [
+                "Common Attribute Statements"
+              ]
+            },
+            "nodesComment": {
+              "commentLines": [
+                "Node Statements"
+              ]
+            },
+            "identifiersComment": {
+              "commentLines": [
+                "Identifier Statements"
+              ]
+            },
+            "edgesComment": {
+              "commentLines": [
+                "Edge Statements"
+              ]
+            },
+            "subgraphComment": {
+              "commentLines": [
+                "Subgraph Statements"
+              ]
+            }
+          }
+        },
+        "attributes": {
+        },
+        "rightSideEdge": {
+          "id": "targetSubgraph",
+          "subgraph": {
+            "id": "targetSubgraph",
+            "statements": {
+              "commonAttributesComment": {
+                "commentLines": [
+                  "Common Attribute Statements"
+                ]
+              },
+              "nodesComment": {
+                "commentLines": [
+                  "Node Statements"
+                ]
+              },
+              "identifiersComment": {
+                "commentLines": [
+                  "Identifier Statements"
+                ]
+              },
+              "edgesComment": {
+                "commentLines": [
+                  "Edge Statements"
+                ]
+              },
+              "subgraphComment": {
+                "commentLines": [
+                  "Subgraph Statements"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
