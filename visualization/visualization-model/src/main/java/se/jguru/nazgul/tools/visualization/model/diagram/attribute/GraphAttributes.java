@@ -64,6 +64,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dcenter"><i>center</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "center")
     public Boolean centered;
 
     /**
@@ -76,15 +77,19 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dcharset"><i>charset</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "charset")
     public String charset = "UTF-8";
 
     /**
-     * Mode used for handling clusters.
+     * <p>Mode used for handling clusters.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dclusterrank"><i>clusterrank</i></a>.</p>
      *
      * @see ClusterMode#LOCAL
      * @see ClusterMode#GLOBAL
      */
     @XmlElement
+    @DotProperty(name = "clusterrank")
     public ClusterMode clusterRank;
 
     /**
@@ -93,6 +98,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dcompound"><i>compound</i></a>.
      */
     @XmlAttribute
+    @DotProperty(name = "compound")
     public Boolean compound;
 
     /**
@@ -101,16 +107,18 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dconcentrate"><i>concentrate</i></a>.
      */
     @XmlAttribute
+    @DotProperty(name = "concentrate")
     public Boolean concentrateGraph;
 
     /**
-     * This specifies the expected number of pixels per inch on a display device. For bitmap output, this guarantees
+     * <p>This specifies the expected number of pixels per inch on a display device. For bitmap output, this guarantees
      * that text rendering will be done more accurately, both in size and in placement. For SVG output, it is used
-     * to guarantee that the dimensions in the output correspond to the correct number of points or inches.
-     * Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#ddpi"><i>dpi</i> or <i>resolution</i></a>.
+     * to guarantee that the dimensions in the output correspond to the correct number of points or inches.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#ddpi"><i>dpi</i> or <i>resolution</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "resolution")
     public Integer resolution;
 
     /**
@@ -126,6 +134,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dforcelabels">forcelabels</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "forcelabels")
     public Boolean forceLabels;
 
     /**
@@ -138,6 +147,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dimagepath">imagepath</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "imagepath")
     public String imagePath;
 
     /**
@@ -148,6 +158,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabeljust">labeljust</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labeljust")
     public HorizontalAlignment labelHorizontalAlignment = HorizontalAlignment.CENTER;
 
     /**
@@ -162,6 +173,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelloc">labelloc</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labelloc")
     public VerticalAlignment labelVerticalAlignment;
 
     /**
@@ -171,6 +183,7 @@ public class GraphAttributes extends AbstractAttributes {
      * - to be translated to a Boolean before use.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "landscape")
     public Orientation orientation;
 
     /**
@@ -182,6 +195,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayers">layers</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layers")
     public String layers;
 
     /**
@@ -192,6 +206,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayersep">layersep</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layersep")
     public String layerSeparator;
 
     /**
@@ -207,6 +222,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayerselect">layerselect</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layerselect")
     public String layerSelect;
 
     /**
@@ -216,6 +232,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayerlistsep">layerlistsep</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layerlistsep")
     public String layerListSeparator;
 
     /**
@@ -228,6 +245,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayout">layout</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layout")
     public String layoutAlgorithm;
 
     /**
@@ -246,6 +264,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlp">lp</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "lp")
     public PointOrRectangle labelPosition;
 
     /**
@@ -263,6 +282,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dmargin">margin</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "margin")
     public PointOrRectangle margin;
 
     /**
@@ -273,6 +293,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dmclimit">mclimit</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "mclimit")
     public Double multiplicativeScaleLimit;
 
     /**
@@ -281,6 +302,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dmindist">mindist</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "mindist")
     public Double minimumDistanceBetweenNodes;
 
     /**
@@ -289,6 +311,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dnodesep">nodesep</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "nodesep")
     public Double minimumDistanceBetweenSameRankAdjacentNodes;
 
     /**
@@ -299,6 +322,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dnslimit">nslimit</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "nslimit")
     public Double nsLimit;
 
     /**
@@ -309,6 +333,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dnslimit1">nslimit1</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "nslimit1")
     public Double nsLimit1;
 
     /**
@@ -321,6 +346,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dordering">ordering</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "ordering")
     public Boolean outOrdering;
 
     /**
@@ -335,6 +361,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#doutputorder">outputorder</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "outputorder")
     public OutputOrder outputOrder;
 
     /**
@@ -348,7 +375,8 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpack">pack</i></a>.</p>
      */
     @XmlAttribute
-    public Boolean pack; // "pack"
+    @DotProperty(name = "pack")
+    public Boolean pack;
 
     /**
      * <p>The modes "node", "clust" or "graph" specify that the components should be packed together tightly, using the
@@ -377,6 +405,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpackmode">packmode</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "packmode")
     public String packMode;
 
     /**
@@ -389,6 +418,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpad">pad</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "pad")
     public PointOrRectangle padding;
 
     /**
@@ -397,6 +427,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dquantum">quantum</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "quantum")
     public Double quantum;
 
     /**
@@ -406,6 +437,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#drankdir">rankdir</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "rankdir")
     public RankDirection rankDirection;
 
     /**
@@ -417,6 +449,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dranksep">ranksep</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "ranksep")
     public String rankSeparation;
 
     /**
@@ -452,6 +485,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dratio">ratio</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "ratio")
     public String ratio;
 
     /**
@@ -460,6 +494,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dremincross">remincross</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "remincross")
     public Boolean runCrossClusterMinimisationTwice;
 
     /**
@@ -468,6 +503,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#drotation">rotation</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "rotation")
     public Integer degreesRotated;
 
     /**
@@ -477,6 +513,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsearchsize">searchsize</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "searchsize")
     public Integer searchSize;
 
     /**
@@ -488,9 +525,10 @@ public class GraphAttributes extends AbstractAttributes {
      * than size, the drawing is scaled up uniformly until at least one dimension equals its dimension in size.</p>
      * <p>Note that there is some interaction between the size and ratio attributes.</p>
      * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dshowboxes">showboxes</i></a>.</p>
+     * <a href="http://www.graphviz.org/content/attrs#dsize">size</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "size")
     public PointOrRectangle size;
 
     /**
@@ -500,7 +538,8 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsortv">sortv</i></a>.</p>
      */
     @XmlAttribute
-    public Integer insertionOrder; // "sortv", "" + sortv);
+    @DotProperty(name = "sortv")
+    public Integer insertionOrder;
 
     /**
      * <p>Controls how, and if, Edges are represented. By default, DOT uses {@link SplineType#SPLINES}.</p>
@@ -510,6 +549,7 @@ public class GraphAttributes extends AbstractAttributes {
      * @see SplineType
      */
     @XmlAttribute
+    @DotProperty(name = "splines")
     public SplineType splineType;
 
     /**
@@ -518,6 +558,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dstylesheet">stylesheet</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "stylesheet")
     public String urlOrPathToStylesheet;
 
     /**
@@ -532,6 +573,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtruecolor">truecolor</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "truecolor")
     public Boolean useTrueColor;
 
     /**

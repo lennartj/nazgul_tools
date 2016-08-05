@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum RankDirection {
+public enum RankDirection implements TokenValueHolder {
 
     TopToBottom("TB"),
 
@@ -55,7 +55,8 @@ public enum RankDirection {
      *
      * @return the Token value for this {@link RankDirection}.
      */
-    public String getDotTokenValue() {
+    @Override
+    public String getTokenValue() {
         return dotPropertyValue;
     }
 }

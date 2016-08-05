@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum OutputOrder {
+public enum OutputOrder implements TokenValueHolder {
 
     /**
      * The default "breadthfirst" is the simplest, but when the graph layout does not avoid
@@ -65,7 +65,7 @@ public enum OutputOrder {
      *
      * @return the Token value for this {@link OutputOrder}.
      */
-    public String getDotTokenValue() {
+    public String getTokenValue() {
         return dotTokenValue;
     }
 }

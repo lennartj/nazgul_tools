@@ -62,6 +62,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#darrowsize">arrowsize</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "arrowsize")
     public Double arrowSize;
 
     /**
@@ -71,6 +72,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#darrowhead">arrowhead</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "arrowhead")
     public ArrowType arrowHead;
 
     /**
@@ -80,6 +82,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#darrowtail">arrowtail</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "arrowtail")
     public ArrowType arrowTail;
 
     /**
@@ -88,6 +91,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dconstraint">constraint</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "constraint")
     public Boolean constraint;
 
     /**
@@ -97,6 +101,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#ddecorate">decorate</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "decorate")
     public Boolean decorate;
 
     /**
@@ -104,9 +109,10 @@ public class EdgeAttributes extends AbstractAttributes {
      * arrowhead. The actual style of the arrowhead can be specified using the {@link #arrowHead} and {@link #arrowTail}
      * attributes.</p>
      * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#ddecorate">decorate</i></a>.</p>
+     * <a href="http://www.graphviz.org/content/attrs#ddir">dir</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "dir")
     public ArrowDirection direction;
 
     /**
@@ -118,6 +124,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dedgeURL">edgeURL</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "edgeURL")
     public String edgeURL;
 
     /**
@@ -129,6 +136,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dedgetarget">edgetarget</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "edgetarget")
     public String edgeTarget;
 
     /**
@@ -139,6 +147,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dedgetooltip">edgetooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "edgetooltip")
     public String edgeTooltip;
 
     /**
@@ -147,6 +156,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dhead_lp">head_lp</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "head_lp")
     public PointOrRectangle centerOfHeadLabel;
 
     /**
@@ -156,6 +166,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadclip">headclip</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "headclip")
     public Boolean headClip;
 
     /**
@@ -165,6 +176,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadURL">headURL</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "headURL")
     public String headURL;
 
     /**
@@ -174,6 +186,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadport">headport</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "headport")
     public Port headPort;
 
     /**
@@ -185,6 +198,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadtarget">headtarget</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "headtarget")
     public String headTarget;
 
     /**
@@ -193,6 +207,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadlabel">headlabel</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "headlabel")
     public String headLabel;
 
     /**
@@ -203,6 +218,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dheadtooltip">headtooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "headtooltip")
     public String headTooltip;
 
     /**
@@ -216,6 +232,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelangle">labelangle</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labelangle")
     public Double labelAngle;
 
     /**
@@ -225,6 +242,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabeldistance">labeldistance</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labeldistance")
     public Double labelDistance;
 
     /**
@@ -234,6 +252,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelfloat">labelfloat</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labelfloat")
     public Boolean labelFloat;
 
     /**
@@ -242,6 +261,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelfontcolor">labelfontcolor</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "labelfontcolor")
     public StandardCssColor labelFontColor;
 
     /**
@@ -250,6 +270,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelfontname">labelfontname</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "labelfontname")
     public String labelFontName;
 
     /**
@@ -258,6 +279,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelfontsize">labelfontsize</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "labelfontsize")
     public Double labelFontSizeInPoints;
 
     /**
@@ -269,6 +291,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabeltarget">labeltarget</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "labeltarget")
     public String labelTarget;
 
     /**
@@ -279,6 +302,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabeltooltip">labeltooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "labeltooltip")
     public String labelTooltip;
 
     /**
@@ -296,6 +320,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayer">layer</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layer")
     public String layer;
 
     /**
@@ -305,6 +330,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlhead">lhead</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "lhead")
     public String logicalHead;
 
     /**
@@ -314,6 +340,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dltail">ltail</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "ltail")
     public String logicalTail;
 
     /**
@@ -323,6 +350,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlp">lp</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "lp")
     public PointOrRectangle labelPosition;
 
     /**
@@ -331,6 +359,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dminlen">minlen</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "minlen")
     public Double minimumLength;
 
     /**
@@ -342,6 +371,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpenwidth">penwidth</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "penwidth")
     public Integer penWidthInPoints;
 
     /**
@@ -358,6 +388,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpos">pos</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "pos")
     public PointOrRectangle position;
 
     /**
@@ -367,6 +398,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsamehead">samehead</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "samehead")
     public String samehead;
 
     /**
@@ -376,6 +408,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsametail">sametail</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "sametail")
     public String sametail;
 
     /**
@@ -399,15 +432,17 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dstyle">style</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "style")
     public EdgeStyle style;
 
     /**
      * <p>If tailURL is defined, it is output as part of the tail label of the edge. Also, this value is used near
      * the tail node, overriding any URL value.</p>
      * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dheadURL">headURL</i></a>.</p>
+     * <a href="http://www.graphviz.org/content/attrs#dtailURL">tailURL</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "tailURL")
     public String tailURL;
 
     /**
@@ -416,6 +451,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtail_lp">tail_lp</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tail_lp")
     public PointOrRectangle centerOfTailLabel;
 
     /**
@@ -425,6 +461,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtailclip">tailclip</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "tailclip")
     public Boolean tailClip;
 
     /**
@@ -433,6 +470,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtaillabel">taillabel</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "taillabel")
     public String tailLabel;
 
     /**
@@ -441,6 +479,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtailport">tailport</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tailport")
     public Port tailPort;
 
     /**
@@ -452,6 +491,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtailtarget">tailtarget</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tailtarget")
     public String tailTarget;
 
     /**
@@ -462,6 +502,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtailtooltip">tailtooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tailtooltip")
     public String tailTooltip;
 
     /**
@@ -472,6 +513,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtooltip">tooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tooltip")
     public String tooltip;
 
     /**
@@ -483,6 +525,7 @@ public class EdgeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dweight">weight</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "weight")
     public Integer weight;
 
     /**

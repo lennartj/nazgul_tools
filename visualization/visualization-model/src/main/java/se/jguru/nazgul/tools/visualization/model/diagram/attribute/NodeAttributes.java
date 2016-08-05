@@ -55,6 +55,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#ddistortion">distortion</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "distortion")
     public Double distortion;
 
     /**
@@ -72,6 +73,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dfixedsize">fixedsize</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "fixedsize")
     public String fixedSize;
 
     /**
@@ -83,6 +85,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dgradientangle">gradientangle</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "gradientangle")
     public Integer gradientAngle;
 
     /**
@@ -92,6 +95,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dgroup">group</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "group")
     public String group;
 
     /**
@@ -106,6 +110,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsize">size</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "size")
     public PointOrRectangle size;
 
     /**
@@ -124,6 +129,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dimage">image</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "image")
     public String image;
 
     /**
@@ -144,6 +150,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dimagescale">imagescale</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "imagescale")
     public String imageScale;
 
     /**
@@ -159,6 +166,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlabelloc">labelloc</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "labelloc")
     public VerticalAlignment labelAlignment;
 
     /**
@@ -176,6 +184,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlayer">layer</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "layer")
     public String layer;
 
     /**
@@ -188,8 +197,11 @@ public class NodeAttributes extends AbstractAttributes {
      * default, this is 8 points.</p>
      * <p>For nodes, this attribute specifies space left around the node's label. By default, the value is 0.11,
      * 0.055.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dmargin">margin</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "margin")
     public PointOrRectangle margin;
 
     /**
@@ -202,15 +214,17 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dordering">ordering</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "ordering")
     public Boolean outOrdering;
 
     /**
      * <p>Angle, in degrees, used to rotate polygon node shapes. For any number of polygon sides, 0 degrees rotation
      * results in a flat base.</p>
      * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dordering">ordering</i></a>.</p>
+     * <a href="http://www.graphviz.org/content/attrs#dorientation">orientation</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "orientation")
     public Integer degreesRotated;
 
     /**
@@ -222,6 +236,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpenwidth">penwidth</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "penwidth")
     public Integer penWidthInPoints;
 
     /**
@@ -233,6 +248,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dperipheries">peripheries</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "peripheries")
     public Integer peripheries;
 
     /**
@@ -249,6 +265,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dpos">pos</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "pos")
     public PointOrRectangle position;
 
     /**
@@ -258,6 +275,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dregular">regular</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "regular")
     public Boolean isRegular;
 
     /**
@@ -268,6 +286,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsamplepoints">samplepoints</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "samplepoints")
     public Integer samplepoints;
 
     /**
@@ -281,6 +300,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dshape">shape</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "shape")
     public String shape;
 
     /**
@@ -289,14 +309,16 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsides">sides</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "sides")
     public Integer numberOfSides;
 
     /**
      * <p>Skew factor for {@link #shape}=polygon. Positive values skew top of polygon to right; negative to left.</p>
      * <p>Corresponds to DOT property
-     * <a href="http://www.graphviz.org/content/attrs#dsides">sides</i></a>.</p>
+     * <a href="http://www.graphviz.org/content/attrs#dskew">skew</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "skew")
     public Double skew;
 
     /**
@@ -306,6 +328,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dsortv">sortv</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "sortv")
     public Integer insertionOrder;
 
     /**
@@ -329,6 +352,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dstyle">style</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "style")
     public NodeStyle style;
 
     /**
@@ -339,6 +363,7 @@ public class NodeAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dtooltip">tooltip</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "tooltip")
     public String tooltip;
 
     /**

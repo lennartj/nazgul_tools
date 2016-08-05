@@ -37,7 +37,7 @@ import java.io.Serializable;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum StandardCssColor implements Serializable {
+public enum StandardCssColor implements Serializable, TokenValueHolder {
 
     AliceBlue("F0F8FF"),
     AntiqueWhite("FAEBD7"),
@@ -236,5 +236,13 @@ public enum StandardCssColor implements Serializable {
 
         // All Done.
         return toReturn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getTokenValue() {
+        return getRgbValue();
     }
 }

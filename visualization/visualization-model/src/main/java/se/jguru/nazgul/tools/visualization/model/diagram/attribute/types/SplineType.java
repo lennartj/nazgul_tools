@@ -50,7 +50,7 @@ import java.io.Serializable;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum SplineType implements Serializable {
+public enum SplineType implements Serializable, TokenValueHolder {
 
     /**
      * No spline type at all.
@@ -93,7 +93,7 @@ public enum SplineType implements Serializable {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
+    public String getTokenValue() {
         return dotConfigValue;
     }
 }

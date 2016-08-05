@@ -1,13 +1,37 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-api
+ * %%
+ * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.AbstractAttributes;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.DotProperty;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.PointOrRectangle;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.TokenValueHolder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -63,7 +87,8 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
     protected String doRender(final RenderConfiguration config, final AbstractAttributes entity) {
 
         // Collect all non-null properties into a SortedMap using reflection.
-        final SortedMap<String, Object> properties = new TreeMap<>();
+        final SortedMap<String, String> dotAttributes = new TreeMap<>();
+
         for (Class<?> current = entity.getClass();
              current != null && current != Object.class;
              current = current.getSuperclass()) {
@@ -71,26 +96,65 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
             for (Field currentField : current.getDeclaredFields()) {
                 if (isConfigurationField(currentField)) {
 
-                    final String key = currentField.getName();
+                    String key = null;
+                    Object value = null;
 
                     try {
 
-                        final Object value = currentField.get(entity);
-                        properties.put(key, value);
+                        // #1) Do we have a non-null value in the Field?
+                        value = currentField.get(entity);
+                        if (value == null) {
+                            continue;
+                        }
+
+                        // #2) Do we have @DotProperty annotation on the Field?
+                        final DotProperty dotPropertyAnnotation = currentField.getAnnotation(DotProperty.class);
+                        if (dotPropertyAnnotation == null) {
+                            continue;
+                        }
+
+                        // #3) Use the DotProperty "name" attribute, or fallback to the field name.
+                        key = dotPropertyAnnotation.name();
+                        if (key.isEmpty() || "##default".equalsIgnoreCase(key)) {
+                            key = currentField.getName();
+                        }
+
+                        // #4) If this is a special case (multiple Dot properties combined to
+                        //     1 model property), handle it.
+                        if (key == null) {
+
+                            if ("labelSize".equals(currentField.getName())
+                                    && PointOrRectangle.class.equals(currentField.getType())) {
+
+                                final PointOrRectangle rect = (PointOrRectangle) value;
+                                dotAttributes.put("lwidth", BigDecimal.valueOf(rect.getxOrWidth()).toPlainString());
+                                dotAttributes.put("lheight", BigDecimal.valueOf(rect.getyOrHeight()).toPlainString());
+
+                                // All Done for this Field.
+                                continue;
+                            }
+                        }
+
+                        // #5) Transform the value if required, and add the key/value pair to the outbound Map.
+                        dotAttributes.put(key, getDotConfigValueFor(value));
 
                     } catch (Exception e) {
-                        throw new IllegalArgumentException("Could not add configuration for field [" + key
-                                + "] in class [" + entity.getClass().getSimpleName() + "]", e);
+                        throw new IllegalArgumentException("Could not add configuration for field ["
+                                + currentField + "] --> [" + key + "] in class ["
+                                + entity.getClass().getSimpleName() + "]", e);
                     }
                 }
             }
         }
 
-        // Now, transform all model properties into DOT configuration properties.
-        final SortedMap<String, String> attributes = transformIntoDotConfigurationMap(properties);
+        // Check sanity
+        if(dotAttributes.isEmpty()) {
+            return "";
+        }
 
-        final StringBuilder builder = new StringBuilder();
-        for (Map.Entry<String, String> current : attributes.entrySet()) {
+        // Synthesize the required attribute List form.
+        final StringBuilder builder = new StringBuilder(START_TOKEN);
+        for (Map.Entry<String, String> current : dotAttributes.entrySet()) {
             builder.append(current.getKey() + SEPARATOR + "\"" + current.getValue() + "\"" + DELIMITER);
         }
 
@@ -112,36 +176,21 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
         return Modifier.isPublic(modifiers) && !Modifier.isStatic(modifiers);
     }
 
-    private SortedMap<String, String> transformIntoDotConfigurationMap(final SortedMap<String, Object> propMap) {
-
-        final SortedMap<String, String> toReturn = new TreeMap<>();
-        for (Map.Entry<String, Object> current : propMap.entrySet()) {
-            toReturn.put(getDotConfigKeyFor(current.getKey()), getDotConfigValueFor(current.getValue()));
-        }
-
-        // All Done.
-        return toReturn;
-    }
-
-    private String getDotConfigKeyFor(final String modelKey) {
-
-    }
-
     private String getDotConfigValueFor(final Object modelValue) {
 
         // #1) If the modelValue corresponds to a specific type, render that type
-        if(modelValue instanceof StandardCssColor) {
+        if (modelValue instanceof StandardCssColor) {
             return ((StandardCssColor) modelValue).getRgbValue();
         }
-        if(modelValue instanceof TokenValueHolder) {
+        if (modelValue instanceof TokenValueHolder) {
             return ((TokenValueHolder) modelValue).getTokenValue();
         }
 
         // #2) If the modelValue is a String or primitive, simply use it.
-        if(modelValue instanceof String || modelValue.getClass().isPrimitive()) {
+        if (modelValue instanceof String || modelValue.getClass().isPrimitive()) {
             return "" + modelValue;
         }
-        if(modelValue.getClass().getName().startsWith("java.lang.")) {
+        if (modelValue.getClass().getName().startsWith("java.lang.")) {
             return "" + modelValue;
         }
 

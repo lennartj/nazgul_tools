@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.SortedMap;
 
 /**
  * Abstract implementation containing common utilities for attribute entities.
@@ -52,7 +51,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dbgcolor">bgcolor</i></a>.</p>
      */
     @XmlAttribute
-    @DotPropertyName(name = "bgcolor")
+    @DotProperty(name = "bgcolor")
     public StandardCssColor backgroundColor;
 
     /**
@@ -61,13 +60,16 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dfontcolor">fontcolor</i></a>.</p>
      */
     @XmlAttribute
-    @DotPropertyName(name = "fontcolor")
+    @DotProperty(name = "fontcolor")
     public StandardCssColor textColor;
 
     /**
-     * Comments are inserted into output. Device-dependent, and not corresponding to a DOT property.
+     * <p>Comments are inserted into output. Device-dependent.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dcomment">comment</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "comment")
     public String comment;
 
     /**
@@ -76,6 +78,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="https://en.wikipedia.org/wiki/Point_(typography)">Wikipedia's Definition of Point</a>
      */
     @XmlAttribute
+    @DotProperty(name = "fontsize")
     public Integer fontSizeInPoints;
 
     /**
@@ -101,6 +104,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dfontname">fontname</i></a>.
      */
     @XmlElement
+    @DotProperty(name = "fontname")
     public String fontName;
 
     /**
@@ -112,6 +116,7 @@ public abstract class AbstractAttributes implements Serializable {
      * value itself must be an HTML string.</p>
      */
     @XmlElement
+    @DotProperty(name = "label")
     public String label;
 
     /**
@@ -126,6 +131,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dnojustify">nojustify</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "nojustify")
     public Boolean noMultiLineLabelJustification;
 
     /**
@@ -135,6 +141,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dshowboxes">showboxes</i></a>.</p>
      */
     @XmlAttribute
+    @DotProperty(name = "showboxes")
     public Boolean printGuideBoxesAtStart;
 
     /**
@@ -142,8 +149,11 @@ public abstract class AbstractAttributes implements Serializable {
      * color names. In particular, if a color value has form "xxx" or "//xxx", then the color xxx will be evaluated
      * according to the current color scheme. If no color scheme is set, the standard X11 naming is used. For
      * example, if colorscheme=bugn9, then color=7 is interpreted as "/bugn9/7"
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dcolorscheme">colorscheme</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "colorscheme")
     public String colorScheme;
 
     /**
@@ -152,6 +162,7 @@ public abstract class AbstractAttributes implements Serializable {
      * <a href="http://www.graphviz.org/content/attrs#dtarget">target</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(name = "target")
     public String targetURL;
 
     /**

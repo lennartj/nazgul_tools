@@ -28,44 +28,21 @@ import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class GraphRenderer extends AbstractStringRenderer {
+public class GraphRenderer extends AbstractStringRenderer<Graph> {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean accept(final Object entity) {
-        return entity != null && entity instanceof Graph;
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String renderPrologue(final RenderConfiguration configuration, final Object entity) {
-
-        final Graph graph = (Graph) entity;
-
-        return (graph.isStrict() ? "strict " : "")
-                + (graph.isDigraph() ? "digraph" : "graph")
-                + " " + quote(graph.getId())
-                + " {";
+    public GraphRenderer() {
+        super(Graph.class);
     }
 
     @Override
-    public String render(final RenderConfiguration configuration, final Object entity) {
-        return null;
-    }
-
-    @Override
-    public String renderEpilogue(final RenderConfiguration configuration, final Object entity) {
+    protected String doRender(final RenderConfiguration config, final Graph entity) {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
     protected String doRender(final Object acceptedEntity) {
 
         final Graph graph = (Graph) acceptedEntity;

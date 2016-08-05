@@ -58,7 +58,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
     /**
      * Convenience constructor creating a {@link Node} with the supplied ID.
      *
-     * @param id               a non-null and non-empty identifier, assumed to be unique within a Graph.
+     * @param id a non-null and non-empty identifier, assumed to be unique within a Graph.
      */
     public Node(final String id) {
         this(new NodeID(id, null));
@@ -67,7 +67,7 @@ public class Node extends AbstractStringIdentifiable implements Statement {
     /**
      * Compound constructor creating a {@link Node} wrapping the supplied {@link NodeID}.
      *
-     * @param nodeID           A non-null {@link NodeID} instance.
+     * @param nodeID A non-null {@link NodeID} instance.
      */
     public Node(final NodeID nodeID) {
 

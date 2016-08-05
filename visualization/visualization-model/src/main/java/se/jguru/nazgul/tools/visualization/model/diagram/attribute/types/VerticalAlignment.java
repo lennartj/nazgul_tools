@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlType(namespace = AbstractIdentifiable.NAMESPACE)
 @XmlEnum(String.class)
-public enum VerticalAlignment {
+public enum VerticalAlignment implements TokenValueHolder {
 
     /**
      * Vertical alignment to the top.
@@ -62,7 +62,8 @@ public enum VerticalAlignment {
      *
      * @return the Token value for this {@link VerticalAlignment}.
      */
-    public String getDotTokenValue() {
+    @Override
+    public String getTokenValue() {
         return dotTokenValue;
     }
 }
