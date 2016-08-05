@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.SortedMap;
 
 /**
  * Abstract implementation containing common utilities for attribute entities.
@@ -44,21 +45,27 @@ import java.util.Objects;
 public abstract class AbstractAttributes implements Serializable {
 
     /**
-     * When attached to the root graph, this color is used as the background for entire canvas.
+     * <p>When attached to the root graph, this color is used as the background for entire canvas.
      * When a cluster attribute, it is used as the initial background for the cluster.
-     * If a cluster has a filled style, the cluster's fillcolor will overlay the background color.
+     * If a cluster has a filled style, the cluster's fillcolor will overlay the background color.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dbgcolor">bgcolor</i></a>.</p>
      */
     @XmlAttribute
+    @DotPropertyName(name = "bgcolor")
     public StandardCssColor backgroundColor;
 
     /**
-     * Color used for text.
+     * <p>Color used for text.</p>
+     * <p>Corresponds to DOT property
+     * <a href="http://www.graphviz.org/content/attrs#dfontcolor">fontcolor</i></a>.</p>
      */
     @XmlAttribute
+    @DotPropertyName(name = "fontcolor")
     public StandardCssColor textColor;
 
     /**
-     * Comments are inserted into output. Device-dependent.
+     * Comments are inserted into output. Device-dependent, and not corresponding to a DOT property.
      */
     @XmlElement
     public String comment;

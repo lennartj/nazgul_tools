@@ -21,9 +21,6 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
 
-import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderable;
-import se.jguru.nazgul.tools.visualization.api.StringRenderable;
-
 import java.util.Map;
 
 /**

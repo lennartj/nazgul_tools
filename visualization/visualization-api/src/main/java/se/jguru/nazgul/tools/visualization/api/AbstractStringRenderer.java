@@ -1,3 +1,24 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-api
+ * %%
+ * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.visualization.api;
 
 import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiable;
@@ -8,88 +29,66 @@ import se.jguru.nazgul.tools.visualization.api.diagram.AbstractStringIdentifiabl
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public abstract class AbstractStringRenderer implements StringRenderer {
+public abstract class AbstractStringRenderer<T> implements Renderer<String> {
 
     // Internal state
-    private int indentationLevel;
+    private Class<T> acceptedType;
 
     /**
-     * Default constructor createing an {@link AbstractStringRenderer} with the indentation level of 0.
-     */
-    public AbstractStringRenderer() {
-        this(0);
-    }
-
-    /**
-     * Compound constructor creating an {@link AbstractStringRenderer} with the supplied indentationLevel.
+     * Compound constructor creating an {@link AbstractStringRenderer} wrapping the supplied acceptedType.
      *
-     * @param indentationLevel a non-negative indentation level.
+     * @param acceptedType A non-null Class defining the type of entity acceptable to this
+     *                     {@link AbstractStringRenderer}.
      */
-    public AbstractStringRenderer(final int indentationLevel) {
-        setIndentationLevel(indentationLevel);
+    protected AbstractStringRenderer(final Class<T> acceptedType) {
+
+        // Check sanity
+        if (acceptedType == null) {
+            throw new IllegalArgumentException("Cannot handle null 'acceptedType' argument.");
+        }
+
+        // Assign internal state
+        this.acceptedType = acceptedType;
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void setIndentationLevel(final int indentationLevel) throws IllegalArgumentException {
+    @Override
+    public final String render(final RenderConfiguration configuration, final Object entity) {
 
         // Check sanity
-        if (indentationLevel < 0) {
-            throw new IllegalArgumentException("Cannot handle negative 'indentationLevel' argument. (Got: "
-                    + indentationLevel + ")");
+        if(configuration == null) {
+            throw new IllegalArgumentException("Cannot handle null 'configuration' argument.");
+        }
+        if(entity == null) {
+            throw new IllegalArgumentException("Cannot handle null 'entity' argument.");
+        }
+        if(!acceptedType.isAssignableFrom(entity.getClass())) {
+            throw new IllegalArgumentException("Only " + acceptedType.getName()
+                    + " can be handled by this " + getClass().getSimpleName() + " renderer.");
         }
 
         // All Done.
-        this.indentationLevel = indentationLevel;
+        return doRender(configuration, acceptedType.cast(entity)) + RenderConfiguration.NEWLINE;
     }
 
     /**
-     * Retrieves the current indentation level.
+     * Implement this method to provide the algorithms rendering the supplied (and typed) entity as a String.
+     * Do not add a {@link RenderConfiguration#NEWLINE} afterwards, as it is done by the render method itself.
      *
-     * @return the current indentation level.
+     * @param config The non-null RenderConfiguration.
+     * @param entity The non-null entity of type T.
+     * @return The rendered value for the supplied entity.
      */
-    public final int getIndentationLevel() {
-        return this.indentationLevel;
-    }
+    protected abstract String doRender(final RenderConfiguration config, final T entity);
 
     /**
-     * Retrieves an indentation string, which is echoed once for each indentation level to create
-     * a pretty-printed rendering. The standard implementation simply returns {@link #TWO_SPACES};
-     * override to use another indent string. Override to use another String to render a single indentation level.
-     *
-     * @return the default single indentation string (i.e. {@link #TWO_SPACES}).
-     */
-    public String getSingleIndent() {
-        return TWO_SPACES;
-    }
-
-    /**
-     * Renders the supplied entity into a format intended for consumption by humans or applications.
-     * Typically: <pre><code>[getIndentation()][doRender()][NEWLINE]</code></pre>
-     *
-     * @param entity An accepted entity Object which should be rendered.
-     * @return Renders this {@link AbstractStringRenderer} fully.
+     * {@inheritDoc}
      */
     @Override
-    public String render(final Object entity) {
-        return getIndentation() + doRender(entity) + NEWLINE;
-    }
-
-    /**
-     * Retrieves the indentation String for the indentation used at the current indentationLevel.
-     *
-     * @return the full indentation String corresponding to the current indentationLevel.
-     */
-    protected final String getIndentation() {
-
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < getIndentationLevel(); i++) {
-            builder.append(getSingleIndent());
-        }
-
-        // All Done.
-        return builder.toString();
+    public boolean accept(final Object entity) {
+        return entity != null && acceptedType.isAssignableFrom(entity.getClass());
     }
 
     /**
@@ -107,13 +106,6 @@ public abstract class AbstractStringRenderer implements StringRenderer {
      */
     @Override
     public String toString() {
-        return "[" + getClass().getSimpleName() + "]: " + doRender();
+        return "[" + getClass().getSimpleName() + "]";
     }
-
-    /**
-     * Override this method to perform rendering without any trailing newlines or starting indentations.
-     *
-     * @return The result of the plain rendering
-     */
-    protected abstract String doRender(final Object acceptedEntity);
 }
