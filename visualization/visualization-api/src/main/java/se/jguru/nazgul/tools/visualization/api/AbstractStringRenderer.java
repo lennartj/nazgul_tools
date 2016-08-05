@@ -65,14 +65,15 @@ public abstract class AbstractStringRenderer implements StringRenderer {
     }
 
     /**
-     * Standard implementation of pretty-printing rendering, emitting a string on the form
-     * <pre><code>[getIndentation()][doRender()][NEWLINE]</code></pre>
+     * Renders the supplied entity into a format intended for consumption by humans or applications.
+     * Typically: <pre><code>[getIndentation()][doRender()][NEWLINE]</code></pre>
      *
+     * @param entity An accepted entity Object which should be rendered.
      * @return Renders this {@link AbstractStringRenderer} fully.
      */
     @Override
     public String render(final Object entity) {
-        return getIndentation() + doRender() + NEWLINE;
+        return getIndentation() + doRender(entity) + NEWLINE;
     }
 
     /**
@@ -80,7 +81,7 @@ public abstract class AbstractStringRenderer implements StringRenderer {
      *
      * @return the full indentation String corresponding to the current indentationLevel.
      */
-    protected String getIndentation() {
+    protected final String getIndentation() {
 
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < getIndentationLevel(); i++) {
@@ -89,6 +90,16 @@ public abstract class AbstractStringRenderer implements StringRenderer {
 
         // All Done.
         return builder.toString();
+    }
+
+    /**
+     * Quotes the supplied string (i.e. surrounds it with "'s).
+     *
+     * @param toQuote The string to quote.
+     * @return the supplied string surrounded with double quotes.
+     */
+    protected final String quote(final String toQuote) {
+        return "\"" + toQuote + "\"";
     }
 
     /**
@@ -104,5 +115,5 @@ public abstract class AbstractStringRenderer implements StringRenderer {
      *
      * @return The result of the plain rendering
      */
-    protected abstract String doRender();
+    protected abstract String doRender(final Object acceptedEntity);
 }

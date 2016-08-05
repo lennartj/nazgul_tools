@@ -56,6 +56,11 @@
             Internal dependencies
         -->
         <dependency>
+            <groupId>se.jguru.nazgul.tools.visualization.model</groupId>
+            <artifactId>nazgul-tools-visualization-model</artifactId>
+            <version>6.0.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>se.jguru.nazgul.tools.visualization.spi.dot</groupId>
             <artifactId>nazgul-tools-visualization-spi-dot</artifactId>
             <version>6.0.2-SNAPSHOT</version>
