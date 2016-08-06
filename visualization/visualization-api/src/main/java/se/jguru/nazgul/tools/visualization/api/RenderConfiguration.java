@@ -47,6 +47,7 @@ public class RenderConfiguration implements Serializable {
     private Map<String, Object> extraConfiguration;
     private int indentationLevel;
     private String indentationToken;
+    private boolean isDirectedGraph;
 
     /**
      * Default constructor creating a RenderConfiguration using indentationLevel 0
@@ -63,7 +64,7 @@ public class RenderConfiguration implements Serializable {
      * @param indentationLevel The non-negative indentation level.
      */
     public RenderConfiguration(final int indentationLevel) {
-        this(indentationLevel, TWO_SPACES);
+        this(indentationLevel, TWO_SPACES, true);
     }
 
     /**
@@ -72,12 +73,31 @@ public class RenderConfiguration implements Serializable {
      * @param indentationLevel The non-negative indentation level.
      * @param indentationToken The non-empty and non-null indentation token.
      */
-    public RenderConfiguration(final int indentationLevel, final String indentationToken) {
+    public RenderConfiguration(final int indentationLevel,
+            final String indentationToken,
+            final boolean isDirectedGraph) {
 
         // Assign internal state
         this.extraConfiguration = new TreeMap<>();
         setIndentationLevel(indentationLevel);
         setIndentationToken(indentationToken);
+        setDirectedGraph(isDirectedGraph);
+    }
+
+    /**
+     * @return true if this RenderConfiguration is used within a Directed Graph.
+     */
+    public boolean isDirectedGraph() {
+        return isDirectedGraph;
+    }
+
+    /**
+     * Assigns true or false to the {@link #isDirectedGraph} property.
+     *
+     * @param directedGraph true if this RenderConfiguration is used within a Directed Graph.
+     */
+    public void setDirectedGraph(final boolean directedGraph) {
+        isDirectedGraph = directedGraph;
     }
 
     /**
@@ -127,7 +147,11 @@ public class RenderConfiguration implements Serializable {
 
         // Check sanity
         final int newIndentationLevel = getIndentationLevel() + indentationChange;
-        final RenderConfiguration toReturn = new RenderConfiguration(newIndentationLevel, indentationToken);
+        final RenderConfiguration toReturn = new RenderConfiguration(
+                newIndentationLevel,
+                indentationToken,
+                isDirectedGraph);
+
         toReturn.getExtraConfiguration().putAll(getExtraConfiguration());
 
         // All Done.

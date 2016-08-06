@@ -19,26 +19,32 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api;
+package se.jguru.nazgul.tools.visualization.api.dot;
 
-import java.io.Serializable;
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
+import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Identifier;
 
 /**
- * Specification for objects which can be rendered.
+ * Identifier statement Renderer, complying to the specification in the
+ * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public interface Renderable<T> extends Serializable {
+public class IdentifierRenderer extends AbstractStringRenderer<Identifier> {
 
     /**
-     * The XML namespace used by the visualization API classes.
+     * Default constructor.
      */
-    String NAMESPACE = "http://www.jguru.se/nazgul/tools/visualization";
+    public IdentifierRenderer() {
+        super(Identifier.class);
+    }
 
     /**
-     * Renders this Renderable for output.
-     *
-     * @return the output of this Renderable in its current state.
+     * {@inheritDoc}
      */
-    T render();
+    @Override
+    protected String doRender(final RenderConfiguration config, final Identifier entity) {
+        return config.getIndent() + quote(entity.getId()) + " = " + quote(entity.getTargetIdentifier());
+    }
 }

@@ -19,19 +19,10 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.attribute;
+package se.jguru.nazgul.tools.visualization.api.diagram;
 
 /**
- * Specification for how to build a {@link SortedAttributeList} instance.
- *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public interface AttributeListBuilder {
-
-    /**
-     * Creates a {@link SortedAttributeList} instance from the state within this {@link AttributeListBuilder}.
-     *
-     * @return a completely set-up {@link SortedAttributeList} instance.
-     */
-    AttributeList build();
+public class RenderConfigurationTest {
 }

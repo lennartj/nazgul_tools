@@ -23,16 +23,15 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
 
 /**
- * AbstractStringRenderer implementation which renders a full Graph.
- * Delegates most rendering to an internal StatementsRenderer instance.
+ * Subgraph statement Renderer, complying to the specification in the
+ * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- * @see StatementsRenderer
  */
-public class GraphRenderer extends AbstractStringRenderer<Graph> {
+public class SubgraphRenderer extends AbstractStringRenderer<Subgraph> {
 
     // Internal state
     private StatementsRenderer statementsRenderer;
@@ -40,43 +39,32 @@ public class GraphRenderer extends AbstractStringRenderer<Graph> {
     /**
      * Default constructor.
      */
-    public GraphRenderer() {
+    public SubgraphRenderer() {
 
         // Delegate
-        super(Graph.class);
+        super(Subgraph.class);
 
         // Assign internal state
-        this.statementsRenderer = new StatementsRenderer();
+        statementsRenderer = new StatementsRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Graph entity) {
+    protected String doRender(final RenderConfiguration config, final Subgraph entity) {
 
-        // First, configure the RenderConfiguration for directed-ness.
-        config.setDirectedGraph(entity.isDigraph());
+        final String prologue = config.getIndent() + "subgraph "
+                + quote(entity.getId())
+                + " { "
+                + config.getNewline();
 
-        // We should use a 3-step rendering strategy.
-        final String prologue =
-                config.getIndent() + (entity.isStrict() ? "strict " : "")
-                        + (entity.isDigraph() ? "digraph" : "graph")
-                        + " " + quote(entity.getId())
-                        + " {";
-
-        // Render all the statements within the supplied Graph.
-        // Increase the indentation level to achieve pretty printing.
-        //
-        // Also, note that the render() method appends a NEWLINE to the result.
+        // Delegate to the statements within this SubgraphRenderer
         final String renderedStatements = statementsRenderer.render(
                 config.cloneAndChangeIndentation(1),
                 entity.getStatements());
 
-        // Render the epilogue.
-        final String epilogue = config.getIndent() + "}";
-
         // All Done.
-        return prologue + renderedStatements + epilogue;
+        return prologue + renderedStatements + config.getNewline() + config.getIndent() + "}";
     }
 }

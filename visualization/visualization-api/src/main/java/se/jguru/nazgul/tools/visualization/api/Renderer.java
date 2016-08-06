@@ -34,16 +34,10 @@ import java.io.Serializable;
  *
  *         if(someRenderer.accept(someEntity)) {
  *
- *              // First, render the Prologue.
- *              T result = someRenderer.renderPrologue(config, someEntity);
- *
- *              // Second, perform main rendering
+ *              // Render the entity, retrieve the result.
  *              T result = someRenderer.render(config, someEntity);
  *
- *              // Thirdly, render the Epilogue.
- *              T result = someRenderer.renderEpilogue(config, someEntity);
- *
- *              // Now, do something to join the result.
+ *              // Now, do something with the result.
  *              // ....
  *         }
  *

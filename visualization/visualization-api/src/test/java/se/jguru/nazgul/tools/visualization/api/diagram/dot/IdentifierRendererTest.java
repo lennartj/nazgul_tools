@@ -19,33 +19,29 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.statement;
+package se.jguru.nazgul.tools.visualization.api.diagram.dot;
 
+import org.junit.Assert;
 import org.junit.Test;
+import se.jguru.nazgul.tools.visualization.api.dot.IdentifierRenderer;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Identifier;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class IdentifierTest extends AbstractGraphTest {
+public class IdentifierRendererTest extends AbstractRendererTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullLeftIdentifier() {
+    @Test
+    public void validateRendering() {
 
-        // Act & Assert
-        new Identifier(null, "foo");
-    }
+        // Assemble
+        final Identifier identifier = new Identifier("sourceId", "targetId");
+        final IdentifierRenderer unitUnderTest = new IdentifierRenderer();
 
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnEmptyLeftIdentifier() {
+        // Act
+        final String renderedIdentifier = unitUnderTest.render(renderConfiguration, identifier);
 
-        // Act & Assert
-        new Identifier("", "foo");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void validateExceptionOnNullRightIdentifier() {
-
-        // Act & Assert
-        new Identifier("bar", null);
+        // Assert
+        Assert.assertEquals("\"sourceId\" = \"targetId\" ;" + renderConfiguration.getNewline(), renderedIdentifier);
     }
 }

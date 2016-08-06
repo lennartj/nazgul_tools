@@ -23,47 +23,53 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.RightSideEdge;
 
 /**
- * Node statement Renderer, complying to the specification in the
+ * RightSideEdge Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class RightSideEdgeRenderer extends AbstractStringRenderer<RightSideEdge> {
 
     // Internal state
-    private AttributeRenderer attributeRenderer;
     private NodeIdRenderer nodeIdRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public RightSideEdgeRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(RightSideEdge.class);
 
-        // Assign internal state
-        attributeRenderer = new AttributeRenderer();
+        // Create internal state
         nodeIdRenderer = new NodeIdRenderer();
     }
 
     /**
+     * <p>Renders this {@link RightSideEdge} according to the structure:</p>
+     * <pre>edgeop (node_id | subgraph) [ edgeRHS ]</pre>
+     *
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
+    protected String doRender(final RenderConfiguration config, final RightSideEdge entity) {
 
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
+        final String prefix = RightSideEdge.getEdgeSeparator(config.isDirectedGraph())
+                + " "
+                + (entity.getNodeID() != null
+                ? nodeIdRenderer.doRender(config, entity.getNodeID())
+                : entity.getSubgraph().getId());
+
+        // Recurse if this RightSideEdge has a RightSideEdge in turn.
+        String renderedRightSideOfThisEdge = "";
+        if (entity.getRightSideEdge() != null) {
+            renderedRightSideOfThisEdge = " " + doRender(config, entity.getRightSideEdge());
+        }
 
         // All Done.
-        return nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+        return prefix + renderedRightSideOfThisEdge;
     }
 }

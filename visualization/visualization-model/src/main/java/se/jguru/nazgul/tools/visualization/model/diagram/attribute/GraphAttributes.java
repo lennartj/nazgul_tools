@@ -255,6 +255,7 @@ public class GraphAttributes extends AbstractAttributes {
      * <a href="http://www.graphviz.org/content/attrs#dlheight">lheight</i></a>.</p>
      */
     @XmlElement
+    @DotProperty(specialTreatment = true)
     public PointOrRectangle labelSize;
 
     /**

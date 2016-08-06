@@ -44,4 +44,11 @@ public @interface DotProperty {
      * Specifies the name of the DOT configuration property.
      */
     String name() default "##default";
+
+    /**
+     * Indicates if the Field annotated with @DotProperty requires special treatment
+     * in resolving its dot property equivalent. For example, when two DOT configuration properties are collected
+     * into a single model value.
+     */
+    boolean specialTreatment() default false;
 }

@@ -19,26 +19,38 @@
  * limitations under the License.
  * #L%
  */
+package se.jguru.nazgul.tools.visualization.api.dot;
+
+import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
+import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
+import se.jguru.nazgul.tools.visualization.model.diagram.Port;
+
 /**
- * Package containing supertypes for Graphviz/Dot diagram synthesis, complying to the specification in the
+ * Port Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
- * All relevant classes are JAXB-annotated to ensure that the model can be converted
- * in a simple manner to and from XML and JSON formats.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlSchema(
-        xmlns = {
-                @XmlNs(prefix = "nazgulviz", namespaceURI = Renderable.NAMESPACE),
-                @XmlNs(prefix = "xs", namespaceURI = "http://www.w3.org/2001/XMLSchema"),
-                @XmlNs(prefix = "xsi", namespaceURI = "http://www.w3.org/2001/XMLSchema-instance"),
-                @XmlNs(prefix = "vc", namespaceURI = "http://www.w3.org/2007/XMLSchema-versioning")
-        }
-)
-@XmlAccessorType(XmlAccessType.FIELD)
-package se.jguru.nazgul.tools.visualization.api;
+public class PortRenderer extends AbstractStringRenderer<Port> {
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+    /**
+     * Default constructor.
+     */
+    public PortRenderer() {
+        super(Port.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String doRender(final RenderConfiguration config, final Port entity) {
+
+        final String prefix = entity.getId() != null && !entity.getId().isEmpty()
+                ? ": " + quote(entity.getId()) + " "
+                : "";
+
+        // ALl Done.
+        return prefix  + ": " + entity.getCompassPoint().getDotToken();
+    }
+}

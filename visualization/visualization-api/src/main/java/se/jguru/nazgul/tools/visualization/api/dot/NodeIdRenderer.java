@@ -23,47 +23,41 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.NodeID;
+import se.jguru.nazgul.tools.visualization.model.diagram.Port;
 
 /**
- * Node statement Renderer, complying to the specification in the
+ * NodeID Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class NodeIdRenderer extends AbstractStringRenderer<NodeID> {
 
     // Internal state
-    private AttributeRenderer attributeRenderer;
-    private NodeIdRenderer nodeIdRenderer;
+    private PortRenderer portRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public NodeIdRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(NodeID.class);
 
         // Assign internal state
-        attributeRenderer = new AttributeRenderer();
-        nodeIdRenderer = new NodeIdRenderer();
+        portRenderer = new PortRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
+    protected String doRender(final RenderConfiguration config, final NodeID entity) {
 
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
+        final Port port = entity.getPort();
+        final String renderedPort = port == null ? "" : portRenderer.doRender(config, entity.getPort());
 
-        // All Done.
-        return nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+        return quote(entity.getId()) + renderedPort;
     }
 }

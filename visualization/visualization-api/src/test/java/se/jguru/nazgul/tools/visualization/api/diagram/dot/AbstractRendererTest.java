@@ -19,11 +19,16 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api.diagram.statement;
+package se.jguru.nazgul.tools.visualization.api.diagram.dot;
 
 import org.antlr.v4.runtime.RuleContext;
 import org.junit.Assert;
-import se.jguru.nazgul.tools.visualization.api.diagram.Graph;
+import org.junit.Before;
+import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
+import se.jguru.nazgul.tools.visualization.api.dot.GraphRenderer;
+import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Identifier;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
 import se.jguru.nazgul.tools.visualization.spi.dot.DotDiagramValidator;
 import se.jguru.nazgul.tools.visualization.spi.dot.grammars.DotParser;
 
@@ -37,8 +42,15 @@ import java.util.stream.Collectors;
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public abstract class AbstractGraphTest {
+public class AbstractRendererTest {
 
+    // Shared state
+    protected RenderConfiguration renderConfiguration;
+
+    @Before
+    public void setupSharedState() {
+        renderConfiguration = new RenderConfiguration();
+    }
 
     protected List<String> getBaseExpectedTests(final String edgeOp) {
         return new ArrayList<>(Arrays.asList(
@@ -64,11 +76,13 @@ public abstract class AbstractGraphTest {
     }
 
     protected DotParser.GraphContext validateGraph(final Graph graph,
-                                                   final List<String> expectedTexts) {
+            final List<String> expectedTexts) {
 
-        System.out.println("Got rendered Graph:\n" + graph.render());
+        final GraphRenderer renderer = new GraphRenderer();
+        final String renderedGraph = renderer.render(renderConfiguration, graph);
+        System.out.println("Got rendered Graph:\n" + renderedGraph);
 
-        final InputStream in = new ByteArrayInputStream(graph.render().getBytes());
+        final InputStream in = new ByteArrayInputStream(renderedGraph.getBytes());
         final DotParser.GraphContext graphContext = DotDiagramValidator.validate(in);
         Assert.assertNotNull(graphContext);
 

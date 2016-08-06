@@ -23,47 +23,57 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Edge;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.RightSideEdge;
 
 /**
- * Node statement Renderer, complying to the specification in the
+ * Edge statement Renderer, complying to the specification in the
  * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class EdgeRenderer extends AbstractStringRenderer<Edge> {
 
     // Internal state
     private AttributeRenderer attributeRenderer;
     private NodeIdRenderer nodeIdRenderer;
+    private RightSideEdgeRenderer rightSideEdgeRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public EdgeRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(Edge.class);
 
         // Assign internal state
         attributeRenderer = new AttributeRenderer();
         nodeIdRenderer = new NodeIdRenderer();
+        rightSideEdgeRenderer = new RightSideEdgeRenderer();
     }
 
     /**
-     * {@inheritDoc}
+     * <p>Renders the supplied Edge according to the following structure:</p>
+     * <pre>(node_id | subgraph) edgeRHS [ attr_list ]</pre>
+     * <p>... where ... </p>
+     * <pre>edgeRHS   : edgeop (node_id | subgraph) [ edgeRHS ]</pre>
+     *
+     * @param config The non-null RenderConfiguration.
+     * @param edge   The non-null Edge to be rendered.
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
+    protected String doRender(final RenderConfiguration config, final Edge edge) {
 
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
+        // Edges can be from/to Nodes and Subgraphs. Pick the correct ID source.
+        final String edgeID = edge.getNodeID() != null
+                ? nodeIdRenderer.doRender(config, edge.getNodeID())
+                : quote(edge.getSubgraph().getId());
 
-        // All Done.
-        return nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+        // Render the attributes after the RightSideEdge.
+        final RightSideEdge rightSideEdge = edge.getRightSideEdge();
+        return edgeID + " "
+                + rightSideEdgeRenderer.doRender(config, rightSideEdge) + " "
+                + attributeRenderer.doRender(config, edge.getAttributes());
     }
 }

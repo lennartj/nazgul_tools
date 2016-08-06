@@ -25,6 +25,7 @@ import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.AbstractAttributes;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.DotProperty;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.ArrowType;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.PointOrRectangle;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.TokenValueHolder;
@@ -84,6 +85,7 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("PMD")
     protected String doRender(final RenderConfiguration config, final AbstractAttributes entity) {
 
         // Collect all non-null properties into a SortedMap using reflection.
@@ -113,15 +115,8 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
                             continue;
                         }
 
-                        // #3) Use the DotProperty "name" attribute, or fallback to the field name.
-                        key = dotPropertyAnnotation.name();
-                        if (key.isEmpty() || "##default".equalsIgnoreCase(key)) {
-                            key = currentField.getName();
-                        }
-
-                        // #4) If this is a special case (multiple Dot properties combined to
-                        //     1 model property), handle it.
-                        if (key == null) {
+                        // #3) Does this field need special treatment?
+                        if (dotPropertyAnnotation.specialTreatment()) {
 
                             if ("labelSize".equals(currentField.getName())
                                     && PointOrRectangle.class.equals(currentField.getType())) {
@@ -135,8 +130,14 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
                             }
                         }
 
+                        // #4) Use the DotProperty "name" attribute, or fallback to the field name.
+                        key = dotPropertyAnnotation.name();
+                        if (key.isEmpty() || "##default".equalsIgnoreCase(key)) {
+                            key = currentField.getName();
+                        }
+
                         // #5) Transform the value if required, and add the key/value pair to the outbound Map.
-                        dotAttributes.put(key, getDotConfigValueFor(value));
+                        dotAttributes.put(quote(key), getDotConfigValueFor(value));
 
                     } catch (Exception e) {
                         throw new IllegalArgumentException("Could not add configuration for field ["
@@ -148,7 +149,7 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
         }
 
         // Check sanity
-        if(dotAttributes.isEmpty()) {
+        if (dotAttributes.isEmpty()) {
             return "";
         }
 
@@ -176,6 +177,7 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
         return Modifier.isPublic(modifiers) && !Modifier.isStatic(modifiers);
     }
 
+    @SuppressWarnings("CheckStyle")
     private String getDotConfigValueFor(final Object modelValue) {
 
         // #1) If the modelValue corresponds to a specific type, render that type
@@ -184,6 +186,24 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
         }
         if (modelValue instanceof TokenValueHolder) {
             return ((TokenValueHolder) modelValue).getTokenValue();
+        }
+        if (modelValue instanceof PointOrRectangle) {
+
+            final PointOrRectangle toConvert = (PointOrRectangle) modelValue;
+            final String xValue = BigDecimal.valueOf(toConvert.getxOrWidth()).toPlainString();
+            final String yValue = BigDecimal.valueOf(toConvert.getyOrHeight()).toPlainString();
+
+            return "(" + xValue + "," + yValue + ")" + (toConvert.isUnchangeable() ? "!" : "");
+        }
+        if(modelValue instanceof ArrowType) {
+
+            final ArrowType arrowType = (ArrowType) modelValue;
+
+            final String openModifier = arrowType.isFilled() ? "" : "o";
+            final String clip = (arrowType.getClipSide() == null ? "" : arrowType.getClipSide().getTokenValue());
+
+            // Done?
+            return openModifier + clip + arrowType.getShape().getTokenValue();
         }
 
         // #2) If the modelValue is a String or primitive, simply use it.
