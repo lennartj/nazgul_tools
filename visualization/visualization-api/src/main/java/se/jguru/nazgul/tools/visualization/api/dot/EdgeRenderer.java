@@ -72,7 +72,7 @@ public class EdgeRenderer extends AbstractStringRenderer<Edge> {
 
         // Render the attributes after the RightSideEdge.
         final RightSideEdge rightSideEdge = edge.getRightSideEdge();
-        return edgeID + " "
+        return config.getIndent() + edgeID + " "
                 + rightSideEdgeRenderer.doRender(config, rightSideEdge) + " "
                 + attributeRenderer.doRender(config, edge.getAttributes());
     }

@@ -46,7 +46,7 @@ public class PortRendererTest extends AbstractRendererTest {
         final String anonymousResult = unitUnderTest.render(renderConfiguration, anonymousPort);
 
         // Assert
-        Assert.assertEquals(": \"foobar\" : n ", idResult);
-        Assert.assertEquals(": e ", anonymousResult);
+        Assert.assertEquals(": \"foobar\" : n", idResult);
+        Assert.assertEquals(": e", anonymousResult);
     }
 }

@@ -53,11 +53,13 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
 
     // Internal state
     private CommentRenderer commentRenderer;
-    private AttributeRenderer attributeRenderer;
     private NodeRenderer nodeRenderer;
     private IdentifierRenderer identifierRenderer;
     private EdgeRenderer edgeRenderer;
     private SubgraphRenderer subgraphRenderer;
+    private CommonGraphAttributesRenderer commonGraphAttributesRenderer;
+    private CommonNodeAttributesRenderer commonNodeAttributesRenderer;
+    private CommonEdgeAttributesRenderer commonEdgeAttributesRenderer;
 
     /**
      * Default constructor.
@@ -69,11 +71,13 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
 
         // Assign internal state
         this.commentRenderer = new CommentRenderer();
-        this.attributeRenderer = new AttributeRenderer();
         this.nodeRenderer = new NodeRenderer();
         this.identifierRenderer = new IdentifierRenderer();
         this.edgeRenderer = new EdgeRenderer();
         this.subgraphRenderer = new SubgraphRenderer();
+        this.commonEdgeAttributesRenderer = new CommonEdgeAttributesRenderer();
+        this.commonGraphAttributesRenderer = new CommonGraphAttributesRenderer();
+        this.commonNodeAttributesRenderer = new CommonNodeAttributesRenderer();
     }
 
     /**
@@ -96,19 +100,16 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
 
             // Add the attributes in order
             if (statements.getCommonGraphAttributes() != null) {
-                builder.append(attributeRenderer.render(config, statements.getCommonGraphAttributes()));
+                builder.append(commonGraphAttributesRenderer.render(config, statements.getCommonGraphAttributes()));
             }
 
             if (statements.getCommonNodeAttributes() != null) {
-                builder.append(attributeRenderer.render(config, statements.getCommonNodeAttributes()));
+                builder.append(commonNodeAttributesRenderer.render(config, statements.getCommonNodeAttributes()));
             }
 
             if (statements.getCommonEdgeAttributes() != null) {
-                builder.append(attributeRenderer.render(config, statements.getCommonEdgeAttributes()));
+                builder.append(commonEdgeAttributesRenderer.render(config, statements.getCommonEdgeAttributes()));
             }
-
-            // Add another newline?
-            builder.append(config.getNewline());
         }
 
         // #2) Render the other Statements in order, namely
@@ -118,7 +119,7 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
         //     Edge statements
         //     Subgraph statements
         final List<Node> nodes = statements.getNodes();
-        if(!nodes.isEmpty()) {
+        if (!nodes.isEmpty()) {
 
             builder.append(commentRenderer.render(config, statements.getNodesComment()));
 
@@ -127,7 +128,7 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
         }
 
         final List<Identifier> identifiers = statements.getIdentifiers();
-        if(!identifiers.isEmpty()) {
+        if (!identifiers.isEmpty()) {
 
             builder.append(commentRenderer.render(config, statements.getIdentifiersComment()));
 
@@ -136,16 +137,16 @@ public class StatementsRenderer extends AbstractStringRenderer<Statements> {
         }
 
         final List<Edge> edges = statements.getEdges();
-        if(edges != null && !edges.isEmpty()) {
+        if (edges != null && !edges.isEmpty()) {
 
             builder.append(commentRenderer.render(config, statements.getEdgesComment()));
 
             // Render all Edges in order.
-            identifiers.forEach(i -> builder.append(edgeRenderer.render(config, i)));
+            edges.forEach(i -> builder.append(edgeRenderer.render(config, i)));
         }
 
         final List<Subgraph> subgraphs = statements.getSubgraphs();
-        if(!subgraphs.isEmpty()) {
+        if (!subgraphs.isEmpty()) {
 
             builder.append(commentRenderer.render(config, statements.getSubgraphComment()));
 

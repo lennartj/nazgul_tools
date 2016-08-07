@@ -23,47 +23,35 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonNodeAttributes;
 
 /**
- * Node statement Renderer, complying to the specification in the
- * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
- *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class CommonNodeAttributesRenderer extends AbstractStringRenderer<CommonNodeAttributes> {
 
     // Internal state
     private AttributeRenderer attributeRenderer;
-    private NodeIdRenderer nodeIdRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public CommonNodeAttributesRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(CommonNodeAttributes.class);
 
         // Assign internal state
         attributeRenderer = new AttributeRenderer();
-        nodeIdRenderer = new NodeIdRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
-
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
-
-        // All Done.
-        return config.getIndent() + nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+    protected String doRender(final RenderConfiguration config, final CommonNodeAttributes entity) {
+        return config.getIndent()
+                + entity.getId()
+                + " " + attributeRenderer.render(config, entity.getAttributes());
     }
 }

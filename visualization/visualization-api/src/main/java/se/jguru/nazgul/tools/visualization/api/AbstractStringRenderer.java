@@ -22,6 +22,7 @@
 package se.jguru.nazgul.tools.visualization.api;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Statement;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
 
 /**
  * Abstract implementation of a Renderer yielding String results, and sporting facilities for pretty
@@ -64,16 +65,23 @@ public abstract class AbstractStringRenderer<T> implements Renderer<String> {
         if (entity == null) {
             throw new IllegalArgumentException("Cannot handle null 'entity' argument.");
         }
-        if (!acceptedType.isAssignableFrom(entity.getClass())) {
-            throw new IllegalArgumentException("Only " + acceptedType.getName()
-                    + " can be handled by this " + getClass().getSimpleName() + " renderer.");
+        if (!accept(entity)) {
+            throw new IllegalArgumentException("Entity of type [" + entity.getClass().getName()
+                    + "] was not accepted for rendering. Only [" + acceptedType.getName()
+                    + "] types can be rendered by this " + getClass().getSimpleName() + " renderer.");
+        }
+
+        // Find out the combination of newline and ';' which should be emitted after rendering.
+        String epilogue = "";
+        if (entity instanceof Subgraph) {
+            epilogue = configuration.getNewline();
+        } else if (entity instanceof Statement) {
+            epilogue = " ;" + configuration.getNewline();
         }
 
         // All Done.
         final T castEntity = acceptedType.cast(entity);
-        return doRender(configuration, castEntity) + (isTerminatedStatementRendering(castEntity)
-                ? " ;" + RenderConfiguration.NEWLINE
-                : " ");
+        return doRender(configuration, castEntity) + epilogue;
     }
 
     /**
@@ -85,19 +93,6 @@ public abstract class AbstractStringRenderer<T> implements Renderer<String> {
      * @return The rendered value for the supplied entity.
      */
     protected abstract String doRender(final RenderConfiguration config, final T entity);
-
-    /**
-     * Method which defines if a {@link #render(RenderConfiguration, Object)} method should inject a statement
-     * termination after the result of the {@link #doRender(RenderConfiguration, Object)} call. A "statement
-     * termination" consists of a <code>" ;" + NEWLINE</code>.
-     *
-     * @param entity a non-null entity to be rendered.
-     * @return {@code true} to indicate that a full statement termination (i.e. <code>" ;" + NEWLINE</code>) should
-     * be appended to the result from the {@link #doRender(RenderConfiguration, Object)} call.
-     */
-    protected boolean isTerminatedStatementRendering(final T entity) {
-        return entity instanceof Statement;
-    }
 
     /**
      * {@inheritDoc}

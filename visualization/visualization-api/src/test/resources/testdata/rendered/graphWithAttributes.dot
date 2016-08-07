@@ -1,0 +1,17 @@
+digraph "foobar" {
+
+  // Common Attribute Statements
+  graph [ charset="UTF-8", clusterrank="global", fontcolor="#FF0000", label="Example Graph", labeljust="c", margin="(2.0,2.0)" ] ;
+  node [ fontcolor="#A52A2A", labelloc="c", orientation="45", sides="8" ] ;
+  edge [ arrowhead="box", dir="both", penwidth="2", style="bold" ] ;
+
+  // Node Statements
+  "node1" [ bgcolor="#FAFAD2", fontcolor="#006400", label="FooBar!" ] ;
+  "node2" ;
+
+  // Identifier Statements
+  "node1" = "foobar" ;
+
+  // Edge Statements
+  "node1" -> "node2"  ;
+}

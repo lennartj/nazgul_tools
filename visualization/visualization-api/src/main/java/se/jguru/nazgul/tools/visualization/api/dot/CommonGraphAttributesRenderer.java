@@ -23,47 +23,48 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonGraphAttributes;
 
 /**
- * Node statement Renderer, complying to the specification in the
- * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
+ * <p>Graph attribute statement Renderer, corresponding to the following DOT grammar:</p>
+ * <pre>
+ *     attr_stmt : graph attr_list
+ * </pre>
+ * <p>Typically renders into something like the following:</p>
+ * <pre>
+ *     graph [	fontname = "Helvetica-Oblique",
+ *              fontsize = "36",
+ *              label = "\n\n\n\nObject Oriented Graphs\nStephen North, 3/19/93",
+ *              size = "6,6" ];
+ * </pre>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ * @see se.jguru.nazgul.tools.visualization.model.diagram.attribute.GraphAttributes
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class CommonGraphAttributesRenderer extends AbstractStringRenderer<CommonGraphAttributes> {
 
     // Internal state
     private AttributeRenderer attributeRenderer;
-    private NodeIdRenderer nodeIdRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public CommonGraphAttributesRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(CommonGraphAttributes.class);
 
         // Assign internal state
-        attributeRenderer = new AttributeRenderer();
-        nodeIdRenderer = new NodeIdRenderer();
+        this.attributeRenderer = new AttributeRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
-
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
-
-        // All Done.
-        return config.getIndent() + nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+    protected String doRender(final RenderConfiguration config, final CommonGraphAttributes entity) {
+        return config.getIndent()
+                + entity.getId()
+                + " " + attributeRenderer.render(config, entity.getAttributes());
     }
 }

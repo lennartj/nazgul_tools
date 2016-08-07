@@ -70,7 +70,7 @@ public class NodeRendererTest extends AbstractRendererTest {
         final String renderedPlainNode = unitUnderTest.render(renderConfiguration, plainNode);
 
         // Assert
-        Assert.assertEquals("\"node1\" [ \"margin\"=\"(2.0,3.0)\", \"sides\"=\"6\" ] ;"
+        Assert.assertEquals("\"node1\" [ margin=\"(2.0,3.0)\", sides=\"6\" ] ;"
                 + renderConfiguration.getNewline(),
                 renderedPlainNode);
 

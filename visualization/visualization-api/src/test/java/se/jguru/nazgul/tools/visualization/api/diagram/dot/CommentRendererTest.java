@@ -23,7 +23,6 @@ package se.jguru.nazgul.tools.visualization.api.diagram.dot;
 
 import org.junit.Assert;
 import org.junit.Test;
-import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
 import se.jguru.nazgul.tools.visualization.api.dot.CommentRenderer;
 import se.jguru.nazgul.tools.visualization.model.diagram.Comment;
 
@@ -37,25 +36,27 @@ public class CommentRendererTest extends AbstractRendererTest {
 
         // Assemble
         final String singleLineComment = "This is a single-line comment.";
+        final String expected = renderConfiguration.getNewline() + "// " + singleLineComment
+                + renderConfiguration.getNewline();
         final Comment comment = new Comment(singleLineComment);
 
         // Act
         final String result = new CommentRenderer().render(renderConfiguration, comment);
 
         // Assert
-        Assert.assertEquals("// " + singleLineComment + " ", result);
+        Assert.assertEquals(expected, result);
     }
 
     @Test
     public void validateRenderingMultipleLineComment() {
 
         // Assemble
-        final String expected =
-                "/* " + RenderConfiguration.NEWLINE +
-                " * Several" + RenderConfiguration.NEWLINE +
-                " * comment" + RenderConfiguration.NEWLINE +
-                " * lines" + RenderConfiguration.NEWLINE +
-                " */ ";
+        final String expected = renderConfiguration.getNewline()
+                + "/* " + renderConfiguration.getNewline()
+                + " * Several" + renderConfiguration.getNewline()
+                + " * comment" + renderConfiguration.getNewline()
+                + " * lines" + renderConfiguration.getNewline()
+                + " */" + renderConfiguration.getNewline();
 
         final Comment comment = new Comment("Several", "comment", "lines");
 

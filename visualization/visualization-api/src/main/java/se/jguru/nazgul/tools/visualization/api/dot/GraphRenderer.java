@@ -53,17 +53,17 @@ public class GraphRenderer extends AbstractStringRenderer<Graph> {
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Graph entity) {
+    protected String doRender(final RenderConfiguration config, final Graph graph) {
 
         // First, configure the RenderConfiguration for directed-ness.
-        config.setDirectedGraph(entity.isDigraph());
+        config.setDirectedGraph(graph.isDigraph());
 
         // We should use a 3-step rendering strategy.
         final String prologue =
-                config.getIndent() + (entity.isStrict() ? "strict " : "")
-                        + (entity.isDigraph() ? "digraph" : "graph")
-                        + " " + quote(entity.getId())
-                        + " {";
+                config.getIndent() + (graph.isStrict() ? "strict " : "")
+                        + (graph.isDigraph() ? "digraph" : "graph")
+                        + " " + quote(graph.getId())
+                        + " {" + config.getNewline();
 
         // Render all the statements within the supplied Graph.
         // Increase the indentation level to achieve pretty printing.
@@ -71,7 +71,7 @@ public class GraphRenderer extends AbstractStringRenderer<Graph> {
         // Also, note that the render() method appends a NEWLINE to the result.
         final String renderedStatements = statementsRenderer.render(
                 config.cloneAndChangeIndentation(1),
-                entity.getStatements());
+                graph.getStatements());
 
         // Render the epilogue.
         final String epilogue = config.getIndent() + "}";

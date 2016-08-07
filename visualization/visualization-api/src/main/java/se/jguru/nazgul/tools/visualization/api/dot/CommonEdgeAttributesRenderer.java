@@ -23,47 +23,48 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.NodeAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.statement.Node;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonEdgeAttributes;
 
 /**
- * Node statement Renderer, complying to the specification in the
- * <a href="http://www.graphviz.org/content/dot-language">DOT language specification</a>.
+ * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
+ * <pre>
+ *     attr_stmt : edge attr_list
+ * </pre>
+ * <p>Typically renders into something like the following:</p>
+ * <pre>
+ *     edge [	fontname = "Helvetica-Oblique",
+ *              fontsize = "36",
+ *              label = "\n\n\n\nObject Oriented Graphs\nStephen North, 3/19/93",
+ *              size = "6,6" ];
+ * </pre>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ * @see se.jguru.nazgul.tools.visualization.model.diagram.attribute.EdgeAttributes
  */
-public class NodeRenderer extends AbstractStringRenderer<Node> {
+public class CommonEdgeAttributesRenderer extends AbstractStringRenderer<CommonEdgeAttributes> {
 
     // Internal state
     private AttributeRenderer attributeRenderer;
-    private NodeIdRenderer nodeIdRenderer;
 
     /**
      * Default constructor.
      */
-    public NodeRenderer() {
+    public CommonEdgeAttributesRenderer() {
 
         // Delegate
-        super(Node.class);
+        super(CommonEdgeAttributes.class);
 
         // Assign internal state
-        attributeRenderer = new AttributeRenderer();
-        nodeIdRenderer = new NodeIdRenderer();
+        this.attributeRenderer = new AttributeRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Node node) {
-
-        // Do we have a non-empty NodeAttributes within the supplied Node?
-        // Don't add the extra newline after the attributes - so call doRender directly.
-        final NodeAttributes nodeAttributes = node.getAttributes();
-        final String renderedNodeAttributes = attributeRenderer.doRender(config, nodeAttributes);
-
-        // All Done.
-        return config.getIndent() + nodeIdRenderer.doRender(config, node.getNodeID())
-                + (renderedNodeAttributes.isEmpty() ? "" : " " + renderedNodeAttributes);
+    protected String doRender(final RenderConfiguration config, final CommonEdgeAttributes entity) {
+        return config.getIndent()
+                + entity.getId()
+                + " " + attributeRenderer.render(config, entity.getAttributes());
     }
 }

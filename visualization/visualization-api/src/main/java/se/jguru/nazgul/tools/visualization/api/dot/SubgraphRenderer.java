@@ -23,6 +23,7 @@ package se.jguru.nazgul.tools.visualization.api.dot;
 
 import se.jguru.nazgul.tools.visualization.api.AbstractStringRenderer;
 import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
+import se.jguru.nazgul.tools.visualization.model.diagram.statement.Statements;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
 
 /**
@@ -33,9 +34,6 @@ import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
  */
 public class SubgraphRenderer extends AbstractStringRenderer<Subgraph> {
 
-    // Internal state
-    private StatementsRenderer statementsRenderer;
-
     /**
      * Default constructor.
      */
@@ -43,26 +41,23 @@ public class SubgraphRenderer extends AbstractStringRenderer<Subgraph> {
 
         // Delegate
         super(Subgraph.class);
-
-        // Assign internal state
-        statementsRenderer = new StatementsRenderer();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String doRender(final RenderConfiguration config, final Subgraph entity) {
+    protected String doRender(final RenderConfiguration config, final Subgraph subgraph) {
 
         final String prologue = config.getIndent() + "subgraph "
-                + quote(entity.getId())
+                + quote(subgraph.getId())
                 + " { "
                 + config.getNewline();
 
-        // Delegate to the statements within this SubgraphRenderer
-        final String renderedStatements = statementsRenderer.render(
-                config.cloneAndChangeIndentation(1),
-                entity.getStatements());
+        // Render the statements within this subgraph.
+        final Statements statements = subgraph.getStatements();
+        final StatementsRenderer statementsRenderer = new StatementsRenderer();
+        final String renderedStatements = statementsRenderer.render(config.cloneAndChangeIndentation(1), statements);
 
         // All Done.
         return prologue + renderedStatements + config.getNewline() + config.getIndent() + "}";

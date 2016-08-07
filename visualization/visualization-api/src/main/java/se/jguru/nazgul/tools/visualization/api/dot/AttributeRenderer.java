@@ -122,8 +122,10 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
                                     && PointOrRectangle.class.equals(currentField.getType())) {
 
                                 final PointOrRectangle rect = (PointOrRectangle) value;
-                                dotAttributes.put("lwidth", BigDecimal.valueOf(rect.getxOrWidth()).toPlainString());
-                                dotAttributes.put("lheight", BigDecimal.valueOf(rect.getyOrHeight()).toPlainString());
+                                dotAttributes.put(quote("lwidth"),
+                                        BigDecimal.valueOf(rect.getxOrWidth()).toPlainString());
+                                dotAttributes.put(quote("lheight"),
+                                        BigDecimal.valueOf(rect.getyOrHeight()).toPlainString());
 
                                 // All Done for this Field.
                                 continue;
@@ -137,7 +139,7 @@ public class AttributeRenderer extends AbstractStringRenderer<AbstractAttributes
                         }
 
                         // #5) Transform the value if required, and add the key/value pair to the outbound Map.
-                        dotAttributes.put(quote(key), getDotConfigValueFor(value));
+                        dotAttributes.put(key, getDotConfigValueFor(value));
 
                     } catch (Exception e) {
                         throw new IllegalArgumentException("Could not add configuration for field ["

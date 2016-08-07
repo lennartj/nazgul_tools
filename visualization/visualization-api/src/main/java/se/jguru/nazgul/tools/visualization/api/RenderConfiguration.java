@@ -207,8 +207,8 @@ public class RenderConfiguration implements Serializable {
     @Override
     public String toString() {
         return "RenderConfiguration: "
-                + NEWLINE + " indentationLevel   :'" + indentationLevel + "'"
-                + NEWLINE + " indentationToken   :'" + indentationToken + "'"
-                + NEWLINE + " extraConfiguration=" + extraConfiguration;
+                + NEWLINE + " indentationLevel   : " + indentationLevel
+                + NEWLINE + " indentationToken   : '" + indentationToken + "'"
+                + NEWLINE + " extraConfiguration : " + extraConfiguration;
     }
 }

@@ -50,7 +50,7 @@ public class CommentRenderer extends AbstractStringRenderer<Comment> {
     protected String doRender(final RenderConfiguration config, final Comment comment) {
 
         // Check sanity
-        final StringBuilder builder = new StringBuilder(config.getIndent());
+        final StringBuilder builder = new StringBuilder(config.getNewline() + config.getIndent());
         final List<String> commentLines = comment.getCommentLines();
 
         if (commentLines.size() == 1) {
@@ -69,6 +69,6 @@ public class CommentRenderer extends AbstractStringRenderer<Comment> {
         }
 
         // All Done.
-        return builder.toString();
+        return builder.toString() + config.getNewline();
     }
 }

@@ -69,8 +69,8 @@ public class EdgeRendererTest extends AbstractRendererTest {
 
         // Assert
         Assert.assertEquals("\"node1\" -> \"node2\"  ;" + renderConfiguration.getNewline(), renderedNodeEdge);
-        Assert.assertEquals("\"exampleSubgraph\" -> \"node2\" [ \"arrowhead\"=\"diamond\", \"fontcolor\"=\"#BC8F8F\"," +
-                " \"label\"=\"FooBar!\", \"style\"=\"bold\" ] ;" + renderConfiguration.getNewline(),
+        Assert.assertEquals("\"exampleSubgraph\" -> \"node2\" [ arrowhead=\"diamond\", fontcolor=\"#BC8F8F\", " +
+                        "label=\"FooBar!\", style=\"bold\" ] ;" + renderConfiguration.getNewline(),
                 renderedSubgraphEdge);
     }
 }

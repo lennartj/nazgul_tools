@@ -21,8 +21,49 @@
  */
 package se.jguru.nazgul.tools.visualization.api.diagram;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import se.jguru.nazgul.tools.visualization.api.RenderConfiguration;
+
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 public class RenderConfigurationTest {
+
+    // Shared state
+    private RenderConfiguration unitUnderTest;
+
+    @Before
+    public void setupSharedState() {
+        unitUnderTest = new RenderConfiguration();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnNegativeIndent() {
+        unitUnderTest.setIndentationLevel(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnNullIndentationToken() {
+        unitUnderTest.setIndentationToken(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateExceptionOnEmptyIndentationToken() {
+        unitUnderTest.setIndentationToken("");
+    }
+
+    @Test
+    public void validateDefaultStringValue() {
+
+        // Assemble
+        final String expected = "RenderConfiguration: " + RenderConfiguration.NEWLINE + 
+                " indentationLevel   : 0" + RenderConfiguration.NEWLINE + 
+                " indentationToken   : '  '" + RenderConfiguration.NEWLINE + 
+                " extraConfiguration : {}";
+
+        // Act & Assert
+        Assert.assertEquals(expected, unitUnderTest.toString());
+    }
 }
