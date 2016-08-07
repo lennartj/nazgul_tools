@@ -44,6 +44,7 @@
 
     <properties>
         <path.in.reactor>visualization/visualization-impl-doclet</path.in.reactor>
+        <breakOnFailure.checkstyle>false</breakOnFailure.checkstyle>
     </properties>
 
     <!--
@@ -56,7 +57,7 @@
             Internal dependencies
         -->
         <dependency>
-            <groupId>se.jguru.nazgul.tools.visualization.apik</groupId>
+            <groupId>se.jguru.nazgul.tools.visualization.api</groupId>
             <artifactId>nazgul-tools-visualization-api</artifactId>
             <version>6.0.2-SNAPSHOT</version>
         </dependency>

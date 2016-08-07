@@ -52,7 +52,8 @@ public class DelegatingDoclet {
 
         String simpleDocletClassName = System.getenv(ENV_SIMPLEDOCLET_CLASS);
         if (simpleDocletClassName == null) {
-            simpleDocletClassName = System.getProperty(PROPERTY_SIMPLEDOCLET_CLASS, VisualizationDoclet.class.getName());
+            simpleDocletClassName = System.getProperty(
+                    PROPERTY_SIMPLEDOCLET_CLASS, VisualizationDoclet.class.getName());
         }
 
         // Assign the SimpleDoclet delegate.
