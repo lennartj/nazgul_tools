@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * /**
  * <p>Attribute statement implementation, corresponding to the following DOT grammar:</p>
  * <pre>
  *     attr_stmt : edge attr_list
