@@ -1440,12 +1440,12 @@
                             <packages>se.jguru.nazgul.test.*</packages>
                         </group>
                     </groups>
-                    <doclet>org.jboss.apiviz.APIviz</doclet>
+                    <!-- doclet>org.jboss.apiviz.APIviz</doclet>
                     <docletArtifact>
                         <groupId>com.grahamedgecombe.apiviz</groupId>
                         <artifactId>apiviz</artifactId>
                         <version>${apiviz.version}</version>
-                    </docletArtifact>
+                    </docletArtifact -->
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                     <charset>${project.build.sourceEncoding}</charset>
                     <encoding>${project.build.sourceEncoding}</encoding>
