@@ -36,7 +36,7 @@
 
     <groupId>se.jguru.nazgul.tools.plugin.checkstyle</groupId>
     <artifactId>nazgul-tools-checkstyle-maven-plugin</artifactId>
-    <version>6.0.2-SNAPSHOT</version>
+    <version>6.0.2</version>
     <name>${project.artifactId}</name>
     <packaging>maven-plugin</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -581,7 +581,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>nazgul-tools-6.0.2</tag>
     </scm>
 
     <!--
