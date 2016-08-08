@@ -1455,10 +1455,6 @@
                     <author>true</author>
                     <keywords>true</keywords>
                     <additionalparam>-Xdoclint:none</additionalparam>
-                    <additionalparam>
-                        -sourceclasspath
-                        ${project.build.outputDirectory}${path.separator}${project.build.testOutputDirectory}
-                    </additionalparam>
                 </configuration>
             </plugin>
 
