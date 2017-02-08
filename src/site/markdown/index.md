@@ -11,7 +11,8 @@ The Nazgul Framework has two main components:
 1. **Nazgul Framework: Tools**. The Nazgul Tools project (this reactor) aims to use best-of-breed tools to achieve a
     usable, well-composed and simple mode of development and deployment. It defines Maven plugins, Codestyle and
     Quality tracking, IDE integration and global aspects usable in any project development. Nazgul Tools builds fully
-    OSGi-compliant artifacts and a features-assembly.
+    OSGi-compliant artifacts and a features-assembly which can be used directly within an OSGi runtime - or as part 
+    of any general Java development.
 
 2. **Nazgul Framework: Core**. The Nazgul Core project (another reactor) provides a set of commonly useable library
     tools, built on top of the Nazgul Tools codestyle, IDE integration and global aspects. These tools are mainly

@@ -101,8 +101,8 @@
         <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.4</maven-site-plugin.version>
-        <doxia-modules.version>1.6</doxia-modules.version>
+        <maven-site-plugin.version>3.6</maven-site-plugin.version>
+        <doxia-modules.version>1.7</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
         <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
     </properties>
@@ -151,7 +151,7 @@
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-container-default</artifactId>
             <scope>provided</scope>
-            <version>1.7</version>
+            <version>1.7.1</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -209,22 +209,6 @@
                         <showWarnings>true</showWarnings>
                         <showDeprecation>true</showDeprecation>
                         <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    Use the site-maven-plugin which works with GitHub site deployments.
-
-                    Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
-                    Used: Only at release time.
-                -->
-                <plugin>
-                    <groupId>com.github.github</groupId>
-                    <artifactId>site-maven-plugin</artifactId>
-                    <version>0.12</version>
-                    <configuration>
-                        <message>Creating site for version ${project.version}</message>
-                        <noJekyll>true</noJekyll>
                     </configuration>
                 </plugin>
             </plugins>
