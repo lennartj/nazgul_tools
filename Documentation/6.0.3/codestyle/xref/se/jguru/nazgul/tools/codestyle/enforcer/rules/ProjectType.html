@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>ProjectType xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../../../apidocs/se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * #%L</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> * Nazgul Project: nazgul-tools-codestyle</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * %%</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * Copyright (C) 2010 - 2015 jGuru Europe AB</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * %%</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * Licensed under the jGuru Europe AB license (the "License"), based</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> * on Apache License, Version 2.0; you may not use this file except</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> * in compliance with the License.</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> *        <a href="http://www.jguru.se/licenses/LICENSE-2." target="alexandria_uri">http://www.jguru.se/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> *</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment"> * #L%</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">package</strong> se.jguru.nazgul.tools.codestyle.enforcer.rules;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang.Validate;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.artifact.Artifact;
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.model.Dependency;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.model.DependencyManagement;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.project.MavenProject;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> java.util.regex.Pattern;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * Definition of project types, including pattern matching for recognition.</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:lj@jguru.se" target="alexandria_uri">mailto:lj@jguru.se</a>"&gt;Lennart J&amp;ouml;relid&lt;/a&gt;, jGuru Europe AB</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">public</strong> enum <a href="../../../../../../../se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">ProjectType</a> {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;Reactor project, of type pom. May not contain anything except module definitions.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      REACTOR(<span class="jxr_string">".*-reactor$"</span>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"pom"</span>),
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;Parent pom project, of type pom, defining dependencies and/or build</em>
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     * life cycles. May not contain module definitions.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      PARENT(<span class="jxr_string">".*-parent$"</span>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"pom"</span>),
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;Pom project, defining assemblies and/or aggregation projects. May not contain module definitions.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      ASSEMBLY(<span class="jxr_string">".*-assembly$"</span>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"pom"</span>),
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * Aspect definition project, holding publicly available aspects.</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      ASPECT(<span class="jxr_string">".*-aspect$"</span>, <span class="jxr_string">".*&#92;&#92;.aspect$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;Model project defining entities. May have test-scope dependencies on test and proof-of-concept projects.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      MODEL(<span class="jxr_string">".*-model$"</span>, <span class="jxr_string">".*&#92;&#92;.model$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     * Application project defining JEE-deployable artifacts.</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">     * Injections of implementation projects are permitted here.</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      JEE_APPLICATION(<strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"war|ear|ejb"</span>),
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     * Standalone application project defining runnable Java applications.</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     * Injections of implementation projects are permitted here.</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      STANDALONE_APPLICATION(<span class="jxr_string">".*-application$"</span>, <span class="jxr_string">".*&#92;&#92;.application$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;Example project providing runnable example code for showing the</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * typical scenarios of the component. Should contain relevant documentation</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * as well as cut-and-paste code. No dependency rules.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      EXAMPLE(<span class="jxr_string">".*-example$"</span>, <span class="jxr_string">".*&#92;&#92;.example$"</span>, <strong class="jxr_keyword">null</strong>),
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;{@code javaagent} definition project, holding implementation of a</em>
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_javadoccomment">     * JVM agent to be launched in-process on the form</em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     * &lt;code&gt;-javaagent:[yourpath/][agentjar].jar=[option1]=[value1],[option2]=[value2]&lt;/code&gt;&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;This project type can import/inject implementation dependencies, as</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_javadoccomment">     * it is considered an application entrypoint.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      JAVA_AGENT(<span class="jxr_string">".*-agent$"</span>, <span class="jxr_string">".*&#92;&#92;.agent$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     * &lt;p&gt;API project, defining service interaction, abstract implementations and exceptions. May have compile-scope</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_javadoccomment">     * dependencies on model projects within the same component, and test-scope dependencies on test and</em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_javadoccomment">     * proof-of-concept projects.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     API(<span class="jxr_string">".*-api$"</span>, <span class="jxr_string">".*&#92;&#92;.api$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> 
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     * &lt;p&gt;SPI project, defining service interaction, abstract implementations and exceptions. Must have compile-scope</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_javadoccomment">     * dependencies to API projects within the same component. May have test-scope dependencies on test and</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     * proof-of-concept projects.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     SPI(<span class="jxr_string">".*-spi-&#92;&#92;w*$"</span>, <span class="jxr_string">".*&#92;&#92;.spi&#92;&#92;.&#92;&#92;w*$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment">     * &lt;p&gt;Implementation project, implementing service interactions from an API or SPI project,</em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment">     * including dependencies on 3rd party libraries. Must have compile-scope dependencies to API or SPI projects</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * within the same component. May have test-scope dependencies on test and proof-of-concept projects.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     IMPLEMENTATION(<span class="jxr_string">".*-impl-&#92;&#92;w*$"</span>, <span class="jxr_string">".*&#92;&#92;.impl&#92;&#92;.&#92;&#92;w*$"</span>, <span class="jxr_string">"bundle|jar"</span>),
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> 
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * &lt;p&gt;Test artifact helper project, implementing libraries facilitating testing within</em>
+<a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     * other projects. No dependency rules.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>     TEST(<span class="jxr_string">".*-test$"</span>, <span class="jxr_string">".*&#92;&#92;.test&#92;&#92;.&#92;&#92;w*$"</span>, <strong class="jxr_keyword">null</strong>),
+<a class="jxr_linenumber" name="L122" href="#L122">122</a> 
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     * &lt;p&gt;Integration test artifact helper project, used to perform automated</em>
+<a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * tests for several projects. No dependency rules.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     INTEGRATION_TEST(<span class="jxr_string">".*-it$"</span>, <span class="jxr_string">".*&#92;&#92;.it&#92;&#92;.&#92;&#92;w*$"</span>, <strong class="jxr_keyword">null</strong>),
+<a class="jxr_linenumber" name="L128" href="#L128">128</a> 
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L130" href="#L130">130</a> <em class="jxr_javadoccomment">     * &lt;p&gt;Codestyle helper project, providing implementations for use within the build definition cycle.</em>
+<a class="jxr_linenumber" name="L131" href="#L131">131</a> <em class="jxr_javadoccomment">     * Typically used within local reactors to supply changes or augmentations to build configurations</em>
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     * such as {@code checkstyle.xml}, or custom enforcer rule implementations. No dependency rules.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     CODESTYLE(<span class="jxr_string">".*-codestyle$"</span>, <span class="jxr_string">".*&#92;&#92;.codestyle$"</span>, <span class="jxr_string">"jar|bundle"</span>),
+<a class="jxr_linenumber" name="L135" href="#L135">135</a> 
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L137" href="#L137">137</a> <em class="jxr_javadoccomment">     * Project, defining a Maven plugin.</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     PLUGIN(<span class="jxr_string">".*-maven-plugin$"</span>, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"maven-plugin"</span>),
+<a class="jxr_linenumber" name="L140" href="#L140">140</a> 
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * &lt;p&gt;Proof-of-concept helper project, holding proof of concept implementations. No dependency rules.&lt;/p&gt;</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>     PROOF_OF_CONCEPT(<span class="jxr_string">".*-poc$"</span>, <span class="jxr_string">".*&#92;&#92;.poc&#92;&#92;.&#92;&#92;w*$"</span>, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a> 
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     <em class="jxr_comment">// Internal state</em>
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>     <strong class="jxr_keyword">private</strong> Pattern artifactIdPattern;
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     <strong class="jxr_keyword">private</strong> Pattern groupIdPattern;
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>     <strong class="jxr_keyword">private</strong> Pattern packagingPattern;
+<a class="jxr_linenumber" name="L150" href="#L150">150</a> 
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     * ProjectType constructor.</em>
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> <em class="jxr_javadoccomment">     * @param artifactIdPattern Maven ArtifactID regexp pattern for recognizing a ProjectType.</em>
+<a class="jxr_linenumber" name="L155" href="#L155">155</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>     <a href="../../../../../../../se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">ProjectType</a>(<strong class="jxr_keyword">final</strong> String artifactIdPattern,
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>                 <strong class="jxr_keyword">final</strong> String groupIdPattern,
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>                 <strong class="jxr_keyword">final</strong> String packagingPattern) {
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">if</strong> (artifactIdPattern != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>             <strong class="jxr_keyword">this</strong>.artifactIdPattern = Pattern.compile(artifactIdPattern);
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>         }
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>         <strong class="jxr_keyword">if</strong> (packagingPattern != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>             <strong class="jxr_keyword">this</strong>.packagingPattern = Pattern.compile(packagingPattern);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>         }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>         <strong class="jxr_keyword">if</strong> (groupIdPattern != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>             <strong class="jxr_keyword">this</strong>.groupIdPattern = Pattern.compile(groupIdPattern);
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>         }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     }
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> <em class="jxr_javadoccomment">     * Checks if the provided artifactID complies with the naming standard</em>
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> <em class="jxr_javadoccomment">     * for this ProjectType.</em>
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     * @param artifactID The artifactID which should be checked for compliance.</em>
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     * @return {@code true} if the provided artifactID was compliant with the</em>
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     * naming rules for this ProjectType.</em>
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isCompliantArtifactID(<strong class="jxr_keyword">final</strong> String artifactID) {
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">return</strong> artifactID != <strong class="jxr_keyword">null</strong> &amp;&amp; (artifactIdPattern == <strong class="jxr_keyword">null</strong> || artifactIdPattern.matcher(artifactID).matches());
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>     }
+<a class="jxr_linenumber" name="L184" href="#L184">184</a> 
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L186" href="#L186">186</a> <em class="jxr_javadoccomment">     * Checks if the provided groupID complies with the naming standard</em>
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> <em class="jxr_javadoccomment">     * for this ProjectType.</em>
+<a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     * @param groupID The groupID which should be checked for compliance.</em>
+<a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     * @return {@code true} if the provided groupID was compliant with the</em>
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     * naming rules for this ProjectType. If no groupID pattern is</em>
+<a class="jxr_linenumber" name="L192" href="#L192">192</a> <em class="jxr_javadoccomment">     * given, {@code true} is returned.</em>
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isCompliantGroupID(<strong class="jxr_keyword">final</strong> String groupID) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">return</strong> groupID != <strong class="jxr_keyword">null</strong> &amp;&amp; (groupIdPattern == <strong class="jxr_keyword">null</strong> || groupIdPattern.matcher(groupID).matches());
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     }
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> 
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> <em class="jxr_javadoccomment">     * Checks if the provided packaging complies with the standard/requirements</em>
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> <em class="jxr_javadoccomment">     * of this ProjectType.</em>
+<a class="jxr_linenumber" name="L201" href="#L201">201</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> <em class="jxr_javadoccomment">     * @param packaging THe packaging which should be checked for compliance.</em>
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">     * @return {@code true} if the provided packaging was compliant with the</em>
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     * rules for this ProjectType. If no packaging pattern was given,</em>
+<a class="jxr_linenumber" name="L205" href="#L205">205</a> <em class="jxr_javadoccomment">     * {@code true} is returned.</em>
+<a class="jxr_linenumber" name="L206" href="#L206">206</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isCompliantPackaging(<strong class="jxr_keyword">final</strong> String packaging) {
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>         <strong class="jxr_keyword">return</strong> packaging != <strong class="jxr_keyword">null</strong> &amp;&amp; (packagingPattern == <strong class="jxr_keyword">null</strong> || packagingPattern.matcher(packaging).matches());
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     }
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> 
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> <em class="jxr_javadoccomment">     * Acquires the ProjectType instance for the provided internal Artifact,</em>
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> <em class="jxr_javadoccomment">     * or throws an IllegalArgumentException holding an exception message</em>
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> <em class="jxr_javadoccomment">     * if a ProjectType could not be found for the provided Artifact.</em>
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> <em class="jxr_javadoccomment">     * @param internalArtifact The internally developed artifact</em>
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> <em class="jxr_javadoccomment">     * @return The corresponding ProjectType.</em>
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../../../se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">ProjectType</a> getProjectType(<strong class="jxr_keyword">final</strong> Artifact internalArtifact) {
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         Validate.notNull(internalArtifact, <span class="jxr_string">"Cannot handle null internalArtifact argument."</span>);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>         <strong class="jxr_keyword">final</strong> List&lt;ProjectType&gt; matches = findCandidates(internalArtifact.getGroupId(),
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>                 internalArtifact.getArtifactId(),
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>                 internalArtifact.getType(),
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>                 <span class="jxr_string">"Incorrect internalArtifact type definition for ["</span>
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>                         + internalArtifact.getGroupId()
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>                         + <span class="jxr_string">" :: "</span> + internalArtifact.getArtifactId()
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                         + <span class="jxr_string">" :: "</span> + internalArtifact.getVersion() + <span class="jxr_string">"]: "</span>);
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>         <em class="jxr_comment">// All done.</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>         <strong class="jxr_keyword">return</strong> matches.get(0);
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>     }
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> 
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> <em class="jxr_javadoccomment">     * Acquires the ProjectType instance for the provided MavenProject,</em>
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> <em class="jxr_javadoccomment">     * or throws an IllegalArgumentException holding an exception message</em>
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> <em class="jxr_javadoccomment">     * if a ProjectType could not be found for the provided MavenProject.</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     * @param project The MavenProject to classify.</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> <em class="jxr_javadoccomment">     * @return The corresponding ProjectType.</em>
+<a class="jxr_linenumber" name="L242" href="#L242">242</a> <em class="jxr_javadoccomment">     * @throws IllegalArgumentException if the given project could not be mapped to a [single] ProjectType.</em>
+<a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     *                                  The exception message holds</em>
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../../../se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">ProjectType</a> getProjectType(<strong class="jxr_keyword">final</strong> MavenProject project) <strong class="jxr_keyword">throws</strong> IllegalArgumentException {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> 
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>         Validate.notNull(project, <span class="jxr_string">"Cannot handle null project argument."</span>);
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         <strong class="jxr_keyword">final</strong> List&lt;ProjectType&gt; matches = findCandidates(project.getGroupId(),
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>                 project.getArtifactId(),
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 project.getPackaging(),
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 <span class="jxr_string">"Incorrect project type definition for ["</span>
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>                         + project.getGroupId()
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>                         + <span class="jxr_string">" :: "</span> + project.getArtifactId()
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>                         + <span class="jxr_string">" :: "</span> + project.getVersion() + <span class="jxr_string">"]: "</span>);
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>         <em class="jxr_comment">// Validate the internal requirements for the two different pom projects.</em>
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../../../se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.html">ProjectType</a> toReturn = matches.get(0);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>         <strong class="jxr_keyword">switch</strong> (toReturn) {
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>             <strong class="jxr_keyword">case</strong> PARENT:
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>             <strong class="jxr_keyword">case</strong> ASSEMBLY:
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>                 <em class="jxr_comment">// This project should not contain modules.</em>
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>                 <strong class="jxr_keyword">if</strong> (project.getModules() != <strong class="jxr_keyword">null</strong> &amp;&amp; !project.getModules().isEmpty()) {
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(ProjectType.PARENT
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>                             + <span class="jxr_string">" projects may not contain module definitions. "</span>
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>                             + <span class="jxr_string">"(Modules are reserved for reactor projects)."</span>);
+<a class="jxr_linenumber" name="L267" href="#L267">267</a>                 }
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> 
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>             <strong class="jxr_keyword">case</strong> REACTOR:
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>                 <em class="jxr_comment">// This project not contain dependency definitions.</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>                 <strong class="jxr_keyword">final</strong> List&lt;?&gt; dependencies = project.getDependencies();
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>                 <strong class="jxr_keyword">if</strong> (dependencies != <strong class="jxr_keyword">null</strong> &amp;&amp; !dependencies.isEmpty()) {
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>                     <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(ProjectType.REACTOR
+<a class="jxr_linenumber" name="L275" href="#L275">275</a>                             + <span class="jxr_string">" projects may not contain dependency definitions."</span>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>                             + <span class="jxr_string">" (Dependencies should be defined within parent projects)."</span>);
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>                 }
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> 
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>                 <strong class="jxr_keyword">final</strong> DependencyManagement dependencyManagement = project.getDependencyManagement();
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>                 <strong class="jxr_keyword">if</strong> (dependencyManagement != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>                     <em class="jxr_comment">// Dig out all dependency management-defined dependencies.</em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>                     <strong class="jxr_keyword">final</strong> List&lt;Dependency&gt; templateDependencies = dependencyManagement.getDependencies();
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>                     <strong class="jxr_keyword">if</strong> (templateDependencies != <strong class="jxr_keyword">null</strong> &amp;&amp; !templateDependencies.isEmpty()) {
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>                         <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(ProjectType.REACTOR
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>                                 + <span class="jxr_string">" projects may not contain dependency [management] definitions."</span>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a>                                 + <span class="jxr_string">" (Dependencies should be defined within parent projects)."</span>);
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>                     }
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 }
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>             <em class="jxr_comment">// No action should be taken for other project types.</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>             <strong class="jxr_keyword">default</strong>:
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>         }
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> 
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         <em class="jxr_comment">// All done.</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>         <strong class="jxr_keyword">return</strong> toReturn;
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>     }
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> 
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <em class="jxr_comment">// Private helpers</em>
+<a class="jxr_linenumber" name="L303" href="#L303">303</a>     <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> 
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> List&lt;ProjectType&gt; findCandidates(<strong class="jxr_keyword">final</strong> String groupId,
+<a class="jxr_linenumber" name="L306" href="#L306">306</a>                                                     <strong class="jxr_keyword">final</strong> String artifactId,
+<a class="jxr_linenumber" name="L307" href="#L307">307</a>                                                     <strong class="jxr_keyword">final</strong> String packaging,
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>                                                     <strong class="jxr_keyword">final</strong> String prefix) {
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> 
+<a class="jxr_linenumber" name="L310" href="#L310">310</a>         <strong class="jxr_keyword">final</strong> List&lt;ProjectType&gt; matches = <strong class="jxr_keyword">new</strong> ArrayList&lt;ProjectType&gt;();
+<a class="jxr_linenumber" name="L311" href="#L311">311</a> 
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ProjectType current : ProjectType.values()) {
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>             <strong class="jxr_keyword">if</strong> (current.isCompliantArtifactID(artifactId)
+<a class="jxr_linenumber" name="L314" href="#L314">314</a>                     &amp;&amp; current.isCompliantGroupID(groupId)
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>                     &amp;&amp; current.isCompliantPackaging(packaging)) {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>                 matches.add(current);
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>             }
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>         }
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> 
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>         <em class="jxr_comment">// Check sanity</em>
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>         <strong class="jxr_keyword">if</strong> (matches.isEmpty()) {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(prefix + <span class="jxr_string">" Not matching any defined project types."</span>);
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>         }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>         <strong class="jxr_keyword">if</strong> (matches.size() &gt; 1) {
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> IllegalArgumentException(prefix + <span class="jxr_string">" Matching several project types ("</span> + matches + <span class="jxr_string">")."</span>);
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>         }
+<a class="jxr_linenumber" name="L327" href="#L327">327</a>         <strong class="jxr_keyword">return</strong> matches;
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>     }
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2010&#x2013;2017 <a href="http://www.jguru.se/nazgul">jGuru Europe AB</a>. All rights reserved.</div>
+</body>
+</html>
