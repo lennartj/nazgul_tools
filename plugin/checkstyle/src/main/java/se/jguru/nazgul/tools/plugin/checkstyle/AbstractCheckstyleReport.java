@@ -41,7 +41,6 @@ import org.codehaus.plexus.resource.loader.FileResourceLoader;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.PathTool;
 import org.codehaus.plexus.util.StringUtils;
-
 import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutor;
 import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutorException;
 import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutorRequest;
@@ -444,21 +443,21 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
     /**
      * {@inheritDoc}
      */
-    public String getName(Locale locale) {
+    public String getName(final Locale locale) {
         return getBundle(locale).getString("report.checkstyle.name");
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getDescription(Locale locale) {
+    public String getDescription(final Locale locale) {
         return getBundle(locale).getString("report.checkstyle.description");
     }
 
     /**
      * {@inheritDoc}
      */
-    public void executeReport(Locale locale)
+    public void executeReport(final Locale locale)
             throws MavenReportException {
         locator.addSearchPath(FileResourceLoader.ID, project.getFile().getParentFile().getAbsolutePath());
         locator.addSearchPath("url", "");
@@ -508,7 +507,7 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
             throws MavenReportException;
 
     @SuppressWarnings("unchecked")
-    private List<Artifact> collectArtifacts(String hint) {
+    private List<Artifact> collectArtifacts(final String hint) {
         if (plugin == null || plugin.getGroupId() == null) {
             // Maven 2.x workaround
             plugin = mojoExecution.getMojoDescriptor().getPluginDescriptor();
@@ -526,7 +525,8 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
         return artifacts;
     }
 
-    private List<Artifact> getCheckstylePluginDependenciesAsArtifacts(Map<String, Plugin> plugins, String hint) {
+    private List<Artifact> getCheckstylePluginDependenciesAsArtifacts(final Map<String, Plugin> plugins,
+                                                                      final String hint) {
         List<Artifact> artifacts = new ArrayList<>();
 
         Plugin checkstylePlugin = plugins.get(plugin.getGroupId() + ":" + plugin.getArtifactId());
@@ -576,7 +576,7 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
         return listener;
     }
 
-    private OutputStream getOutputStream(File file)
+    private OutputStream getOutputStream(final File file)
             throws MavenReportException {
         File parentFile = file.getAbsoluteFile().getParentFile();
 
@@ -642,7 +642,7 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
         return copyright;
     }
 
-    private void generateMainReport(CheckstyleResults results, ResourceBundle bundle) {
+    private void generateMainReport(final CheckstyleResults results, final ResourceBundle bundle) {
         CheckstyleReportGenerator generator =
                 new CheckstyleReportGenerator(getSink(), bundle, project.getBasedir(), siteTool, configLocation);
 
@@ -707,6 +707,7 @@ public abstract class AbstractCheckstyleReport extends AbstractMavenReport {
         if (testSourceDirectory != null) {
             testSourceDirs = Collections.singletonList(testSourceDirectory);
         }
+        
         // probably null-check only required due to MavenProjectStubs
         else if (testSourceDirectories != null) {
             testSourceDirs = new ArrayList<>(testSourceDirectories.size());

@@ -60,7 +60,7 @@ public class CheckstyleCheckerListener extends AutomaticBean implements AuditLis
      * @param configuration   Checkstyle configuration
      * @since 2.5
      */
-    public CheckstyleCheckerListener(File sourceDirectory, Configuration configuration) {
+    public CheckstyleCheckerListener(final File sourceDirectory, final Configuration configuration) {
         this.sourceDirectories = new ArrayList<>();
         this.sourceDirectories.add(sourceDirectory);
         this.checkstyleConfiguration = configuration;
@@ -70,7 +70,7 @@ public class CheckstyleCheckerListener extends AutomaticBean implements AuditLis
      * @param configuration Checkstyle configuration
      * @since 2.5
      */
-    public CheckstyleCheckerListener(Configuration configuration) {
+    public CheckstyleCheckerListener(final Configuration configuration) {
         this.sourceDirectories = new ArrayList<>();
         this.checkstyleConfiguration = configuration;
     }
@@ -78,14 +78,14 @@ public class CheckstyleCheckerListener extends AutomaticBean implements AuditLis
     /**
      * @param sourceDirectory assume that is <code>sourceDirectory</code> is a not null directory and exists
      */
-    public void addSourceDirectory(File sourceDirectory) {
+    public void addSourceDirectory(final File sourceDirectory) {
         this.sourceDirectories.add(sourceDirectory);
     }
 
     /**
      * @param severityLevel
      */
-    public void setSeverityLevelFilter(SeverityLevel severityLevel) {
+    public void setSeverityLevelFilter(final SeverityLevel severityLevel) {
         this.severityLevel = severityLevel;
     }
 
@@ -99,14 +99,14 @@ public class CheckstyleCheckerListener extends AutomaticBean implements AuditLis
     /**
      * {@inheritDoc}
      */
-    public void auditStarted(AuditEvent event) {
+    public void auditStarted(final AuditEvent event) {
         setResults(new CheckstyleResults());
     }
 
     /**
      * {@inheritDoc}
      */
-    public void auditFinished(AuditEvent event) {
+    public void auditFinished(final AuditEvent event) {
         //do nothing
     }
 
@@ -157,7 +157,7 @@ public class CheckstyleCheckerListener extends AutomaticBean implements AuditLis
     /**
      * {@inheritDoc}
      */
-    public void addException(AuditEvent event, Throwable throwable) {
+    public void addException(final AuditEvent event, final Throwable throwable) {
         //Do Nothing
     }
 

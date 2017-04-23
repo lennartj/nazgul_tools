@@ -19,18 +19,17 @@ package se.jguru.nazgul.tools.plugin.checkstyle.exec;
  * under the License.
  */
 
+import com.puppycrawl.tools.checkstyle.DefaultLogger;
+import com.puppycrawl.tools.checkstyle.api.AuditListener;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.model.Resource;
+import org.apache.maven.project.MavenProject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.model.Resource;
-import org.apache.maven.project.MavenProject;
-
-import com.puppycrawl.tools.checkstyle.DefaultLogger;
-import com.puppycrawl.tools.checkstyle.api.AuditListener;
 
 /**
  * @author Olivier Lamy
@@ -139,7 +138,7 @@ public class CheckstyleExecutorRequest {
         return includes;
     }
 
-    public CheckstyleExecutorRequest setIncludes(String includes) {
+    public CheckstyleExecutorRequest setIncludes(final String includes) {
         this.includes = includes;
         return this;
     }
@@ -148,7 +147,7 @@ public class CheckstyleExecutorRequest {
         return excludes;
     }
 
-    public CheckstyleExecutorRequest setExcludes(String excludes) {
+    public CheckstyleExecutorRequest setExcludes(final String excludes) {
         this.excludes = excludes;
         return this;
     }
@@ -157,7 +156,7 @@ public class CheckstyleExecutorRequest {
         return resourceIncludes;
     }
 
-    public CheckstyleExecutorRequest setResourceIncludes(String resourceIncludes) {
+    public CheckstyleExecutorRequest setResourceIncludes(final String resourceIncludes) {
         this.resourceIncludes = resourceIncludes;
         return this;
     }
@@ -166,7 +165,7 @@ public class CheckstyleExecutorRequest {
         return resourceExcludes;
     }
 
-    public CheckstyleExecutorRequest setResourceExcludes(String resourceExcludes) {
+    public CheckstyleExecutorRequest setResourceExcludes(final String resourceExcludes) {
         this.resourceExcludes = resourceExcludes;
         return this;
     }
@@ -175,7 +174,7 @@ public class CheckstyleExecutorRequest {
         return project;
     }
 
-    public CheckstyleExecutorRequest setProject(MavenProject project) {
+    public CheckstyleExecutorRequest setProject(final MavenProject project) {
         this.project = project;
         return this;
     }
@@ -184,7 +183,7 @@ public class CheckstyleExecutorRequest {
         return suppressionsLocation;
     }
 
-    public CheckstyleExecutorRequest setSuppressionsLocation(String suppressionsLocation) {
+    public CheckstyleExecutorRequest setSuppressionsLocation(final String suppressionsLocation) {
         this.suppressionsLocation = suppressionsLocation;
         return this;
     }
@@ -193,7 +192,7 @@ public class CheckstyleExecutorRequest {
         return includeTestSourceDirectory;
     }
 
-    public CheckstyleExecutorRequest setIncludeTestSourceDirectory(boolean includeTestSourceDirectory) {
+    public CheckstyleExecutorRequest setIncludeTestSourceDirectory(final boolean includeTestSourceDirectory) {
         this.includeTestSourceDirectory = includeTestSourceDirectory;
         return this;
     }
@@ -217,7 +216,7 @@ public class CheckstyleExecutorRequest {
      * @deprecated instead use {@link #setTestSourceDirectories(Collection)}
      */
     @Deprecated
-    public CheckstyleExecutorRequest setTestSourceDirectory(File testSourceDirectory) {
+    public CheckstyleExecutorRequest setTestSourceDirectory(final File testSourceDirectory) {
         this.testSourceDirectories = Collections.singletonList(testSourceDirectory);
         return this;
     }
@@ -226,7 +225,7 @@ public class CheckstyleExecutorRequest {
         return testSourceDirectories;
     }
 
-    public CheckstyleExecutorRequest setTestSourceDirectories(Collection<File> testSourceDirectories) {
+    public CheckstyleExecutorRequest setTestSourceDirectories(final Collection<File> testSourceDirectories) {
         this.testSourceDirectories = testSourceDirectories;
         return this;
     }
@@ -250,7 +249,7 @@ public class CheckstyleExecutorRequest {
      * @deprecated instead use {@link #setSourceDirectories(Collection)}
      */
     @Deprecated
-    public CheckstyleExecutorRequest setSourceDirectory(File sourceDirectory) {
+    public CheckstyleExecutorRequest setSourceDirectory(final File sourceDirectory) {
         this.sourceDirectories = Collections.singletonList(sourceDirectory);
         return this;
     }
@@ -259,7 +258,7 @@ public class CheckstyleExecutorRequest {
         return sourceDirectories;
     }
 
-    public CheckstyleExecutorRequest setSourceDirectories(Collection<File> sourceDirectories) {
+    public CheckstyleExecutorRequest setSourceDirectories(final Collection<File> sourceDirectories) {
         this.sourceDirectories = sourceDirectories;
         return this;
     }
@@ -268,7 +267,7 @@ public class CheckstyleExecutorRequest {
         return resources;
     }
 
-    public CheckstyleExecutorRequest setResources(List<Resource> resources) {
+    public CheckstyleExecutorRequest setResources(final List<Resource> resources) {
         this.resources = resources;
         return this;
     }
@@ -277,7 +276,7 @@ public class CheckstyleExecutorRequest {
         return testResources;
     }
 
-    public CheckstyleExecutorRequest setTestResources(List<Resource> testResources) {
+    public CheckstyleExecutorRequest setTestResources(final List<Resource> testResources) {
         this.testResources = testResources;
         return this;
     }
@@ -286,7 +285,7 @@ public class CheckstyleExecutorRequest {
         return failsOnError;
     }
 
-    public CheckstyleExecutorRequest setFailsOnError(boolean failsOnError) {
+    public CheckstyleExecutorRequest setFailsOnError(final boolean failsOnError) {
         this.failsOnError = failsOnError;
         return this;
     }
@@ -295,7 +294,7 @@ public class CheckstyleExecutorRequest {
         return listener;
     }
 
-    public CheckstyleExecutorRequest setListener(AuditListener listener) {
+    public CheckstyleExecutorRequest setListener(final AuditListener listener) {
         this.listener = listener;
         return this;
     }
@@ -304,12 +303,12 @@ public class CheckstyleExecutorRequest {
         return consoleOutput;
     }
 
-    public CheckstyleExecutorRequest setConsoleOutput(boolean consoleOutput) {
+    public CheckstyleExecutorRequest setConsoleOutput(final boolean consoleOutput) {
         this.consoleOutput = consoleOutput;
         return this;
     }
 
-    public CheckstyleExecutorRequest setConsoleListener(DefaultLogger defaultLogger) {
+    public CheckstyleExecutorRequest setConsoleListener(final DefaultLogger defaultLogger) {
         this.defaultLogger = defaultLogger;
         return this;
     }
@@ -322,7 +321,7 @@ public class CheckstyleExecutorRequest {
         return stringOutputStream;
     }
 
-    public CheckstyleExecutorRequest setStringOutputStream(ByteArrayOutputStream stringOutputStream) {
+    public CheckstyleExecutorRequest setStringOutputStream(final ByteArrayOutputStream stringOutputStream) {
         this.stringOutputStream = stringOutputStream;
         return this;
     }
@@ -331,7 +330,7 @@ public class CheckstyleExecutorRequest {
         return configLocation;
     }
 
-    public CheckstyleExecutorRequest setConfigLocation(String configLocation) {
+    public CheckstyleExecutorRequest setConfigLocation(final String configLocation) {
         this.configLocation = configLocation;
         return this;
     }
@@ -340,7 +339,7 @@ public class CheckstyleExecutorRequest {
         return propertyExpansion;
     }
 
-    public CheckstyleExecutorRequest setPropertyExpansion(String propertyExpansion) {
+    public CheckstyleExecutorRequest setPropertyExpansion(final String propertyExpansion) {
         this.propertyExpansion = propertyExpansion;
         return this;
     }
@@ -349,7 +348,7 @@ public class CheckstyleExecutorRequest {
         return headerLocation;
     }
 
-    public CheckstyleExecutorRequest setHeaderLocation(String headerLocation) {
+    public CheckstyleExecutorRequest setHeaderLocation(final String headerLocation) {
         this.headerLocation = headerLocation;
         return this;
     }
@@ -358,7 +357,7 @@ public class CheckstyleExecutorRequest {
         return cacheFile;
     }
 
-    public CheckstyleExecutorRequest setCacheFile(String cacheFile) {
+    public CheckstyleExecutorRequest setCacheFile(final String cacheFile) {
         this.cacheFile = cacheFile;
         return this;
     }
@@ -367,7 +366,7 @@ public class CheckstyleExecutorRequest {
         return suppressionsFileExpression;
     }
 
-    public CheckstyleExecutorRequest setSuppressionsFileExpression(String suppressionsFileExpression) {
+    public CheckstyleExecutorRequest setSuppressionsFileExpression(final String suppressionsFileExpression) {
         this.suppressionsFileExpression = suppressionsFileExpression;
         return this;
     }
@@ -376,7 +375,7 @@ public class CheckstyleExecutorRequest {
         return encoding;
     }
 
-    public CheckstyleExecutorRequest setEncoding(String encoding) {
+    public CheckstyleExecutorRequest setEncoding(final String encoding) {
         this.encoding = encoding;
         return this;
     }
@@ -385,7 +384,7 @@ public class CheckstyleExecutorRequest {
         return propertiesLocation;
     }
 
-    public void setPropertiesLocation(String propertiesLocation) {
+    public void setPropertiesLocation(final String propertiesLocation) {
         this.propertiesLocation = propertiesLocation;
     }
 
@@ -404,7 +403,7 @@ public class CheckstyleExecutorRequest {
      * @param pAggregate <code>true</code> if an aggregated report is desired.
      * @return This object.
      */
-    public CheckstyleExecutorRequest setAggregate(boolean pAggregate) {
+    public CheckstyleExecutorRequest setAggregate(final boolean pAggregate) {
         this.aggregate = pAggregate;
         return this;
     }
@@ -424,7 +423,7 @@ public class CheckstyleExecutorRequest {
      * @param pReactorProjects The reactor projects.
      * @return This object.
      */
-    public CheckstyleExecutorRequest setReactorProjects(List<MavenProject> pReactorProjects) {
+    public CheckstyleExecutorRequest setReactorProjects(final List<MavenProject> pReactorProjects) {
         this.reactorProjects = pReactorProjects;
         return this;
     }
@@ -444,7 +443,7 @@ public class CheckstyleExecutorRequest {
      * @param licenseArtifacts
      * @return This object.
      */
-    public CheckstyleExecutorRequest setLicenseArtifacts(List<Artifact> licenseArtifacts) {
+    public CheckstyleExecutorRequest setLicenseArtifacts(final List<Artifact> licenseArtifacts) {
         this.licenseArtifacts = licenseArtifacts;
         return this;
     }
@@ -464,7 +463,7 @@ public class CheckstyleExecutorRequest {
      * @param configArtifacts
      * @return This object.
      */
-    public CheckstyleExecutorRequest setConfigurationArtifacts(List<Artifact> configArtifacts) {
+    public CheckstyleExecutorRequest setConfigurationArtifacts(final List<Artifact> configArtifacts) {
         this.configurationArtifacts = configArtifacts;
         return this;
     }
@@ -477,7 +476,7 @@ public class CheckstyleExecutorRequest {
      * @param includeResources whether to include the resource directories in the checks.
      * @return This object.
      */
-    public CheckstyleExecutorRequest setIncludeResources(boolean includeResources) {
+    public CheckstyleExecutorRequest setIncludeResources(final boolean includeResources) {
         this.includeResources = includeResources;
         return this;
     }
@@ -490,7 +489,7 @@ public class CheckstyleExecutorRequest {
      * @param includeTestResources whether to set the test resource directories in the checks.
      * @return This object.
      */
-    public CheckstyleExecutorRequest setIncludeTestResources(boolean includeTestResources) {
+    public CheckstyleExecutorRequest setIncludeTestResources(final boolean includeTestResources) {
         this.includeTestResources = includeTestResources;
         return this;
     }

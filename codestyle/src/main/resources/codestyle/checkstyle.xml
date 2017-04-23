@@ -25,7 +25,7 @@
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
-    <property name="severity" value="warning"/>
+    <property name="severity" value="warning" default="error"/>
 
     <module name="TreeWalker">
         <module name="JavadocMethod">
