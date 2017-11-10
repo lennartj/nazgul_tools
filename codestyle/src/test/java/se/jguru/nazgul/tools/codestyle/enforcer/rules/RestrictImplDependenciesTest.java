@@ -362,7 +362,7 @@ public class RestrictImplDependenciesTest {
         toReturn.setPackaging(packaging);
 
         // Make sure we have a non-null DependencyArtifacts set.
-        toReturn.setDependencyArtifacts(new HashSet<Object>());
+        toReturn.setDependencyArtifacts(new HashSet<>());
 
         return toReturn;
     }
