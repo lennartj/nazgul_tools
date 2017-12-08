@@ -32,6 +32,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Pattern;
 
@@ -362,8 +363,10 @@ public class RestrictImplDependenciesTest {
         toReturn.setPackaging(packaging);
 
         // Make sure we have a non-null DependencyArtifacts set.
+        toReturn.setDependencies(new ArrayList<>());
         toReturn.setDependencyArtifacts(new HashSet<>());
 
+        // All Done.
         return toReturn;
     }
 }

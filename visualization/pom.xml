@@ -32,7 +32,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools</groupId>
         <artifactId>nazgul-tools-reactor</artifactId>
-        <version>6.0.2-SNAPSHOT</version>
+        <version>6.0.4-SNAPSHOT</version>
     </parent>
 
     <groupId>se.jguru.nazgul.tools.visualization</groupId>

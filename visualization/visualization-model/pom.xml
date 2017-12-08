@@ -33,7 +33,7 @@
     <parent>
         <groupId>se.jguru.nazgul.tools.poms</groupId>
         <artifactId>nazgul-tools-parent</artifactId>
-        <version>6.0.2-SNAPSHOT</version>
+        <version>6.0.4-SNAPSHOT</version>
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>se.jguru.nazgul.tools.visualization.spi.dot</groupId>
             <artifactId>nazgul-tools-visualization-spi-dot</artifactId>
-            <version>6.0.2-SNAPSHOT</version>
+            <version>6.0.4-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <!--

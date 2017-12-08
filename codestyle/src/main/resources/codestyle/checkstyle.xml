@@ -25,9 +25,15 @@
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
+
+    <!--
+        Define the file extensions for which this Checkstyle specification is valid.
+    -->
+    <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="warning" default="error"/>
 
     <module name="TreeWalker">
+
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -83,24 +89,24 @@
         </module>
 
         <!--
-            Validate that we don't use the System.exit, out or err in the code.
+            Validate that we don't use the System.out or err in the code.
             Use proper logging instead.
         -->
         <module name="Regexp">
             <property name="message" value="System.exit"/>
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="format" value="System\.exit"/>
             <property name="illegalPattern" value="true"/>
         </module>
         <module name="Regexp">
             <property name="message" value="System.out"/>
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="format" value="System\.out."/>
             <property name="illegalPattern" value="true"/>
         </module>
         <module name="Regexp">
             <property name="message" value="System.err"/>
-            <property name="severity" value="error"/>
+            <property name="severity" value="warning"/>
             <property name="format" value="System\.err."/>
             <property name="illegalPattern" value="true"/>
         </module>

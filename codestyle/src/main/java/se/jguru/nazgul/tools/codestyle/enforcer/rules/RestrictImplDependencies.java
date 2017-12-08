@@ -29,7 +29,6 @@ import org.apache.maven.project.MavenProject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -126,7 +125,7 @@ public class RestrictImplDependencies extends AbstractNonCacheableEnforcerRule {
         }
 
         // Acquire all project dependencies.
-        for (final Artifact current : ((Set<Artifact>) project.getDependencyArtifacts())) {
+        for (final Artifact current : project.getDependencyArtifacts()) {
 
             // Don't evaluate for test-scope dependencies.
             if (Artifact.SCOPE_TEST.equalsIgnoreCase(current.getScope())) {
