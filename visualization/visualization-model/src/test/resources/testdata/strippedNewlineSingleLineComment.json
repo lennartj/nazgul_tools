@@ -2,7 +2,7 @@
   "genericRoot" : {
     "items" : [ {
       "type" : "comment",
-      "commentLines" : [ "Here is a  (newline)." ]
+      "commentLine" : [ "Here is a  (newline)." ]
     } ]
   }
 }

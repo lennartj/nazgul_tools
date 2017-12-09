@@ -48,8 +48,7 @@ public class Comment implements Serializable {
     /**
      * The list of strings/lines within this Comment. May be empty but not null.
      */
-    @XmlElementWrapper
-    @XmlElement(name = "line")
+    @XmlElement(name = "commentLine")
     private List<String> commentLines;
 
     /**

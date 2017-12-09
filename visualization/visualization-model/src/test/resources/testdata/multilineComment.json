@@ -1,16 +1,8 @@
 {
-  "genericRoot": {
-    "items": [
-      {
-        "type": "comment",
-        "commentLines": [
-          "This",
-          "is",
-          "a",
-          "multi-line",
-          "comment."
-        ]
-      }
-    ]
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "comment",
+      "commentLine" : [ "This", "is", "a", "multi-line", "comment." ]
+    } ]
   }
 }

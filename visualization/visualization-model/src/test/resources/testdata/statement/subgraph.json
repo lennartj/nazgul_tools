@@ -1,58 +1,43 @@
 {
-  "genericRoot": {
-    "items": [
-      {
-        "type": "subgraph",
-        "id": "subgraph",
-        "statements": {
-          "commonAttributesComment": {
-            "commentLines": [
-              "Common Attribute Statements"
-            ]
-          },
-          "nodesComment": {
-            "commentLines": [
-              "Node Statements"
-            ]
-          },
-          "nodes": [
-            {
-              "id": "node1",
-              "nodeID": {
-                "id": "node1",
-                "port": {
-                  "compassPoint": "NORTH"
-                }
-              },
-              "nodeAttributes": {
-              }
-            },
-            {
-              "id": "node2",
-              "nodeID": {
-                "id": "node2"
-              },
-              "nodeAttributes": {
-              }
+  "genericRoot" : {
+    "items" : [ {
+      "type" : "subgraph",
+      "id" : "subgraph",
+      "statements" : {
+        "commonAttributesComment" : {
+          "commentLine" : [ "Common Attribute Statements" ]
+        },
+        "nodesComment" : {
+          "commentLine" : [ "Node Statements" ]
+        },
+        "nodes" : [ {
+          "id" : "node1",
+          "nodeID" : {
+            "id" : "node1",
+            "port" : {
+              "compassPoint" : "NORTH"
             }
-          ],
-          "identifiersComment": {
-            "commentLines": [
-              "Identifier Statements"
-            ]
           },
-          "edgesComment": {
-            "commentLines": [
-              "Edge Statements"
-            ]
-          },
-          "subgraphComment": {
-            "commentLines": [
-              "Subgraph Statements"
-            ]
+          "nodeAttributes" : {
           }
+        }, {
+          "id" : "node2",
+          "nodeID" : {
+            "id" : "node2"
+          },
+          "nodeAttributes" : {
+          }
+        } ],
+        "identifiersComment" : {
+          "commentLine" : [ "Identifier Statements" ]
+        },
+        "edgesComment" : {
+          "commentLine" : [ "Edge Statements" ]
+        },
+        "subgraphComment" : {
+          "commentLine" : [ "Subgraph Statements" ]
         }
       }
-    ]
+    } ]
   }
 }

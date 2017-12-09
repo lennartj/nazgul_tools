@@ -20,7 +20,4 @@
   limitations under the License.
   #L%
   -->
-
-<commentLines>
-    <line>This is a Standard Comment.</line>
-</commentLines>
+<commentLine>This is a Standard Comment.</commentLine>

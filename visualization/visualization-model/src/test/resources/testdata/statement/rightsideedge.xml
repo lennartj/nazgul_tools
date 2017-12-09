@@ -20,19 +20,14 @@
   limitations under the License.
   #L%
   -->
-
 <nazgulviz:graph xmlns:nazgulviz="http://www.jguru.se/nazgul/tools/visualization" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" isDigraph="true" isStrict="true">
     <id>rightSideEdgeTestGraph</id>
     <statements>
         <commonAttributesComment>
-            <commentLines>
-                <line>Common Attribute Statements</line>
-            </commentLines>
+            <commentLine>Common Attribute Statements</commentLine>
         </commonAttributesComment>
         <nodesComment>
-            <commentLines>
-                <line>Node Statements</line>
-            </commentLines>
+            <commentLine>Node Statements</commentLine>
         </nodesComment>
         <nodes>
             <node>
@@ -51,15 +46,11 @@
             </node>
         </nodes>
         <identifiersComment>
-            <commentLines>
-                <line>Identifier Statements</line>
-            </commentLines>
+            <commentLine>Identifier Statements</commentLine>
         </identifiersComment>
         <identifiers/>
         <edgesComment>
-            <commentLines>
-                <line>Edge Statements</line>
-            </commentLines>
+            <commentLine>Edge Statements</commentLine>
         </edgesComment>
         <edges>
             <edge>
@@ -77,22 +68,16 @@
             </edge>
         </edges>
         <subgraphComment>
-            <commentLines>
-                <line>Subgraph Statements</line>
-            </commentLines>
+            <commentLine>Subgraph Statements</commentLine>
         </subgraphComment>
         <subgraphs>
             <id>subgraph</id>
             <statements>
                 <commonAttributesComment>
-                    <commentLines>
-                        <line>Common Attribute Statements</line>
-                    </commentLines>
+                    <commentLine>Common Attribute Statements</commentLine>
                 </commonAttributesComment>
                 <nodesComment>
-                    <commentLines>
-                        <line>Node Statements</line>
-                    </commentLines>
+                    <commentLine>Node Statements</commentLine>
                 </nodesComment>
                 <nodes>
                     <node>
@@ -111,21 +96,15 @@
                     </node>
                 </nodes>
                 <identifiersComment>
-                    <commentLines>
-                        <line>Identifier Statements</line>
-                    </commentLines>
+                    <commentLine>Identifier Statements</commentLine>
                 </identifiersComment>
                 <identifiers/>
                 <edgesComment>
-                    <commentLines>
-                        <line>Edge Statements</line>
-                    </commentLines>
+                    <commentLine>Edge Statements</commentLine>
                 </edgesComment>
                 <edges/>
                 <subgraphComment>
-                    <commentLines>
-                        <line>Subgraph Statements</line>
-                    </commentLines>
+                    <commentLine>Subgraph Statements</commentLine>
                 </subgraphComment>
             </statements>
         </subgraphs>

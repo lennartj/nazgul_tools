@@ -5,12 +5,12 @@
     "id": "rightSideEdgeTestGraph",
     "statements": {
       "commonAttributesComment": {
-        "commentLines": [
+        "commentLine": [
           "Common Attribute Statements"
         ]
       },
       "nodesComment": {
-        "commentLines": [
+        "commentLine": [
           "Node Statements"
         ]
       },
@@ -33,12 +33,12 @@
         }
       ],
       "identifiersComment": {
-        "commentLines": [
+        "commentLine": [
           "Identifier Statements"
         ]
       },
       "edgesComment": {
-        "commentLines": [
+        "commentLine": [
           "Edge Statements"
         ]
       },
@@ -59,7 +59,7 @@
         }
       ],
       "subgraphComment": {
-        "commentLines": [
+        "commentLine": [
           "Subgraph Statements"
         ]
       },
@@ -68,12 +68,12 @@
           "id": "subgraph",
           "statements": {
             "commonAttributesComment": {
-              "commentLines": [
+              "commentLine": [
                 "Common Attribute Statements"
               ]
             },
             "nodesComment": {
-              "commentLines": [
+              "commentLine": [
                 "Node Statements"
               ]
             },
@@ -96,17 +96,17 @@
               }
             ],
             "identifiersComment": {
-              "commentLines": [
+              "commentLine": [
                 "Identifier Statements"
               ]
             },
             "edgesComment": {
-              "commentLines": [
+              "commentLine": [
                 "Edge Statements"
               ]
             },
             "subgraphComment": {
-              "commentLines": [
+              "commentLine": [
                 "Subgraph Statements"
               ]
             }

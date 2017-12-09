@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -152,6 +153,7 @@ public class Statements implements Serializable {
      * Default constructor, assigning default lines to all Comments.
      * Reserved for framework use only.
      */
+    @SuppressWarnings("all")
     public Statements() {
 
         super();
@@ -235,7 +237,7 @@ public class Statements implements Serializable {
         if (toAdd != null) {
 
             Arrays.stream(toAdd)
-                    .filter(c -> c != null)
+                    .filter(Objects::nonNull)
                     .forEach(c -> {
 
                         // Resolve the type of the current Statement, and assign it to

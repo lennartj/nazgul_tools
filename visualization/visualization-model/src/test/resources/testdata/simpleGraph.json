@@ -1,56 +1,73 @@
 {
-  "graph" : {
-    "isDigraph" : true,
-    "isStrict" : false,
-    "id" : "foobar",
-    "statements" : {
-      "commonAttributesComment" : {
-        "commentLines" : [ "Common Attribute Statements" ]
+  "graph": {
+    "isDigraph": true,
+    "isStrict": false,
+    "id": "foobar",
+    "statements": {
+      "commonAttributesComment": {
+        "commentLine": [
+          "Common Attribute Statements"
+        ]
       },
-      "nodesComment" : {
-        "commentLines" : [ "Node Statements" ]
+      "nodesComment": {
+        "commentLine": [
+          "Node Statements"
+        ]
       },
-      "nodes" : [ {
-        "id" : "node1",
-        "nodeID" : {
-          "id" : "node1"
+      "nodes": [
+        {
+          "id": "node1",
+          "nodeID": {
+            "id": "node1"
+          },
+          "nodeAttributes": {
+          }
         },
-        "nodeAttributes" : {
-        }
-      }, {
-        "id" : "node2",
-        "nodeID" : {
-          "id" : "node2"
-        },
-        "nodeAttributes" : {
-        }
-      } ],
-      "identifiersComment" : {
-        "commentLines" : [ "Identifier Statements" ]
-      },
-      "identifiers" : [ {
-        "id" : "node1",
-        "targetIdentifier" : "foobar"
-      } ],
-      "edgesComment" : {
-        "commentLines" : [ "Edge Statements" ]
-      },
-      "edges" : [ {
-        "id" : "node1",
-        "nodeID" : {
-          "id" : "node1"
-        },
-        "attributes" : {
-        },
-        "rightSideEdge" : {
-          "id" : "node2",
-          "nodeID" : {
-            "id" : "node2"
+        {
+          "id": "node2",
+          "nodeID": {
+            "id": "node2"
+          },
+          "nodeAttributes": {
           }
         }
-      } ],
-      "subgraphComment" : {
-        "commentLines" : [ "Subgraph Statements" ]
+      ],
+      "identifiersComment": {
+        "commentLine": [
+          "Identifier Statements"
+        ]
+      },
+      "identifiers": [
+        {
+          "id": "node1",
+          "targetIdentifier": "foobar"
+        }
+      ],
+      "edgesComment": {
+        "commentLine": [
+          "Edge Statements"
+        ]
+      },
+      "edges": [
+        {
+          "id": "node1",
+          "nodeID": {
+            "id": "node1"
+          },
+          "attributes": {
+          },
+          "rightSideEdge": {
+            "id": "node2",
+            "nodeID": {
+              "id": "node2"
+            }
+          }
+        }
+      ],
+      "subgraphComment": {
+        "commentLine": [
+          "Subgraph Statements"
+        ]
       }
     }
   }

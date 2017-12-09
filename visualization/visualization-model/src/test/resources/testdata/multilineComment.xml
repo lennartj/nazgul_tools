@@ -20,17 +20,14 @@
   limitations under the License.
   #L%
   -->
-
 <nazgulviz:genericRoot xmlns:nazgulviz="http://www.jguru.se/nazgul/tools/visualization" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning">
     <items>
         <item xsi:type="nazgulviz:comment">
-            <commentLines>
-                <line>This</line>
-                <line>is</line>
-                <line>a</line>
-                <line>multi-line</line>
-                <line>comment.</line>
-            </commentLines>
+            <commentLine>This</commentLine>
+            <commentLine>is</commentLine>
+            <commentLine>a</commentLine>
+            <commentLine>multi-line</commentLine>
+            <commentLine>comment.</commentLine>
         </item>
     </items>
 </nazgulviz:genericRoot>
