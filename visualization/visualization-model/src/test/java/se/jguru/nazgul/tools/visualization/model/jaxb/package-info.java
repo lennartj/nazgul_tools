@@ -2,7 +2,7 @@
  * #%L
  * Nazgul Project: nazgul-tools-visualization-model
  * %%
- * Copyright (C) 2010 - 2016 jGuru Europe AB
+ * Copyright (C) 2010 - 2017 jGuru Europe AB
  * %%
  * Licensed under the jGuru Europe AB license (the "License"), based
  * on Apache License, Version 2.0; you may not use this file except
@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 /**
  * Package containing model entities for <a href="http://www.graphviz.org">Graphviz/Dot</a> diagram file synthesis.
  * All entity classes are JAXB-annotated to ensure that the model can be converted in a simple manner to and from XML
