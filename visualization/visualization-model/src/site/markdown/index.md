@@ -41,7 +41,7 @@ in question. Nodes are defined by the optional presence of a NodeAttributes, Edg
 by GraphAttributes respectively. These attribute classes are related by inheritance, and as illustrated in the 
 image above, each type of Statement may contain its appropriate attributes holder class.  
 
-<img src="images/graph_structure.png" style="border: solid DarkGray 1px;" />
+<img src="images/attribute_structure.png" style="border: solid DarkGray 1px;" />
 
 ## Example: Creating a Graph
 
