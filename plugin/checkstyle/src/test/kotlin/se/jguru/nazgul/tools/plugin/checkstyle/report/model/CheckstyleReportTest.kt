@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.plugin.checkstyle.report.model
 
 import org.eclipse.persistence.jaxb.JAXBContextFactory

@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.plugin.checkstyle.report
 
 import java.io.Serializable
@@ -47,19 +48,15 @@ enum class ReportFormat : Serializable {
 
         /**
          * Lenient parser which will perform a case-insensitive comparison for a ReportFormat.
+         *
+         * @return [PLAIN] unless the supplied [toParse] matches one of the constants, case insensitive.
          */
-        fun getReportFormat(toParse: String?): ReportFormat {
-
-            // Check sanity
-            if(toParse == null) {
-                return PLAIN
-            }
-
-            // Parse, or return a default value ("PLAIN")
-            return ReportFormat
-                    .values()
-                    .find { current -> toParse.toLowerCase() == current.name.toLowerCase() }
-                    ?: PLAIN;
+        fun getReportFormat(toParse: String?): ReportFormat = if (toParse == null) {
+            PLAIN
+        } else {
+            ReportFormat.values()
+                    .find { it.name.equals(toParse, true) }
+                    ?: PLAIN
         }
     }
 }

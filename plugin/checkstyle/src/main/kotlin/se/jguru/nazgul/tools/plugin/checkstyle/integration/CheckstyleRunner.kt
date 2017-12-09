@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.plugin.checkstyle.integration
 
 import com.puppycrawl.tools.checkstyle.Checker

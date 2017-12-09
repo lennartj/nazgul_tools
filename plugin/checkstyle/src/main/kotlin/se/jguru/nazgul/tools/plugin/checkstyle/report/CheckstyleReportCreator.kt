@@ -1,3 +1,24 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-checkstyle-maven-plugin
+ * %%
+ * Copyright (C) 2010 - 2017 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.plugin.checkstyle.report
 
 import com.puppycrawl.tools.checkstyle.api.AuditEvent
@@ -11,20 +32,23 @@ import org.apache.maven.doxia.tools.SiteTool
 import org.apache.maven.plugin.MojoFailureException
 import org.apache.maven.plugin.logging.Log
 import org.codehaus.plexus.util.StringUtils
-import se.jguru.nazgul.tools.plugin.checkstyle.IconTool
-import se.jguru.nazgul.tools.plugin.checkstyle.RuleUtil
-import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleResults
+import se.jguru.nazgul.tools.plugin.checkstyle.CheckstyleResults
+import se.jguru.nazgul.tools.plugin.checkstyle.CheckstyleRule
 import java.io.File
 import java.util.*
 
 class DoxiaSinkHelper(private val sink: Sink,
                       private val bundle: ResourceBundle,
-                      private val checkstyleConfig: Configuration) {
+                      private val checkstyleConfig: Configuration,
+                      private val basedir: File,
+                      private val siteTool: SiteTool,
+                      var treeWalkerNames: List<String>? = mutableListOf("TreeWalker")) {
 
-    /**
-     * Convenience constructor, creating a DoxiaSinkHelper using the standard ResourceBundle.
-     */
-    constructor(sink: Sink, checkstyleConfig: Configuration) : this(sink, getBundleFor(), checkstyleConfig)
+    constructor(sink: Sink, checkstyleConfig: Configuration, basedir: File, siteTool: SiteTool)
+            : this(sink, getBundleFor(), checkstyleConfig, basedir, siteTool)
+
+    // Shared state
+    val results = CheckstyleResults(checkstyleConfig)
 
     companion object {
 
@@ -45,7 +69,7 @@ class DoxiaSinkHelper(private val sink: Sink,
     }
 
     // Internal state
-    private val iconTool: IconTool = IconTool(sink, bundle)
+    private val iconResourceHelper: IconResourceHelper = IconResourceHelper(sink, bundle)
 
     /**
      * Emits the report heading, by firing events to the Sink.
@@ -113,7 +137,8 @@ class DoxiaSinkHelper(private val sink: Sink,
      *
      * @param results The results to summarize
      */
-    fun emitRulesSummarySection(results: CheckstyleResults, checkstyleConfig: Configuration?) {
+    fun emitRulesSummarySection(results: CheckstyleResults,
+                                checkstyleConfig: Configuration?) {
 
         // Fail fast
         if (checkstyleConfig == null) {
@@ -150,7 +175,7 @@ class DoxiaSinkHelper(private val sink: Sink,
         if ("checker".equals(checkstyleConfig.name, ignoreCase = true)) {
             var category: String? = null
             for (ref in sortConfiguration(results)) {
-                emitRuleRow(ref, results, category)
+                emitRuleRow(ref, results, category, siteTool)
 
                 category = ref.category
             }
@@ -189,21 +214,21 @@ class DoxiaSinkHelper(private val sink: Sink,
         sink.tableHeaderCell_()
 
         sink.tableHeaderCell()
-        iconTool.iconInfo(IconTool.TEXT_TITLE)
+        iconResourceHelper.iconInfo(IconResourceHelper.TEXT_TITLE)
         sink.tableHeaderCell_()
 
         sink.tableHeaderCell()
-        iconTool.iconWarning(IconTool.TEXT_TITLE)
+        iconResourceHelper.iconWarning(IconResourceHelper.TEXT_TITLE)
         sink.tableHeaderCell_()
 
         sink.tableHeaderCell()
-        iconTool.iconError(IconTool.TEXT_TITLE)
+        iconResourceHelper.iconError(IconResourceHelper.TEXT_TITLE)
         sink.tableHeaderCell_()
         sink.tableRow_()
 
         sink.tableRow()
         sink.tableCell()
-        sink.text(results.fileCount.toString())
+        sink.text("" + results.fileCount())
         sink.tableCell_()
         sink.tableCell()
         sink.text(results.getSeverityCount(SeverityLevel.INFO).toString())
@@ -240,13 +265,13 @@ class DoxiaSinkHelper(private val sink: Sink,
         sink.text(getReportProperty("file"))
         sink.tableHeaderCell_()
         sink.tableHeaderCell()
-        iconTool.iconInfo(IconTool.TEXT_ABBREV)
+        iconResourceHelper.iconInfo(IconResourceHelper.TEXT_ABBREV)
         sink.tableHeaderCell_()
         sink.tableHeaderCell()
-        iconTool.iconWarning(IconTool.TEXT_ABBREV)
+        iconResourceHelper.iconWarning(IconResourceHelper.TEXT_ABBREV)
         sink.tableHeaderCell_()
         sink.tableHeaderCell()
-        iconTool.iconError(IconTool.TEXT_ABBREV)
+        iconResourceHelper.iconError(IconResourceHelper.TEXT_ABBREV)
         sink.tableHeaderCell_()
         sink.tableRow_()
 
@@ -255,33 +280,33 @@ class DoxiaSinkHelper(private val sink: Sink,
         Collections.sort(fileList)
 
         for (filename in fileList) {
+
             val violations = results.getFileViolations(filename)
-            if (violations.isEmpty()) {
-                // skip files without violations
-                continue
+
+            if (!violations.isEmpty()) {
+
+                sink.tableRow()
+
+                sink.tableCell()
+                sink.link("#" + filename.replace('/', '.'))
+                sink.text(filename)
+                sink.link_()
+                sink.tableCell_()
+
+                sink.tableCell()
+                sink.text(results.getSeverityCountFor(violations, SeverityLevel.INFO).toString())
+                sink.tableCell_()
+
+                sink.tableCell()
+                sink.text(results.getSeverityCountFor(violations, SeverityLevel.WARNING).toString())
+                sink.tableCell_()
+
+                sink.tableCell()
+                sink.text(results.getSeverityCountFor(violations, SeverityLevel.ERROR).toString())
+                sink.tableCell_()
+
+                sink.tableRow_()
             }
-
-            sink.tableRow()
-
-            sink.tableCell()
-            sink.link("#" + filename.replace('/', '.'))
-            sink.text(filename)
-            sink.link_()
-            sink.tableCell_()
-
-            sink.tableCell()
-            sink.text(results.getSeverityCount(violations, SeverityLevel.INFO).toString())
-            sink.tableCell_()
-
-            sink.tableCell()
-            sink.text(results.getSeverityCount(violations, SeverityLevel.WARNING).toString())
-            sink.tableCell_()
-
-            sink.tableCell()
-            sink.text(results.getSeverityCount(violations, SeverityLevel.ERROR).toString())
-            sink.tableCell_()
-
-            sink.tableRow_()
         }
 
         sink.table_()
@@ -293,7 +318,9 @@ class DoxiaSinkHelper(private val sink: Sink,
      *
      * @param results The results for which to emit report details.
      */
-    fun emitDetails(results: CheckstyleResults) {
+    fun emitDetails(results: CheckstyleResults,
+                    xrefLocation: File?,
+                    severityLevel: SeverityLevel?) {
 
         sink.section1()
         sink.sectionTitle1()
@@ -338,7 +365,7 @@ class DoxiaSinkHelper(private val sink: Sink,
             sink.tableHeaderCell_()
             sink.tableRow_()
 
-            emitFileEvents(violations, file)
+            emitFileEvents(violations, file, xrefLocation, severityLevel)
 
             sink.table_()
             sink.section2_()
@@ -360,7 +387,8 @@ class DoxiaSinkHelper(private val sink: Sink,
      */
     private fun emitRuleRow(ref: CheckstyleReportCreator.ConfReference,
                             results: CheckstyleResults,
-                            previousCategory: String?) {
+                            previousCategory: String?,
+                            siteTool: SiteTool) {
 
         val checkerConfig = ref.configuration
         val parentConfiguration = ref.parentConfiguration
@@ -419,13 +447,10 @@ class DoxiaSinkHelper(private val sink: Sink,
                     sink.text(": ")
                     sink.monospaced()
                     sink.text("\"")
-                    if (basedir != null) {
-                        // Make the headerFile value relative to ${basedir}
-                        val path = siteTool.getRelativePath(value, basedir.absolutePath)
-                        sink.text(path.replace('\\', '/'))
-                    } else {
-                        sink.text(value)
-                    }
+
+                    // Make the headerFile value relative to ${basedir}
+                    val path = siteTool.getRelativePath(value, basedir.absolutePath)
+                    sink.text(path.replace('\\', '/'))
                     sink.text("\"")
                     sink.monospaced_()
 
@@ -454,7 +479,11 @@ class DoxiaSinkHelper(private val sink: Sink,
         // Grab the severity from the rule configuration, this time use error as default value
         // Also pass along all parent configurations, so that we can try to find the severity there
         val severity = getConfigAttribute(checkerConfig, parentConfiguration, "severity", "error")
-        iconTool.iconSeverity(severity, IconTool.TEXT_SIMPLE)
+
+        if(severity != null) {
+            iconResourceHelper.iconSeverity(severity, IconResourceHelper.TEXT_SIMPLE)
+        }
+        
         sink.tableCell_()
 
         sink.tableRow_()
@@ -463,54 +492,60 @@ class DoxiaSinkHelper(private val sink: Sink,
     /**
      * Emits the supplied list of events from the given file (name) onto the Sink.
      */
-    private fun emitFileEvents(auditEvents: List<AuditEvent>, fileName: String) {
+    private fun emitFileEvents(auditEvents: List<AuditEvent>,
+                               fileName: String,
+                               xrefLocation: File? = null,
+                               severityLevel: SeverityLevel?) {
 
         for (event in auditEvents) {
 
+            // Should we bother with this event?
             val level = event.severityLevel
 
-            if (severityLevel != null && severityLevel == level) {
-                continue
+            if (severityLevel != null && severityLevel != event.severityLevel) {
+
+                sink.tableRow()
+
+                sink.tableCell()
+                iconResourceHelper.iconSeverity(level.getName(), IconResourceHelper.TEXT_SIMPLE)
+                sink.tableCell_()
+
+                sink.tableCell()
+                val category = CheckstyleRule.getCategory(event)
+                if (category != null) {
+                    sink.text(category)
+                }
+                sink.tableCell_()
+
+                sink.tableCell()
+
+                val ruleName = CheckstyleRule.getName(event.sourceName)
+                if (ruleName != null) {
+                    sink.text(ruleName)
+                }
+                sink.tableCell_()
+
+                sink.tableCell()
+                sink.text(event.message)
+                sink.tableCell_()
+
+                sink.tableCell()
+
+                val line = event.line
+                if (xrefLocation != null && line != 0) {
+
+                    sink.link(xrefLocation.absolutePath + "/"
+                            + fileName.replace("\\.java$".toRegex(), ".html")
+                            + "#L" + line)
+                    sink.text(line.toString())
+                    sink.link_()
+                } else if (line != 0) {
+                    sink.text(line.toString())
+                }
+                sink.tableCell_()
+
+                sink.tableRow_()
             }
-
-            sink.tableRow()
-
-            sink.tableCell()
-            iconTool.iconSeverity(level.getName(), IconTool.TEXT_SIMPLE)
-            sink.tableCell_()
-
-            sink.tableCell()
-            val category = RuleUtil.getCategory(event)
-            if (category != null) {
-                sink.text(category)
-            }
-            sink.tableCell_()
-
-            sink.tableCell()
-            val ruleName = RuleUtil.getName(event)
-            if (ruleName != null) {
-                sink.text(ruleName)
-            }
-            sink.tableCell_()
-
-            sink.tableCell()
-            sink.text(event.message)
-            sink.tableCell_()
-
-            sink.tableCell()
-
-            val line = event.line
-            if (xrefLocation != null && line != 0) {
-                sink.link(xrefLocation + "/" + fileName.replace("\\.java$".toRegex(), ".html") + "#L"
-                        + line)
-                sink.text(line.toString())
-                sink.link_()
-            } else if (line != 0) {
-                sink.text(line.toString())
-            }
-            sink.tableCell_()
-
-            sink.tableRow_()
         }
     }
 
@@ -568,9 +603,13 @@ class DoxiaSinkHelper(private val sink: Sink,
                 if (violations > 0)
                 // forget rules without violations
                 {
-                    val category = RuleUtil.getCategory(lastMatchedEvent!!)
+                    val category = CheckstyleRule.getCategory(lastMatchedEvent!!)
 
-                    result.add(CheckstyleReportCreator.ConfReference(category, childConfig, parent, violations, result.size))
+                    result.add(CheckstyleReportCreator.ConfReference(category!!,
+                            childConfig,
+                            parent,
+                            violations,
+                            result.size))
                 }
             }
         }
@@ -601,53 +640,6 @@ class DoxiaSinkHelper(private val sink: Sink,
      * @return the MANIFEST implementation version of Checkstyle API package (can be `null`)
      */
     private fun getCheckstyleVersion(): String? = Configuration::class.java.`package`?.implementationVendor
-}
-
-/**
- * Factory class which produces Checkstyle reports.
- *
- * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
- */
-class CheckstyleReportCreator(var log: Log,
-                              val sinkHelper: DoxiaSinkHelper,
-                              val bundle: ResourceBundle,
-                              val basedir: File,
-                              val siteTool: SiteTool,
-                              var enableSeveritySummary: Boolean = false,
-                              var enableRulesSummary: Boolean = false,
-                              var enableFilesSummary: Boolean = false,
-                              var severityLevel: SeverityLevel? = null,
-                              var enableRSS: Boolean = false,
-                              var checkstyleConfig: Configuration? = null,
-                              var xrefLocation: String? = null,
-                              var treeWalkerNames: List<String>? = mutableListOf("TreeWalker")) {
-
-    /**
-     * Main report-generating method. Call this to emit the report.
-     */
-    fun generateReport(results: CheckstyleResults, ruleset: String) {
-
-        // #1) Prepare the heading
-        sinkHelper.emitReportHeading(severityLevel, enableRSS, ruleset)
-
-        // #2) Generate the summaries, unless a given SeverityLevel is submitted.
-        if (severityLevel == null) {
-
-            if (enableSeveritySummary) sinkHelper.emitSeveritySummarySection(results)
-            if (enableFilesSummary) sinkHelper.emitFilesSummary(results)
-            if (enableRulesSummary) sinkHelper.emitRulesSummarySection(results, checkstyleConfig)
-        }
-
-        // #3) Emit the report details
-        sinkHelper.emitDetails(results)
-
-        // #4) Close off the body, flush the stream and be done
-        sinkHelper.emitReportEnd()
-    }
-
-    //
-    // Private helpers
-    //
 
     /**
      * Get the value of the specified attribute from the Checkstyle configuration.
@@ -663,7 +655,7 @@ class CheckstyleReportCreator(var log: Log,
      * @return The value of the specified attribute
      */
     private fun getConfigAttribute(config: Configuration,
-                                   parentConfiguration: ChainedItem<Configuration>?,
+                                   parentConfiguration: CheckstyleReportCreator.ChainedItem<Configuration>?,
                                    name: String,
                                    fallbackValue: String?): String? {
 
@@ -698,7 +690,7 @@ class CheckstyleReportCreator(var log: Log,
      * @return The number of rule violations
      */
     fun matchRule(event: AuditEvent, ruleName: String, expectedMessage: String?, expectedSeverity: String?): Boolean {
-        if (ruleName != RuleUtil.getName(event)) {
+        if (ruleName != CheckstyleRule.getName(event.sourceName)) {
             return false
         }
 
@@ -723,6 +715,46 @@ class CheckstyleReportCreator(var log: Log,
         } else true
 
     }
+}
+
+/**
+ * Factory class which produces Checkstyle reports.
+ *
+ * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ */
+class CheckstyleReportCreator(var log: Log,
+                              val sinkHelper: DoxiaSinkHelper,
+                              var enableSeveritySummary: Boolean = false,
+                              var enableRulesSummary: Boolean = false,
+                              var enableFilesSummary: Boolean = false,
+                              val severityLevel: SeverityLevel? = null,
+                              val xrefLocation: File? = null,
+                              val enableRSS: Boolean = false,
+                              val checkstyleConfig: Configuration) {
+
+    /**
+     * Main report-generating method. Call this to emit the report.
+     */
+    fun generateReport(results: CheckstyleResults, ruleset: String) {
+
+        // #1) Prepare the heading
+        sinkHelper.emitReportHeading(severityLevel, enableRSS, ruleset)
+
+        // #2) Generate the summaries, unless a given SeverityLevel is submitted.
+        if (enableSeveritySummary) sinkHelper.emitSeveritySummarySection(results)
+        if (enableFilesSummary) sinkHelper.emitFilesSummary(results)
+        if (enableRulesSummary) sinkHelper.emitRulesSummarySection(results, checkstyleConfig)
+
+        // #3) Emit the report details
+        sinkHelper.emitDetails(results, xrefLocation, severityLevel)
+
+        // #4) Close off the body, flush the stream and be done
+        sinkHelper.emitReportEnd()
+    }
+
+    //
+    // Private helpers
+    //
 
     class ConfReference(val category: String,
                         val configuration: Configuration,

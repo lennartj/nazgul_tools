@@ -21,6 +21,7 @@
   #L%
   -->
 
+
 <checkstyle version="6.19">
     <file name="/Users/lj/Development/Projects/Nazgul/nazgul-core/core/jmx/jmx-api/src/main/java/se/jguru/nazgul/core/jmx/api/AbstractMBean.java">
         <error line="288" severity="warning" message="Line is longer than 120 characters (found 131)."

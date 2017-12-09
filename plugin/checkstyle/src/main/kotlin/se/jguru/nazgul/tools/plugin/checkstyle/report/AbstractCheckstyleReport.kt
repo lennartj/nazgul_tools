@@ -19,18 +19,21 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.plugin.checkstyle.report
 
+import com.puppycrawl.tools.checkstyle.DefaultConfiguration
 import com.puppycrawl.tools.checkstyle.DefaultLogger
 import com.puppycrawl.tools.checkstyle.XMLLogger
 import com.puppycrawl.tools.checkstyle.api.AuditListener
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException
+import com.puppycrawl.tools.checkstyle.api.SeverityLevel
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.doxia.tools.SiteTool
 import org.apache.maven.model.Plugin
-import org.apache.maven.model.ReportPlugin
 import org.apache.maven.model.Resource
 import org.apache.maven.plugin.MojoExecution
+import org.apache.maven.plugin.MojoFailureException
 import org.apache.maven.plugin.descriptor.PluginDescriptor
 import org.apache.maven.plugins.annotations.Component
 import org.apache.maven.plugins.annotations.Parameter
@@ -38,15 +41,11 @@ import org.apache.maven.reporting.AbstractMavenReport
 import org.apache.maven.reporting.MavenReportException
 import org.codehaus.plexus.resource.ResourceManager
 import org.codehaus.plexus.resource.loader.FileResourceLoader
-import org.codehaus.plexus.util.FileUtils
 import org.codehaus.plexus.util.PathTool
 import org.codehaus.plexus.util.StringUtils
-import se.jguru.nazgul.tools.plugin.checkstyle.CheckstyleReportGenerator
 import se.jguru.nazgul.tools.plugin.checkstyle.ReportResource
-import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutor
-import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutorException
-import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleExecutorRequest
-import se.jguru.nazgul.tools.plugin.checkstyle.exec.CheckstyleResults
+import se.jguru.nazgul.tools.plugin.checkstyle.integration.CheckstyleRunner
+import se.jguru.nazgul.tools.plugin.checkstyle.integration.CheckstyleRunnerException
 import se.jguru.nazgul.tools.plugin.checkstyle.rss.CheckstyleRssGenerator
 import se.jguru.nazgul.tools.plugin.checkstyle.rss.CheckstyleRssGeneratorRequest
 import java.io.ByteArrayOutputStream
@@ -58,16 +57,40 @@ import java.io.OutputStream
 import java.util.*
 
 /**
+ * Abstract report implementation for Checkstyle reports.
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 abstract class AbstractCheckstyleReport : AbstractMavenReport() {
 
+    companion object {
+
+        const val PLUGIN_RESOURCES = "org/apache/maven/plugin/checkstyle"
+
+        const val JAVA_FILES = "**\\/*.java"
+
+        private fun getBundle(locale: Locale): ResourceBundle {
+            return ResourceBundle.getBundle("checkstyle-report", locale, AbstractCheckstyleReport::class.java.classLoader)
+        }
+    }
+
+    /**
+     * The plexus-injected Doxia SiteTool implementation.
+     */
+    @Component(role = SiteTool::class)
+    var siteTool: SiteTool? = null
+
     /**
      * Specifies the cache file used to speed up Checkstyle on successive runs.
      */
     @Parameter(defaultValue = "\${project.build.directory}/checkstyle-cachefile")
-    protected var cacheFile: String? = null
+    var cacheFile: String? = null
+
+    /**
+     * Specifies the cache file used to speed up Checkstyle on successive runs.
+     */
+    @Parameter(defaultValue = "ERROR")
+    var severityLevel: String? = null
 
     /**
      * Specifies the location of the XML configuration to use.
@@ -258,78 +281,39 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     protected var includeTestResources: Boolean = false
 
     /**
-     * Specifies the location of the source directory to be used for Checkstyle.
-     *
-     */
-    @Parameter
-    @Deprecated("instead use {@link #sourceDirectories}")
-    private val sourceDirectory: File? = null
-
-    /**
      * Specifies the location of the source directories to be used for Checkstyle.
-     *
-     * @since 2.13
      */
     @Parameter(defaultValue = "\${project.compileSourceRoots}")
     private val sourceDirectories: List<String>? = null
 
     /**
-     * Specifies the location of the test source directory to be used for
-     * Checkstyle.
-     *
-     * @since 2.2
-     */
-    @Parameter
-    @Deprecated("instead use {@link #testSourceDirectories}")
-    private val testSourceDirectory: File? = null
-
-    /**
      * Specifies the location of the test source directories to be used for Checkstyle.
-     *
-     * @since 2.13
      */
     @Parameter(defaultValue = "\${project.testCompileSourceRoots}")
     private val testSourceDirectories: List<String>? = null
 
     /**
      * Include or not the test source directory/directories to be used for Checkstyle.
-     *
-     * @since 2.2
      */
     @Parameter(defaultValue = "false")
     protected var includeTestSourceDirectory: Boolean = false
 
     /**
      * The key to be used in the properties for the suppressions file.
-     *
-     * @since 2.1
      */
     @Parameter(property = "checkstyle.suppression.expression", defaultValue = "checkstyle.suppressions.file")
     protected var suppressionsFileExpression: String? = null
 
     /**
-     *
-     *
      * Specifies the location of the suppressions XML file to use.
-     *
-     *
-     *
-     *
      *
      * This parameter is resolved as resource, URL, then file. If successfully
      * resolved, the contents of the suppressions XML is copied into the
      * `${project.build.directory}/checkstyle-supressions.xml` file
      * before being passed to Checkstyle for loading.
      *
-     *
-     *
-     *
-     *
      * See `suppressionsFileExpression` for the property that will
      * be made available to your Checkstyle configuration.
-     *
-     *
-     * @since 2.0-beta-2
      */
     @Parameter(property = "checkstyle.suppressions.location")
     protected var suppressionsLocation: String? = null
@@ -371,14 +355,6 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
      */
     @Parameter(property = "checkstyle.enable.rss", defaultValue = "true")
     private val enableRSS: Boolean = false
-
-    /**
-     * SiteTool.
-     *
-     * @since 2.2
-     */
-    @Component(role = SiteTool::class)
-    protected var siteTool: SiteTool? = null
 
     /**
      * The Plugin Descriptor
@@ -430,10 +406,10 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     /**
      * @since 2.5
      */
-    @Component(role = CheckstyleExecutor::class, hint = "default")
-    protected var checkstyleExecutor: CheckstyleExecutor? = null
+    @Component(role = CheckstyleRunner::class, hint = "default")
+    protected var checkstyleExecutor: CheckstyleRunner? = null
 
-    protected var stringOutputStream: ByteArrayOutputStream
+    protected lateinit var stringOutputStream: ByteArrayOutputStream
 
     /**
      * Creates and returns the report generation listener.
@@ -553,7 +529,7 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
 
         } catch (e: CheckstyleException) {
             throw MavenReportException("Failed during checkstyle configuration", e)
-        } catch (e: CheckstyleExecutorException) {
+        } catch (e: CheckstyleRunnerException) {
             throw MavenReportException("Failed during checkstyle execution", e)
         } finally {
             //be sure to restore original context classloader
@@ -567,8 +543,8 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
      * @return The executor request.
      * @throws MavenReportException If something goes wrong during creation.
      */
-    @Throws(MavenReportException::class)
-    protected abstract fun createRequest(): CheckstyleExecutorRequest
+    // @Throws(MavenReportException::class)
+    // protected abstract fun createRequest(): CheckstyleExecutorRequest
 
     private fun collectArtifacts(hint: String): List<Artifact> {
         if (plugin == null || plugin!!.groupId == null) {
@@ -642,24 +618,50 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     private fun generateMainReport(results: CheckstyleResults,
                                    bundle: ResourceBundle) {
 
-        val generator = CheckstyleReportCreator(sink, bundle, project.basedir, siteTool, configLocation)
+        // Find the severityLevel as configured
+        val severityLevel: SeverityLevel? = if (this.severityLevel == null) {
+            null
+        } else {
+            try {
+                SeverityLevel.valueOf(this.severityLevel!!)
+            } catch (e: Exception) {
 
-        generator.log = log
-        generator.isEnableRulesSummary = enableRulesSummary
-        generator.isEnableSeveritySummary = enableSeveritySummary
-        generator.isEnableFilesSummary = enableFilesSummary
-        generator.isEnableRSS = enableRSS
-        generator.checkstyleConfig = results.configuration
+                throw MojoFailureException("Could not parse '$severityLevel' into a SeverityLevel. "
+                        + "Valid values: " + SeverityLevel.values().map { it.name }.reduce { l, r -> l + ", " + r })
+            }
+        }
+
+        val doxiaSinkHelper = DoxiaSinkHelper(sink,
+                bundle,
+                DefaultConfiguration("checkstyleConfiguration"),
+                project.basedir,
+                siteTool!!,
+                treeWalkerNames)
+
+        val generator = CheckstyleReportCreator(
+                log,
+                doxiaSinkHelper,
+                enableSeveritySummary,
+                enableRulesSummary,
+                enableFilesSummary,
+                severityLevel,
+                xrefLocation,
+                enableRSS,
+                DefaultConfiguration("checkstyleConfiguration"))
+
         if (linkXRef) {
+
             var relativePath = PathTool.getRelativePath(getOutputDirectory(), xrefLocation!!.absolutePath)
             if (StringUtils.isEmpty(relativePath)) {
                 relativePath = "."
             }
+            /*
             relativePath = relativePath + "/" + xrefLocation.name
             if (xrefLocation.exists()) {
                 // XRef was already generated by manual execution of a lifecycle
                 // binding
                 generator.xrefLocation = relativePath
+
             } else {
                 // Not yet generated - check if the report is on its way
                 for (report in getProject().reportPlugins as Iterable<ReportPlugin>) {
@@ -669,54 +671,13 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
                     }
                 }
             }
+            */
 
             if (generator.xrefLocation == null && results.fileCount > 0) {
                 log.warn("Unable to locate Source XRef to link to - DISABLED")
             }
         }
-        if (treeWalkerNames != null) {
-            generator.treeWalkerNames = treeWalkerNames
-        }
-        generator.generateReport(results)
-    }
 
-    protected fun getSourceDirectories(): List<File> {
-        var sourceDirs: MutableList<File>? = null
-        // if sourceDirectory is explicitly set, use it
-        if (sourceDirectory != null) {
-            sourceDirs = listOf(sourceDirectory)
-        } else {
-            sourceDirs = ArrayList(sourceDirectories!!.size)
-            for (sourceDir in sourceDirectories) {
-                sourceDirs.add(FileUtils.resolveFile(project.basedir, sourceDir))
-            }
-        }
-
-        return sourceDirs
-    }
-
-    protected fun getTestSourceDirectories(): List<File>? {
-        var testSourceDirs: MutableList<File>? = null
-        // if testSourceDirectory is explicitly set, use it
-        if (testSourceDirectory != null) {
-            testSourceDirs = listOf(testSourceDirectory)
-        } else if (testSourceDirectories != null) {
-            testSourceDirs = ArrayList(testSourceDirectories.size)
-            for (testSourceDir in testSourceDirectories) {
-                testSourceDirs.add(FileUtils.resolveFile(project.basedir, testSourceDir))
-            }
-        }// probably null-check only required due to MavenProjectStubs
-
-        return testSourceDirs
-    }
-
-    companion object {
-        val PLUGIN_RESOURCES = "org/apache/maven/plugin/checkstyle"
-
-        protected val JAVA_FILES = "**\\/*.java"
-
-        private fun getBundle(locale: Locale): ResourceBundle {
-            return ResourceBundle.getBundle("checkstyle-report", locale, AbstractCheckstyleReport::class.java.classLoader)
-        }
+        generator.generateReport(results, "standard")
     }
 }
