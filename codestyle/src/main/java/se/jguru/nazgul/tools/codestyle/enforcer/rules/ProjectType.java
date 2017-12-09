@@ -22,7 +22,6 @@
 
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import org.apache.commons.lang.Validate;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
@@ -218,7 +217,10 @@ public enum ProjectType {
      */
     public static ProjectType getProjectType(final Artifact internalArtifact) {
 
-        Validate.notNull(internalArtifact, "Cannot handle null internalArtifact argument.");
+        // Check sanity
+        if(internalArtifact == null) {
+            throw new NullPointerException("Cannot handle null internalArtifact argument.");
+        }
 
         final List<ProjectType> matches = findCandidates(internalArtifact.getGroupId(),
                 internalArtifact.getArtifactId(),
@@ -244,7 +246,10 @@ public enum ProjectType {
      */
     public static ProjectType getProjectType(final MavenProject project) throws IllegalArgumentException {
 
-        Validate.notNull(project, "Cannot handle null project argument.");
+        // Check sanity
+        if(project == null) {
+            throw new NullPointerException("Cannot handle null project argument.");
+        }
 
         final List<ProjectType> matches = findCandidates(project.getGroupId(),
                 project.getArtifactId(),

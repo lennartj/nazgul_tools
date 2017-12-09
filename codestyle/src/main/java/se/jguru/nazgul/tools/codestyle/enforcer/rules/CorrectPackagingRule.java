@@ -21,7 +21,6 @@
  */
 package se.jguru.nazgul.tools.codestyle.enforcer.rules;
 
-import org.apache.commons.lang.Validate;
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper;
 import org.apache.maven.project.MavenProject;
 import se.jguru.nazgul.tools.codestyle.enforcer.rules.source.JavaPackageExtractor;
@@ -154,9 +153,10 @@ public class CorrectPackagingRule extends AbstractNonCacheableEnforcerRule {
             throws IllegalArgumentException {
 
         // Check sanity
-        Validate.notEmpty(packageExtractorImplementations,
-                "Cannot handle empty packageExtractorImplementations argument.");
-
+        if(packageExtractorImplementations == null) {
+            throw new NullPointerException("Cannot handle empty packageExtractorImplementations argument.");
+        }
+        
         // Instantiate the PackageExtractor instances.
         List<PackageExtractor> extractors = new ArrayList<PackageExtractor>();
         for (String current : splice(packageExtractorImplementations)) {
