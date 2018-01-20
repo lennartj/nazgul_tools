@@ -32,6 +32,7 @@ import org.codehaus.plexus.component.annotations.Requirement
 import org.codehaus.plexus.resource.ResourceManager
 import org.codehaus.plexus.util.FileUtils
 import org.codehaus.plexus.util.StringUtils
+import se.jguru.nazgul.tools.plugin.checkstyle.CheckstyleResults
 import java.io.File
 import java.io.IOException
 import java.io.Serializable
@@ -72,7 +73,7 @@ class CheckstyleRunner(val mavenProject: MavenProject, val log: Log) : Serializa
      * @throws CheckstyleException if the Checker method call failed.
      */
     @Throws(CheckstyleRunnerException::class, CheckstyleException::class)
-    fun executeCheckstyle(parameters: CheckstyleParameters) {
+    fun executeCheckstyle(parameters: CheckstyleParameters) : CheckstyleResults {
 
         // Augment the execution environment?
         val compoundEnvironmentFacet = CompoundEnvironmentFacet(parameters, mavenProject, log)

@@ -32,7 +32,6 @@ import org.apache.maven.artifact.Artifact
 import org.apache.maven.doxia.tools.SiteTool
 import org.apache.maven.model.Plugin
 import org.apache.maven.model.Resource
-import org.apache.maven.plugin.MojoExecution
 import org.apache.maven.plugin.MojoFailureException
 import org.apache.maven.plugin.descriptor.PluginDescriptor
 import org.apache.maven.plugins.annotations.Component
@@ -43,18 +42,65 @@ import org.codehaus.plexus.resource.ResourceManager
 import org.codehaus.plexus.resource.loader.FileResourceLoader
 import org.codehaus.plexus.util.PathTool
 import org.codehaus.plexus.util.StringUtils
-import se.jguru.nazgul.tools.plugin.checkstyle.ReportResource
+import se.jguru.nazgul.tools.plugin.checkstyle.CheckstyleResults
 import se.jguru.nazgul.tools.plugin.checkstyle.integration.CheckstyleRunner
 import se.jguru.nazgul.tools.plugin.checkstyle.integration.CheckstyleRunnerException
-import se.jguru.nazgul.tools.plugin.checkstyle.rss.CheckstyleRssGenerator
-import se.jguru.nazgul.tools.plugin.checkstyle.rss.CheckstyleRssGeneratorRequest
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStreamReader
 import java.io.OutputStream
+import java.nio.charset.StandardCharsets
 import java.util.*
+import java.util.regex.Pattern
+
+/**
+ * [ResourceBundle.Control] implementation which reads [PropertyResourceBundle] files with UTF-8 encoding.
+ *
+ * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ */
+class Utf8ResourceBundleControl : ResourceBundle.Control() {
+
+    // Internal state
+    private var lastLocale : Locale? = null
+
+    /**
+     * Do not cache the values.
+     */
+    override fun getTimeToLive(baseName: String?, locale: Locale?): Long {
+        return TTL_DONT_CACHE;
+    }
+
+    /**
+     * Creates a new [ResourceBundle] which reads the data file assuming UTF-8 encoding.
+     */
+    @Throws(IllegalAccessException::class, InstantiationException::class, IOException::class)
+    override fun newBundle(baseName: String,
+                           locale: Locale,
+                           format: String,
+                           loader: ClassLoader,
+                           reload: Boolean): ResourceBundle? {
+
+        // Delegate to default implementation to find base data.
+        val bundleName = toBundleName(baseName, locale)
+        val resourceName = toResourceName(bundleName, "properties")
+
+        // Open an URLConnection to the resource, or die trying.
+        val conn = loader.getResource(resourceName).openConnection()
+        if (reload) {
+            conn.useCaches = false
+        }
+
+        // Ensure to AutoClose the InputStream
+        conn.getInputStream().use {
+
+            // ... and finally, use UTF-8 to read the stream.
+            return PropertyResourceBundle(InputStreamReader(it, StandardCharsets.UTF_8))
+        }
+    }
+}
 
 /**
  * Abstract report implementation for Checkstyle reports.
@@ -65,12 +111,24 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
 
     companion object {
 
+        /**
+         * Resource path to the Checkstyle plugin resources
+         */
         const val PLUGIN_RESOURCES = "org/apache/maven/plugin/checkstyle"
 
+        /**
+         * [java.util.regex.Pattern] finding Java files.
+         */
         const val JAVA_FILES = "**\\/*.java"
 
+        /**
+         * Retrieves the ResourceBundle for the Checkstyle Report.
+         */
         private fun getBundle(locale: Locale): ResourceBundle {
-            return ResourceBundle.getBundle("checkstyle-report", locale, AbstractCheckstyleReport::class.java.classLoader)
+            return ResourceBundle.getBundle("checkstyle-report",
+                    locale,
+                    AbstractCheckstyleReport::class.java.classLoader,
+                    Utf8ResourceBundleControl())
         }
     }
 
@@ -97,20 +155,19 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
      *
      * Potential values are a filesystem path, a URL, or a classpath resource.
      * This parameter expects that the contents of the location conform to the
-     * xml format
-     * (Checkstyle [Checker module](http://checkstyle.sourceforge.net/config.html#Modules))
+     * xml format (Checkstyle [Checker module](http://checkstyle.sourceforge.net/config.html#Modules))
      * configuration of rulesets.
      *
      * This parameter is resolved as resource, URL, then file. If successfully
      * resolved, the contents of the configuration is copied into the
-     * `${project.build.directory}/checkstyle-configuration.xml`
+     * [${project.build.directory}/checkstyle-configuration.xml]
      * file before being passed to Checkstyle as a configuration.
      *
-     *There are 2 predefined rulesets included in Maven Checkstyle Plugin:
-     *
-     * `sun_checks.xml`: Sun Checks.
-     * `google_checks.xml`: Google Checks.
-     *
+     * There are 2 predefined rulesets included in Maven Checkstyle Plugin:
+     * <ul>
+     *     <li><strong>sun_checks.xml</strong>: Checks from SUN / Oracle.</li>
+     *     <li><strong>google_checks.xml</strong>: Checkstyle from Google</li>
+     * </ul>
      */
     @Parameter(property = "checkstyle.config.location", defaultValue = "sun_checks.xml")
     protected var configLocation: String? = null
@@ -123,10 +180,9 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
 
     /**
      * The file encoding to use when reading the source files. If the property `project.build.sourceEncoding`
-     * is not set, the platform default encoding is used. **Note:** This parameter always overrides the
-     * property `charset` from Checkstyle's `TreeWalker` module.
+     * is not set, the platform default encoding is used.
      *
-     * @since 2.2
+     * **Note:** This parameter always overrides the property `charset` from Checkstyle's `TreeWalker` module.
      */
     @Parameter(property = "encoding", defaultValue = "\${project.build.sourceEncoding}")
     protected var encoding: String? = null
@@ -138,76 +194,48 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     protected var failsOnError: Boolean = false
 
     /**
-     *
-     *
      * Specifies the location of the License file (a.k.a. the header file) that
      * can be used by Checkstyle to verify that source code has the correct
      * license header.
      *
-     *
-     *
      * You need to use ${checkstyle.header.file} in your Checkstyle xml
      * configuration to reference the name of this header file.
      *
-     *
-     *
      * For instance:
-     *
-     *
-     *
-     * `
+     * ```
      * <module name="RegexpHeader">
      * <property name="headerFile" value="${checkstyle.header.file}"/>
      * </module>
-    ` *
-     *
-     *
-     * @since 2.0-beta-2
+     * ```
      */
     @Parameter(property = "checkstyle.header.file", defaultValue = "LICENSE.txt")
     protected var headerLocation: String? = null
 
     /**
      * Skip entire check.
-     *
-     * @since 2.2
      */
     @Parameter(property = "checkstyle.skip", defaultValue = "false")
     protected var skip: Boolean = false
 
     /**
-     * Specifies the path and filename to save the Checkstyle output. The format
-     * of the output file is determined by the `outputFileFormat`
-     * parameter.
+     * Specifies the path and filename to save the Checkstyle output.
+     * The format of the output file is determined by the `outputFileFormat` parameter.
      */
     @Parameter(property = "checkstyle.output.file", defaultValue = "\${project.build.directory}/checkstyle-result.xml")
     private val outputFile: File? = null
 
     /**
-     *
-     *
      * Specifies the location of the properties file.
-     *
-     *
-     *
-     *
      *
      * This parameter is resolved as URL, File then resource. If successfully
      * resolved, the contents of the properties location is copied into the
      * `${project.build.directory}/checkstyle-checker.properties`
      * file before being passed to Checkstyle for loading.
      *
-     *
-     *
-     *
-     *
      * The contents of the `propertiesLocation` will be made
      * available to Checkstyle for specifying values for parameters within the
      * xml configuration (specified in the `configLocation`
      * parameter).
-     *
-     *
-     * @since 2.0-beta-2
      */
     @Parameter(property = "checkstyle.properties.location")
     protected var propertiesLocation: String? = null
@@ -220,16 +248,12 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
 
     /**
      * Specifies the location of the resources to be used for Checkstyle.
-     *
-     * @since 2.10
      */
     @Parameter(defaultValue = "\${project.resources}", readonly = true)
     protected var resources: List<Resource>? = null
 
     /**
      * Specifies the location of the test resources to be used for Checkstyle.
-     *
-     * @since 2.11
      */
     @Parameter(defaultValue = "\${project.testResources}", readonly = true)
     protected var testResources: List<Resource>? = null
@@ -241,41 +265,31 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     protected var includes: String? = null
 
     /**
-     * Specifies the names filter of the source files to be excluded for
-     * Checkstyle.
+     * Specifies the names filter of the source files to be excluded for Checkstyle.
      */
     @Parameter(property = "checkstyle.excludes")
     protected var excludes: String? = null
 
     /**
      * Specifies the names filter of the resource files to be used for Checkstyle.
-     *
-     * @since 2.11
      */
     @Parameter(property = "checkstyle.resourceIncludes", defaultValue = "**/*.properties", required = true)
     protected var resourceIncludes: String? = null
 
     /**
-     * Specifies the names filter of the resource files to be excluded for
-     * Checkstyle.
-     *
-     * @since 2.11
+     * Specifies the names filter of the resource files to be excluded for Checkstyle.
      */
     @Parameter(property = "checkstyle.resourceExcludes")
     protected var resourceExcludes: String? = null
 
     /**
      * Specifies whether to include the resource directories in the check.
-     *
-     * @since 2.11
      */
     @Parameter(property = "checkstyle.includeResources", defaultValue = "true", required = true)
     protected var includeResources: Boolean = false
 
     /**
      * Specifies whether to include the test resource directories in the check.
-     *
-     * @since 2.11
      */
     @Parameter(property = "checkstyle.includeTestResources", defaultValue = "true", required = true)
     protected var includeTestResources: Boolean = false
@@ -362,10 +376,6 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
     @Parameter(defaultValue = "\${plugin}", readonly = true, required = true)
     private var plugin: PluginDescriptor? = null
 
-    // remove when requiring Maven 3.x, just use #plugin
-    @Parameter(defaultValue = "\${mojoExecution}", readonly = true, required = true)
-    private val mojoExecution: MojoExecution? = null
-
     /**
      * Link the violation line numbers to the source xref. Will link
      * automatically if Maven JXR plugin is being used.
@@ -400,8 +410,8 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
      *
      * @since 2.4
      */
-    @Component(role = CheckstyleRssGenerator::class, hint = "default")
-    protected var checkstyleRssGenerator: CheckstyleRssGenerator? = null
+    // @Component(role = CheckstyleRssGenerator::class, hint = "default")
+    // protected var checkstyleRssGenerator: CheckstyleRssGenerator? = null
 
     /**
      * @since 2.5
@@ -522,10 +532,13 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
             val bundle = getBundle(locale)
             generateReportStatics()
             generateMainReport(results, bundle)
+
+            /*
             if (enableRSS) {
                 val checkstyleRssGeneratorRequest = CheckstyleRssGeneratorRequest(this.project, this.copyright, outputDirectory, log)
                 checkstyleRssGenerator!!.generateRSS(results, checkstyleRssGeneratorRequest)
             }
+            */
 
         } catch (e: CheckstyleException) {
             throw MavenReportException("Failed during checkstyle configuration", e)
@@ -612,8 +625,16 @@ abstract class AbstractCheckstyleReport : AbstractMavenReport() {
         } catch (e: IOException) {
             throw MavenReportException("Unable to copy static resources.", e)
         }
-
     }
+
+    /**
+     * Create the Checkstyle executor request.
+     *
+     * @return The executor request.
+     * @throws MavenReportException If something goes wrong during creation.
+     */
+    @Throws(MavenReportException::class)
+    protected abstract fun createRequest()
 
     private fun generateMainReport(results: CheckstyleResults,
                                    bundle: ResourceBundle) {

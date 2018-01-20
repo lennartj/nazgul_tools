@@ -70,7 +70,7 @@ class CheckstyleRule : Serializable {
          * @param event the Checkstyle AuditEvent
          * @return the "rule category", which is the last package name or "misc" or "extension"
          */
-        fun getCategory(event: AuditEvent): String? {
+        fun  getCategory(event: AuditEvent): String? {
             return getCategory(event.sourceName)
         }
 

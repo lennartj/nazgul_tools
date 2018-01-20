@@ -142,11 +142,11 @@
         <pmd.plugin.version>3.8</pmd.plugin.version>
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
-        <!-- Findbugs configuration parameters. -->
-        <findbugs.plugin.version>3.0.5</findbugs.plugin.version>
-        <findbugs.only.analyze>se.jguru.nazgul.*</findbugs.only.analyze>
-        <findbugs.includeFilterFile>codestyle/findbugs.xml</findbugs.includeFilterFile>
-        <findbugs.excludeFilterFile>codestyle/findbugs-excludes.xml</findbugs.excludeFilterFile>
+        <!-- Spotbugs configuration parameters. -->
+        <spotbugs.plugin.version>3.1.0</spotbugs.plugin.version>
+        <spotbugs.only.analyze>se.jguru.nazgul.*</spotbugs.only.analyze>
+        <spotbugs.includeFilterFile>codestyle/spotbugs.xml</spotbugs.includeFilterFile>
+        <spotbugs.excludeFilterFile>codestyle/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
 
         <!-- Surefire configuration parameters. -->
         <surefire.memconf>-Xmx1024m -XX:MaxPermSize=512m</surefire.memconf>
