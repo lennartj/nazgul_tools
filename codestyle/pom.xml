@@ -92,8 +92,8 @@
 
         <!-- Code style properties -->
         <pmd.plugin.version>3.8</pmd.plugin.version>
-        <clover.plugin.version>4.2.0</clover.plugin.version>
-        <spotbugs-maven-plugin.version>3.1.0</spotbugs-maven-plugin.version>
+        <clover.plugin.version>4.2.1</clover.plugin.version>
+        <spotbugs.plugin.version>3.1.1</spotbugs.plugin.version>
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <clean.plugin.version>2.6.1</clean.plugin.version>
@@ -236,13 +236,13 @@
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>${spotbugs-maven-plugin.version}</version>
+                    <version>${spotbugs.plugin.version}</version>
                     <configuration>
                         <threshold>Low</threshold>
                         <effort>Max</effort>
                         <onlyAnalyze>se.jguru.nazgul.codestyle.*</onlyAnalyze>
-                        <includeFilterFile>${project.build.outputDirectory}/codestyle/findbugs.xml</includeFilterFile>
-                        <excludeFilterFile>${project.build.outputDirectory}/codestyle/findbugs-excludes.xml</excludeFilterFile>
+                        <includeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs.xml</includeFilterFile>
+                        <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml</excludeFilterFile>
                         <relaxed>false</relaxed>
                     </configuration>
                     <executions>
@@ -546,7 +546,22 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs-maven-plugin.version}</version>
+                <version>${spotbugs.plugin.version}</version>
+                <configuration>
+                    <threshold>Low</threshold>
+                    <effort>Max</effort>
+                    <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
+                    <includeFilterFile>codestyle/spotbugs.xml</includeFilterFile>
+                    <excludeFilterFile>codestyle/spotbugs-excludes.xml</excludeFilterFile>
+                    <relaxed>false</relaxed>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>spotbugs</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
 
             <!--

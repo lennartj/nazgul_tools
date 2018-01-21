@@ -53,11 +53,6 @@
     -->
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -71,60 +66,6 @@
     -->
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <includes>
-                            <include>se/jguru/nazgul/tools/validation/**/*.class</include>
-                        </includes>
-                        <excludes>
-                            <!-- Don't check Exception classes -->
-                            <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
-
-                            <!-- Don't weave aspects already woven by AspectJ. -->
-                            <exclude>se/jguru/nazgul/tools/validation/aspect/**/*Aspect.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                    <check>
-                        <branchRate>65</branchRate>
-                        <lineRate>80</lineRate>
-                        <haltOnFailure>${cobertura.haltOnFailure}</haltOnFailure>
-                    </check>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--
-                Note! AspectJ and Cobertura plugins clash WRT instrumentation of test classes.
-                Therefore, one must remove the overall test-compile goal from this (global)
-                AspectJ plugin definition, and overwrite this plugin definition (using the
-                here commented-out test-compile goal) in projects where weaving is required in
-                the testcases.
-
-                When overriding this plugin definition in subprojects, you should likely be
-                required to override Cobertura's exclude definitions for certain inner classes
-                as well.
-
-                // Lennart, 2011-06-27
-            -->
-            <!-- plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>aspectj-maven-plugin</artifactId>
-                <configuration>
-                    <XaddSerialVersionUID>true</XaddSerialVersionUID>
-                    <showWeaveInfo>true</showWeaveInfo>
-                </configuration>
-            </plugin -->
-
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
