@@ -551,8 +551,8 @@
                     <threshold>Low</threshold>
                     <effort>Max</effort>
                     <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
-                    <includeFilterFile>codestyle/spotbugs.xml</includeFilterFile>
-                    <excludeFilterFile>codestyle/spotbugs-excludes.xml</excludeFilterFile>
+                    <includeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs.xml</includeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml</excludeFilterFile>
                     <relaxed>false</relaxed>
                 </configuration>
                 <reportSets>

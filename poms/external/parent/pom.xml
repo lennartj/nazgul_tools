@@ -169,6 +169,8 @@
                 <configuration>
                     <verbose>true</verbose>
                     <privateScope>true</privateScope>
+                    <complianceLevel>${jdk.version}</complianceLevel>
+                    <doctitle>AspectJ Weaving Report</doctitle>
                 </configuration>
                 <reportSets>
                     <reportSet>
