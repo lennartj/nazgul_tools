@@ -158,29 +158,6 @@
                 </dependencies>
             </plugin>
 
-            <!--
-                Provides unit test coverage for the project.
-
-                Used: Standard build, mvn verify.
-            -->
-            <plugin>
-                <groupId>org.openclover</groupId>
-                <artifactId>clover-maven-plugin</artifactId>
-                <version>${clover.plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.runtime.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
-                        <artifactId>nazgul-tools-validation-aspect</artifactId>
-                        <version>6.0.4-SNAPSHOT</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
         </plugins>
     </build>
 
@@ -234,4 +211,72 @@
         <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
+
+    <!--
+    ################################################
+    # Section 5:  Profiles
+    ################################################
+    -->
+    <profiles>
+        <profile>
+            <id>run-clover</id>
+            <activation>
+                <property>
+                    <name>withClover</name>
+                    <value>true</value>
+                </property>
+            </activation>
+
+            <build>
+                <plugins>
+
+                    <!--
+                        Provides unit test coverage for the project.
+
+                        Used: Standard build, mvn verify and pre-site.
+                    -->
+                    <plugin>
+                        <groupId>org.openclover</groupId>
+                        <artifactId>clover-maven-plugin</artifactId>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.aspectj</groupId>
+                                <artifactId>aspectjtools</artifactId>
+                                <version>${aspectj.runtime.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                                <artifactId>nazgul-tools-validation-aspect</artifactId>
+                                <version>6.0.4-SNAPSHOT</version>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>main</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                    <!-- goal>aggregate</goal -->
+                                    <goal>check</goal>
+                                    <goal>log</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>site</id>
+                                <phase>pre-site</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                    <!-- goal>aggregate</goal -->
+                                    <!--
+                                        We save a history point in order to have data to generate a historical report
+                                     -->
+                                    <goal>save-history</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

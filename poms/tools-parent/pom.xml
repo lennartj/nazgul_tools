@@ -108,7 +108,7 @@
         <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
-        
+
         <!-- Version number properties -->
         <maven.version>3.3.1</maven.version>
         <openjpa.version>2.4.0</openjpa.version>
@@ -1249,40 +1249,6 @@
                 </executions>
             </plugin>
 
-            <!--
-                Provides unit test coverage for the project.
-
-                Used: Standard build, mvn verify and pre-site.
-            -->
-            <plugin>
-                <groupId>org.openclover</groupId>
-                <artifactId>clover-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>main</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>instrument</goal>
-                            <!-- goal>aggregate</goal -->
-                            <goal>check</goal>
-                            <goal>log</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>site</id>
-                        <phase>pre-site</phase>
-                        <goals>
-                            <goal>instrument</goal>
-                            <!-- goal>aggregate</goal -->
-                            <!--
-                                We save a history point in order to have data to generate a historical report
-                             -->
-                            <goal>save-history</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Fix project license documents -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -1699,7 +1665,6 @@
     ################################################
     -->
     <profiles>
-
         <!--
             Release profile for Nazgul Reactors.
         -->
