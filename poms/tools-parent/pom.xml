@@ -942,12 +942,9 @@
                     Used: Standard lifecycle, mvn package.
                 -->
                 <plugin>
-                    <!-- groupId>org.apache.maven.plugins</groupId>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${checkstyle.plugin.version}</version -->
-                    <groupId>se.jguru.nazgul.tools.plugin.checkstyle</groupId>
-                    <artifactId>nazgul-tools-checkstyle-maven-plugin</artifactId>
-                    <version>6.0.4-SNAPSHOT</version>
+                    <version>${checkstyle.plugin.version}</version>
                     <configuration>
                         <skip>${skip.verify.code}</skip>
                         <configLocation>${checkstyle.config.location}</configLocation>
@@ -1208,10 +1205,8 @@
 
             <!-- Check codestyle, part 1: Checkstyle -->
             <plugin>
-                <!-- groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId -->
-                <groupId>se.jguru.nazgul.tools.plugin.checkstyle</groupId>
-                <artifactId>nazgul-tools-checkstyle-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>verify</id>
