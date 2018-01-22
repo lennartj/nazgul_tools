@@ -45,12 +45,16 @@ public abstract class AbstractExecutableFacade {
     public static final String GRAPHVIZ_EXECUTABLE_FIRST_LINE_CHECK = "^.*[Gg][Rr][Aa][Pp][Hh][Vv][Ii][Zz].*$";
 
     /**
-     * The System property key defining the graphviz home.
+     * The System property key defining the graphviz home. If the result of
+     * {@code System.getProperty(HOMEDIR_SYSTEM_PROPERTY)} returns a non-null value, it is assumed to be
+     * the absolute path to the installation directory of Graphviz.
      */
     public static final String HOMEDIR_SYSTEM_PROPERTY = "graphviz.home";
 
     /**
-     * The environment key defining the graphviz home.
+     * The environment key defining the graphviz home. If the result of
+     * {@code System.getenv(HOMEDIR_ENV_PROPERTY)} returns a non-null value, it is assumed to be
+     * the absolute path to the installation directory of Graphviz.
      */
     public static final String HOMEDIR_ENV_PROPERTY = "GRAPHVIZ_HOME";
 
@@ -71,7 +75,10 @@ public abstract class AbstractExecutableFacade {
     private boolean isInitializedOK;
 
     /**
-     * @param executableName
+     * Compound constructor creating an abstract facade wrapping the given executable.
+     *
+     * @param executableName The name of the executable to wrap, typically "dot.exe" or "dot" depending on the
+     *                       underlying operating system.
      */
     protected AbstractExecutableFacade(final String executableName) {
 

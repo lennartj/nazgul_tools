@@ -38,11 +38,13 @@ import java.io.Writer;
  */
 public class DotFacade extends AbstractExecutableFacade {
 
+    private static final String DOT_EXECUTABLE_NAME = "dot";
+
     /**
-     * Default constructor.
+     * Default constructor, using "dot" as the e
      */
     public DotFacade() {
-        super("dot");
+        super(DOT_EXECUTABLE_NAME);
     }
 
     /**

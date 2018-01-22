@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>se.jguru.nazgul.tools.visualization.impl.doclet.its</groupId>
+    <artifactId>simple-class-diagram</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <description>Purpose: Generate default class diagram</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <stylesheet>java</stylesheet>
+                        <groups>
+                            <group>
+                                <title>Nazgul Framework: Tools Packages</title>
+                                <packages>se.jguru.nazgul.tools.*</packages>
+                            </group>
+                            <group>
+                                <title>Nazgul Framework: Core Packages</title>
+                                <packages>se.jguru.nazgul.core.*</packages>
+                            </group>
+                            <group>
+                                <title>Nazgul Framework: Test Artifact Packages</title>
+                                <packages>se.jguru.nazgul.test.*</packages>
+                            </group>
+                        </groups>
+                        <doclet>se.jguru.nazgul.tools.visualization.impl.doclet.DelegatingDoclet</doclet>
+                        <docletArtifact>
+                            <groupId>se.jguru.nazgul.tools.visualization.impl.doclet</groupId>
+                            <artifactId>nazgul-tools-visualization-impl-doclet</artifactId>
+                            <version>@project.version@</version>
+                        </docletArtifact>
+                        <useStandardDocletOptions>true</useStandardDocletOptions>
+                        <charset>${project.build.sourceEncoding}</charset>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <docencoding>${project.build.sourceEncoding}</docencoding>
+                        <breakiterator>true</breakiterator>
+                        <version>true</version>
+                        <author>true</author>
+                        <keywords>true</keywords>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                    </configuration>
+                </plugin>
+                
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7</version>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>

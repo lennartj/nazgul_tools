@@ -27,7 +27,25 @@ import com.sun.javadoc.LanguageVersion;
 import com.sun.javadoc.RootDoc;
 
 /**
- * Doclet implementation which delegates its actual implementation to a {@link SimpleDoclet} implementation.
+ * <h2>What is a <strong>delegating</strong> Doclet?</h2>
+ * <p>Doclet implementation which delegates its actual implementation to a {@link SimpleDoclet} implementation.
+ * The Doclet specification within the JDK requires a Doclet implementation to have only static methods, implying
+ * that standard inheritance is not normally available for Doclet development. The simpler option is to delegate
+ * doclet execution to another class - and this is what the DelegatingDoclet does.</p>
+ *
+ * <h3>Finding the SimpleDoclet class</h3>
+ * <p>When loading the DelegatingDoclet class, it looks for a {@link SimpleDoclet} implementation to which it will
+ * delegate all doclet-related work. The delegation is done in 3 steps:</p>
+ * <ol>
+ *     <li><strong>Environment property</strong>. If {@code System.getenv(ENV_SIMPLEDOCLET_CLASS)} returns a
+ *     non-null value, the DelegatingDoclet assumes the result is the fully qualified classname of a SimpleDoclet
+ *     implementation which is loaded and used as delegate. The class must contain a no-argument constructor.</li>
+ *     <li><strong>System property</strong>. If {@code System.getProperty(PROPERTY_SIMPLEDOCLET_CLASS)} returns a
+ *     non-null value, the DelegatingDoclet assumes the result is the fully qualified classname of a SimpleDoclet
+ *     implementation which is loaded and used as delegate. The class must contain a no-argument constructor.</li>
+ *     <li><strong>Default</strong>. If Doclet classname is found, the DelegatingDoclet uses
+ *     {@link VisualizationDoclet} as the SimpleDoclet to which doclet-related work should be delegated.</li>
+ * </ol>
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
@@ -124,9 +142,10 @@ public class DelegatingDoclet {
     /**
      * <p>Checks that the supplied options are valid for this Doclet, and uses the supplied {@link DocErrorReporter}
      * instance to report any errors. According to the doclet specification:</p>
-     * <p>If the validOptions method is present, it is automatically invoked; you don't have to explicitly call it.
+     * <blockquote>If the validOptions method is present, it is automatically invoked; you don't have to
+     * explicitly call it.
      * It should return {@code true} if the option usage is valid, and false otherwise. You can also print
-     * appropriate error messages from validOptions when improper usages of command-line options are found.</p>
+     * appropriate error messages from validOptions when improper usages of command-line options are found.</blockquote>
      *
      * @param options       The options to validate.
      * @param errorReporter The error reporter used to output error messages, in case the options were not valid.

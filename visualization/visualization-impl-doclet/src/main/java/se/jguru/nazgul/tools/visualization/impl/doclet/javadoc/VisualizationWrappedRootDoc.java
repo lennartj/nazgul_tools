@@ -7,11 +7,11 @@
  * Licensed under the jGuru Europe AB license (the "License"), based
  * on Apache License, Version 2.0; you may not use this file except
  * in compliance with the License.
- * 
+ *
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ public class VisualizationWrappedRootDoc extends AbstractRootDocWrapper {
 
     /**
      * Delegates to the wrapped {@link RootDoc} only if the supplied Message does not contain an
-     * {@link se.jguru.nazgul.tools.visualization.impl.doclet.VisualizationDocletTag} identifier. 
+     * {@link se.jguru.nazgul.tools.visualization.impl.doclet.VisualizationDocletTag} identifier.
      * Otherwise, the message is ignored.
      *
      * @param msg The warning message.
@@ -68,7 +68,11 @@ public class VisualizationWrappedRootDoc extends AbstractRootDocWrapper {
      */
     @Override
     public void printWarning(final SourcePosition pos, final String msg) {
-        super.printWarning(pos, msg);
+
+        // Swallow VisualizationDoclet warnings.
+        if (!containsVisualizationDocletTag(msg)) {
+            wrappedRootDoc.printWarning(pos, msg);
+        }
     }
 
     /**
