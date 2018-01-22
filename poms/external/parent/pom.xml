@@ -157,6 +157,30 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <!--
+                Provides unit test coverage for the project.
+
+                Used: Standard build, mvn verify.
+            -->
+            <plugin>
+                <groupId>org.openclover</groupId>
+                <artifactId>clover-maven-plugin</artifactId>
+                <version>${clover.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.runtime.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                        <artifactId>nazgul-tools-validation-aspect</artifactId>
+                        <version>6.0.4-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
         </plugins>
     </build>
 

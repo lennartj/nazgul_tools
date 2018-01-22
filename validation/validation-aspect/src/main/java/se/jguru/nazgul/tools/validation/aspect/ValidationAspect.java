@@ -35,9 +35,10 @@ import se.jguru.nazgul.tools.validation.api.exception.InternalStateValidationExc
 import java.lang.reflect.Constructor;
 
 /**
- * <p>The aspect enforcing validity on a class implementing Validatable (i.e. Entities).
- * This aspect should be fired immediately after a non-default constructor is invoked,
- * and is intended to run as a singleton.</p>
+ * <p>The aspect enforcing validity on a class implementing {@link Validatable}s (typically Entities or other classes
+ * containing state). This aspect should be fired immediately after a non-default constructor is invoked, to ensure
+ * that frameworks such as JAXB and JPA can perform full reflective population of an object <strong>before</strong>
+ * state validation using this Aspect is performed.</p>
  * <p>Validation should be run only once, and only after the constructor of the ultimate
  * created instance is run (default AspectJ behaviour is to run the Aspect after any
  * constructor within the inheritance hierarchy is executed [i.e. after constructors

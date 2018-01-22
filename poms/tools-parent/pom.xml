@@ -1263,7 +1263,7 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>instrument</goal>
-                            <goal>aggregate</goal>
+                            <!-- goal>aggregate</goal -->
                             <goal>check</goal>
                             <goal>log</goal>
                         </goals>
@@ -1273,7 +1273,7 @@
                         <phase>pre-site</phase>
                         <goals>
                             <goal>instrument</goal>
-                            <goal>aggregate</goal>
+                            <!-- goal>aggregate</goal -->
                             <!--
                                 We save a history point in order to have data to generate a historical report
                              -->

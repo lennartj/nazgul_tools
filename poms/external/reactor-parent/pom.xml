@@ -70,12 +70,12 @@
     <build>
         <plugins>
             <!--
-                    The license plugin is quite inflexible about the format for the injected/detected file header
-                    in terms of license structure. Use it as intended, but provide a variable
+                The license plugin is quite inflexible about the format for the injected/detected file header
+                in terms of license structure. Use it as intended, but provide a variable
 
-                    Why:  Ensures that all files contain a license header.
-                    Used: Standard lifecycle, mvn package.
-                -->
+                Why:  Ensures that all files contain a license header.
+                Used: Standard lifecycle, mvn package.
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
