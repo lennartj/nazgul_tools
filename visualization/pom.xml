@@ -33,7 +33,7 @@
         <module>visualization-spi-dot</module>
         <module>visualization-model</module>
         <module>visualization-api</module>
-        <module>visualization-impl-doclet</module>
+        <module>visualization-spi-doclet</module>
     </modules>
 
     <!--
