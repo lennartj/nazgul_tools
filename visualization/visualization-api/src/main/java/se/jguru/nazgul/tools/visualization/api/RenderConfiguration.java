@@ -7,11 +7,11 @@
  * Licensed under the jGuru Europe AB license (the "License"), based
  * on Apache License, Version 2.0; you may not use this file except
  * in compliance with the License.
- * 
+ *
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -73,10 +73,11 @@ public class RenderConfiguration implements Serializable {
      *
      * @param indentationLevel The non-negative indentation level.
      * @param indentationToken The non-empty and non-null indentation token.
+     * @param isDirectedGraph  {@code true} to indicate that a directed graph should be rendered.
      */
     public RenderConfiguration(final int indentationLevel,
-            final String indentationToken,
-            final boolean isDirectedGraph) {
+                               final String indentationToken,
+                               final boolean isDirectedGraph) {
 
         // Assign internal state
         this.extraConfiguration = new TreeMap<>();

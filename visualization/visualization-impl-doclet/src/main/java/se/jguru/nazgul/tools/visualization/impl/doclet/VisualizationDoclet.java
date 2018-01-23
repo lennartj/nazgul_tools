@@ -28,7 +28,8 @@ import com.sun.javadoc.DocErrorReporter;
 import com.sun.javadoc.PackageDoc;
 import com.sun.javadoc.RootDoc;
 import com.sun.javadoc.Tag;
-import com.sun.tools.doclets.standard.Standard;
+import com.sun.tools.doclets.formats.html.HtmlDoclet;
+import com.sun.tools.doclets.internal.toolkit.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.jguru.nazgul.tools.visualization.impl.doclet.graphviz.DotFacade;
@@ -46,6 +47,7 @@ public class VisualizationDoclet implements SimpleDoclet {
     private static final Logger log = LoggerFactory.getLogger(VisualizationDoclet.class);
 
     // Internal state
+    private HtmlDoclet htmlDoclet;
     private DotFacade dotFacade;
 
     /**
@@ -63,12 +65,13 @@ public class VisualizationDoclet implements SimpleDoclet {
     public VisualizationDoclet(final DotFacade dotFacade) {
 
         // Check sanity
-        if(dotFacade == null) {
+        if (dotFacade == null) {
             throw new NullPointerException("Cannot handle null 'dotFacade' argument.");
         }
 
         // Assign internal state
         this.dotFacade = dotFacade;
+        this.htmlDoclet = new HtmlDoclet();
     }
 
     /**
@@ -79,24 +82,35 @@ public class VisualizationDoclet implements SimpleDoclet {
 
         // Wrap the received RootDoc instance.
         final VisualizationWrappedRootDoc rootDoc = new VisualizationWrappedRootDoc(root);
+        htmlDoclet.configuration.root = root;
+
+        try {
+            htmlDoclet.configuration.setOptions();
+        } catch (Configuration.Fault fault) {
+            fault.printStackTrace();
+        }
 
         for (ClassDoc cDoc : rootDoc.classes()) {
 
             // Log somewhat
-            if (log.isDebugEnabled()) log.debug(getJavaDocAndTagsLog(cDoc));
+            if (log.isDebugEnabled()) {
+                log.debug(getJavaDocAndTagsLog(cDoc));
+            }
         }
 
         for (PackageDoc pDoc : rootDoc.specifiedPackages()) {
 
             // Log somewhat
-            if (log.isDebugEnabled()) log.debug(getJavaDocAndTagsLog(pDoc));
+            if (log.isDebugEnabled()) {
+                log.debug(getJavaDocAndTagsLog(pDoc));
+            }
         }
 
         // Convert the DOT-generated Map and
         // dotFacade.writePngImageAndImageMap(rootDoc, theDotDiagram, outputDirectory, fileName);
 
         // Delegate further execution to the standard Doclet.
-        return Standard.start(root);
+        return HtmlDoclet.start(root);
     }
 
     private <T extends Doc> String getJavaDocAndTagsLog(final T theDoc) {
@@ -128,7 +142,14 @@ public class VisualizationDoclet implements SimpleDoclet {
 
         // This Visualization Doclet recognizes no special options.
         // Simply delegate to the standard doclet.
-        return Standard.validOptions(options, errorReporter);
+        try {
+            htmlDoclet.sharedInstanceForOptions.setOptions(options);
+        } catch (Configuration.Fault fault) {
+            fault.printStackTrace();
+        }
+
+        // All done?
+        return HtmlDoclet.validOptions(options, errorReporter);
     }
 
     /**
@@ -141,7 +162,7 @@ public class VisualizationDoclet implements SimpleDoclet {
         if (JavaDocOption.HELP.getOption().equals(option)) {
 
             // First, provide the help text from the Standard Doclet.
-            final int toReturn = Standard.optionLength(option);
+            final int toReturn = HtmlDoclet.optionLength(option);
 
             // Print the options provided by VisualizationDoclet.
             System.out.println();
@@ -164,6 +185,6 @@ public class VisualizationDoclet implements SimpleDoclet {
         }
 
         // #3) Delegate to the standard Doclet.
-        return Standard.optionLength(option);
+        return HtmlDoclet.optionLength(option);
     }
 }

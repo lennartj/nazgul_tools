@@ -1,7 +1,29 @@
+/*-
+ * #%L
+ * Nazgul Project: nazgul-tools-visualization-impl-doclet
+ * %%
+ * Copyright (C) 2010 - 2018 jGuru Europe AB
+ * %%
+ * Licensed under the jGuru Europe AB license (the "License"), based
+ * on Apache License, Version 2.0; you may not use this file except
+ * in compliance with the License.
+ * 
+ * You may obtain a copy of the License at
+ * 
+ *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 package se.jguru.nazgul.tools.visualization.impl.doclet.helpers;
 
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
+import com.sun.tools.javac.main.Option;
 import com.sun.tools.javac.util.Context;
 import com.sun.tools.javac.util.ListBuffer;
 import com.sun.tools.javac.util.Options;
@@ -21,6 +43,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
@@ -78,8 +103,10 @@ public class RootDocWrapper {
                               final List<File> fileNames,
                               final Iterable<? extends JavaFileObject> javaFileObjects) {
 
+        final File targetDirectory = getRelativeDirectory("target/javadoc/" + targetDirectoryName,true);
         if (log.isDebugEnabled()) {
             log.debug("Using sourceDirectory [" + sourceDir.getAbsolutePath() + "]");
+            log.debug("Using targetDirectory [" + targetDirectory.getAbsolutePath() + "]");
         }
 
         //
@@ -87,9 +114,7 @@ public class RootDocWrapper {
         // are read and where the resulting javadoc goes.
         //
         addJavaDocOption("-sourcepath", sourceDir.getAbsolutePath());
-        addJavaDocOption("-d", getRelativeDirectory(
-                "target/javadoc/" + targetDirectoryName,
-                true).getAbsolutePath());
+        addJavaDocOption("-d", targetDirectory.getAbsolutePath());
 
         final ListBuffer<String> javaNames = new ListBuffer<>();
         for (File fileName : fileNames) {
@@ -100,7 +125,7 @@ public class RootDocWrapper {
             javaNames.append(fileName.getPath());
         }
 
-        ListBuffer<String> subPackages = new ListBuffer<String>();
+        final ListBuffer<String> subPackages = new ListBuffer<String>();
         for (String packageName : packageNames) {
 
             if (log.isDebugEnabled()) {
@@ -114,10 +139,53 @@ public class RootDocWrapper {
 
         final RootDoc toReturn;
 
+        /*
+        public RootDocImpl getRootDocImpl(
+            String var1,
+            String var2,
+            ModifierFilter var3,
+            List<String> var4,
+            List<String[]> var5,
+            Iterable<? extends JavaFileObject> var6,
+            boolean var7,
+            List<String> var8,
+            List<String> var9,
+            boolean var10,
+            boolean var11,
+            boolean var12)
+        throws IOException {
+
+            this.docenv = DocEnv.instance(this.context);
+            this.docenv.showAccess = var3;
+            this.docenv.quiet = var12;
+            this.docenv.breakiterator = var7;
+            this.docenv.setLocale(var1);
+            this.docenv.setEncoding(var2);
+            this.docenv.docClasses = var10;
+            this.docenv.legacyDoclet = var11;
+            this.javadocReader.sourceCompleter = var10 ? null : this.thisCompleter;
+
+            ListBuffer var13 = new ListBuffer();
+            ListBuffer var14 = new ListBuffer();
+            ListBuffer var15 = new ListBuffer();
+         */
+
         try {
+
+            final boolean useLegacyDoclet = false;
+            final String localeName = ""; // Locale.getDefault().getLanguage();
+            final String encoding = null;
+
+            final SortedMap<String, Object> theOptions = new TreeMap<>();
+            for(String current : this.options.keySet()) {
+                theOptions.put(current, this.options.get(current));
+            }
+
+            theOptions.forEach((k,v) -> System.out.println(" [" + k + "]: " + v));
+
             toReturn = javadocTool.getRootDocImpl(
-                    "",
-                    null,
+                    localeName,
+                    encoding,
                     new ModifierFilter(ModifierFilter.ALL_ACCESS),
                     javaNames.toList(),
                     new ListBuffer<String[]>().toList(),
@@ -126,8 +194,9 @@ public class RootDocWrapper {
                     subPackages.toList(),
                     new ListBuffer<String>().toList(),
                     false,
-                    false,
+                    useLegacyDoclet,
                     false);
+            
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -179,6 +248,9 @@ public class RootDocWrapper {
     }
 
     protected class DelegatingWriter extends Writer {
+
+        // Our log
+        private final Logger log = LoggerFactory.getLogger(DelegatingWriter.class);
 
         // Internal state
         private Level logLevel;
