@@ -1,16 +1,16 @@
-    strict digraph "Example" {
+strict digraph "Example" {
 
-        // Attribute statements.
-        graph [ bgcolor="#eeeeee" ] ;
-        node [ color="#555599", fillcolor="#cccccc", penwidth="2.0", style="filled" ] ;
+    // Attribute statements.
+    graph [ bgcolor="#eeeeee" ] ;
+    node [ color="#555599", fillcolor="#cccccc", penwidth="2.0", style="filled" ] ;
 
-        // Node statements.
-        "First_Node"  [ color="#aa0000", fillcolor="#ffffff" ] ;
-        "Second_Node" ;
-        "Third_Node"  [ color="#ffffff", fillcolor="#333333", fontcolor="#ffffff" ] ;
+    // Node statements.
+    "First_Node"  [ color="#aa0000", fillcolor="#ffffff" ] ;
+    "Second_Node" ;
+    "Third_Node"  [ color="#ffffff", fillcolor="#333333", fontcolor="#ffffff" ] ;
 
-        // Edge statements.
-        "First_Node"  ->  "Second_Node"  ;
-        "Second_Node"  ->  "Third_Node"  [ color="#0000ff", penwidth="2.0" ] ;
-        "Third_Node"  ->  "First_Node"  ;
-    }
+    // Edge statements.
+    "First_Node"  ->  "Second_Node"  ;
+    "Second_Node"  ->  "Third_Node"  [ color="#0000ff", penwidth="2.0" ] ;
+    "Third_Node"  ->  "First_Node"  ;
+}

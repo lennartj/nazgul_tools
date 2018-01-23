@@ -40,7 +40,6 @@ public class DotDiagramValidatorTest {
 
         // Act & Assert
         DotDiagramValidator.validate(null);
-
     }
 
     @Test(expected = IllegalArgumentException.class)

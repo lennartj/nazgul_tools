@@ -6,7 +6,6 @@ import com.sun.javadoc.PackageDoc;
 import se.jguru.nazgul.tools.visualization.api.AbstractGraphConverter;
 import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.GraphAttributes;
-import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonGraphAttributes;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
 
@@ -16,16 +15,22 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 
 /**
+ * AbstractGraphConverter instance intended to synthesize a {@link Graph} containing
+ * the full detail as required when illustrating the classes only within a package.
+ *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-public class PackageDocConverter extends AbstractGraphConverter<Set<ClassDoc>>{
+public class PackageDocConverter extends AbstractGraphConverter<Set<ClassDoc>> {
 
     // Internal state
     private Package relevantPackage;
 
     /**
-     * Package
-     * @param relevantPackage
+     * Compound constructor creating a {@link PackageDocConverter} which extracts information
+     * only for the supplied {@link Package}.
+     *
+     * @param relevantPackage The package for which this AbstractGraphConverter should extract
+     *                        its data.
      */
     public PackageDocConverter(final Package relevantPackage) {
         this.relevantPackage = relevantPackage;
@@ -62,7 +67,6 @@ public class PackageDocConverter extends AbstractGraphConverter<Set<ClassDoc>>{
 
         final GraphAttributes subAttrs = subgraphAttrs.getAttributes();
         subAttrs.label = "Package: " + packageDoc.name();
-        
 
         // Add a Subgraph for the package
         toReturn.add(renderPackageSubGraph(classDocs));
@@ -71,6 +75,12 @@ public class PackageDocConverter extends AbstractGraphConverter<Set<ClassDoc>>{
         return toReturn;
     }
 
+    /**
+     * Renders a Subgraph with the supplied ClassDocs.
+     *
+     * @param classDocs The ClassDocs to render.
+     * @return The rendered SubGraph.
+     */
     public Subgraph renderPackageSubGraph(final SortedSet<ClassDoc> classDocs) {
 
     }
