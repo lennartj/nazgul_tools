@@ -5,6 +5,8 @@ import com.sun.javadoc.Doc;
 import com.sun.javadoc.PackageDoc;
 import se.jguru.nazgul.tools.visualization.api.AbstractGraphConverter;
 import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.GraphAttributes;
+import se.jguru.nazgul.tools.visualization.model.diagram.attribute.types.StandardCssColor;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonGraphAttributes;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Subgraph;
 
@@ -55,8 +57,12 @@ public class PackageDocConverter extends AbstractGraphConverter<Set<ClassDoc>>{
         final Graph toReturn = new Graph("Graph_" + packageDoc.name(), true, true);
 
         final Subgraph packageSubgraph = new Subgraph(packageDoc.name());
-        final CommonGraphAttributes subgraphAttributes = new CommonGraphAttributes();
-        packageSubgraph.add(subgraphAttributes);
+        final CommonGraphAttributes subgraphAttrs = new CommonGraphAttributes();
+        packageSubgraph.add(subgraphAttrs);
+
+        final GraphAttributes subAttrs = subgraphAttrs.getAttributes();
+        subAttrs.label = "Package: " + packageDoc.name();
+        
 
         // Add a Subgraph for the package
         toReturn.add(renderPackageSubGraph(classDocs));

@@ -44,6 +44,10 @@
 
     <properties>
         <path.in.reactor>visualization/visualization-model</path.in.reactor>
+
+        <!-- Openclover configuration parameters -->
+        <clover.plugin.version>4.2.1</clover.plugin.version>
+        <clover.plugin.required.percentage>80%</clover.plugin.required.percentage>
     </properties>
 
     <!--
@@ -114,12 +118,71 @@
         <plugins>
 
             <!--
+                Provides unit test coverage for the project.
+
+                Used: Standard build, mvn verify and pre-site.
+             -->
+            <plugin>
+                <groupId>org.openclover</groupId>
+                <artifactId>clover-maven-plugin</artifactId>
+                <version>${clover.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjtools</artifactId>
+                        <version>${aspectj.runtime.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
+                        <artifactId>nazgul-tools-validation-aspect</artifactId>
+                        <version>6.0.4-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <cloverDatabase>${project.build.directory}/clover.db</cloverDatabase>
+                    <targetPercentage>80%</targetPercentage>
+                    <jdk>1.8</jdk>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>src/test/java/**/*.java</exclude>
+                        <exclude>**/generated/**</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>main</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                            <!-- goal>aggregate</goal -->
+                            <goal>check</goal>
+                            <goal>log</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                            <!-- goal>aggregate</goal -->
+                            <!--
+                                We save a history point in order to have data to generate a historical report
+                             -->
+                            <goal>save-history</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
                 Configures the Cobertura Maven Plugin.
 
                 Why:  Ensure we use a sensible level of unit test code coverage.
                 Used: Standard lifecycle, check test coverage.
             -->
-            <plugin>
+            <!-- plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
@@ -128,7 +191,7 @@
                             <include>se/jguru/nazgul/tools/visualization/**/*.class</include>
                         </includes>
                         <excludes>
-                            <!-- Don't check Exception classes -->
+                            < ! - - Don't check Exception classes - - >
                             <exclude>se/jguru/nazgul/**/*Exception.class</exclude>
                         </excludes>
                     </instrumentation>
@@ -153,7 +216,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin -->
 
             <plugin>
                 <groupId>org.apache.felix</groupId>

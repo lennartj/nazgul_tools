@@ -38,7 +38,7 @@ import java.util.Objects;
  *
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
-@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "comment", "colorScheme",
+@XmlType(namespace = AbstractIdentifiable.NAMESPACE, propOrder = {"backgroundColor", "comment", "color", "colorScheme",
         "fontName", "fontSizeInPoints", "label", "noMultiLineLabelJustification", "printGuideBoxesAtStart",
         "targetURL", "textColor"})
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -144,6 +144,34 @@ public abstract class AbstractAttributes implements Serializable {
     @XmlAttribute
     @DotProperty(name = "showboxes")
     public Boolean printGuideBoxesAtStart;
+
+    /**
+     * <p>Colors can be specified using one of four formats:</p>
+     * <ol>
+     * <li>"#%2x%2x%2x"	Red-Green-Blue (RGB)</li>
+     * <li>"#%2x%2x%2x%2x"	Red-Green-Blue-Alpha (RGBA)</li>
+     * <li>"H[, ]+S[, ]+V"	Hue-Saturation-Value (HSV) 0.0 &lt;= H,S,V &lt;= 1.0</li>
+     * <li>string	color name</li>
+     * </ol>
+     * <p>The specification for the RGB and RGBA formats are the format strings used by sscanf to scan the color value.
+     * Thus, these values have the form "#RGB" or "#RGBA", where R, G, B, and A each consist of 2 hexadecimal
+     * digits, and can be separated by whitespace. HSV colors have the form of 3 numbers between 0 and 1, separated
+     * by whitespace or commas.</p>
+     * <p>String-valued color specifications are case-insensitive and interpreted in the context of the current color
+     * scheme, as specified by the colorscheme attribute. If this is undefined, the X11 naming scheme will be used.
+     * An initial "/" character can be used to override the use of the colorscheme attribute. In particular, a
+     * single initial "/" will cause the string to be evaluated using the default X11 naming. If the color value has
+     * the form "/ssss/yyyy", the name yyyy is interpreted using the schema ssss. If the color scheme name is empty,
+     * i.e., the color has the form "//yyyy", the colorscheme attribute is used. Thus, the forms "yyyy" and "//yyyy"
+     * are equivalent.</p>
+     * <p>At present, Graphviz recognizes the default color scheme X11, and the Brewer color
+     * schemes (cf. ColorBrewer).</p>
+     * <p>Corresponds to DOT property
+     * <a href="https://graphviz.gitlab.io/_pages/doc/info/attrs.html#d:color">color</i></a>.</p>
+     */
+    @XmlElement
+    @DotProperty(name = "color")
+    public String color;
 
     /**
      * This attribute specifies a color scheme namespace. If defined, it specifies the context for interpreting
