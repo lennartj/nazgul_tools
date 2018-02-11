@@ -175,8 +175,8 @@
         <breakOnFailure.license>true</breakOnFailure.license>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.6</maven-site-plugin.version>
-        <doxia-modules.version>1.7</doxia-modules.version>
+        <maven-site-plugin.version>3.7</maven-site-plugin.version>
+        <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
 
         <!-- Resource-controlling properties -->
@@ -862,26 +862,6 @@
                         <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                     </configuration>
                     <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-ssh</artifactId>
-                            <version>${wagon-modules.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.wagon</groupId>
-                            <artifactId>wagon-file</artifactId>
-                            <version>${wagon-modules.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.doxia</groupId>
-                            <artifactId>doxia-module-markdown</artifactId>
-                            <version>${doxia-modules.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.doxia</groupId>
-                            <artifactId>doxia-module-xhtml</artifactId>
-                            <version>${doxia-modules.version}</version>
-                        </dependency>
                         <dependency>
                             <groupId>se.jguru.nazgul.tools.codestyle</groupId>
                             <artifactId>nazgul-codestyle</artifactId>

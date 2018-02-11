@@ -43,7 +43,6 @@
         <bundle>mvn:se.jguru.nazgul.tools.validation.aspect/nazgul-tools-validation-aspect/${parent.version}</bundle>
 
         <!-- External dependencies -->
-        <bundle>mvn:org.apache.commons/commons-lang3/${org.apache.commons/commons-lang3/version}</bundle>
         <bundle>wrap:mvn:org.aspectj/aspectjrt/${org.aspectj/aspectjrt/version}$Bundle-SymbolicName=AspectJ_Runtime&amp;Bundle-Version=${org.aspectj/aspectjrt/version}</bundle>
 
         <!-- Use Pax-Logging instead of the org.slf4j bundle. -->

@@ -19,7 +19,7 @@
  * limitations under the License.
  * #L%
  */
-package se.jguru.nazgul.tools.visualization.api;
+package se.jguru.nazgul.tools.visualization.api.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

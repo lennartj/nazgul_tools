@@ -3,7 +3,7 @@ package se.jguru.nazgul.tools.visualization.spi.doclet.converter;
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.Doc;
 import com.sun.javadoc.PackageDoc;
-import se.jguru.nazgul.tools.visualization.api.AbstractGraphConverter;
+import se.jguru.nazgul.tools.visualization.api.factory.AbstractGraphConverter;
 import se.jguru.nazgul.tools.visualization.model.diagram.Graph;
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.GraphAttributes;
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.CommonGraphAttributes;

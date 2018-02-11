@@ -3,16 +3,15 @@
   ~ Copyright (c) jGuru Europe AB.
   ~ All rights reserved.
   -->
-
-<project xmlns="http://maven.apache.org/DECORATION/1.7.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd">
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
 
     <bannerLeft>
         <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
     </bannerLeft>
     <bannerRight>
-        <name><![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
+        <name>
+            <![CDATA[<span style="color: #777777;">Nazgul Framework:</span> <a href="https://github.org/lennartj/nazgul_tools/">Tools</a>]]></name>
         <href>https://github.org/lennartj/nazgul_tools/</href>
     </bannerRight>
 
@@ -22,12 +21,15 @@
     <skin>
         <groupId>org.apache.maven.skins</groupId>
         <artifactId>maven-fluido-skin</artifactId>
-        <version>1.6</version>
+        <version>1.7</version>
     </skin>
 
     <custom>
         <fluidoSkin>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <topBarEnabled>true</topBarEnabled>
+            <sideBarEnabled>false</sideBarEnabled>
+            <topBarContainerStyle>width: 90%;</topBarContainerStyle>
         </fluidoSkin>
     </custom>
 

@@ -99,8 +99,8 @@
         <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.6</maven-site-plugin.version>
-        <doxia-modules.version>1.7</doxia-modules.version>
+        <maven-site-plugin.version>3.7</maven-site-plugin.version>
+        <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
         <versions-maven-plugin.version>2.1.4</versions-maven-plugin.version>
     </properties>
@@ -306,7 +306,7 @@
             <!--
                 Configures the site plugin. Its use is further documented in the site documentation itself.
 
-                Why:  Make compile and publish the Nazgul documentation.
+                Why:  Make compile and publish the Codestyle documentation.
                 Used: Site lifecycle, mvn site.
             -->
             <plugin>
@@ -336,44 +336,6 @@
                     <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
                     <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.wagon</groupId>
-                        <artifactId>wagon-ssh</artifactId>
-                        <version>${wagon-modules.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.wagon</groupId>
-                        <artifactId>wagon-file</artifactId>
-                        <version>${wagon-modules.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.doxia</groupId>
-                        <artifactId>doxia-module-markdown</artifactId>
-                        <version>${doxia-modules.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.doxia</groupId>
-                        <artifactId>doxia-module-xhtml</artifactId>
-                        <version>${doxia-modules.version}</version>
-                    </dependency>
-                    <!--
-                        Reflow skin and dependencies.
-
-                        These velocity tools should only be used if the
-                        reflow maven skin is used for site documentation.
-                    -->
-                    <!-- dependency>
-                        <groupId>lt.velykis.maven.skins</groupId>
-                        <artifactId>reflow-velocity-tools</artifactId>
-                        <version>${reflow-velocity-tools.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.velocity</groupId>
-                        <artifactId>velocity</artifactId>
-                        <version>${velocity.version}</version>
-                    </dependency -->
-                </dependencies>
             </plugin>
 
             <plugin>

@@ -69,12 +69,21 @@ public class JavaPackageExtractor implements PackageExtractor {
     @Override
     public String getPackage(final File sourceFile) {
 
+        String aLine = getPackage(sourceFile, PACKAGE_STATEMENT);
+        if (aLine != null) return aLine;
+
+        // No package statement found.
+        // Return default package.
+        return "";
+    }
+
+    static String getPackage(final File sourceFile, final Pattern packageStatement) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(sourceFile))) {
 
             String aLine;
             while ((aLine = bufferedReader.readLine()) != null) {
 
-                if (PACKAGE_STATEMENT.matcher(aLine.trim()).matches()) {
+                if (packageStatement.matcher(aLine.trim()).matches()) {
                     return aLine.substring(
                             aLine.indexOf(PACKAGE_WORD) + PACKAGE_WORD.length(), aLine.indexOf(";"))
                             .trim();
@@ -84,10 +93,7 @@ public class JavaPackageExtractor implements PackageExtractor {
             throw new IllegalArgumentException("Could not determine package from file ["
                     + sourceFile.getAbsolutePath() + "]. Not a Java file?", e);
         }
-
-        // No package statement found.
-        // Return default package.
-        return "";
+        return null;
     }
 
     /**
