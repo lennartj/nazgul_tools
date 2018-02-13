@@ -1,6 +1,6 @@
 /*-
  * #%L
- * Nazgul Project: nazgul-tools-visualization-impl-doclet
+ * Nazgul Project: nazgul-tools-visualization-spi-doclet
  * %%
  * Copyright (C) 2010 - 2018 jGuru Europe AB
  * %%
@@ -80,6 +80,11 @@ public class VisualizationDoclet implements SimpleDoclet {
     @Override
     public boolean start(final RootDoc root) {
 
+        // Check sanity
+        if (this.dotFacade == null) {
+            throw new IllegalStateException("The DotFacade cannot be null.");
+        }
+
         // Wrap the received RootDoc instance.
         final VisualizationWrappedRootDoc rootDoc = new VisualizationWrappedRootDoc(root);
         htmlDoclet.configuration.root = root;
@@ -106,7 +111,7 @@ public class VisualizationDoclet implements SimpleDoclet {
             }
         }
 
-        // Convert the DOT-generated Map and
+        // Convert the DOT-generated Map and write the image.
         // dotFacade.writePngImageAndImageMap(rootDoc, theDotDiagram, outputDirectory, fileName);
 
         // Delegate further execution to the standard Doclet.

@@ -100,12 +100,9 @@ public abstract class AbstractGraphConverter<From> implements TypeConverter<From
 
         // Fetch stashed converters
         final AbstractStatementConverter<Concept, S> toReturn = statementConverters.get(conceptClass);
-        if (toReturn == null) {
-
-            if (log.isDebugEnabled()) {
-                log.debug("No AbstractStatementConverter to convert [" + conceptClass.getName()
-                        + "] into a Statement subtype was registered.");
-            }
+        if (toReturn == null && log.isDebugEnabled()) {
+            log.debug("No AbstractStatementConverter to convert [" + conceptClass.getName()
+                    + "] into a Statement subtype was registered.");
         }
 
         // All Done.

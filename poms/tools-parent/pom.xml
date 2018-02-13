@@ -544,6 +544,18 @@
                 </plugin>
 
                 <!--
+                    Define the jdeps plugin version.
+
+                    Why:  Plugin used to validate projects for illegal Java9 code references.
+                    Used: As included in [sub]projects.
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jdeps-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+
+                <!--
                     Define OSGi bundle plugin version.
 
                     Why:  Plugin used to generate OSGi Manifest headers in JARs.
@@ -1333,6 +1345,19 @@
                         <id>generate-depends-file</id>
                         <goals>
                             <goal>generate-depends-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Ensure projects do not depend on deprecated internal classes -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jdeps-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jdkinternals</goal>
                         </goals>
                     </execution>
                 </executions>
