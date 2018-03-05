@@ -552,7 +552,10 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jdeps-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
+                    <configuration>
+                        <dotOutput>${project.build.directory}/classes/META-INF/jdeps</dotOutput>
+                    </configuration>
                 </plugin>
 
                 <!--
@@ -1350,7 +1353,9 @@
                 </executions>
             </plugin>
 
-            <!-- Ensure projects do not depend on deprecated internal classes -->
+            <!--
+                Ensure projects do not depend on deprecated internal classes
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jdeps-plugin</artifactId>
