@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.diagram.attribute;
 
 import java.lang.annotation.Documented;

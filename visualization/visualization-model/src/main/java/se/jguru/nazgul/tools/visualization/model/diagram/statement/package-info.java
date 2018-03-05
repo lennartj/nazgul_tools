@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 /**
  * Package containing model entities for diagram Statements, complying to the
  * <a href="http://www.graphviz.org">Graphviz/Dot</a> specification for the respective statement types.

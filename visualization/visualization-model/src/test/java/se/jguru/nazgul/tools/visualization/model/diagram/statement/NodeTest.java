@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.diagram.statement;
 
 import org.junit.Assert;

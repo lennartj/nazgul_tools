@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.visualization.spi.doclet.helpers;
 
 import com.sun.tools.javac.util.Context;

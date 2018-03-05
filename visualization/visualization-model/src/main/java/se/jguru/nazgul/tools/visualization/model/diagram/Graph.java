@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.diagram;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.statement.Edge;

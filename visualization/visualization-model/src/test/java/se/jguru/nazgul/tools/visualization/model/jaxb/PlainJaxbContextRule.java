@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.jaxb;
 
 import org.apache.commons.lang3.Validate;

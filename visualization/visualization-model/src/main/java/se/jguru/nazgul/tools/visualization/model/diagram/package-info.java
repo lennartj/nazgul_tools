@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 /**
  * Package containing model entities for <a href="http://www.graphviz.org">Graphviz/Dot</a> diagram file synthesis.
  * All entity classes are JAXB-annotated to ensure that the model can be converted in a simple manner to and from XML

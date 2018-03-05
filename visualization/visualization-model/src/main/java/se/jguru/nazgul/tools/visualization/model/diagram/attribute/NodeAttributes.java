@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.diagram.attribute;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.AbstractIdentifiable;

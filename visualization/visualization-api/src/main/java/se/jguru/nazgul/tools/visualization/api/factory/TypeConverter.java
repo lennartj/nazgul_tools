@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.visualization.api.factory;
 
 import java.io.Serializable;

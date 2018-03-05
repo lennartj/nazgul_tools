@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model.diagram;
 
 import javax.xml.bind.annotation.XmlAccessType;

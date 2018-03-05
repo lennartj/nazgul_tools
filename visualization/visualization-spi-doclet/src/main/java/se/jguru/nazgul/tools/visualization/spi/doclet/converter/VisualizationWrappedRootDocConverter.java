@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.visualization.spi.doclet.converter;
 
 import com.sun.javadoc.ClassDoc;

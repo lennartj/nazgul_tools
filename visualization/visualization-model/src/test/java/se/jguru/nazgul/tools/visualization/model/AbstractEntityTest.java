@@ -20,6 +20,7 @@
  * #L%
  */
 
+
 package se.jguru.nazgul.tools.visualization.model;
 
 import org.eclipse.persistence.oxm.record.JSONFormattedWriterRecord;

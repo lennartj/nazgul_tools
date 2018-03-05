@@ -19,6 +19,7 @@
  * limitations under the License.
  * #L%
  */
+
 package se.jguru.nazgul.tools.visualization.model.diagram;
 
 import se.jguru.nazgul.tools.visualization.model.diagram.attribute.AbstractAttributes;
