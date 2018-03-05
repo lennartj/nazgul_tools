@@ -1,0 +1,891 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1520277911452" clover="4.2.1">
+   <project name="nazgul-codestyle 6.1.0" timestamp="1520277871443">
+      <metrics coveredelements="259" complexity="97" loc="1419" methods="39" classes="10" statements="186" packages="2" coveredconditionals="57" coveredmethods="35" elements="301" ncloc="536" files="10" conditionals="76" coveredstatements="167"/>
+      <package name="se.jguru.nazgul.tools.codestyle.enforcer.rules.source">
+         <metrics coveredelements="22" complexity="13" loc="217" methods="6" classes="3" statements="19" coveredconditionals="4" coveredmethods="4" elements="33" ncloc="73" files="3" conditionals="8" coveredstatements="14"/>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/JavaPackageExtractor.java" name="JavaPackageExtractor.java">
+            <metrics coveredelements="22" coveredconditionals="4" complexity="10" loc="106" coveredmethods="4" methods="4" elements="24" classes="1" ncloc="45" statements="14" conditionals="6" coveredstatements="14"/>
+            <class name="JavaPackageExtractor">
+               <metrics coveredelements="22" coveredconditionals="4" complexity="10" coveredmethods="4" methods="4" elements="24" statements="14" conditionals="6" coveredstatements="14"/>
+            </class>
+            <line complexity="1" visibility="public" signature="accept(File) : boolean" num="56" count="28" type="method"/>
+            <line num="58" count="28" type="stmt"/>
+            <line complexity="2" visibility="public" signature="getPackage(File) : String" num="69" count="14" type="method"/>
+            <line num="72" count="14" type="stmt"/>
+            <line num="73" count="12" type="stmt"/>
+            <line num="73" count="10" type="stmt"/>
+            <line falsecount="2" truecount="10" num="73" type="cond"/>
+            <line num="77" count="2" type="stmt"/>
+            <line complexity="6" visibility="package" signature="getPackage(File,Pattern) : String" num="80" count="14" type="method"/>
+            <line num="81" count="14" type="stmt"/>
+            <line num="81" count="14" type="stmt"/>
+            <line num="83" count="12" type="stmt"/>
+            <line num="84" count="12" type="stmt"/>
+            <line falsecount="0" truecount="0" num="84" type="cond"/>
+            <line num="86" count="84" type="stmt"/>
+            <line falsecount="74" truecount="10" num="86" type="cond"/>
+            <line num="87" count="10" type="stmt"/>
+            <line num="93" count="2" type="stmt"/>
+            <line num="96" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getSourceFileFilter() : FileFilter" num="102" count="20" type="method"/>
+            <line num="104" count="20" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/KotlinPackageExtractor.java" name="KotlinPackageExtractor.java">
+            <metrics coveredelements="0" coveredconditionals="0" complexity="3" loc="63" coveredmethods="0" methods="2" elements="9" classes="1" ncloc="21" statements="5" conditionals="2" coveredstatements="0"/>
+            <class name="KotlinPackageExtractor">
+               <metrics coveredelements="0" coveredconditionals="0" complexity="3" coveredmethods="0" methods="2" elements="9" statements="5" conditionals="2" coveredstatements="0"/>
+            </class>
+            <line complexity="2" visibility="public" signature="getPackage(File) : String" num="45" count="0" type="method"/>
+            <line num="48" count="0" type="stmt"/>
+            <line num="49" count="0" type="stmt"/>
+            <line num="49" count="0" type="stmt"/>
+            <line falsecount="0" truecount="0" num="49" type="cond"/>
+            <line num="53" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getSourceFileFilter() : FileFilter" num="59" count="0" type="method"/>
+            <line num="61" count="0" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/PackageExtractor.java" name="PackageExtractor.java">
+            <metrics coveredelements="0" coveredconditionals="0" complexity="0" loc="48" coveredmethods="0" methods="0" elements="0" classes="1" ncloc="7" statements="0" conditionals="0" coveredstatements="0"/>
+            <class name="PackageExtractor">
+               <metrics coveredelements="0" coveredconditionals="0" complexity="0" coveredmethods="0" methods="0" elements="0" statements="0" conditionals="0" coveredstatements="0"/>
+            </class>
+         </file>
+      </package>
+      <package name="se.jguru.nazgul.tools.codestyle.enforcer.rules">
+         <metrics coveredelements="237" complexity="84" loc="1202" methods="33" classes="7" statements="167" coveredconditionals="53" coveredmethods="31" elements="268" ncloc="463" files="7" conditionals="68" coveredstatements="153"/>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/AbstractEnforcerRule.java" name="AbstractEnforcerRule.java">
+            <metrics coveredelements="43" coveredconditionals="9" complexity="13" loc="215" coveredmethods="5" methods="6" elements="48" classes="1" ncloc="88" statements="32" conditionals="10" coveredstatements="29"/>
+            <class name="AbstractEnforcerRule">
+               <metrics coveredelements="43" coveredconditionals="9" complexity="13" coveredmethods="5" methods="6" elements="48" statements="32" conditionals="10" coveredstatements="29"/>
+            </class>
+            <line complexity="4" visibility="public" signature="execute(EnforcerRuleHelper) : void" num="63" count="38" type="method"/>
+            <line num="67" count="38" type="stmt"/>
+            <line num="68" count="38" type="stmt"/>
+            <line num="69" count="38" type="stmt"/>
+            <line num="73" count="0" type="stmt"/>
+            <line num="75" count="0" type="stmt"/>
+            <line num="79" count="38" type="stmt"/>
+            <line num="80" count="38" type="stmt"/>
+            <line num="84" count="18" type="stmt"/>
+            <line num="94" count="18" type="stmt"/>
+            <line num="95" count="18" type="stmt"/>
+            <line falsecount="4" truecount="14" num="95" type="cond"/>
+            <line num="97" count="14" type="stmt"/>
+            <line num="101" count="18" type="stmt"/>
+            <line num="104" count="18" type="stmt"/>
+            <line complexity="1" visibility="public" signature="isCacheable() : boolean" num="133" count="0" type="method"/>
+            <line num="135" count="0" type="stmt"/>
+            <line complexity="2" visibility="protected" signature="splice(String) : List&lt;String&gt;" num="144" count="84" type="method"/>
+            <line num="146" count="84" type="stmt"/>
+            <line num="148" count="84" type="stmt"/>
+            <line num="149" count="84" type="stmt"/>
+            <line falsecount="84" truecount="124" num="149" type="cond"/>
+            <line num="150" count="124" type="stmt"/>
+            <line num="153" count="84" type="stmt"/>
+            <line complexity="1" visibility="protected" signature="splice2Pattern(String) : List&lt;Pattern&gt;" num="163" count="70" type="method"/>
+            <line num="165" count="70" type="stmt"/>
+            <line num="167" count="70" type="stmt"/>
+            <line num="168" count="104" type="stmt"/>
+            <line num="171" count="70" type="stmt"/>
+            <line complexity="2" visibility="protected" signature="matches(String,List&lt;Pattern&gt;) : boolean" num="182" count="78" type="method"/>
+            <line num="184" count="78" type="stmt"/>
+            <line num="185" count="114" type="stmt"/>
+            <line falsecount="76" truecount="38" num="185" type="cond"/>
+            <line num="186" count="38" type="stmt"/>
+            <line num="190" count="40" type="stmt"/>
+            <line complexity="3" visibility="protected" signature="containsPrefix(List&lt;String&gt;,String) : boolean" num="201" count="8" type="method"/>
+            <line num="203" count="8" type="stmt"/>
+            <line falsecount="0" truecount="8" num="203" type="cond"/>
+            <line num="205" count="8" type="stmt"/>
+            <line num="206" count="8" type="stmt"/>
+            <line falsecount="4" truecount="4" num="206" type="cond"/>
+            <line num="207" count="4" type="stmt"/>
+            <line num="213" count="4" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/AbstractNonCacheableEnforcerRule.java" name="AbstractNonCacheableEnforcerRule.java">
+            <metrics coveredelements="4" coveredconditionals="0" complexity="2" loc="50" coveredmethods="2" methods="2" elements="4" classes="1" ncloc="12" statements="2" conditionals="0" coveredstatements="2"/>
+            <class name="AbstractNonCacheableEnforcerRule">
+               <metrics coveredelements="4" coveredconditionals="0" complexity="2" coveredmethods="2" methods="2" elements="4" statements="2" conditionals="0" coveredstatements="2"/>
+            </class>
+            <line complexity="1" visibility="public" signature="isResultValid(EnforcerRule) : boolean" num="37" count="4" type="method"/>
+            <line num="39" count="4" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getCacheId() : String" num="46" count="4" type="method"/>
+            <line num="48" count="4" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/CorrectPackagingRule.java" name="CorrectPackagingRule.java">
+            <metrics coveredelements="60" coveredconditionals="11" complexity="18" loc="231" coveredmethods="6" methods="6" elements="70" classes="1" ncloc="109" statements="46" conditionals="18" coveredstatements="43"/>
+            <class name="CorrectPackagingRule">
+               <metrics coveredelements="60" coveredconditionals="11" complexity="18" coveredmethods="6" methods="6" elements="70" statements="46" conditionals="18" coveredstatements="43"/>
+            </class>
+            <line complexity="1" visibility="public" signature="accept(File) : boolean" num="51" count="16" type="method"/>
+            <line num="53" count="16" type="stmt"/>
+            <line complexity="1" visibility="public" signature="CorrectPackagingRule()" num="70" count="8" type="method"/>
+            <line num="73" count="8" type="stmt"/>
+            <line complexity="6" visibility="protected" signature="performValidation(MavenProject,EnforcerRuleHelper) : void" num="83" count="2" type="method"/>
+            <line num="89" count="2" type="stmt"/>
+            <line num="90" count="2" type="stmt"/>
+            <line falsecount="2" truecount="0" num="90" type="cond"/>
+            <line num="91" count="0" type="stmt"/>
+            <line num="94" count="2" type="stmt"/>
+            <line num="97" count="2" type="stmt"/>
+            <line num="98" count="2" type="stmt"/>
+            <line num="102" count="2" type="stmt"/>
+            <line num="103" count="2" type="stmt"/>
+            <line falsecount="2" truecount="0" num="103" type="cond"/>
+            <line num="106" count="0" type="stmt"/>
+            <line num="111" count="2" type="stmt"/>
+            <line num="112" count="2" type="stmt"/>
+            <line num="114" count="2" type="stmt"/>
+            <line num="115" count="2" type="stmt"/>
+            <line falsecount="0" truecount="2" num="115" type="cond"/>
+            <line num="116" count="2" type="stmt"/>
+            <line num="120" count="2" type="stmt"/>
+            <line falsecount="0" truecount="2" num="120" type="cond"/>
+            <line num="122" count="2" type="stmt"/>
+            <line num="123" count="2" type="stmt"/>
+            <line num="124" count="2" type="stmt"/>
+            <line num="127" count="2" type="stmt"/>
+            <line complexity="1" visibility="protected" signature="getShortRuleDescription() : String" num="136" count="2" type="method"/>
+            <line num="138" count="2" type="stmt"/>
+            <line complexity="4" visibility="public" signature="setPackageExtractors(String) : void" num="152" count="6" type="method"/>
+            <line num="156" count="6" type="stmt"/>
+            <line falsecount="6" truecount="0" num="156" type="cond"/>
+            <line num="157" count="0" type="stmt"/>
+            <line num="161" count="6" type="stmt"/>
+            <line num="162" count="6" type="stmt"/>
+            <line num="163" count="8" type="stmt"/>
+            <line num="166" count="8" type="stmt"/>
+            <line num="170" count="8" type="stmt"/>
+            <line num="172" count="4" type="stmt"/>
+            <line num="179" count="2" type="stmt"/>
+            <line falsecount="0" truecount="2" num="179" type="cond"/>
+            <line num="180" count="2" type="stmt"/>
+            <line complexity="5" visibility="private" signature="addPackages(File,SortedMap&lt;String, SortedSet&lt;String&gt;&gt;) : void" num="196" count="18" type="method"/>
+            <line num="199" count="18" type="stmt"/>
+            <line num="201" count="18" type="stmt"/>
+            <line num="203" count="18" type="stmt"/>
+            <line falsecount="14" truecount="4" num="203" type="cond"/>
+            <line num="206" count="4" type="stmt"/>
+            <line num="208" count="4" type="stmt"/>
+            <line num="209" count="4" type="stmt"/>
+            <line falsecount="2" truecount="2" num="209" type="cond"/>
+            <line num="210" count="2" type="stmt"/>
+            <line num="211" count="2" type="stmt"/>
+            <line num="215" count="4" type="stmt"/>
+            <line num="217" count="14" type="stmt"/>
+            <line falsecount="0" truecount="14" num="217" type="cond"/>
+            <line num="220" count="14" type="stmt"/>
+            <line num="221" count="4" type="stmt"/>
+            <line num="225" count="14" type="stmt"/>
+            <line num="226" count="12" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectType.java" name="ProjectType.java">
+            <metrics coveredelements="64" coveredconditionals="18" complexity="27" loc="334" coveredmethods="7" methods="7" elements="76" classes="1" ncloc="128" statements="45" conditionals="24" coveredstatements="39"/>
+            <class name="ProjectType">
+               <metrics coveredelements="64" coveredconditionals="18" complexity="27" coveredmethods="7" methods="7" elements="76" statements="45" conditionals="24" coveredstatements="39"/>
+            </class>
+            <line complexity="4" visibility="package" signature="ProjectType(String,String,String)" num="155" count="34" type="method"/>
+            <line num="159" count="34" type="stmt"/>
+            <line falsecount="2" truecount="32" num="159" type="cond"/>
+            <line num="160" count="32" type="stmt"/>
+            <line num="163" count="34" type="stmt"/>
+            <line falsecount="8" truecount="26" num="163" type="cond"/>
+            <line num="164" count="26" type="stmt"/>
+            <line num="167" count="34" type="stmt"/>
+            <line falsecount="10" truecount="24" num="167" type="cond"/>
+            <line num="168" count="24" type="stmt"/>
+            <line complexity="1" visibility="public" signature="isCompliantArtifactID(String) : boolean" num="180" count="1670" type="method"/>
+            <line num="181" count="1670" type="stmt"/>
+            <line complexity="1" visibility="public" signature="isCompliantGroupID(String) : boolean" num="193" count="244" type="method"/>
+            <line num="194" count="244" type="stmt"/>
+            <line complexity="1" visibility="public" signature="isCompliantPackaging(String) : boolean" num="206" count="230" type="method"/>
+            <line num="207" count="230" type="stmt"/>
+            <line complexity="2" visibility="public" signature="getProjectType(Artifact) : ProjectType" num="218" count="14" type="method"/>
+            <line num="221" count="14" type="stmt"/>
+            <line falsecount="14" truecount="0" num="221" type="cond"/>
+            <line num="222" count="0" type="stmt"/>
+            <line num="225" count="14" type="stmt"/>
+            <line num="234" count="14" type="stmt"/>
+            <line complexity="12" visibility="public" signature="getProjectType(MavenProject) : ProjectType" num="247" count="80" type="method"/>
+            <line num="250" count="80" type="stmt"/>
+            <line falsecount="80" truecount="0" num="250" type="cond"/>
+            <line num="251" count="0" type="stmt"/>
+            <line num="254" count="80" type="stmt"/>
+            <line num="263" count="76" type="stmt"/>
+            <line num="264" count="76" type="stmt"/>
+            <line num="265" count="8" type="stmt"/>
+            <line num="266" count="2" type="stmt"/>
+            <line num="268" count="10" type="stmt"/>
+            <line falsecount="6" truecount="4" num="268" type="cond"/>
+            <line num="269" count="4" type="stmt"/>
+            <line num="273" count="6" type="stmt"/>
+            <line num="275" count="6" type="stmt"/>
+            <line num="277" count="6" type="stmt"/>
+            <line num="278" count="6" type="stmt"/>
+            <line falsecount="4" truecount="2" num="278" type="cond"/>
+            <line num="279" count="2" type="stmt"/>
+            <line num="284" count="4" type="stmt"/>
+            <line num="285" count="4" type="stmt"/>
+            <line falsecount="4" truecount="0" num="285" type="cond"/>
+            <line num="288" count="0" type="stmt"/>
+            <line num="289" count="0" type="stmt"/>
+            <line falsecount="0" truecount="0" num="289" type="cond"/>
+            <line num="290" count="0" type="stmt"/>
+            <line num="295" count="4" type="stmt"/>
+            <line num="298" count="60" type="stmt"/>
+            <line num="299" count="60" type="stmt"/>
+            <line num="303" count="70" type="stmt"/>
+            <line complexity="6" visibility="private" signature="findCandidates(String,String,String,String) : List&lt;ProjectType&gt;" num="310" count="94" type="method"/>
+            <line num="315" count="94" type="stmt"/>
+            <line num="317" count="94" type="stmt"/>
+            <line num="318" count="1598" type="stmt"/>
+            <line falsecount="1508" truecount="90" num="318" type="cond"/>
+            <line num="321" count="90" type="stmt"/>
+            <line num="326" count="94" type="stmt"/>
+            <line falsecount="90" truecount="4" num="326" type="cond"/>
+            <line num="327" count="4" type="stmt"/>
+            <line num="329" count="90" type="stmt"/>
+            <line falsecount="90" truecount="0" num="329" type="cond"/>
+            <line num="330" count="0" type="stmt"/>
+            <line num="332" count="90" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/RestrictImplDependencies.java" name="RestrictImplDependencies.java">
+            <metrics coveredelements="51" coveredconditionals="15" complexity="16" loc="200" coveredmethods="5" methods="5" elements="52" classes="1" ncloc="84" statements="31" conditionals="16" coveredstatements="31"/>
+            <class name="RestrictImplDependencies">
+               <metrics coveredelements="51" coveredconditionals="15" complexity="16" coveredmethods="5" methods="5" elements="52" statements="31" conditionals="16" coveredstatements="31"/>
+            </class>
+            <line complexity="1" visibility="public" signature="RestrictImplDependencies()" num="76" count="34" type="method"/>
+            <line num="79" count="34" type="stmt"/>
+            <line num="80" count="34" type="stmt"/>
+            <line complexity="12" visibility="protected" signature="performValidation(MavenProject,EnforcerRuleHelper) : void" num="90" count="30" type="method"/>
+            <line num="96" count="30" type="stmt"/>
+            <line num="97" count="30" type="stmt"/>
+            <line num="98" count="30" type="stmt"/>
+            <line num="100" count="2" type="stmt"/>
+            <line num="104" count="28" type="stmt"/>
+            <line falsecount="22" truecount="6" num="104" type="cond"/>
+            <line num="105" count="6" type="stmt"/>
+            <line num="109" count="22" type="stmt"/>
+            <line falsecount="20" truecount="2" num="109" type="cond"/>
+            <line num="112" count="2" type="stmt"/>
+            <line num="114" count="2" type="stmt"/>
+            <line num="119" count="20" type="stmt"/>
+            <line falsecount="18" truecount="2" num="119" type="cond"/>
+            <line num="122" count="2" type="stmt"/>
+            <line num="124" count="2" type="stmt"/>
+            <line num="128" count="18" type="stmt"/>
+            <line num="131" count="20" type="stmt"/>
+            <line falsecount="18" truecount="2" num="131" type="cond"/>
+            <line num="132" count="2" type="stmt"/>
+            <line num="136" count="18" type="stmt"/>
+            <line num="137" count="18" type="stmt"/>
+            <line num="138" count="18" type="stmt"/>
+            <line falsecount="4" truecount="14" num="138" type="cond"/>
+            <line num="140" count="14" type="stmt"/>
+            <line num="141" count="14" type="stmt"/>
+            <line num="143" count="14" type="stmt"/>
+            <line falsecount="6" truecount="8" num="143" type="cond"/>
+            <line num="144" count="8" type="stmt"/>
+            <line num="147" count="6" type="stmt"/>
+            <line falsecount="4" truecount="2" num="147" type="cond"/>
+            <line num="148" count="2" type="stmt"/>
+            <line num="151" count="4" type="stmt"/>
+            <line falsecount="0" truecount="4" num="151" type="cond"/>
+            <line num="153" count="4" type="stmt"/>
+            <line complexity="1" visibility="protected" signature="getShortRuleDescription() : String" num="163" count="16" type="method"/>
+            <line num="165" count="16" type="stmt"/>
+            <line complexity="1" visibility="public" signature="setIncludedGroupIdPatterns(String) : void" num="179" count="34" type="method"/>
+            <line num="180" count="34" type="stmt"/>
+            <line complexity="1" visibility="public" signature="setExcludedGroupIdPatterns(String) : void" num="197" count="36" type="method"/>
+            <line num="198" count="36" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/RuleFailureException.java" name="RuleFailureException.java">
+            <metrics coveredelements="9" coveredconditionals="0" complexity="5" loc="108" coveredmethods="4" methods="5" elements="12" classes="1" ncloc="23" statements="7" conditionals="0" coveredstatements="5"/>
+            <class name="RuleFailureException">
+               <metrics coveredelements="9" coveredconditionals="0" complexity="5" coveredmethods="4" methods="5" elements="12" statements="7" conditionals="0" coveredstatements="5"/>
+            </class>
+            <line complexity="1" visibility="public" signature="RuleFailureException(String)" num="46" count="2" type="method"/>
+            <line num="47" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="RuleFailureException(String,Throwable)" num="64" count="2" type="method"/>
+            <line num="65" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="RuleFailureException(String,Artifact)" num="77" count="16" type="method"/>
+            <line num="78" count="16" type="stmt"/>
+            <line num="79" count="16" type="stmt"/>
+            <line complexity="1" visibility="public" signature="RuleFailureException(String,Throwable,Artifact)" num="97" count="0" type="method"/>
+            <line num="98" count="0" type="stmt"/>
+            <line num="99" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getOffendingArtifact() : Artifact" num="105" count="18" type="method"/>
+            <line num="106" count="18" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/main/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/ValidateProjectType.java" name="ValidateProjectType.java">
+            <metrics coveredelements="6" coveredconditionals="0" complexity="3" loc="64" coveredmethods="2" methods="2" elements="6" classes="1" ncloc="19" statements="4" conditionals="0" coveredstatements="4"/>
+            <class name="ValidateProjectType">
+               <metrics coveredelements="6" coveredconditionals="0" complexity="3" coveredmethods="2" methods="2" elements="6" statements="4" conditionals="0" coveredstatements="4"/>
+            </class>
+            <line complexity="2" visibility="protected" signature="performValidation(MavenProject,EnforcerRuleHelper) : void" num="44" count="8" type="method"/>
+            <line num="49" count="8" type="stmt"/>
+            <line num="50" count="8" type="stmt"/>
+            <line num="52" count="2" type="stmt"/>
+            <line complexity="1" visibility="protected" signature="getShortRuleDescription() : String" num="60" count="2" type="method"/>
+            <line num="62" count="2" type="stmt"/>
+         </file>
+      </package>
+   </project>
+   <testproject name="nazgul-codestyle 6.1.0" timestamp="1520277871443">
+      <metrics coveredelements="455" complexity="80" loc="1405" methods="74" classes="10" statements="411" packages="2" coveredconditionals="2" coveredmethods="60" elements="489" ncloc="778" files="10" conditionals="4" coveredstatements="393"/>
+      <package name="se.jguru.nazgul.tools.codestyle.enforcer.rules.source">
+         <metrics coveredelements="35" complexity="11" loc="191" methods="10" classes="3" statements="35" coveredconditionals="1" coveredmethods="4" elements="47" ncloc="95" files="3" conditionals="2" coveredstatements="30"/>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/IncorrectNoDefaultConstructorPackageExtractor.java" name="IncorrectNoDefaultConstructorPackageExtractor.java">
+            <metrics coveredelements="0" coveredconditionals="0" complexity="3" loc="35" coveredmethods="0" methods="3" elements="5" classes="1" ncloc="15" statements="2" conditionals="0" coveredstatements="0"/>
+            <class name="IncorrectNoDefaultConstructorPackageExtractor">
+               <metrics coveredelements="0" coveredconditionals="0" complexity="3" coveredmethods="0" methods="3" elements="5" statements="2" conditionals="0" coveredstatements="0"/>
+            </class>
+            <line complexity="1" visibility="public" signature="IncorrectNoDefaultConstructorPackageExtractor(String)" num="17" count="0" type="method"/>
+            <line complexity="1" visibility="public" signature="getPackage(File) : String" num="23" count="0" type="method"/>
+            <line num="25" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getSourceFileFilter() : FileFilter" num="31" count="0" type="method"/>
+            <line num="33" count="0" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/JavaPackageExtractorTest.java" name="JavaPackageExtractorTest.java">
+            <metrics coveredelements="35" coveredconditionals="1" complexity="5" loc="119" coveredmethods="4" methods="4" elements="36" classes="1" ncloc="62" statements="30" conditionals="2" coveredstatements="30"/>
+            <class name="JavaPackageExtractorTest">
+               <metrics coveredelements="35" complexity="5" methods="4" testruns="8" statements="30" coveredconditionals="1" coveredmethods="4" elements="36" testfailures="0" testduration="0.017" conditionals="2" coveredstatements="30" testpasses="8"/>
+            </class>
+            <line complexity="1" visibility="public" signature="validatePackagePatternMatching() : void" num="41" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="45" count="2" type="stmt"/>
+            <line num="46" count="2" type="stmt"/>
+            <line num="49" count="2" type="stmt"/>
+            <line num="51" count="6" type="stmt"/>
+            <line num="52" count="6" type="stmt"/>
+            <line num="56" count="2" type="stmt"/>
+            <line num="58" count="6" type="stmt"/>
+            <line num="59" count="6" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validatePatternExtraction() : void" num="64" testsuccess="true" count="2" testduration="0.002" type="method"/>
+            <line num="68" count="2" type="stmt"/>
+            <line num="69" count="2" type="stmt"/>
+            <line num="71" count="2" type="stmt"/>
+            <line num="72" count="2" type="stmt"/>
+            <line num="75" count="2" type="stmt"/>
+            <line num="76" count="6" type="stmt"/>
+            <line num="80" count="2" type="stmt"/>
+            <line num="81" count="2" type="stmt"/>
+            <line num="82" count="2" type="stmt"/>
+            <line num="83" count="2" type="stmt"/>
+            <line complexity="2" visibility="public" signature="validateDefaultPackageReturnedOnMalformedPackageStatement() : void" num="86" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="90" count="2" type="stmt"/>
+            <line num="92" count="2" type="stmt"/>
+            <line num="94" count="2" type="stmt"/>
+            <line num="95" count="2" type="stmt"/>
+            <line num="98" count="2" type="stmt"/>
+            <line num="99" count="2" type="stmt"/>
+            <line falsecount="0" truecount="2" num="99" type="cond"/>
+            <line num="100" count="2" type="stmt"/>
+            <line num="105" count="2" type="stmt"/>
+            <line num="106" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnSubmittingDirectoriesToPackageExtractor() : void" num="109" testsuccess="true" count="2" testduration="0.003" type="method"/>
+            <line num="113" count="2" type="stmt"/>
+            <line num="114" count="2" type="stmt"/>
+            <line num="117" count="2" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/source/SillyPackageExtractor.java" name="SillyPackageExtractor.java">
+            <metrics coveredelements="0" coveredconditionals="0" complexity="3" loc="37" coveredmethods="0" methods="3" elements="6" classes="1" ncloc="18" statements="3" conditionals="0" coveredstatements="0"/>
+            <class name="SillyPackageExtractor">
+               <metrics coveredelements="0" coveredconditionals="0" complexity="3" coveredmethods="0" methods="3" elements="6" statements="3" conditionals="0" coveredstatements="0"/>
+            </class>
+            <line complexity="1" visibility="public" signature="getPackage(File) : String" num="20" count="0" type="method"/>
+            <line num="22" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getSourceFileFilter() : FileFilter" num="28" count="0" type="method"/>
+            <line num="30" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="accept(File) : boolean" num="31" count="0" type="method"/>
+            <line num="33" count="0" type="stmt"/>
+         </file>
+      </package>
+      <package name="se.jguru.nazgul.tools.codestyle.enforcer.rules">
+         <metrics coveredelements="420" complexity="69" loc="1214" methods="64" classes="7" statements="376" coveredconditionals="1" coveredmethods="56" elements="442" ncloc="683" files="7" conditionals="2" coveredstatements="363"/>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/CorrectPackagingRuleTest.java" name="CorrectPackagingRuleTest.java">
+            <metrics coveredelements="27" coveredconditionals="0" complexity="5" loc="115" coveredmethods="4" methods="4" elements="28" classes="1" ncloc="56" statements="24" conditionals="0" coveredstatements="23"/>
+            <class name="CorrectPackagingRuleTest">
+               <metrics coveredelements="27" complexity="5" methods="4" testruns="8" statements="24" coveredconditionals="0" coveredmethods="4" elements="28" testfailures="0" testduration="0.026999999999999996" conditionals="0" coveredstatements="23" testpasses="8"/>
+            </class>
+            <line complexity="2" visibility="public" signature="validateExceptionOnIncorrectSourceCodePackaging() : void" num="42" testsuccess="true" count="2" testduration="0.009" type="method"/>
+            <line num="46" count="2" type="stmt"/>
+            <line num="47" count="2" type="stmt"/>
+            <line num="49" count="2" type="stmt"/>
+            <line num="51" count="2" type="stmt"/>
+            <line num="53" count="2" type="stmt"/>
+            <line num="55" count="2" type="stmt"/>
+            <line num="58" count="2" type="stmt"/>
+            <line num="59" count="2" type="stmt"/>
+            <line num="61" count="0" type="stmt"/>
+            <line num="66" count="2" type="stmt"/>
+            <line num="69" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnCustomPackageExtractorDoesNotImplementPackageExtractor() : void" num="74" testsuccess="true" count="2" testduration="0.003" type="method"/>
+            <line num="78" count="2" type="stmt"/>
+            <line num="81" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnCustomPackageExtractorHoldsNoDefaultConstructor() : void" num="84" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="88" count="2" type="stmt"/>
+            <line num="91" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateAddingCustomPackageExtractor() : void" num="94" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="98" count="2" type="stmt"/>
+            <line num="101" count="2" type="stmt"/>
+            <line num="105" count="2" type="stmt"/>
+            <line num="106" count="2" type="stmt"/>
+            <line num="108" count="2" type="stmt"/>
+            <line num="109" count="2" type="stmt"/>
+            <line num="110" count="2" type="stmt"/>
+            <line num="111" count="2" type="stmt"/>
+            <line num="113" count="2" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/MavenTestUtils.java" name="MavenTestUtils.java">
+            <metrics coveredelements="20" coveredconditionals="0" complexity="5" loc="119" coveredmethods="3" methods="4" elements="22" classes="1" ncloc="43" statements="18" conditionals="0" coveredstatements="17"/>
+            <class name="MavenTestUtils">
+               <metrics coveredelements="20" coveredconditionals="0" complexity="5" coveredmethods="3" methods="4" elements="22" statements="18" conditionals="0" coveredstatements="17"/>
+            </class>
+            <line complexity="1" visibility="private" signature="MavenTestUtils()" num="42" count="0" type="method"/>
+            <line complexity="2" visibility="public" signature="readPom(String) : MavenProject" num="51" count="10" type="method"/>
+            <line num="53" count="10" type="stmt"/>
+            <line num="54" count="10" type="stmt"/>
+            <line num="67" count="10" type="stmt"/>
+            <line num="68" count="10" type="stmt"/>
+            <line num="71" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getStub(String,String,String) : MavenProject" num="83" count="42" type="method"/>
+            <line num="87" count="42" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getStub(String,String,String,String) : MavenProject" num="99" count="42" type="method"/>
+            <line num="104" count="42" type="stmt"/>
+            <line num="105" count="42" type="stmt"/>
+            <line num="106" count="42" type="stmt"/>
+            <line num="107" count="42" type="stmt"/>
+            <line num="108" count="42" type="stmt"/>
+            <line num="109" count="42" type="stmt"/>
+            <line num="112" count="42" type="stmt"/>
+            <line num="113" count="42" type="stmt"/>
+            <line num="114" count="42" type="stmt"/>
+            <line num="115" count="42" type="stmt"/>
+            <line num="116" count="42" type="stmt"/>
+            <line num="117" count="42" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/MockEnforcerRuleHelper.java" name="MockEnforcerRuleHelper.java">
+            <metrics coveredelements="8" coveredconditionals="1" complexity="11" loc="94" coveredmethods="3" methods="10" elements="24" classes="1" ncloc="59" statements="12" conditionals="2" coveredstatements="4"/>
+            <class name="MockEnforcerRuleHelper">
+               <metrics coveredelements="8" coveredconditionals="1" complexity="11" coveredmethods="3" methods="10" elements="24" statements="12" conditionals="2" coveredstatements="4"/>
+            </class>
+            <line complexity="1" visibility="public" signature="MockEnforcerRuleHelper(MavenProject)" num="40" count="40" type="method"/>
+            <line num="41" count="40" type="stmt"/>
+            <line complexity="1" visibility="public" signature="alignToBaseDirectory(File) : File" num="44" count="0" type="method"/>
+            <line num="46" count="0" type="stmt"/>
+            <line complexity="2" visibility="public" signature="evaluate(String) : Object" num="49" count="38" type="method"/>
+            <line num="51" count="38" type="stmt"/>
+            <line falsecount="0" truecount="38" num="51" type="cond"/>
+            <line num="52" count="38" type="stmt"/>
+            <line num="54" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getComponent(Class) : Object" num="57" count="0" type="method"/>
+            <line num="60" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getComponent(String) : Object" num="63" count="0" type="method"/>
+            <line num="65" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getComponent(String,String) : Object" num="68" count="0" type="method"/>
+            <line num="70" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getComponentList(String) : List" num="73" count="0" type="method"/>
+            <line num="76" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getComponentMap(String) : Map" num="79" count="0" type="method"/>
+            <line num="82" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getContainer() : PlexusContainer" num="85" count="0" type="method"/>
+            <line num="87" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="getLog() : Log" num="90" count="4" type="method"/>
+            <line num="92" count="4" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/ProjectTypeTest.java" name="ProjectTypeTest.java">
+            <metrics coveredelements="165" coveredconditionals="0" complexity="16" loc="313" coveredmethods="16" methods="16" elements="165" classes="1" ncloc="209" statements="149" conditionals="0" coveredstatements="149"/>
+            <class name="ProjectTypeTest">
+               <metrics coveredelements="165" complexity="16" methods="16" testruns="32" statements="149" coveredconditionals="0" coveredmethods="16" elements="165" testfailures="0" testduration="0.007" conditionals="0" coveredstatements="149" testpasses="32"/>
+            </class>
+            <line complexity="1" visibility="public" signature="validateExceptionOnIncorrectProjectTypeSpecification() : void" num="35" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="39" count="2" type="stmt"/>
+            <line num="42" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnReactorProjectWithDependencies() : void" num="45" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="49" count="2" type="stmt"/>
+            <line num="51" count="2" type="stmt"/>
+            <line num="52" count="2" type="stmt"/>
+            <line num="53" count="2" type="stmt"/>
+            <line num="54" count="2" type="stmt"/>
+            <line num="55" count="2" type="stmt"/>
+            <line num="58" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnParentProjectWithModules() : void" num="61" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="65" count="2" type="stmt"/>
+            <line num="66" count="2" type="stmt"/>
+            <line num="69" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateParsingProjectTypes() : void" num="72" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="76" count="2" type="stmt"/>
+            <line num="77" count="2" type="stmt"/>
+            <line num="78" count="2" type="stmt"/>
+            <line num="79" count="2" type="stmt"/>
+            <line num="80" count="2" type="stmt"/>
+            <line num="81" count="2" type="stmt"/>
+            <line num="83" count="2" type="stmt"/>
+            <line num="85" count="2" type="stmt"/>
+            <line num="86" count="2" type="stmt"/>
+            <line num="87" count="2" type="stmt"/>
+            <line num="88" count="2" type="stmt"/>
+            <line num="89" count="2" type="stmt"/>
+            <line num="90" count="2" type="stmt"/>
+            <line num="91" count="2" type="stmt"/>
+            <line num="92" count="2" type="stmt"/>
+            <line num="94" count="2" type="stmt"/>
+            <line num="96" count="2" type="stmt"/>
+            <line num="97" count="2" type="stmt"/>
+            <line num="101" count="2" type="stmt"/>
+            <line num="102" count="2" type="stmt"/>
+            <line num="103" count="2" type="stmt"/>
+            <line num="104" count="2" type="stmt"/>
+            <line num="105" count="2" type="stmt"/>
+            <line num="106" count="2" type="stmt"/>
+            <line num="107" count="2" type="stmt"/>
+            <line num="108" count="2" type="stmt"/>
+            <line num="109" count="2" type="stmt"/>
+            <line num="110" count="2" type="stmt"/>
+            <line num="111" count="2" type="stmt"/>
+            <line num="112" count="2" type="stmt"/>
+            <line num="113" count="2" type="stmt"/>
+            <line num="114" count="2" type="stmt"/>
+            <line num="115" count="2" type="stmt"/>
+            <line num="116" count="2" type="stmt"/>
+            <line num="117" count="2" type="stmt"/>
+            <line num="118" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateModelProjectPatterns() : void" num="121" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="125" count="2" type="stmt"/>
+            <line num="126" count="2" type="stmt"/>
+            <line num="127" count="2" type="stmt"/>
+            <line num="129" count="2" type="stmt"/>
+            <line num="130" count="2" type="stmt"/>
+            <line num="131" count="2" type="stmt"/>
+            <line num="133" count="2" type="stmt"/>
+            <line num="134" count="2" type="stmt"/>
+            <line num="135" count="2" type="stmt"/>
+            <line num="136" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateReactorProjectPatterns() : void" num="139" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="143" count="2" type="stmt"/>
+            <line num="144" count="2" type="stmt"/>
+            <line num="145" count="2" type="stmt"/>
+            <line num="147" count="2" type="stmt"/>
+            <line num="148" count="2" type="stmt"/>
+            <line num="149" count="2" type="stmt"/>
+            <line num="151" count="2" type="stmt"/>
+            <line num="152" count="2" type="stmt"/>
+            <line num="153" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateAssemblyProjectPatterns() : void" num="156" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="160" count="2" type="stmt"/>
+            <line num="161" count="2" type="stmt"/>
+            <line num="162" count="2" type="stmt"/>
+            <line num="164" count="2" type="stmt"/>
+            <line num="165" count="2" type="stmt"/>
+            <line num="166" count="2" type="stmt"/>
+            <line num="168" count="2" type="stmt"/>
+            <line num="169" count="2" type="stmt"/>
+            <line num="170" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validatePluginProjectPatterns() : void" num="173" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="177" count="2" type="stmt"/>
+            <line num="178" count="2" type="stmt"/>
+            <line num="179" count="2" type="stmt"/>
+            <line num="181" count="2" type="stmt"/>
+            <line num="182" count="2" type="stmt"/>
+            <line num="183" count="2" type="stmt"/>
+            <line num="185" count="2" type="stmt"/>
+            <line num="186" count="2" type="stmt"/>
+            <line num="187" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateApiProjectPatterns() : void" num="190" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="194" count="2" type="stmt"/>
+            <line num="195" count="2" type="stmt"/>
+            <line num="196" count="2" type="stmt"/>
+            <line num="197" count="2" type="stmt"/>
+            <line num="199" count="2" type="stmt"/>
+            <line num="200" count="2" type="stmt"/>
+            <line num="201" count="2" type="stmt"/>
+            <line num="202" count="2" type="stmt"/>
+            <line num="204" count="2" type="stmt"/>
+            <line num="205" count="2" type="stmt"/>
+            <line num="206" count="2" type="stmt"/>
+            <line num="207" count="2" type="stmt"/>
+            <line num="208" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateSpiProjectPatterns() : void" num="211" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="215" count="2" type="stmt"/>
+            <line num="216" count="2" type="stmt"/>
+            <line num="217" count="2" type="stmt"/>
+            <line num="219" count="2" type="stmt"/>
+            <line num="220" count="2" type="stmt"/>
+            <line num="221" count="2" type="stmt"/>
+            <line num="223" count="2" type="stmt"/>
+            <line num="224" count="2" type="stmt"/>
+            <line num="225" count="2" type="stmt"/>
+            <line num="226" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateImplementationProjectPatterns() : void" num="229" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="233" count="2" type="stmt"/>
+            <line num="234" count="2" type="stmt"/>
+            <line num="235" count="2" type="stmt"/>
+            <line num="237" count="2" type="stmt"/>
+            <line num="238" count="2" type="stmt"/>
+            <line num="239" count="2" type="stmt"/>
+            <line num="241" count="2" type="stmt"/>
+            <line num="242" count="2" type="stmt"/>
+            <line num="243" count="2" type="stmt"/>
+            <line num="244" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateTestProjectPatterns() : void" num="247" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="251" count="2" type="stmt"/>
+            <line num="252" count="2" type="stmt"/>
+            <line num="253" count="2" type="stmt"/>
+            <line num="254" count="2" type="stmt"/>
+            <line num="256" count="2" type="stmt"/>
+            <line num="257" count="2" type="stmt"/>
+            <line num="258" count="2" type="stmt"/>
+            <line num="259" count="2" type="stmt"/>
+            <line num="261" count="2" type="stmt"/>
+            <line num="262" count="2" type="stmt"/>
+            <line num="263" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateIntegrationTestProjectPatterns() : void" num="266" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="270" count="2" type="stmt"/>
+            <line num="271" count="2" type="stmt"/>
+            <line num="272" count="2" type="stmt"/>
+            <line num="274" count="2" type="stmt"/>
+            <line num="275" count="2" type="stmt"/>
+            <line num="276" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validatePocProjectPatterns() : void" num="279" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="283" count="2" type="stmt"/>
+            <line num="284" count="2" type="stmt"/>
+            <line num="285" count="2" type="stmt"/>
+            <line num="287" count="2" type="stmt"/>
+            <line num="288" count="2" type="stmt"/>
+            <line num="289" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateCodestyleProjectPatterns() : void" num="292" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="296" count="2" type="stmt"/>
+            <line num="297" count="2" type="stmt"/>
+            <line num="299" count="2" type="stmt"/>
+            <line num="300" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExampleProjectPatterns() : void" num="303" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="307" count="2" type="stmt"/>
+            <line num="308" count="2" type="stmt"/>
+            <line num="310" count="2" type="stmt"/>
+            <line num="311" count="2" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/RestrictImplDependenciesTest.java" name="RestrictImplDependenciesTest.java">
+            <metrics coveredelements="147" coveredconditionals="0" complexity="22" loc="372" coveredmethods="20" methods="20" elements="150" classes="1" ncloc="228" statements="130" conditionals="0" coveredstatements="127"/>
+            <class name="RestrictImplDependenciesTest">
+               <metrics coveredelements="147" complexity="22" methods="20" testruns="34" statements="130" coveredconditionals="0" coveredmethods="20" elements="150" testfailures="0" testduration="0.014000000000000002" conditionals="0" coveredstatements="127" testpasses="34"/>
+            </class>
+            <line complexity="1" visibility="public" signature="setupSharedState() : void" num="50" count="34" type="method"/>
+            <line num="54" count="34" type="stmt"/>
+            <line num="55" count="34" type="stmt"/>
+            <line num="56" count="34" type="stmt"/>
+            <line num="57" count="34" type="stmt"/>
+            <line num="58" count="34" type="stmt"/>
+            <line num="59" count="34" type="stmt"/>
+            <line num="62" count="34" type="stmt"/>
+            <line num="63" count="34" type="stmt"/>
+            <line num="64" count="34" type="stmt"/>
+            <line num="65" count="34" type="stmt"/>
+            <line num="66" count="34" type="stmt"/>
+            <line num="69" count="34" type="stmt"/>
+            <line num="70" count="34" type="stmt"/>
+            <line num="71" count="34" type="stmt"/>
+            <line num="72" count="34" type="stmt"/>
+            <line num="73" count="34" type="stmt"/>
+            <line num="76" count="34" type="stmt"/>
+            <line num="77" count="34" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateCacheability() : void" num="80" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="84" count="2" type="stmt"/>
+            <line num="85" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateIgnoreEvaluationOnEarPackaging() : void" num="89" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="94" count="2" type="stmt"/>
+            <line num="95" count="2" type="stmt"/>
+            <line num="98" count="2" type="stmt"/>
+            <line num="99" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateIgnoreEvaluationOnWarPackaging() : void" num="102" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="107" count="2" type="stmt"/>
+            <line num="108" count="2" type="stmt"/>
+            <line num="111" count="2" type="stmt"/>
+            <line num="112" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateIgnoreEvaluationOnPomPackaging() : void" num="115" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="120" count="2" type="stmt"/>
+            <line num="121" count="2" type="stmt"/>
+            <line num="124" count="2" type="stmt"/>
+            <line num="125" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnCompileScopeImplementationDependency() : void" num="128" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="133" count="2" type="stmt"/>
+            <line num="136" count="2" type="stmt"/>
+            <line num="137" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnCompileScopeImplementationDependencyInSpi() : void" num="140" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="145" count="2" type="stmt"/>
+            <line num="148" count="2" type="stmt"/>
+            <line num="149" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnCompileScopeImplementationDependencyInImpl() : void" num="152" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="157" count="2" type="stmt"/>
+            <line num="160" count="2" type="stmt"/>
+            <line num="161" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateNoExceptionOnTestScopeDependency() : void" num="164" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="169" count="2" type="stmt"/>
+            <line num="170" count="2" type="stmt"/>
+            <line num="173" count="2" type="stmt"/>
+            <line num="174" count="2" type="stmt"/>
+            <line complexity="3" visibility="public" signature="validateExceptionMessage() : void" num="177" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="182" count="2" type="stmt"/>
+            <line num="183" count="2" type="stmt"/>
+            <line num="186" count="2" type="stmt"/>
+            <line num="187" count="2" type="stmt"/>
+            <line num="188" count="0" type="stmt"/>
+            <line num="191" count="2" type="stmt"/>
+            <line num="193" count="2" type="stmt"/>
+            <line num="196" count="2" type="stmt"/>
+            <line num="197" count="2" type="stmt"/>
+            <line num="198" count="2" type="stmt"/>
+            <line num="200" count="0" type="stmt"/>
+            <line num="201" count="0" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnExecutingEnforcementRuleOnUnknownProjectType() : void" num="205" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="209" count="2" type="stmt"/>
+            <line num="210" count="2" type="stmt"/>
+            <line num="211" count="2" type="stmt"/>
+            <line num="212" count="2" type="stmt"/>
+            <line num="213" count="2" type="stmt"/>
+            <line num="216" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateRegexpMatching() : void" num="219" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="225" count="2" type="stmt"/>
+            <line num="226" count="2" type="stmt"/>
+            <line num="229" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExclusionOfGroupIDsDoesNotYieldExceptionWhenIllegalImportsExist() : void" num="232" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="236" count="2" type="stmt"/>
+            <line num="237" count="2" type="stmt"/>
+            <line num="238" count="2" type="stmt"/>
+            <line num="239" count="2" type="stmt"/>
+            <line num="240" count="2" type="stmt"/>
+            <line num="242" count="2" type="stmt"/>
+            <line num="243" count="2" type="stmt"/>
+            <line num="244" count="2" type="stmt"/>
+            <line num="247" count="2" type="stmt"/>
+            <line num="248" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateNoEvaluationIfProjectIsNotIncluded() : void" num="251" testsuccess="true" count="2" testduration="0.002" type="method"/>
+            <line num="255" count="2" type="stmt"/>
+            <line num="256" count="2" type="stmt"/>
+            <line num="257" count="2" type="stmt"/>
+            <line num="258" count="2" type="stmt"/>
+            <line num="259" count="2" type="stmt"/>
+            <line num="262" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateNoEnforcementOfArtifactsWithIgnoredGroupIDs() : void" num="265" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="270" count="2" type="stmt"/>
+            <line num="271" count="2" type="stmt"/>
+            <line num="272" count="2" type="stmt"/>
+            <line num="273" count="2" type="stmt"/>
+            <line num="274" count="2" type="stmt"/>
+            <line num="275" count="2" type="stmt"/>
+            <line num="277" count="2" type="stmt"/>
+            <line num="278" count="2" type="stmt"/>
+            <line num="279" count="2" type="stmt"/>
+            <line num="280" count="2" type="stmt"/>
+            <line num="281" count="2" type="stmt"/>
+            <line num="282" count="2" type="stmt"/>
+            <line num="284" count="2" type="stmt"/>
+            <line num="285" count="2" type="stmt"/>
+            <line num="288" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnFindingApplicationDependenciesInAPIs() : void" num="291" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="296" count="2" type="stmt"/>
+            <line num="297" count="2" type="stmt"/>
+            <line num="298" count="2" type="stmt"/>
+            <line num="299" count="2" type="stmt"/>
+            <line num="300" count="2" type="stmt"/>
+            <line num="301" count="2" type="stmt"/>
+            <line num="303" count="2" type="stmt"/>
+            <line num="306" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnFindingTestUtilityDependenciesInAPIs() : void" num="309" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="314" count="2" type="stmt"/>
+            <line num="315" count="2" type="stmt"/>
+            <line num="316" count="2" type="stmt"/>
+            <line num="317" count="2" type="stmt"/>
+            <line num="318" count="2" type="stmt"/>
+            <line num="319" count="2" type="stmt"/>
+            <line num="321" count="2" type="stmt"/>
+            <line num="324" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnFindingPocDependenciesInAPIs() : void" num="327" testsuccess="true" count="2" testduration="0.002" type="method"/>
+            <line num="332" count="2" type="stmt"/>
+            <line num="333" count="2" type="stmt"/>
+            <line num="334" count="2" type="stmt"/>
+            <line num="335" count="2" type="stmt"/>
+            <line num="336" count="2" type="stmt"/>
+            <line num="337" count="2" type="stmt"/>
+            <line num="339" count="2" type="stmt"/>
+            <line num="342" count="2" type="stmt"/>
+            <line complexity="1" visibility="private" signature="getNazgulGroupIdStub(String,String) : MavenProject" num="349" count="4" type="method"/>
+            <line num="351" count="4" type="stmt"/>
+            <line complexity="1" visibility="private" signature="getStub(String,String,String,String) : MavenProject" num="354" count="6" type="method"/>
+            <line num="359" count="6" type="stmt"/>
+            <line num="360" count="6" type="stmt"/>
+            <line num="361" count="6" type="stmt"/>
+            <line num="362" count="6" type="stmt"/>
+            <line num="363" count="6" type="stmt"/>
+            <line num="366" count="6" type="stmt"/>
+            <line num="367" count="6" type="stmt"/>
+            <line num="370" count="6" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/T_AbstractEnforcerRuleTest.java" name="T_AbstractEnforcerRuleTest.java">
+            <metrics coveredelements="29" coveredconditionals="0" complexity="5" loc="107" coveredmethods="5" methods="5" elements="29" classes="1" ncloc="46" statements="24" conditionals="0" coveredstatements="24"/>
+            <class name="T_AbstractEnforcerRuleTest">
+               <metrics coveredelements="29" complexity="5" methods="5" testruns="10" statements="24" coveredconditionals="0" coveredmethods="5" elements="29" testfailures="0" testduration="0.001" conditionals="0" coveredstatements="24" testpasses="10"/>
+            </class>
+            <line complexity="1" visibility="public" signature="validateStringSplicing() : void" num="36" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="40" count="2" type="stmt"/>
+            <line num="43" count="2" type="stmt"/>
+            <line num="46" count="2" type="stmt"/>
+            <line num="47" count="2" type="stmt"/>
+            <line num="48" count="2" type="stmt"/>
+            <line num="49" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateSkippingEmptyParameter() : void" num="52" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="56" count="2" type="stmt"/>
+            <line num="59" count="2" type="stmt"/>
+            <line num="62" count="2" type="stmt"/>
+            <line num="63" count="2" type="stmt"/>
+            <line num="64" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateStringSplicingOfEmptyString() : void" num="67" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="71" count="2" type="stmt"/>
+            <line num="74" count="2" type="stmt"/>
+            <line num="77" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateStringSplicingOfSingleString() : void" num="80" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="84" count="2" type="stmt"/>
+            <line num="87" count="2" type="stmt"/>
+            <line num="90" count="2" type="stmt"/>
+            <line num="91" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateNormalContainmentPrefixes() : void" num="94" testsuccess="true" count="2" testduration="0.0" type="method"/>
+            <line num="98" count="2" type="stmt"/>
+            <line num="99" count="2" type="stmt"/>
+            <line num="102" count="2" type="stmt"/>
+            <line num="103" count="2" type="stmt"/>
+            <line num="104" count="2" type="stmt"/>
+            <line num="105" count="2" type="stmt"/>
+         </file>
+         <file path="/Users/lj/Development/Projects/Nazgul/rel/nazgul-tools/codestyle/src/test/java/se/jguru/nazgul/tools/codestyle/enforcer/rules/ValidateProjectTypeTest.java" name="ValidateProjectTypeTest.java">
+            <metrics coveredelements="24" coveredconditionals="0" complexity="5" loc="94" coveredmethods="5" methods="5" elements="24" classes="1" ncloc="42" statements="19" conditionals="0" coveredstatements="19"/>
+            <class name="ValidateProjectTypeTest">
+               <metrics coveredelements="24" complexity="5" methods="5" testruns="10" statements="19" coveredconditionals="0" coveredmethods="5" elements="24" testfailures="0" testduration="0.13" conditionals="0" coveredstatements="19" testpasses="10"/>
+            </class>
+            <line complexity="1" visibility="public" signature="validateCacheability() : void" num="36" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="40" count="2" type="stmt"/>
+            <line num="43" count="2" type="stmt"/>
+            <line num="44" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateCorrectPom() : void" num="47" testsuccess="true" count="2" testduration="0.063" type="method"/>
+            <line num="51" count="2" type="stmt"/>
+            <line num="52" count="2" type="stmt"/>
+            <line num="53" count="2" type="stmt"/>
+            <line num="56" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateTestProjectTypePom() : void" num="59" testsuccess="true" count="2" testduration="0.002" type="method"/>
+            <line num="63" count="2" type="stmt"/>
+            <line num="64" count="2" type="stmt"/>
+            <line num="65" count="2" type="stmt"/>
+            <line num="68" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateAspectPom() : void" num="71" testsuccess="true" count="2" testduration="0.001" type="method"/>
+            <line num="75" count="2" type="stmt"/>
+            <line num="76" count="2" type="stmt"/>
+            <line num="77" count="2" type="stmt"/>
+            <line num="80" count="2" type="stmt"/>
+            <line complexity="1" visibility="public" signature="validateExceptionOnParentPomWithModules() : void" num="83" testsuccess="true" count="2" testduration="0.004" type="method"/>
+            <line num="87" count="2" type="stmt"/>
+            <line num="88" count="2" type="stmt"/>
+            <line num="89" count="2" type="stmt"/>
+            <line num="92" count="2" type="stmt"/>
+         </file>
+      </package>
+   </testproject>
+</coverage>
