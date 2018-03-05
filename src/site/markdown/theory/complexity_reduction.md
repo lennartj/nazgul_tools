@@ -1,19 +1,20 @@
 # Reducing software complexity
 
-Assuming that the complexity of a codebase is proportional to its size, large-scale
-development requires some means to reduce the mass of imported dependencies in order to
-reduce its complexity. Reducing complexity - particularly in large corporate development
-projects - is necessary to preserve a quicker development/release pace.
+Complexity costs - in reduced velocity and increased costs for onboarding and confusion.
+It is therefore vital to reduce complexity as much as possible, by increasing usability
+and similarity within the codebase. Codebase complexity is proportional to its size, implying 
+that (large-scale) development requires some means to reduce the mass of imported 
+dependencies in order to reduce its complexity. 
 
 A simple yet successful way of achieving dependency reduction is to divide development
 into [Nazgul Software Component ("NSC")](software_components.html) projects - i.e.
-separate APIs from implementations.
+to separate Models from APIs from Implementations.
 
 Separating the API and Implementation types into different projects reduces coupling
-for the client, since none of the implementation types or their transitive dependencies
-will be seen from the client. This is important, since implementations frequently depend on
-a larger number of transitive dependencies than APIs (which are typically slimmer in nature
-than implementations).
+for the client, because none of the implementation types or their transitive dependencies
+will be imported to the client codebase. This is important, since implementations 
+frequently depend on a larger number of transitive dependencies than APIs 
+(which are typically slimmer - and stabler over time - than implementations).
 
 ## An illustrated dependency example
 

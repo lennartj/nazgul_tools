@@ -1,10 +1,14 @@
 # What is the Nazgul Framework?
 
-<img src="images/nazgul.jpg" style="float:right" width="203" height="236"/> The Nazgul Framework project holds a
-collection of best-pracises and sensible configurations enabling you to start projects quickly and scale them to huge
-sizes without having to change the development or deployment model. Moreover, the Nazgul Framework strives to increase
-usability for the developers and architects working on a project, as well as reduce complexity/tanglement and increase
-productivity.
+<img src="images/nazgul.jpg" style="float:right" width="203" height="236"/> 
+Software complexity costs - in reduced velocity and increased costs for onboarding and confusion.
+It is therefore vital to reduce complexity as much as possible - and this can be done for small to really large 
+codebases by using the Nazgul Framework to structure the codebase.
+ 
+To this end, the Nazgul Framework project holds a collection of best-pracises and sensible configurations enabling you
+to start projects quickly and scale them to huge sizes without having to change the development or deployment model. 
+Moreover, the Nazgul Framework strives to increase usability for the developers and architects working on a project, 
+as well as reduce complexity/tanglement and increase productivity.
 
 The Nazgul Framework has two main components:
 
