@@ -3,7 +3,7 @@
   ~ #%L
   ~ Nazgul Project: nazgul-tools-external-reactor-parent
   ~ %%
-  ~ Copyright (C) 2010 - 2015 jGuru Europe AB
+  ~ Copyright (C) 2010 - 2018 jGuru Europe AB
   ~ %%
   ~ Licensed under the jGuru Europe AB license (the "License"), based
   ~ on Apache License, Version 2.0; you may not use this file except
@@ -71,7 +71,8 @@
         <plugins>
             <!--
                 The license plugin is quite inflexible about the format for the injected/detected file header
-                in terms of license structure. Use it as intended, but provide a variable
+                in terms of license structure. Use it as intended, but provide a variable to handle the
+                desired license and license resolver.
 
                 Why:  Ensures that all files contain a license header.
                 Used: Standard lifecycle, mvn package.
