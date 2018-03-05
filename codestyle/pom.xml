@@ -3,7 +3,7 @@
   ~ #%L
   ~ Nazgul Project: nazgul-tools-codestyle
   ~ %%
-  ~ Copyright (C) 2010 - 2015 jGuru Europe AB
+  ~ Copyright (C) 2010 - 2018 jGuru Europe AB
   ~ %%
   ~ Licensed under the jGuru Europe AB license (the "License"), based
   ~ on Apache License, Version 2.0; you may not use this file except
@@ -242,7 +242,8 @@
                         <effort>Max</effort>
                         <onlyAnalyze>se.jguru.nazgul.codestyle.*</onlyAnalyze>
                         <includeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs.xml</includeFilterFile>
-                        <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml</excludeFilterFile>
+                        <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml
+                        </excludeFilterFile>
                         <relaxed>false</relaxed>
                     </configuration>
                     <executions>
@@ -261,7 +262,7 @@
                         </dependency>
                     </dependencies>
                 </plugin>
-                
+
             </plugins>
         </pluginManagement>
 
@@ -346,7 +347,7 @@
                     <propertyExpansion>cacheFile=${project.build.directory}/checkstyle-cachefile</propertyExpansion>
                     <configLocation>${project.build.outputDirectory}/codestyle/checkstyle.xml</configLocation>
                     <excludes>
-                        
+
                     </excludes>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>error</violationSeverity>
@@ -422,7 +423,7 @@
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -446,6 +447,28 @@
                     <version>true</version>
                     <author>true</author>
                     <keywords>true</keywords>
+                    <!-- doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
+                    <docletArtifact>
+                        <groupId>nl.talsmasoftware</groupId>
+                        <artifactId>umldoclet</artifactId>
+                        <version>1.0.15</version>
+                    </docletArtifact>
+                    <additionalOptions>
+                        <additionalOption>-umlImageFormat SVG</additionalOption>
+                        <additionalOption>-umlIncludeHyperlinks true</additionalOption>
+                    </additionalOptions>
+                    <additionalDependencies>
+                        <dependency>
+                            <groupId>javax.validation</groupId>
+                            <artifactId>validation-api</artifactId>
+                            <version>2.0.1.Final</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.code.findbugs</groupId>
+                            <artifactId>jsr305</artifactId>
+                            <version>3.0.2</version>
+                        </dependency>
+                    </additionalDependencies -->
                 </configuration>
             </plugin>
 
@@ -489,7 +512,7 @@
                     <violationSeverity>error</violationSeverity>
                 </configuration>
             </plugin>
-            
+
             <!--
                 Provides unit test coverage for the project.
 
@@ -514,7 +537,8 @@
                     <effort>Max</effort>
                     <onlyAnalyze>se.jguru.nazgul.*</onlyAnalyze>
                     <includeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs.xml</includeFilterFile>
-                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.build.outputDirectory}/codestyle/spotbugs-excludes.xml
+                    </excludeFilterFile>
                     <relaxed>false</relaxed>
                 </configuration>
                 <reportSets>

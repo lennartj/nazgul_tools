@@ -22,22 +22,30 @@
 
 package se.jguru.nazgul.tools.visualization.spi.doclet;
 
+import com.sun.javadoc.LanguageVersion;
 import com.sun.javadoc.RootDoc;
+import com.sun.tools.javac.main.Option;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.jguru.nazgul.tools.visualization.spi.doclet.helpers.RootDocWrapper;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 public class VisualizationDocletTest {
+
+    // Our logger
+    private static final Logger log = LoggerFactory.getLogger(VisualizationDocletTest.class);
 
     // Shared state
     @Rule public TestName testName = new TestName();
@@ -48,13 +56,24 @@ public class VisualizationDocletTest {
         rootDocWrapper = new RootDocWrapper(testName.getMethodName() + " UnitTest");
     }
 
+    @Test
+    public void validateLanugageLevel() {
+
+        // Assemble
+        final VisualizationDoclet unitUnderTest = new VisualizationDoclet();
+
+        // Act & Assert
+        Assert.assertEquals(LanguageVersion.JAVA_1_5, unitUnderTest.languageVersion());
+    }
+
+    @Test
     public void validateTrivialDoc() {
 
         // Assemble
         final RootDoc sampleRootDoc = rootDocWrapper.getRootDoc(
                 RootDocWrapper.getTestSourceDir(),
                 getUniqueTargetDirName(),
-                Arrays.asList("se.jguru.nazgul.tools.visualization.impl.doclet.sample"),
+                Arrays.asList("se.jguru.nazgul.tools.visualization.spi.doclet.sample"),
                 Collections.emptyList(),
                 null);
 
@@ -64,13 +83,21 @@ public class VisualizationDocletTest {
         final boolean result = unitUnderTest.start(sampleRootDoc);
 
         // Assert
-        Assert.assertFalse(result);
+        Assert.assertTrue(result);
     }
 
     @Test
     public void validateHelpText() {
 
         // Assemble
+        final RootDoc sampleRootDoc = rootDocWrapper.getRootDoc(
+                RootDocWrapper.getTestSourceDir(),
+                getUniqueTargetDirName(),
+                Arrays.asList("se.jguru.nazgul.tools.visualization.spi.doclet.sample"),
+                Collections.emptyList(),
+                null);
+
+        final VisualizationDoclet unitUnderTest = new VisualizationDoclet();
 
         // Act
 

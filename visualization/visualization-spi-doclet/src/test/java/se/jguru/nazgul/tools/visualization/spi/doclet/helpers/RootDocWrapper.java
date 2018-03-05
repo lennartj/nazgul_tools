@@ -7,11 +7,11 @@
  * Licensed under the jGuru Europe AB license (the "License"), based
  * on Apache License, Version 2.0; you may not use this file except
  * in compliance with the License.
- * 
+ *
  * You may obtain a copy of the License at
- * 
+ *
  *       http://www.jguru.se/licenses/jguruCorporateSourceLicense-2.0.txt
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -57,8 +56,8 @@ public class RootDocWrapper {
     private static final Logger log = LoggerFactory.getLogger(RootDocWrapper.class);
 
     // Internal state
-    private Context context;
-    private Options options;
+    public Context context;
+    public Options options;
     private SimpleMessager messager;
     private List<String> errors;
     private List<String> warnings;
@@ -94,6 +93,10 @@ public class RootDocWrapper {
         return debugs;
     }
 
+    public void addJavaDocOption(final Option option, final String value) {
+        options.put(option, value);
+    }
+
     public void addJavaDocOption(final String option, final String value) {
         options.put(option, value);
     }
@@ -104,7 +107,7 @@ public class RootDocWrapper {
                               final List<File> fileNames,
                               final Iterable<? extends JavaFileObject> javaFileObjects) {
 
-        final File targetDirectory = getRelativeDirectory("target/javadoc/" + targetDirectoryName,true);
+        final File targetDirectory = getRelativeDirectory("target/javadoc/" + targetDirectoryName, true);
         if (log.isDebugEnabled()) {
             log.debug("Using sourceDirectory [" + sourceDir.getAbsolutePath() + "]");
             log.debug("Using targetDirectory [" + targetDirectory.getAbsolutePath() + "]");
@@ -114,8 +117,8 @@ public class RootDocWrapper {
         // Add some standard JavaDoc options, to tailor where the sources
         // are read and where the resulting javadoc goes.
         //
-        addJavaDocOption("-sourcepath", sourceDir.getAbsolutePath());
-        addJavaDocOption("-d", targetDirectory.getAbsolutePath());
+        addJavaDocOption(Option.SOURCEPATH, sourceDir.getAbsolutePath());
+        addJavaDocOption(Option.D, targetDirectory.getAbsolutePath());
 
         final ListBuffer<String> javaNames = new ListBuffer<>();
         for (File fileName : fileNames) {
@@ -178,11 +181,11 @@ public class RootDocWrapper {
             final String encoding = null;
 
             final SortedMap<String, Object> theOptions = new TreeMap<>();
-            for(String current : this.options.keySet()) {
+            for (String current : this.options.keySet()) {
                 theOptions.put(current, this.options.get(current));
             }
 
-            theOptions.forEach((k,v) -> System.out.println(" [" + k + "]: " + v));
+            theOptions.forEach((k, v) -> System.out.println(" [" + k + "]: " + v));
 
             toReturn = javadocTool.getRootDocImpl(
                     localeName,
@@ -197,7 +200,7 @@ public class RootDocWrapper {
                     false,
                     useLegacyDoclet,
                     false);
-            
+
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

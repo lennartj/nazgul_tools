@@ -1479,12 +1479,24 @@
                             <packages>se.jguru.nazgul.test.*</packages>
                         </group>
                     </groups>
-                    <!-- doclet>org.jboss.apiviz.APIviz</doclet>
+                    <!-- doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
                     <docletArtifact>
-                        <groupId>com.grahamedgecombe.apiviz</groupId>
-                        <artifactId>apiviz</artifactId>
-                        <version>${apiviz.version}</version>
-                    </docletArtifact -->
+                        <groupId>nl.talsmasoftware</groupId>
+                        <artifactId>umldoclet</artifactId>
+                        <version>1.10.15</version>
+                    </docletArtifact>
+                    <additionalDependencies>
+                        <dependency>
+                            <groupId>javax.validation</groupId>
+                            <artifactId>validation-api</artifactId>
+                            <version>2.0.1.Final</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.google.code.findbugs</groupId>
+                            <artifactId>jsr305</artifactId>
+                            <version>3.0.2</version>
+                        </dependency>
+                    </additionalDependencies -->
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                     <charset>${project.build.sourceEncoding}</charset>
                     <encoding>${project.build.sourceEncoding}</encoding>
@@ -1766,7 +1778,7 @@
         </profile>
 
         <!--
-            Purpose:    Turn off the checks of the code quality plugins [findbugs, checkstyle, pmd].
+            Purpose:    Turn off the checks of the code quality plugins [spotbugs, checkstyle, pmd].
         -->
         <profile>
             <id>skipVerifyCode</id>

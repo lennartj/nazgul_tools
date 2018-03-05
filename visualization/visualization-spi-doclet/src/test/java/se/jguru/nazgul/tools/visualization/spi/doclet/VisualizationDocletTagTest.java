@@ -20,7 +20,6 @@
  * #L%
  */
 
-
 package se.jguru.nazgul.tools.visualization.spi.doclet;
 
 import org.junit.Assert;
@@ -38,5 +37,15 @@ public class VisualizationDocletTagTest {
         for (VisualizationDocletTag current : VisualizationDocletTag.values()) {
             Assert.assertTrue(current.toString().startsWith(VisualizationDocletTag.TAG_PREFIX));
         }
+    }
+
+    @Test
+    public void validate() {
+
+        // Assemble
+
+        // Act
+
+        // Assert
     }
 }
