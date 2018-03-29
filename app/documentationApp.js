@@ -66,7 +66,7 @@ app.run(['$rootScope', function ($rootScope) {
 
         // Find the theme with the supplied name
         for (var i = 0; i < $rootScope.themes.length; i++) {
-            if ($rootScope.themes[i].name == themeName) {
+            if ($rootScope.themes[i].name === themeName) {
 
                 // Set the new (?) theme
                 $rootScope.theme = $rootScope.themes[i];

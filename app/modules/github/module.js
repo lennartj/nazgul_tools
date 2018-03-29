@@ -3,14 +3,14 @@
 angular.module('github_light', ['ngResource'])
         .filter('releaseNumberFilter', [function () {
             return function (tagText) {
-                if(!tagText) {
+                if (!tagText) {
                     return '';
                 }
 
                 // Cut out the version constant from this tag, which is
                 // expected to be on the form [text-version].
                 var lastDashIndex = tagText.lastIndexOf('-');
-                if(lastDashIndex != -1) {
+                if (lastDashIndex !== -1) {
 
                     // Cut out the version number, and return it.
                     return tagText.substring(lastDashIndex + 1);
@@ -72,8 +72,8 @@ angular.module('github_light', ['ngResource'])
             toReturn = new repoDefinition('unknown', 'unknown');
             return toReturn;
         }]).controller('githubDocController', ['$scope', '$routeParams', '$resource', 'docsService',
-            function ($scope, $routeParams, $resource, docsService) {
+    function ($scope, $routeParams, $resource, docsService) {
 
-                // Bind the repoDefinition in the scope
-                $scope.repo = docsService.init('lennartj', 'nazgul_tools');
-            }]);
+        // Bind the repoDefinition in the scope
+        $scope.repo = docsService.init('lennartj', 'nazgul_tools');
+    }]);
